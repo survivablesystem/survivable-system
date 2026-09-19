@@ -1,14 +1,14 @@
 # Rediscovery suite
 
-The test of `spec/PRIMITIVES.md`. Each case is a structure whose outcome history already knows. The case is set up in primitives only. First the derivation is followed by hand; then a world in `worlds/` runs it. Nothing about the outcome is written into the setup.
+Tests of hypotheses in `spec/PRIMITIVES.md`. Each case states a mechanism, its evidence and a competing explanation before a world in `worlds/` runs it. Choices are computed from the setup; the setup itself remains a hypothesis. The existing historical briefs are unsourced conjectures pending evidence review, not established laws.
 
-Pass: the known outcome emerges. Fail: it does not, which means a primitive is missing. Both are recorded. A fail is the more valuable result, because it names the missing primitive. A third result exists and is the best of all: the outcome emerges for a different reason than the paper derivation gave. The commons did this on its first run.
+If an expected outcome emerges, test rival mechanisms and nearby assumptions. If it does not, preserve the result and diagnose the hypothesis, setup, implementation and planner before proposing a missing primitive. A contrary result can complete the task. Never tune a case until a historical story becomes inevitable.
 
-Each case file has: setup, derivation, whether it emerges, the gap found, what the engine should show, and, once a world exists, engine findings with the one-at-a-time table.
+Each case file has: setup, sources/evidence status, hypothesis, competing explanation, disconfirming result, affected groups/exclusions, and findings with source revision, seeds and duration. Label paper derivations separately from engine results. One-at-a-time tables diagnose local sensitivity; they do not establish global robustness.
 
 | Case | Tests | Paper | Engine |
 |---|---|---|---|
-| open-commons.md | beliefs, coalition formation, correction | emerges | `worlds/commons.py`; both outcomes, sanctioning must pay the sanctioner |
+| open-commons.md | beliefs, incentives, observability | conjecture, revised by engine | `worlds/commons.py`; collapse or finite survival under tested assumptions |
 | standing-army.md | rules as claims, contests, delegation drift, lock-in | emerges | not yet |
 | captured-auditor.md | channels, selection, horizon | emerges | not yet |
 | treaty-no-verification.md | relative goals, verification channel, repeated play | brief only | not yet |

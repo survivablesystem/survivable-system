@@ -7,6 +7,18 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-19  T0.1: evidence before expansion
+
+Change: propose and adopt replacing mandatory historical outcomes with falsifiable hypotheses. A failed expectation can expose a wrong hypothesis, setup, implementation, planner or primitive; it does not identify which. State that the current planner compares constant-action rollouts, uses cardinal per-round utility and expected transitions, and does not establish global optimality. Finite survival becomes `survived`, not an attractor. Keep dynamics and planner choices otherwise unchanged.
+
+Motivated by: the owner's review and request to improve and publish. The commons with horizon 1 and no sanction is labeled sustained after one round but collapses at round five. The rediscovery guide treated every failed expectation as a missing primitive. This reverses that validation rule explicitly; prior findings remain in history and gain scope notes.
+
+Implementation: JSON records for sweep, one-at-a-time and trace, with schema version, normalized source hashes, Git revision/dirty status, Python version, register, fixed reasons, parameters, integer seeds, requested/executed rounds, terminal status and final state. Canonical target iteration prevents Python hash order assigning random draws to different targets. Fixed CLI overrides remain fixed in one-at-a-time experiments. Validate overrides instead of silently accepting misspellings. Add CI on Windows and Linux.
+
+Intent tests: 1 reuses existing simulation with no new primitive; 2 does not prescribe agent choices; 3 records assumptions and limitations; 4 permits disconfirmation; 5 retains per-agent wealth in evidence and requires excluded harms to be declared; 6 preserves the finite-duration counterexample and tests for artifacts. No validated institutional or civilizational protocol is claimed.
+
+Alternatives rejected: adding worlds before correcting the evidence contract; implementing a stronger planner without a discriminating case; reporting sample shares as probabilities; using only a Git SHA when the working tree may differ.
+
 ## 2026-09-15  one-at-a-time sweep mode
 Change: `engine/sweep.py` gains `one_at_a_time`; CLI `--oat`.
 Motivated by: the commons. Sustained needs six conditions at once; a random sweep found it in 2% of samples with no parameter above the dependence threshold. Moving one parameter from a favorable baseline shows each necessary condition.

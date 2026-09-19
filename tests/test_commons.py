@@ -1,8 +1,8 @@
 """Qualitative expectations from rediscovery/open-commons.md, over several seeds.
 
-Thresholds are generous on purpose. A test that only passes at one parameter point
-would be a scripted outcome. If an expectation fails, the case file gets the finding;
-the test is not tuned until it passes.
+Thresholds are generous on purpose. These are regressions at specified configurations,
+not proof of historical mechanisms or parameter robustness. If an expectation fails,
+diagnose it and record the finding; do not tune the model until it passes.
 """
 import random
 
@@ -20,7 +20,7 @@ def sustained_share(overrides, seeds=SEEDS, rounds=ROUNDS):
         params = {**FAVORABLE, **overrides}
         world = commons.make(params, random.Random(s))
         labels.append(run(world, rounds, world.rng)[0])
-    return labels.count("sustained") / len(labels)
+    return labels.count("survived") / len(labels)
 
 
 def test_favorable_conditions_sustain():
@@ -57,7 +57,8 @@ def test_unpaid_sanctioning_collapses():
 
 def test_group_size_does_not_matter_when_sanctioning_pays():
     # engine finding against the paper case: with full observability and paid
-    # sanctioning, ten users sustain as well as four. Size bites through channels.
+    # sanctioning, ten users survive as well as four through ROUNDS. The role of
+    # sparse channels in any size effect remains a hypothesis.
     assert sustained_share({"n": 10}) >= 0.75
 
 

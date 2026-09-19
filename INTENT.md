@@ -12,14 +12,15 @@ Survivable System is a simulation in which such chains emerge. Agents with goals
 
 - One object, the agent, at every scale: person, kin group, firm, court, state, AI system, civilization. Institutions are agents made of agents.
 - A world of resources, contests, nested rules, delegation, irreversible transitions, error and selection. `spec/PRIMITIVES.md`.
-- A planner that gives each agent its best action from its goals and beliefs. Behavior is computed, never written.
+- A planner that selects among actions under explicit assumptions about goals and beliefs. The current planner compares constant-action rollouts, not all adaptive plans. Choices are computed; action semantics and planner assumptions remain authored and contestable.
 - Modules: interventions on a world. Composition is the union of interventions, so interactions emerge.
 - Queries: where a world settles, which coalitions can force lock-in, which can correct, and how that differs between designs.
-- A rediscovery suite: structures whose outcomes history knows. The primitives are right when those outcomes emerge uncoded.
+- A rediscovery suite: sourced hypotheses about known systems, competing explanations and counterexamples. Reproducing an outcome is evidence of expressiveness, not proof of its cause or of the primitives.
 
 ## What it is not
 
 - Not a forecast. It reports shares of a sweep over stated assumptions, never a probability of the world.
+- Not a global-optimum certificate. Compare designs across explicit objectives, model alternatives and assumptions. Report tradeoffs and failure conditions; no preferred institution is an acceptance criterion.
 - Not a story generator. A chain written into a setup is not a finding.
 - Not a platform. Python files and a command line until a need proves otherwise.
 - Not validated by a clean run. The dominant failure is a wrong world: a missing type, channel or conversion. Nothing catches what is not modeled.
@@ -30,9 +31,9 @@ Core changes (this file, `spec/`, `engine/`) must pass all six. Worlds, cases an
 
 1. **Simplest that works.** Can it be expressed with what exists? A new primitive, parameter or feature needs a rediscovery case or scenario that cannot be expressed without it. Removal is as welcome as addition.
 2. **Nothing scripted.** Behavior comes from goals, capabilities, information and the planner. A world that says "agents do X when Y" has a bug.
-3. **Every assumption swept or declared.** Each number is in the world's register and swept, or fixed with a stated reason. A finding is robust across the sweep or reported with what it depends on.
-4. **Emerges, not asserted.** A case's known outcome must follow from its setup. If the setup contains the conclusion, the case is void.
-5. **Makes externalization visible.** Does it help find who bears a cost, and who can force what on whom?
+3. **Every assumption swept or declared.** Each number is in the world's register and swept, or fixed with a stated reason. Record source, seeds and duration. Robustness is relative to the tested space and sampling rule; repeated seeds and one-at-a-time endpoints do not establish it alone.
+4. **Emerges, not asserted.** State the expected outcome and what would contradict it before building. If the setup contains the conclusion, the case is void. Failed expectations require diagnosis, not automatic expansion of the model.
+5. **Makes externalization visible.** Does it help find who bears a cost, and who can force what on whom? Name affected groups, including people without agency in the model and future people; declare exclusions. Do not hide severe harm behind majority preference or a single aggregate score.
 6. **Finds something a careful person would miss.** If the tool only confirms what the modeler already believed, it is not yet doing its job. The first such finding on every case is named in the case file.
 
 ## Priorities when tests conflict
@@ -41,10 +42,11 @@ Simple beats complete. Emergent beats impressive. A negative result that holds b
 
 ## How we know it is working
 
-- Every rediscovery case emerges without a case-specific mechanism.
+- Rediscovery cases have reproducible outcomes, scoped claims and preserved counterexamples without case-specific behavior scripts.
 - The engine finds, on a real design, a chain its authors did not see.
 - The spec stays the same size or shrinks while the world library grows.
 - Two agents work here in alternating sessions from the files alone.
+- Protocol proposals specify adoption, enforcement, challenge, amendment and exit, and earn support through reversible trials as well as modeling. The present engine does not validate such a protocol.
 
 ## Limits stated up front
 

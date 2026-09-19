@@ -77,7 +77,7 @@ class World:
         raise NotImplementedError
 
     def label(self, state: dict) -> str:
-        """Attractor label at the end of a run."""
+        """Finite-outcome label at the end of a run; not evidence of convergence."""
         raise NotImplementedError
 
     # ---- defaults a world may override ----

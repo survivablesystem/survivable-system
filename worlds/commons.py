@@ -25,10 +25,14 @@ SPACE = {
     "k": [0, 1],                      # belief level, see engine/core.py
     "confiscation_to": ["stock", "sanctioners"],  # where a confiscated take goes: a design choice
 }
-# Fixed with a reason. K, S0_frac and S_min_frac set scale only; changing them rescales every
-# quantity together. lo_frac puts the low take at 80% of maximum sustainable yield so that the
-# all-low path is a stable equilibrium rather than a knife-edge that tips into decline.
+# Only K is a scale choice. The dimensionless fractions are substantive assumptions.
 FIXED = {"K": 100.0, "S0_frac": 0.5, "S_min_frac": 0.05, "lo_frac": 0.8}
+FIXED_REASONS = {
+    "K": "Resource unit scale; yields and sanction costs scale with carrying capacity.",
+    "S0_frac": "Starts at maximum logistic growth. Held fixed for baseline comparability; recovery from depleted stock is untested.",
+    "S_min_frac": "Assumed irreversible collapse threshold. Held fixed in v0; threshold sensitivity is untested.",
+    "lo_frac": "Low demand is 80% of maximum sustainable yield, below the knife-edge. Other margins are untested.",
+}
 # Used by --trace when a swept param is not fixed on the command line.
 DEFAULTS = {"n": 4, "horizon": 12, "discount": 0.9, "channels": "all", "sanction": True,
             "sanction_cost": 0.1, "prior": "lo", "r": 0.5, "hi_mult": 2, "k": 1,
@@ -95,7 +99,7 @@ class Commons(World):
         for i, a in joint.items():
             if not a[1]:
                 continue
-            for j in self.by_id[i].channels:
+            for j in sorted(self.by_id[i].channels):
                 if takes[j] > takes[i]:
                     targets.setdefault(j, []).append(i)
                     cost[i] += self.cost
@@ -125,7 +129,7 @@ class Commons(World):
         return "collapsed" if state["collapsed"] else None
 
     def label(self, state):
-        return "collapsed" if state["collapsed"] else "sustained"
+        return "collapsed" if state["collapsed"] else "survived"
 
 
 def make(params, rng):

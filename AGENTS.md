@@ -16,7 +16,7 @@ A lower layer never changes the meaning of a higher one. A world that needs some
 
 1. Read the three files above. Run `python -m pytest -q`. If red, fixing it is the task.
 2. Take the first unclaimed task in `TASKS.md` whose dependencies are done. Claim it by writing your name and the date on its line.
-3. Before building, write down the simplest thing that could satisfy the acceptance line. Build that.
+3. Before building, write down the simplest thing that could satisfy the acceptance line and the result that would contradict the hypothesis. Build that. A negative result can complete a research task.
 4. Core changes get a `DECISIONS.md` entry before the code.
 5. Green tests. Update the task line (done, or what remains). Append a `LOG.md` entry: what changed, what was learned, what the next agent must know.
 6. One task per session unless the next is trivial. Leave the tree green.
@@ -30,9 +30,11 @@ A lower layer never changes the meaning of a higher one. A world that needs some
 
 ## Adding a world
 
-- One file in `worlds/`, exposing `SPACE` (this world's assumptions register, all swept), `FIXED` (each value with its reason), `DEFAULTS` (a favorable baseline for `--oat` and tests), `make(params, rng)` and `describe(joint, state)`.
+- One file in `worlds/`, exposing `SPACE` (this world's assumptions register, all swept), `FIXED`, `FIXED_REASONS` (a reason per fixed value), `DEFAULTS` (a favorable baseline for `--oat` and tests), `make(params, rng)` and `describe(joint, state)`. States and parameters in run records must be JSON-compatible.
 - The paper case in `rediscovery/` comes first, with expected outcomes and interventions.
-- Tests assert the paper case's qualitative expectations over several seeds with generous thresholds. A test that passes at one parameter point is a scripted outcome.
+- Separate implementation regressions from research hypotheses. Existing outcome tests describe their tested configurations, not historical laws. Use several seeds and parameter settings, preserve counterexamples, and record why any expected outcome changes. Random seeds alone do not vary assumptions.
+- Add a competing explanation and a source before treating a paper case as empirical evidence. "Unverified" is an acceptable status. Diagnose a failed expectation before changing primitives or tuning parameters.
+- Save JSON evidence with source provenance, parameters, seeds and duration. Iteration over sets must not assign random draws to different actors across processes. Finite survival must not be called an attractor.
 - When the engine disagrees with the paper case, probe before changing anything: print each agent's action values per round. The commons collapsed for three different reasons in one session, and each needed a different fix. Two were artifacts, one was a finding.
 - The first surprise goes into the case file under "Engine findings", with the one-at-a-time table.
 

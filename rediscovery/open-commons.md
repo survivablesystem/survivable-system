@@ -1,6 +1,10 @@
 # Rediscovery: open-access commons
 
-**Known outcomes, both.** Collapse when users cannot see or sanction each other (Hardin). Sustained use when they can and the group is small enough (Ostrom). The tool must find both and the boundary between them.
+**Hypothesis, evidence review pending.** Monitoring and sanction incentives may change depletion in a shared resource. The references to Hardin and Ostrom below are the original paper intuition, not a verified account of their findings. No universal necessity of sanctions, paid monitors or small groups is established here.
+
+Competing explanation: the results may depend on constant-action planning, identical agents, the restricted action set or the chosen stock margins. Disconfirmation: survival without the proposed necessary condition, collapse with it, or an absent/reversed size effect. Preserve those outcomes rather than tuning them away.
+
+Affected parties: modeled users receive yield and pay sanction costs. Future users, outsiders, nonhuman effects and entry/exit are excluded. A stock-survival label is not a welfare measure.
 
 ## Setup in primitives
 
@@ -14,7 +18,7 @@ rules: none at start. Creating an L1 body is an action available to users.
 channels: all observe S. Whether users observe each other's x is the swept variable.
 ```
 
-## Derivation
+## Original paper conjecture (not an empirical result)
 
 No channels between users. Each user's best response to any belief about the others is the maximum take, because others' takes are unobserved and unpunishable. S falls below S_min. Hardin.
 
@@ -24,7 +28,7 @@ The boundary depends on n, horizon, channel noise and sanction cost. The engine 
 
 ## Emerges?
 
-Yes, both outcomes, but not for the reason the derivation above gives. The derivation assumed a small group makes a lone sanctioner pivotal enough to act. The engine found that a sanction whose only benefit is the shared stock is never chosen, because the benefit arrives beyond the sanctioner's horizon. Sustained use needs sanctioning to pay the sanctioner. See engine findings.
+The tested configurations produce collapse or survival through the run limit. They support a role for sanction incentives within this world, not a universal mechanism. The conjecture about small groups remains untested with sparse channels. See engine findings and the scope correction below.
 
 ## Gap found
 
@@ -52,7 +56,7 @@ The one-at-a-time run takes about three minutes; the n=12 and horizon=20 points 
 
 1. **Level-0 beliefs cannot hold a norm, established or not.** A level-0 agent expects others to repeat. Standing ready to sanction has no value to it when nobody is defecting, so it drops readiness; next round nobody expects a sanction, so defecting looks free, and everyone defects at once. With everyone at the high take there is no one above anyone to sanction. Starting from an established norm changes nothing. Level 1 holds the norm because readiness is chosen for what it deters.
 2. **Second-order free riding.** With confiscated takes returned to the stock, nobody sanctions at any group size from 2 to 10, at any cost down to 0.02 of the low take. The benefit is a shared stock that only bites near collapse, beyond a 12-round horizon. With confiscated takes going to the sanctioners, sanctioning pays directly and the norm holds. The paper derivation had this wrong. Monitors who keep part of the fine are not a detail of Ostrom's cases; in this model they are the mechanism.
-3. **Group size is not the constraint; observability is.** With every user seeing every other and paid sanctioning, ten sustain as well as four. The size effect in the literature must come from channels thinning as groups grow. This world has channels all or none, so it cannot show that. Next: sparse channels, then the size effect should return.
+3. **No size effect in the tested fully observed configurations.** With every user seeing every other and paid sanctioning, ten survive through the run limit as well as four. Sparse channels are one possible explanation for a size effect, not a demonstrated or necessary one. T1.1 must permit absent and reversed effects.
 4. **A run on the commons.** Under unpaid sanctioning with a triple high take, the best response to one defector is to defect too: one sanctioner at even odds cannot save the stock, so the others grab what remains.
 5. **Two artifacts removed.** Harvesting before regrowth made the maximum sustainable yield a knife-edge that tipped into decline with everyone cooperating; growth now comes first and the low take sits at 80% of the maximum. Breaking sanction-target ties by id let lower ids defect for free once a higher id had; sanctioners now act against every visible defector.
 
@@ -63,3 +67,11 @@ A cosmetic artifact remains: at level 1, readiness alternates on and off each ro
 ## Not yet shown
 
 Lock-in and correction thresholds (TASKS.md stage 4). Creation of an L1 body: no rule exists in this world, only the sanction action. Sparse channels.
+
+## Evidence audit (2026-09-19, T0.1)
+
+The 2026-09-15 table is retained as a legacy report; its raw artifacts were not saved. "Sustained" in that report means finite survival, not a demonstrated attractor. Its statements about norms and paid sanctions apply only to tested configurations under this planner. Four seeds at a baseline do not establish robustness across the register.
+
+A counterexample to the old label: DEFAULTS plus `horizon=1, sanction=False`, seed 0, gives `survived` after one round and `collapsed` at round five. Regression: `tests/test_records.py::test_finite_survival_is_not_convergence`. Reproduce with `python -m engine worlds.commons --trace --rounds 30 --seed 0 --fix horizon=1 sanction=false --json`.
+
+`S0_frac`, `S_min_frac` and `lo_frac` are substantive fixed assumptions, not unit choices; FIXED_REASONS now says why they are fixed and what remains untested. New artifacts record raw seeds, parameters, duration and source provenance. Sorted channel iteration makes the assignment of stochastic contest draws stable across Python hash seeds; seed-specific trajectories from the original unordered implementation are not promised to match.
