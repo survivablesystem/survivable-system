@@ -63,3 +63,45 @@ Evidence: before/after 12-round comparisons, old-source 30-round depth control, 
 Validation: 77 tests pass locally; GitHub Actions 35437610089 passes Windows and Linux. Tests cover hidden future branches, nonuniform beliefs, changing menus, discounting, terminal rewards, kernel probability arithmetic, deterministic replay and aborting partial searches. Text CLI smoke check reports a ten-user depth-3 search limit without a survival label. Verified artifact source revisions/clean flags and diagnostic values.
 
 Next: T1.4, measured search reduction before sparse channels or long-horizon conclusions. Profile branching/nested response costs; justify exact reduction or calibrate any approximation against these references, including hidden-information and threshold cases. No additional world, institution ranking, global-optimum claim or civilizational protocol has been validated. First-listed ties and explicitly modeled belief memory remain limitations.
+
+## 2026-09-19  Codex: T1.4, exact leaf reward reduction
+
+Pulled main; baseline 77 tests passed. Local Python command is
+`C:/Users/Bob/AppData/Local/Programs/Python/Python312/python.exe`; `python` is absent
+from PATH and the launcher selects an inaccessible Store installation. Claimed
+T1.4 on `codex/search-reduction`. Hypothesis/profile fixture commit `2535e47`;
+implementation `96e7c54`. Decision recorded before core edits.
+
+Profile disproved simple duplicate caching as the main remedy: after all users
+take high, n=10/depth=2 exhausted 20,000 entries in just 116 kernel calls (93 unique).
+Independent contest leaves dominate. Added optional exact `reward_outcomes`:
+default integrates the physical kernel; commons shares preparation/payoff code
+and sums expected confiscations. Only depth-1 search uses the marginal. Interior
+branches, observations, posteriors, execution and goals remain unchanged. The cap
+now counts emitted belief/transition/reward entries; it is not a time bound.
+
+Learned: the n=8/depth=2 contested decision completes in 5,241 entries. Full
+enumeration under a separate 2,000,000 reference cap needs 348,202 and agrees
+exactly. Thirty-round requests, seeds 0/1, now finish with collapse at 17, matching
+the smaller baseline's depletion cycle. Identical symmetric seeds do not establish
+diversity or a real size effect. Ten-user depth 2 still stops after round 1; depth 3
+initial probes still fail. Some unresolved searches take longer because they
+reach more nested decisions before the cap. No depth-12 claim.
+
+Validation: 99 local tests pass, including asymmetric plans, exhaustive three-user
+joints at boundary stocks, nonlinear branch loss, hidden future information and
+reward-budget aborts. All 21 retained traces replay; all agents' values/actions in
+the 17-round baseline agree. Maximum marginal discrepancy across 128 registered
+samples is 8.88e-16. Clean-source profile and paired study artifacts identify
+`96e7c54`; source and fixture hashes verified. Complete n=4/depth=3 runs took about
+10 s with full leaves and 5 s reduced; newly covered n=8 runs took 18–19 s.
+
+Publication pending: automatic approval review rejected the proposed fast-forward
+and push to remote main, citing missing specific authorization for default-branch
+publication. The command did not execute; main remains unchanged, work is committed
+locally on `codex/search-reduction`, and remote Windows/Linux CI has not run.
+Request explicit publication approval; do not work around the rejection.
+
+Next: T1.1 sparse channels. Keep unknown/search-limit results distinct from physical
+collapse and avoid extrapolating coverage. Larger/deeper comparisons need evidence
+for reducing interior branching. No new world or institutional validation added.

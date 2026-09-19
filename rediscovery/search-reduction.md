@@ -84,9 +84,9 @@ all three-user joints at four stocks and both confiscation destinations, compare
 asymmetric contested plans, and check nonlinear risk, hidden/revealed future bits,
 nonuniform priors and aborts on invalid or excessive reward entries.
 
-Local trial timings: a four-user depth-3 complete run fell from roughly 13 s to
-5 s; newly completed eight-user runs took 17–24 s. Some capped ten-user decision
-probes took longer (roughly 0.5 s to 1.5 s): the reduction permits more costly
+Clean-source timings: a four-user depth-3 complete run fell from roughly 10 s to
+5 s; newly completed eight-user runs took 18–19 s. Capped ten-user depth-2 runs
+took longer (roughly 1.0 s to 1.7 s): the reduction permits more costly
 nested decisions before exhausting the same entry cap. Timing varies by pass;
 artifacts retain each measurement. This is a bounded coverage improvement, not a
 uniform speedup or full solution to interior branching.
@@ -99,6 +99,7 @@ against the exact marginal under the current planner, checks the larger referenc
 replays retained evidence and saves parameters/seeds/work/timing/source hashes.
 Artifacts: `evidence/search-profile-before.json`, `search-profile-after.json`,
 `search-reduction.json`. The before profile identifies clean source `2535e47`.
+The after profile and paired study identify clean implementation `96e7c54`.
 Tests: `python -m pytest -q`.
 
 Affected parties remain the modeled commons users, with per-user wealth preserved

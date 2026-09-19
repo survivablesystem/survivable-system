@@ -36,3 +36,19 @@ python -m tests.planner_cases
 Each artifact stores source provenance, the diagnostic fixture hash, fixed constants, candidate values, chosen actions and exact arithmetic references. The information repairs change the one-way-response and hidden-bit results. Tie ordering, the investment sequence gap and the threshold-risk reversal remain unchanged; they justify the next planner replacement. See `rediscovery/planner-audit.md` for scope and `tests/test_planner_audit.py` for the contracts.
 
 Replaying an artifact means using its recorded source revision. Later, better planners are expected to change outcomes; preserve old evidence instead of silently rewriting it.
+
+## Exact search reduction
+
+`search-profile-before.json` identifies clean source `2535e47`; after profile and
+`search-reduction.json` identify clean implementation `96e7c54`. Reproduce with
+`python -m tests.search_profile` and `python -m tests.search_reduction` at those
+revisions. The before revision has only the profile fixture.
+
+The paired study compares full physical leaf enumeration and exact reward
+marginals under the same planner/kernel. It records parameters, seeds, complete
+physical traces, unresolved runs, work counts, raw timings and fixture/source
+hashes. A separate larger-cap reference certifies one newly covered decision;
+it does not count as coverage at the default cap. Retained 12-round traces and
+17-round action probes check equivalence across the physical-kernel refactor.
+Marginal sampling and stock probes test arithmetic, not institutional robustness.
+See `rediscovery/search-reduction.md` for findings and limits.
