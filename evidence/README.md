@@ -24,3 +24,15 @@ assert json.loads(json.dumps(actual)) == saved
 ```
 
 The artifact preserves per-user wealth, actions and stock at each round, fixed assumptions with reasons, the register, source hashes and planner limitations. This is a reporting counterexample, not empirical evidence about real commons. Historical table claims still need separate evidence review.
+
+## Planner audit
+
+`planner-audit-before.json` comes from clean commit `ab6b02a8a578649ce7ce4c78d24c45218369cad0`; `planner-audit-after.json` comes from clean commit `7e9bba06720218d9ce4b9a06e525417b4cc59e82`. In each checkout, reproduce with:
+
+```sh
+python -m tests.planner_cases
+```
+
+Each artifact stores source provenance, the diagnostic fixture hash, fixed constants, candidate values, chosen actions and exact arithmetic references. The information repairs change the one-way-response and hidden-bit results. Tie ordering, the investment sequence gap and the threshold-risk reversal remain unchanged; they justify the next planner replacement. See `rediscovery/planner-audit.md` for scope and `tests/test_planner_audit.py` for the contracts.
+
+Replaying an artifact means using its recorded source revision. Later, better planners are expected to change outcomes; preserve old evidence instead of silently rewriting it.
