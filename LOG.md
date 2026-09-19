@@ -105,3 +105,12 @@ Request explicit publication approval; do not work around the rejection.
 Next: T1.1 sparse channels. Keep unknown/search-limit results distinct from physical
 collapse and avoid extrapolating coverage. Larger/deeper comparisons need evidence
 for reducing interior branching. No new world or institutional validation added.
+
+## 2026-09-19  Codex: T1.4 publication approved
+
+Owner explicitly approved the pending push and future project pushes. Recorded
+standing authorization in AGENTS.md, including fast-forwarding/pushing main and
+checking remote changes and CI. Fetched origin, fast-forwarded local main to
+`464aa59`, and pushed. Windows and Linux passed GitHub Actions run 35456833505;
+99 tests pass. This resolves the prior publication block. Source evidence remains
+at its recorded revisions. Next task remains T1.1; no new research task was claimed.
