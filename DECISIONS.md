@@ -7,6 +7,18 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-19  T1.3: finite belief-tree search and one transition kernel
+
+Proposed before implementation. Replace constant-action rollouts and mean-state transitions with a finite stochastic kernel shared by planning and execution. Optimize future actions by observable history, integrating utility over physical branches before comparing actions. Replace the point projection with `observe(state, agent)` and `beliefs(observation, agent)`; menus receive observations. Group indistinguishable future branches into one posterior before selecting an action. This prevents future choices from acquiring hidden branch information.
+
+Simplest implementation: enumerate finite outcomes and finite-depth action trees, with no heuristic tail or sampling inside planning. Level 0 retains repetition/priors. Level 1 recomputes direct observers' level-0 responses at future nodes, bounded by the remaining search depth and their own horizon. Known utilities/topology, explicit subjective priors, first-listed ties and receding-horizon execution remain assumptions. Belief history must be represented in observations when a world needs memory across real rounds.
+
+Bound work before scaling: separate desired horizon from an explicit search-depth cap; commons sweeps depths 1/2/3, default 2 (the shortest resolving the motivating sequence). A declared transition-work budget aborts an incomplete decision, never selects from partial scores. Record unresolved runs separately from physical outcomes, including partial traces and planning limits. Compare short matched commons runs against both the old default horizon and horizon 2. Do not require previous survival claims to persist.
+
+Motivated by: T1.0's investment (optimal sequence 3, repeated consume 2) and threshold case (risky expectation -4, mean-state evaluation 2). Discriminating additions: hidden versus revealed future branches, exact branch arithmetic, menu changes, terminal payoffs and budget exhaustion. This changes interfaces coherently; old artifacts remain reproducible at their source revisions, not through a second legacy planner.
+
+Intent tests: 1 one kernel and one finite search; 2 actions and responses still computed; 3 priors, search caps and unresolved work explicit; 4 independent small references and contrary commons results retained; 5 severe branch losses no longer disappear into an average state; 6 test whether richer planning overturns the earlier norm result. Rejected: investment scripts, extra catastrophe penalties, full-state tree search with clairvoyant continuations, unbounded exhaustive search, and unvalidated sampling/aggregation to conceal cost.
+
 ## 2026-09-19  T1.0: explicit planning information and directed response
 
 Change: require each world to provide `belief_state(state, agent)`, a pure projection to a complete hypothetical state using permitted information and declared point priors. Both candidate menus and rollouts use that projection; actual execution uses the real state. Nested plans project the parent's hypothetical state, never recover the original truth. Expose `action_values` through the same path used by `plan`. At level 1, model agents that observe the acting agent, whether or not the actor can observe them. Channel topology and utility functions are treated as known; direct observation triggers one response, not arbitrary inference from public effects.
