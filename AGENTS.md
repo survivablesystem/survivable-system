@@ -33,6 +33,7 @@ The implementation and current model are replaceable. When a limitation matters,
 ## Adding a world
 
 - One file in `worlds/`, exposing `SPACE` (this world's assumptions register, all swept), `FIXED`, `FIXED_REASONS` (a reason per fixed value), `DEFAULTS` (a favorable baseline for `--oat` and tests), `make(params, rng)` and `describe(joint, state)`. States and parameters in run records must be JSON-compatible.
+- Implement `World.belief_state` explicitly. Keep private facts in state, project to permitted information and declared priors before planning, and test that indistinguishable truths give equal action values. Nested beliefs must not recover truth through world attributes. Use `engine.core.action_values` for diagnostics so menus and values follow the planner's information path.
 - The paper case in `rediscovery/` comes first, with expected outcomes and interventions.
 - Separate implementation regressions from research hypotheses. Existing outcome tests describe their tested configurations, not historical laws. Use several seeds and parameter settings, preserve counterexamples, and record why any expected outcome changes. Random seeds alone do not vary assumptions.
 - Add a competing explanation and a source before treating a paper case as empirical evidence. "Unverified" is an acceptable status. Diagnose a failed expectation before changing primitives or tuning parameters.

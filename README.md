@@ -68,11 +68,23 @@ A `survived` label means only that the run did not collapse before its time limi
 
 Random sweeps sample parameter values independently and uniformly within the declared register. Outcome shares change when that register or sampling rule changes. Dependence tables show marginal associations; one-at-a-time endpoints miss interactions. Neither establishes global robustness.
 
-The planner compares repeating each available action and uses expected transitions. Adaptive strategies, nonlinear threshold risk and hidden-information boundaries need further tests. Goals and action semantics are authored assumptions. A green suite establishes the tested behavior, not a validated model of civilization.
+Each world explicitly supplies the agent's hypothetical planning state from permitted information and point priors. Action menus and rollouts use that state; actual execution uses truth. Level-1 responses follow directed observation, so an observer can react even when the actor cannot see it. World methods must respect this information contract; they are not sandboxed.
+
+The planner still compares repeating each available action and uses expected transitions. The audit demonstrates rejected profitable action sequences, reversed rankings at irreversible thresholds, and order-dependent ties. Goals, priors, known-model assumptions and action semantics remain authored. A green suite establishes the tested behavior, not a validated model of civilization.
+
+Run the small diagnostics, including candidate action values and exact reference calculations:
+
+```sh
+python -m tests.planner_cases
+```
+
+See [`rediscovery/planner-audit.md`](rediscovery/planner-audit.md). `engine.core.action_values` exposes the same candidate values used by the planner. New worlds must implement `belief_state(state, agent)`; there is no silent full-information default.
 
 ## Next evidence gates
 
-Audit information boundaries and planner artifacts, investigate sparse channels without prescribing the result, then compare auditor arrangements with matched assumptions. Separate design choices from uncertain conditions before ranking institutions. A real use case must identify affected groups, rival explanations and a decision someone can actually change. See [`TASKS.md`](TASKS.md).
+Replace the planner/transition approximation coherently using the audit's exact small cases, then investigate sparse channels without prescribing the result and compare auditor arrangements with matched assumptions. Separate design choices from uncertain conditions before ranking institutions. A real use case must identify affected groups, rival explanations and a decision someone can actually change. See [`TASKS.md`](TASKS.md).
+
+The purpose and evidence standards are durable; the model and implementation are replaceable. Expand or rebuild when demonstrated limitations justify it, retiring obsolete mechanisms instead of accumulating exceptions. Generality must be shown across cases.
 
 Any eventual protocol must specify adoption, enforcement, challenge, amendment and exit, and survive reversible trials. This repository currently supports investigation, not a claim that such a protocol works.
 

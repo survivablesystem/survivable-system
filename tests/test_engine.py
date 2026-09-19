@@ -14,6 +14,9 @@ class TwoAction(World):
     def initial_state(self):
         return {"t": 0, "last": {}, "value": {"a": 0.0}}
 
+    def belief_state(self, state, agent):
+        return state  # This deterministic, single-agent test has no private information.
+
     def actions(self, state, agent):
         return ["bad", "good"]
 

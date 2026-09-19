@@ -9,7 +9,7 @@ import json
 import hashlib
 from pathlib import Path
 
-from engine.core import Agent, World, evaluate, plan
+from engine.core import Agent, World, action_values, plan
 from engine.records import provenance
 
 
@@ -195,8 +195,9 @@ class ThresholdRisk(DiagnosticWorld):
 def inspect(world, state=None, actor=None):
     state = world.initial_state() if state is None else state
     actor = world.agents[0] if actor is None else actor
-    return {"values": [{"action": action, "value": evaluate(world, state, actor, action, actor.k)}
-                       for action in world.actions(state, actor)], "chosen": plan(world, state, actor)}
+    return {"values": [{"action": action, "value": value}
+                       for action, value in action_values(world, state, actor)],
+            "chosen": plan(world, state, actor)}
 
 
 def audit():

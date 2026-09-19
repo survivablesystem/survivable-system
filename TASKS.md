@@ -1,6 +1,6 @@
 # Tasks
 
-Ordered. Claim with `[claimed: name, date]`, finish with `[done: name, date]`. Each task names what forces it and the acceptance line. Add at the end, or insert with a reason. Owner-level design decisions are marked ASK.
+Ordered. Claim with `[claimed: name, date]`, finish with `[done: name, date]`. Each task names what forces it and the acceptance line. Add at the end, or insert with a reason. Internal architecture may evolve under the owner's standing direction; record evidence and decisions. Unresolved values and real-world scenario boundaries are marked ASK.
 
 Research acceptance means testing the stated hypothesis and recording its boundary or counterexample. A contrary result is not a failed implementation. Do not tune a world or add primitives just to obtain an expected sign. Separate code regressions from empirical claims.
 
@@ -14,6 +14,8 @@ Research acceptance means testing the stated hypothesis and recording its bounda
 - T0.1 Reliable evidence and publication. [done: Codex, 2026-09-19] Inserted before T1.1 because the owner review found confirmation-biased acceptance rules and finite survival mislabeled as an attractor. Implemented falsifiable research acceptance, finite labels, reproducible JSON in all CLI modes, stable stochastic target order, validated overrides and fixed OAT controls. 34 local tests pass; Windows/Linux CI passes. Published to `survivablesystem/survivable-system`; replayable counterexample in `evidence/`. No planner expansion or new primitive. There was no remote to pull before claiming.
 
 - T1.0 Information and planner audit. [claimed: Codex, 2026-09-19] Inserted before sparse channels because asymmetric observation and hidden state are not yet tested. Acceptance: small discriminating cases for directed visibility, hidden information, action-order ties, adaptive versus constant-action plans, and expected transitions across irreversible thresholds. Record action values; identify which findings survive the approximations before choosing a fix. Simplest approach: five tiny diagnostic worlds with exact reference calculations, then repair any demonstrated information-path errors without hiding remaining planning limits. Baseline: 34 tests pass; pulled main before claiming.
+
+- T1.3 Planner and transition replacement. Inserted before sparse-channel findings: T1.0 proves constant-action planning rejects a profitable investment and mean transitions reverse a risk ranking. Acceptance: one coherent transition/search model supports action sequences and branch-weighted utility, using the investment and threshold cases as exact references. Preserve information isolation and directed response tests; compare commons conclusions, runtime and approximations explicitly. Replace superseded internals rather than adding investment heuristics or catastrophe penalties. Exact small cases first; bound and declare search limits before large worlds. If uncertain hidden states require distributions, replace the point-belief interface coherently rather than layering contradictory paths.
 
 - T1.1 Sparse channels. `channels` gains a structured option (ring, or each user observes m random others). Hypothesis: limited observability may produce a size effect. Acceptance: measure survival through a stated duration across sizes and channel structures with matched assumptions and several seeds; record absent or reversed effects. Test directed observation separately before relying on asymmetric graphs.
 - T1.2 Readiness tie artifact. Decide: leave it, or break ties toward the current action. Record in DECISIONS.md either way. Low priority.
@@ -46,7 +48,7 @@ Forces: goals over others' outcomes, structured channels, possibly group selecti
 
 ## Stage 6: money issuance
 
-Forces: claims as a primitive (ASK before adding: it would unify rules, money and legitimacy), issuance capability.
+Forces: claims as a candidate primitive (a decision record and discriminating cases must justify unifying rules, money and legitimacy), issuance capability.
 - T6.1 World from `rediscovery/money-issuance.md`. Hypothesis: readable supply and promises improve issuer discipline. Acceptance: sourced hypotheses, rival mechanisms and failure conditions; compare hidden/visible supply and redemption information without requiring issuer selection to favor the proposed design.
 
 ## Stage 7: composition and diff
@@ -56,7 +58,7 @@ Forces: claims as a primitive (ASK before adding: it would unify rules, money an
 
 ## Stage 8: scale
 
-- T8.1 Types with populations: a world declares types and counts; the engine expands them. Mean field only when exact planning is too slow on a case that needs large n. ASK before mean field.
+- T8.1 Types with populations: a world declares types and counts; the engine expands them. Aggregation or mean field needs a case, a decision record and comparison with smaller exact populations. Demonstrate what is preserved and lost; internal architecture changes are covered by the owner's standing direction.
 - T8.2 Performance: profile `step` and `evaluate` before any world with more than a dozen agents. The commons one-at-a-time run takes three minutes.
 
 ## Stage 9: first real scenario

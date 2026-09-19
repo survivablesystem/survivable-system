@@ -7,9 +7,19 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-19  T1.0: explicit planning information and directed response
+
+Change: require each world to provide `belief_state(state, agent)`, a pure projection to a complete hypothetical state using permitted information and declared point priors. Both candidate menus and rollouts use that projection; actual execution uses the real state. Nested plans project the parent's hypothetical state, never recover the original truth. Expose `action_values` through the same path used by `plan`. At level 1, model agents that observe the acting agent, whether or not the actor can observe them. Channel topology and utility functions are treated as known; direct observation triggers one response, not arbitrary inference from public effects.
+
+Motivated by: `rediscovery/planner-audit.md`, executable at pre-fix commit `ab6b02a`. A one-way observer should make take worth -1 rather than 2 over two rounds, but was omitted. An unrevealed hidden bit changed values and the selected guess despite identical information. The projection replaces implicit full-state planning with one explicit boundary, rather than adding private-field exceptions in every planner operation.
+
+Limits retained: a point belief is not a belief distribution or a posterior update; world authors must enforce the projection contract and keep true private data out of planning methods/attributes. First-listed ties remain explicit. Investment and threshold counterexamples justify a subsequent shared search/transition redesign; no special-case strategy or risk penalty is inserted here. The commons' full/no-channel regressions and saved trajectory must still hold, but this audit does not validate them under stronger planning.
+
+Intent tests: 1 one information boundary and one directed predicate; 2 responses still computed from goals; 3 point priors and known-model assumptions declared; 4 tests compare indistinguishable truths and exact toy references; 5 unilateral observation and utility-neutral side effects exposed; 6 wrong rankings arise even with adequate horizons and level-1 beliefs. Alternatives rejected: hidden-state masking in the CLI only; treating channels as symmetric; sticky tie rules without sensitivity evidence; world-specific investment/risk fixes.
+
 ## 2026-09-19  T1.0: preserve purpose, replace machinery when evidence warrants
 
-Change: adopt the owner's explicit direction that any implementation, planner or model abstraction may be expanded or rebuilt while preserving the core purpose and evidence standards. Simplicity means few coherent mechanisms, not a fixed line count or perpetual compatibility. Compare extension with replacement; retire obsolete paths instead of stacking case-specific fixes. Preserve counterexamples and revisioned evidence across migrations.
+Change: adopt the owner's explicit direction that any implementation, planner or model abstraction may be expanded or rebuilt while preserving the core purpose and evidence standards. Simplicity means few coherent mechanisms, not a fixed line count or perpetual compatibility. Compare extension with replacement; retire obsolete paths instead of stacking case-specific fixes. Preserve counterexamples and revisioned evidence across migrations. Internal ontology and aggregation changes need evidence and a decision record, not renewed permission; unresolved values and real-world scenario boundaries still need owner steering.
 
 Motivated by: the owner's instruction to continue and not protect early prototypes at the expense of a more general, powerful tool. This relaxes the literal spec-size/shrinkage target and the assumption that the present agent ontology or planner is permanent. It does not authorize changing the purpose, scripting desired outcomes or asserting validity from passing tests.
 
@@ -62,7 +72,7 @@ Change to the removed linter; kept for history. Capture considered only actors w
 
 ## Open questions
 
-- **Claims as one primitive.** Rules, money and legitimacy may be one thing: a claim, worth what others are believed to honor, backed by the contest enforcing it would win. The money brief will test this. ASK the owner before changing the spec.
+- **Claims as one primitive.** Rules, money and legitimacy may be one thing: a claim, worth what others are believed to honor, backed by the contest enforcing it would win. The money brief must test this against alternatives. Under the 2026-09-19 standing direction, revise the spec through evidence and a decision record; owner steering is needed if values or real-world scope change.
 - **Readiness tie.** Standing ready and not are tied in value when nobody defects; ties go to the earlier action, so readiness alternates each round. Cosmetic so far. T1.2.
 - **Horizon of modeled others.** Level-1 rollouts give modeled others their full horizon, which dominates runtime. A shorter modeled horizon would be a new parameter. Not until T8.2 shows it matters.
 - **Sanction targeting.** Sanctioners act against every visible defector. A case that needs selective targeting would reintroduce a choice, and the id tie-break showed how a targeting rule can leak asymmetry.

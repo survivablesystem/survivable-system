@@ -6,6 +6,8 @@ If an expected outcome emerges, test rival mechanisms and nearby assumptions. If
 
 Each case file has: setup, sources/evidence status, hypothesis, competing explanation, disconfirming result, affected groups/exclusions, and findings with source revision, seeds and duration. Label paper derivations separately from engine results. One-at-a-time tables diagnose local sensitivity; they do not establish global robustness.
 
+`planner-audit.md` is a separate set of constructed arithmetic diagnostics, not a historical rediscovery. It tests information contracts and isolates planner limits before empirical worlds rely on them.
+
 | Case | Tests | Paper | Engine |
 |---|---|---|---|
 | open-commons.md | beliefs, incentives, observability | conjecture, revised by engine | `worlds/commons.py`; collapse or finite survival under tested assumptions |

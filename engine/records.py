@@ -74,6 +74,7 @@ def artifact(module, mode, settings, results):
             "Shares describe sampled assumptions, not probabilities of the world.",
             "Nonterminal outcomes only describe survival through the recorded duration.",
             "Constant-action rollouts and expected transitions can miss adaptive plans and threshold risk.",
+            "Planning uses world-declared point beliefs and known topology/utilities; private-data isolation is a world contract.",
             "One-at-a-time endpoints omit interactions; random-sweep associations are not causal effects.",
             "Source hashes cover local engine, worlds, spec and intent; external data/dependencies need separate provenance.",
         ],

@@ -69,6 +69,14 @@ class Commons(World):
                 "last": {i: self.prior_last() for i in ids},
                 "value": {i: 0.0 for i in ids}, "wealth": {i: 0.0 for i in ids}}
 
+    def belief_state(self, state, agent):
+        # Stock, wealth, dynamics, utilities and channel topology are known in this
+        # world. Other users' unobserved actions are replaced with the declared prior.
+        last = {other.id: state["last"][other.id]
+                if other.id == agent.id or agent.observes(other.id)
+                else self.prior_action(agent, other) for other in self.agents}
+        return {**state, "last": last}
+
     def actions(self, state, agent):
         acts = [(LO, False), (HI, False)]
         if agent.can("sanction") and agent.channels:

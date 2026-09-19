@@ -10,11 +10,11 @@ the action with the best discounted goal.
 
 Beliefs are level-k, and k is a swept assumption:
   k = 0  an observed agent repeats its last action; an unobserved one takes the prior.
-  k = 1  observed agents are level-0 planners: at the first rollout step where this
-         agent's action is visible to them, each picks its own best response, then holds
-         it. Unobserved agents take the prior.
-Level 0 cannot hold a norm: it never expects a response it has not already seen
-(rediscovery/open-commons.md, engine findings). Level 1 is the least that can.
+  k = 1  agents that observe this agent are modeled as level-0 planners: after one
+         simulated step they pick a response and hold it, including one-way observers.
+         Others repeat their last observed action or take the prior.
+These are restricted, constant-action rollouts from an explicit subjective state,
+not optimal adaptive policies or distributions over possible trajectories.
 """
 from __future__ import annotations
 
@@ -57,6 +57,18 @@ class World:
     # ---- a world must define these ----
     def initial_state(self) -> dict:
         raise NotImplementedError
+
+    def belief_state(self, state: dict, agent: Agent) -> dict:
+        """Pure projection to a complete hypothetical state for this agent.
+
+        Use permitted observations and declared point priors, not inaccessible truth.
+        Indistinguishable real states must yield the same planning state. Nested plans
+        receive the parent's hypothetical state; never restore truth from world fields.
+        Fully informed worlds may explicitly return state. All other planning methods
+        must use the projected state and publicly known model, not stored private data.
+        This is a modeling contract, not a security boundary or a belief distribution.
+        """
+        raise NotImplementedError("world must declare belief_state(state, agent)")
 
     def actions(self, state: dict, agent: Agent) -> list:
         """Available actions, in a fixed order. Ties in value go to the earlier one."""
@@ -107,16 +119,16 @@ def believed_joint(world: World, state: dict, agent: Agent, own_action, response
     return joint
 
 
-def evaluate(world: World, state: dict, agent: Agent, action, k: int) -> float:
-    """Discounted goal value of holding `action` over the agent's horizon under level-k beliefs."""
+def _evaluate(world: World, state: dict, agent: Agent, action, k: int) -> float:
+    """Evaluate an action from an already projected planning state."""
     total = 0.0
     s = state
     responses = None
     for t in range(agent.horizon):
         if k >= 1 and t == 1:
-            # my action is now in s["last"]; observed others pick their level-(k-1) response to it
+            # The response depends on who sees me, not on whom I can see.
             responses = {o.id: plan(world, s, o, k - 1)
-                         for o in world.agents if o.id != agent.id and agent.observes(o.id)}
+                         for o in world.agents if o.id != agent.id and o.observes(agent.id)}
         s = world.step(s, believed_joint(world, s, agent, action, responses))
         total += (agent.discount ** t) * world.value(s, agent)
         if world.terminal(s) is not None:
@@ -124,12 +136,23 @@ def evaluate(world: World, state: dict, agent: Agent, action, k: int) -> float:
     return total
 
 
-def plan(world: World, state: dict, agent: Agent, k: int | None = None):
+def evaluate(world: World, state: dict, agent: Agent, action, k: int) -> float:
+    """Discounted value of holding an action, using only this agent's planning state."""
+    return _evaluate(world, world.belief_state(state, agent), agent, action, k)
+
+
+def action_values(world: World, state: dict, agent: Agent, k: int | None = None) -> list:
+    """Candidate/value pairs in tie-breaking order, from one information projection."""
     if k is None:
         k = agent.k
+    belief = world.belief_state(state, agent)
+    return [(action, _evaluate(world, belief, agent, action, k))
+            for action in world.actions(belief, agent)]
+
+
+def plan(world: World, state: dict, agent: Agent, k: int | None = None):
     best, best_value = None, None
-    for action in world.actions(state, agent):
-        v = evaluate(world, state, agent, action, k)
+    for action, v in action_values(world, state, agent, k):
         if best_value is None or v > best_value + 1e-12:
             best, best_value = action, v
     return best
