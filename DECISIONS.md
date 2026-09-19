@@ -7,6 +7,48 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-19  T1.4: exact reward integration at search leaves
+
+Proposed before implementation. Baseline profile `2535e47` shows branch expansion,
+not mostly repeated kernels: n=10/depth=2 after one all-high round exhausts 20,000
+entries in 116 kernel calls (93 unique); n=4/depth=3 uses 17,589 transition entries
+and 213 cached nested responses. Caching full state/joint kernels alone cannot
+remove this exponential leaf cost. See `evidence/search-profile-before.json`.
+
+Add `reward_outcomes(state, joint)`: a finite distribution of per-agent immediate
+utilities whose expectation must equal `outcomes` followed by `value`. Default
+derives it from that kernel. A world may supply a proved exact marginal reduction;
+commons uses linearity of expected confiscation/receipts over independent contests.
+Share round preparation and payoff arithmetic with the physical kernel. Use this
+distribution only at depth 1, where no future action, observation or terminal test
+depends on successor identity. Never evaluate nonlinear utility on mean state.
+Charge every emitted reward entry, including zero weight, to the same root work cap.
+Document the changed work unit; leave physical sampling and earlier branches intact.
+
+Compare extension versus replacement: a factor-graph planner/world rewrite might
+reduce interior branching but needs new conditional inference and information-set
+proofs. Leaf reward integration is smaller, general across finite worlds and retains
+the existing exact references. Reject mean-state planning, sampled tails, symmetry
+assumptions and increasing the cap to call unresolved searches completed.
+
+Discriminating checks: exact kernel/reward expectations across commons configurations,
+threshold-crossing states and joint actions; optimized versus full-kernel planner
+values/traces; nonlinear-risk and asymmetric hidden-information diagnostics; work
+caps and zero-weight entries. Record measured numerical error, timings and remaining
+unresolved rows. No approximation or new behavioral primitive is introduced.
+
+Intent tests: 1 one optional exact marginal interface; 2 no behavior scripted;
+3 fixed cap, source and workload explicit; 4 compare full enumeration and negative
+coverage results; 5 utility losses remain branch-weighted; 6 measure which apparent
+population limits were computational, without inferring institutional effects.
+
+Outcome: adopt the reduction. The n=8/depth=2 contested decision completes in
+5,241 entries versus 348,202 with full enumeration under a separate reference cap,
+with equal values. Its 30-round runs now reach collapse at 17. Retained traces and
+action probes agree; numerical marginal error is below 9e-16. Ten-user depth-2/3
+limits remain, and some unresolved searches take longer. No population/horizon
+extrapolation follows. Full evidence and boundaries: `rediscovery/search-reduction.md`.
+
 ## 2026-09-19  T1.3: finite belief-tree search and one transition kernel
 
 Proposed before implementation. Replace constant-action rollouts and mean-state transitions with a finite stochastic kernel shared by planning and execution. Optimize future actions by observable history, integrating utility over physical branches before comparing actions. Replace the point projection with `observe(state, agent)` and `beliefs(observation, agent)`; menus receive observations. Group indistinguishable future branches into one posterior before selecting an action. This prevents future choices from acquiring hidden branch information.

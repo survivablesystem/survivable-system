@@ -80,9 +80,16 @@ python -m tests.planner_cases
 
 See [`rediscovery/planner-replacement.md`](rediscovery/planner-replacement.md), including the changed commons conclusions and cost comparison. `engine.core.action_values` exposes the same values used by the planner. New worlds implement `observe`, `beliefs`, `actions` and `outcomes`; no implicit full-information or mean-state path remains. `step` is the shared execution sampler.
 
+Worlds may also provide a proved exact `reward_outcomes` marginal for the final
+search step. The default integrates the physical kernel; commons sums expected
+contest payoffs directly. Earlier branches and physical play retain full outcomes.
+This reduces leaf work without approximating utility or future information. See
+[`rediscovery/search-reduction.md`](rediscovery/search-reduction.md) for measured
+coverage, full-enumeration comparisons and remaining limits.
+
 ## Next evidence gates
 
-Address search cost with measured equivalence before extrapolating to larger populations or deeper horizons. Then investigate sparse channels while reporting search failures separately, and compare auditor arrangements with matched assumptions. Separate design choices from uncertain conditions before ranking institutions. A real use case must identify affected groups, rival explanations and a decision someone can actually change. See [`TASKS.md`](TASKS.md).
+Exact leaf reduction extends a scoped eight-user depth-2 case; ten-user searches can still be unresolved. Investigate sparse channels while reporting search failures separately, then compare auditor arrangements with matched assumptions. Larger/deeper claims still require actual coverage. Separate design choices from uncertain conditions before ranking institutions. A real use case must identify affected groups, rival explanations and a decision someone can actually change. See [`TASKS.md`](TASKS.md).
 
 The purpose and evidence standards are durable; the model and implementation are replaceable. Expand or rebuild when demonstrated limitations justify it, retiring obsolete mechanisms instead of accumulating exceptions. Generality must be shown across cases.
 

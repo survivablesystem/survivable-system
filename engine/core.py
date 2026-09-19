@@ -110,6 +110,16 @@ class World:
                 return successor
         return support[-1][1]  # floating-point accumulation at upper endpoint
 
+    def reward_outcomes(self, state, joint):
+        """Exact immediate-utility marginal, used only at the last search step.
+
+        An override must preserve E[value(successor, agent)] for every agent.
+        It may integrate utility, never evaluate nonlinear utility on mean state.
+        Earlier search steps and physical execution always use outcomes.
+        """
+        for probability, successor in self.outcomes(state, joint):
+            yield probability, {a.id: self.value(successor, a) for a in self.agents}
+
     def prior_action(self, agent, other):
         raise NotImplementedError
 
@@ -145,7 +155,7 @@ class SearchLimitExceeded(RuntimeError):
     def __init__(self, agent, budget):
         self.agent, self.budget = agent, budget
         self.state, self.trace = None, None
-        super().__init__(f"{agent}: search exceeded {budget} belief/transition entries; no decision")
+        super().__init__(f"{agent}: search exceeded {budget} belief/transition/reward entries; no decision")
 
 
 def best(values):
@@ -201,6 +211,13 @@ class Search:
                 responses = {o.id: self.response(state, o, depth) for o in self.world.agents
                              if o.id != agent.id and o.observes(agent.id)}
             joint = believed_joint(self.world, state, agent, action, responses)
+            if depth == 1:
+                for probability, payoffs in distribution(self.world.reward_outcomes(state, joint), self.visit):
+                    reward = payoffs[agent.id]
+                    if not math.isfinite(reward):
+                        raise ValueError("goal values must be finite")
+                    rewards.append(weight * probability * reward)
+                continue
             for probability, successor in distribution(self.world.outcomes(state, joint), self.visit):
                 mass = weight * probability
                 reward = self.world.value(successor, agent)

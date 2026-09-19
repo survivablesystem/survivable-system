@@ -32,7 +32,7 @@ SPACE = {
 FIXED = {"K": 100.0, "S0_frac": 0.5, "S_min_frac": 0.05, "lo_frac": 0.8,
          "node_budget": 20_000}
 FIXED_REASONS = {
-    "node_budget": "Per-decision belief/transition-entry cap, including nested plans. Exhaustion is unresolved, not a physical outcome; chosen to bound exact enumeration cost.",
+    "node_budget": "Per-decision emitted belief/transition/reward-entry cap, including nested plans and exact leaf reward marginals. Exhaustion is unresolved, not a physical outcome; chosen to bound enumeration cost.",
     "K": "Resource unit scale; yields and sanction costs scale with carrying capacity.",
     "S0_frac": "Starts at maximum logistic growth. Held fixed for baseline comparability; recovery from depleted stock is untested.",
     "S_min_frac": "Assumed irreversible collapse threshold. Held fixed in v0; threshold sensitivity is untested.",
@@ -98,12 +98,9 @@ class Commons(World):
     def amount(self, level):
         return self.lo if level == LO else self.hi
 
-    def outcomes(self, state, joint):
+    def round_inputs(self, state, joint):
+        """Shared deterministic preparation for physical and leaf reward kernels."""
         ids = list(joint)
-        value = {i: 0.0 for i in ids}
-        if state["collapsed"]:
-            yield 1.0, {**state, "last": dict(joint), "value": value}
-            return
         S = state["S"]
         S = S + self.params["r"] * S * (1 - S / self.K)     # regrowth, then harvest
         takes = {i: self.amount(a[0]) for i, a in joint.items()}
@@ -121,27 +118,54 @@ class Commons(World):
                 if takes[j] > takes[i]:
                     targets.setdefault(j, []).append(i)
                     cost[i] += self.cost
+        return S, yields, targets, cost
+
+    def payoffs(self, yields, targets, cost, confiscated):
+        received = {i: 0.0 for i in yields}
+        if self.params["confiscation_to"] == "sanctioners":
+            for j in sorted(targets):
+                sanctioners = targets[j]
+                for i in sanctioners:
+                    received[i] += confiscated[j] / len(sanctioners)
+        return {i: yields[i] - confiscated[i] - cost[i] + received[i] for i in yields}
+
+    def reward_outcomes(self, state, joint):
+        # Payoffs are affine in confiscation. E[C_j] = yield_j * m/(m+1).
+        # Collapse affects continuation, not this round's utility. This shortcut
+        # is invalid for a nonlinear replacement of value without re-derivation.
+        if state["collapsed"]:
+            yield 1.0, {i: 0.0 for i in joint}
+            return
+        _, yields, targets, cost = self.round_inputs(state, joint)
+        confiscated = {i: 0.0 for i in joint}
+        for j, sanctioners in targets.items():
+            m = len(sanctioners)
+            confiscated[j] = yields[j] * (m / (m + 1))
+        yield 1.0, self.payoffs(yields, targets, cost, confiscated)
+
+    def outcomes(self, state, joint):
+        ids = list(joint)
+        if state["collapsed"]:
+            yield 1.0, {**state, "last": dict(joint), "value": {i: 0.0 for i in ids}}
+            return
+        S, yields, targets, cost = self.round_inputs(state, joint)
         ordered_targets = sorted(targets)
         # Independent Bernoulli contests; one joint kernel for planning and play.
         for hits in product((False, True), repeat=len(ordered_targets)):
             probability = 1.0
             confiscated = {i: 0.0 for i in ids}
-            received = {i: 0.0 for i in ids}
             for j, hit in zip(ordered_targets, hits):
                 sanctioners = targets[j]
                 m = len(sanctioners)
                 p_success = m / (m + 1)
                 probability *= p_success if hit else 1 - p_success
                 confiscated[j] = yields[j] if hit else 0.0
-                if self.params["confiscation_to"] == "sanctioners":
-                    for i in sanctioners:
-                        received[i] += confiscated[j] / m
             returned = sum(confiscated.values()) if self.params["confiscation_to"] == "stock" else 0.0
             S2 = S - sum(yields.values()) + returned
             collapsed = S2 < self.S_min
-            wealth, value = dict(state["wealth"]), {}
+            wealth = dict(state["wealth"])
+            value = self.payoffs(yields, targets, cost, confiscated)
             for i in ids:
-                value[i] = yields[i] - confiscated[i] - cost[i] + received[i]
                 wealth[i] += value[i]
             yield probability, {"S": 0.0 if collapsed else S2, "collapsed": collapsed,
                                 "last": dict(joint), "value": value, "wealth": wealth}

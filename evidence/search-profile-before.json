@@ -1,0 +1,404 @@
+{
+  "fixed": {
+    "K": 100.0,
+    "S0_frac": 0.5,
+    "S_min_frac": 0.05,
+    "lo_frac": 0.8,
+    "node_budget": 20000
+  },
+  "fixed_reasons": {
+    "K": "Resource unit scale; yields and sanction costs scale with carrying capacity.",
+    "S0_frac": "Starts at maximum logistic growth. Held fixed for baseline comparability; recovery from depleted stock is untested.",
+    "S_min_frac": "Assumed irreversible collapse threshold. Held fixed in v0; threshold sensitivity is untested.",
+    "lo_frac": "Low demand is 80% of maximum sustainable yield, below the knife-edge. Other margins are untested.",
+    "node_budget": "Per-decision belief/transition-entry cap, including nested plans. Exhaustion is unresolved, not a physical outcome; chosen to bound exact enumeration cost."
+  },
+  "fixture_sha256": "a91b9b1e149fcac4d85f8abb274deed84258eab7b31502d878a9a94e1419dddd",
+  "kind": "search-profile",
+  "provenance": {
+    "git_commit": "2535e47a6891df96c8fc6aea8489fc805d6e1aaa",
+    "git_dirty": false,
+    "implementation": "CPython",
+    "python": "3.12.3",
+    "source_sha256": {
+      "INTENT.md": "683e2da3b9a3daba69f7ed71c616b63d1ea0145bca0fed19944d6a6e52d36482",
+      "engine/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "engine/__main__.py": "ec1e31398de395b2a2260694ff3f47b9e87360d989612349fb020b4f43d2456d",
+      "engine/core.py": "c0570273198840c22402c947e4e68ae30471575161da57e908fc196453518d75",
+      "engine/records.py": "1ff28437cd93bee6daf5abcf98f8d402bd35905027170ac5b1e97641cc52aa43",
+      "engine/sweep.py": "e435934caf8b56f1db65fbaeba82fe5fd9cb74b25d7c1827daf33064ba6b0887",
+      "spec/PRIMITIVES.md": "7fd7ca59dc51afeb602fac236578e6699028dfddaf6fcaed1b56f5ca92bf2279",
+      "worlds/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "worlds/commons.py": "6fdecd9f83f6439d302217e0aecdecfa5ceadd30536e6c7305be6babc62bbae0"
+    }
+  },
+  "results": [
+    {
+      "cached_responses": 12,
+      "elapsed_seconds": 0.007780199986882508,
+      "kernel_calls": 68,
+      "kernel_entries": 101,
+      "nodes": 114,
+      "params": {
+        "channels": "all",
+        "confiscation_to": "sanctioners",
+        "discount": 0.9,
+        "hi_mult": 2,
+        "horizon": 12,
+        "k": 1,
+        "n": 4,
+        "prior": "lo",
+        "r": 0.5,
+        "sanction": true,
+        "sanction_cost": 0.1,
+        "search_depth": 2
+      },
+      "physical_rounds_before_probe": 0,
+      "search_metrics": null,
+      "seed": 0,
+      "status": "complete",
+      "unique_kernel_calls": 59,
+      "values": [
+        [
+          [
+            "lo",
+            false
+          ],
+          10.825000000000001
+        ],
+        [
+          [
+            "hi",
+            false
+          ],
+          13.325000000000001
+        ],
+        [
+          [
+            "lo",
+            true
+          ],
+          7.0
+        ],
+        [
+          [
+            "hi",
+            true
+          ],
+          13.325000000000001
+        ]
+      ]
+    },
+    {
+      "cached_responses": 33,
+      "elapsed_seconds": 0.02819640003144741,
+      "kernel_calls": 180,
+      "kernel_entries": 740,
+      "nodes": 774,
+      "params": {
+        "channels": "all",
+        "confiscation_to": "sanctioners",
+        "discount": 0.9,
+        "hi_mult": 2,
+        "horizon": 12,
+        "k": 1,
+        "n": 4,
+        "prior": "lo",
+        "r": 0.5,
+        "sanction": true,
+        "sanction_cost": 0.1,
+        "search_depth": 2
+      },
+      "physical_rounds_before_probe": 1,
+      "search_metrics": null,
+      "seed": 0,
+      "status": "complete",
+      "unique_kernel_calls": 158,
+      "values": [
+        [
+          [
+            "lo",
+            false
+          ],
+          4.75
+        ],
+        [
+          [
+            "hi",
+            false
+          ],
+          7.25
+        ],
+        [
+          [
+            "lo",
+            true
+          ],
+          11.5
+        ],
+        [
+          [
+            "hi",
+            true
+          ],
+          7.25
+        ]
+      ]
+    },
+    {
+      "cached_responses": 90,
+      "elapsed_seconds": 0.13008419994730502,
+      "kernel_calls": 768,
+      "kernel_entries": 2028,
+      "nodes": 2119,
+      "params": {
+        "channels": "all",
+        "confiscation_to": "sanctioners",
+        "discount": 0.9,
+        "hi_mult": 2,
+        "horizon": 12,
+        "k": 1,
+        "n": 4,
+        "prior": "lo",
+        "r": 0.5,
+        "sanction": true,
+        "sanction_cost": 0.1,
+        "search_depth": 3
+      },
+      "physical_rounds_before_probe": 0,
+      "search_metrics": null,
+      "seed": 0,
+      "status": "complete",
+      "unique_kernel_calls": 634,
+      "values": [
+        [
+          [
+            "lo",
+            false
+          ],
+          12.85
+        ],
+        [
+          [
+            "hi",
+            false
+          ],
+          15.35
+        ],
+        [
+          [
+            "lo",
+            true
+          ],
+          14.492500000000001
+        ],
+        [
+          [
+            "hi",
+            true
+          ],
+          15.35
+        ]
+      ]
+    },
+    {
+      "cached_responses": 213,
+      "elapsed_seconds": 0.6877194999251515,
+      "kernel_calls": 3816,
+      "kernel_entries": 17589,
+      "nodes": 17803,
+      "params": {
+        "channels": "all",
+        "confiscation_to": "sanctioners",
+        "discount": 0.9,
+        "hi_mult": 2,
+        "horizon": 12,
+        "k": 1,
+        "n": 4,
+        "prior": "lo",
+        "r": 0.5,
+        "sanction": true,
+        "sanction_cost": 0.1,
+        "search_depth": 3
+      },
+      "physical_rounds_before_probe": 1,
+      "search_metrics": null,
+      "seed": 0,
+      "status": "complete",
+      "unique_kernel_calls": 3476,
+      "values": [
+        [
+          [
+            "lo",
+            false
+          ],
+          8.8
+        ],
+        [
+          [
+            "hi",
+            false
+          ],
+          11.3
+        ],
+        [
+          [
+            "lo",
+            true
+          ],
+          15.549999999999997
+        ],
+        [
+          [
+            "hi",
+            true
+          ],
+          11.3
+        ]
+      ]
+    },
+    {
+      "cached_responses": 36,
+      "elapsed_seconds": 0.1006566999712959,
+      "kernel_calls": 164,
+      "kernel_entries": 1733,
+      "nodes": 1770,
+      "params": {
+        "channels": "all",
+        "confiscation_to": "sanctioners",
+        "discount": 0.9,
+        "hi_mult": 2,
+        "horizon": 12,
+        "k": 1,
+        "n": 10,
+        "prior": "lo",
+        "r": 0.5,
+        "sanction": true,
+        "sanction_cost": 0.1,
+        "search_depth": 2
+      },
+      "physical_rounds_before_probe": 0,
+      "search_metrics": null,
+      "seed": 0,
+      "status": "complete",
+      "unique_kernel_calls": 131,
+      "values": [
+        [
+          [
+            "lo",
+            false
+          ],
+          9.19
+        ],
+        [
+          [
+            "hi",
+            false
+          ],
+          10.19
+        ],
+        [
+          [
+            "lo",
+            true
+          ],
+          2.8
+        ],
+        [
+          [
+            "hi",
+            true
+          ],
+          10.19
+        ]
+      ]
+    },
+    {
+      "cached_responses": 26,
+      "elapsed_seconds": 0.4866307999473065,
+      "kernel_calls": 116,
+      "kernel_entries": 19973,
+      "nodes": 20001,
+      "params": {
+        "channels": "all",
+        "confiscation_to": "sanctioners",
+        "discount": 0.9,
+        "hi_mult": 2,
+        "horizon": 12,
+        "k": 1,
+        "n": 10,
+        "prior": "lo",
+        "r": 0.5,
+        "sanction": true,
+        "sanction_cost": 0.1,
+        "search_depth": 2
+      },
+      "physical_rounds_before_probe": 1,
+      "search_metrics": null,
+      "seed": 0,
+      "status": "search_limit",
+      "unique_kernel_calls": 93,
+      "values": null
+    },
+    {
+      "cached_responses": 35,
+      "elapsed_seconds": 0.4427284999983385,
+      "kernel_calls": 297,
+      "kernel_entries": 19964,
+      "nodes": 20001,
+      "params": {
+        "channels": "all",
+        "confiscation_to": "sanctioners",
+        "discount": 0.9,
+        "hi_mult": 2,
+        "horizon": 12,
+        "k": 1,
+        "n": 10,
+        "prior": "lo",
+        "r": 0.5,
+        "sanction": true,
+        "sanction_cost": 0.1,
+        "search_depth": 3
+      },
+      "physical_rounds_before_probe": 0,
+      "search_metrics": null,
+      "seed": 0,
+      "status": "search_limit",
+      "unique_kernel_calls": 258,
+      "values": null
+    },
+    {
+      "cached_responses": 0,
+      "elapsed_seconds": 0.40870749996975064,
+      "kernel_calls": 311,
+      "kernel_entries": 19999,
+      "nodes": 20001,
+      "params": {
+        "channels": "all",
+        "confiscation_to": "sanctioners",
+        "discount": 0.9,
+        "hi_mult": 2,
+        "horizon": 12,
+        "k": 1,
+        "n": 10,
+        "prior": "lo",
+        "r": 0.5,
+        "sanction": true,
+        "sanction_cost": 0.1,
+        "search_depth": 3
+      },
+      "physical_rounds_before_probe": 1,
+      "search_metrics": null,
+      "seed": 0,
+      "status": "search_limit",
+      "unique_kernel_calls": 311,
+      "values": null
+    }
+  ],
+  "schema_version": 1,
+  "settings": {
+    "duration": "one decision per state",
+    "probe_actor": "u0",
+    "seed": 0
+  }
+}
