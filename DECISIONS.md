@@ -7,6 +7,14 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-19  T1.0: preserve purpose, replace machinery when evidence warrants
+
+Change: adopt the owner's explicit direction that any implementation, planner or model abstraction may be expanded or rebuilt while preserving the core purpose and evidence standards. Simplicity means few coherent mechanisms, not a fixed line count or perpetual compatibility. Compare extension with replacement; retire obsolete paths instead of stacking case-specific fixes. Preserve counterexamples and revisioned evidence across migrations.
+
+Motivated by: the owner's instruction to continue and not protect early prototypes at the expense of a more general, powerful tool. This relaxes the literal spec-size/shrinkage target and the assumption that the present agent ontology or planner is permanent. It does not authorize changing the purpose, scripting desired outcomes or asserting validity from passing tests.
+
+Intent tests: 1 prefer the simplest adequate architecture, including replacement; 2 retain computed choices; 3 keep explicit assumptions and migrations; 4 compare against disconfirming cases; 5 preserve affected-party accounting; 6 let limitations force general improvements. Alternatives rejected: freezing v0; adding complexity merely for imagined future needs; rewriting without a discriminating test.
+
 ## 2026-09-19  T0.1: evidence before expansion
 
 Change: propose and adopt replacing mandatory historical outcomes with falsifiable hypotheses. A failed expectation can expose a wrong hypothesis, setup, implementation, planner or primitive; it does not identify which. State that the current planner compares constant-action rollouts, uses cardinal per-round utility and expected transitions, and does not establish global optimality. Finite survival becomes `survived`, not an attractor. Keep dynamics and planner choices otherwise unchanged.

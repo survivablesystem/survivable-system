@@ -8,7 +8,13 @@ Civilizational risk rises with the power of what we build, and the structures me
 
 Survivable System is a simulation in which such chains emerge. Agents with goals, capabilities and information act inside architectures of rules and channels. No behavior is scripted. The tool asks what structures form, who ends up able to force irreversible outcomes, who can still correct errors, and how a proposed institution or a change in technology moves those answers. The purpose is to find civilizational-scale architectures that lower existential risk, and to make every such proposal checkable by anyone.
 
-## What it is
+## What may change
+
+The core is the purpose and the evidence standards: make externalized harm and irreversible power visible, compute rather than prescribe choices, expose assumptions, permit disconfirmation, and keep proposals checkable. The current simulation architecture, agent abstraction, planner, interfaces and task order are provisional means to that end.
+
+When a case reveals a consequential limitation, compare extending the current design with replacing it. Expand or rebuild when that yields a more general, capable tool with a simpler internal model. Existing code and sunk effort are not reasons to preserve a worse design. Record the limitation, alternatives, migration and discriminating tests; remove obsolete mechanisms rather than accumulating special cases. Generality must be demonstrated across cases, not promised.
+
+## Current approach
 
 - One object, the agent, at every scale: person, kin group, firm, court, state, AI system, civilization. Institutions are agents made of agents.
 - A world of resources, contests, nested rules, delegation, irreversible transitions, error and selection. `spec/PRIMITIVES.md`.
@@ -29,7 +35,7 @@ Survivable System is a simulation in which such chains emerge. Agents with goals
 
 Core changes (this file, `spec/`, `engine/`) must pass all six. Worlds, cases and tests must pass the last four.
 
-1. **Simplest that works.** Can it be expressed with what exists? A new primitive, parameter or feature needs a rediscovery case or scenario that cannot be expressed without it. Removal is as welcome as addition.
+1. **Simplest that works.** Can existing mechanisms express the case adequately? If not, compare a coherent extension with replacement. A demonstrated limitation can justify greater power or a rebuild; avoid both unnecessary complexity and artificial limits imposed to preserve the prototype.
 2. **Nothing scripted.** Behavior comes from goals, capabilities, information and the planner. A world that says "agents do X when Y" has a bug.
 3. **Every assumption swept or declared.** Each number is in the world's register and swept, or fixed with a stated reason. Record source, seeds and duration. Robustness is relative to the tested space and sampling rule; repeated seeds and one-at-a-time endpoints do not establish it alone.
 4. **Emerges, not asserted.** State the expected outcome and what would contradict it before building. If the setup contains the conclusion, the case is void. Failed expectations require diagnosis, not automatic expansion of the model.
@@ -44,7 +50,7 @@ Simple beats complete. Emergent beats impressive. A negative result that holds b
 
 - Rediscovery cases have reproducible outcomes, scoped claims and preserved counterexamples without case-specific behavior scripts.
 - The engine finds, on a real design, a chain its authors did not see.
-- The spec stays the same size or shrinks while the world library grows.
+- New cases reuse coherent mechanisms; expansions earn their complexity and replacements retire obsolete ones. Spec size is a diagnostic, not a ceiling on capability.
 - Two agents work here in alternating sessions from the files alone.
 - Protocol proposals specify adoption, enforcement, challenge, amendment and exit, and earn support through reversible trials as well as modeling. The present engine does not validate such a protocol.
 

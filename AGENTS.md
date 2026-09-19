@@ -12,6 +12,8 @@ Read `INTENT.md` first, every session. Then `TASKS.md` and the last three entrie
 
 A lower layer never changes the meaning of a higher one. A world that needs something the spec cannot express is a proposal against the spec, not a workaround in the world.
 
+The implementation and current model are replaceable. When a limitation matters, compare extending with rebuilding; choose the simplest architecture that addresses the demonstrated cases. Preserve the intent and revisioned evidence, not obsolete internals. Record the decision before changing core code, migrate tests deliberately, and remove superseded mechanisms instead of layering exceptions. Owner authorization for this evolution is standing; ASK items still apply to changes in values or real-world scenario scope, not routine architecture choices.
+
 ## The session loop
 
 1. Read the three files above. Run `python -m pytest -q`. If red, fixing it is the task.
@@ -41,7 +43,7 @@ A lower layer never changes the meaning of a higher one. A world that needs some
 ## Things agents get wrong here
 
 - Scripting behavior. "Agents sanction defectors" is a bug. Give them the sanction action and the goal, and let the planner decide.
-- Adding a primitive because the world would be clearer. Clearer is not a test. A case that cannot be expressed is.
+- Adding a primitive because the world would be clearer, or refusing a needed replacement to protect old code. A consequential, reproducible limitation is the test; compare both extension and replacement.
 - A number outside `SPACE` or `FIXED`.
 - Tuning until a test passes. If the expected outcome only appears at a corner, say so in the case file. That is a finding.
 - Making the planner cleverer before a case needs it. Level-0 beliefs stayed until the commons showed they cannot hold a norm.
