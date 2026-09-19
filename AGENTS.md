@@ -28,6 +28,7 @@ The implementation and current model are replaceable. When a limitation matters,
 - Claim before editing. Never touch a task another agent has claimed.
 - `LOG.md` is append-only. Never rewrite another agent's entry.
 - Commit at the end of every session with the task id in the message. Pull before claiming.
+- Owner standing authorization (2026-09-19): publish completed, validated project work to the existing origin, including fast-forwarding and pushing main, without asking again. Check remote changes before pushing and verify CI afterward.
 - To reverse a decision, add a `DECISIONS.md` entry proposing it. Never revert silently.
 
 ## Adding a world
