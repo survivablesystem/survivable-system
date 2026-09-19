@@ -1,0 +1,482 @@
+{
+  "defaults": {
+    "channels": "all",
+    "confiscation_to": "sanctioners",
+    "discount": 0.9,
+    "hi_mult": 2,
+    "horizon": 12,
+    "k": 1,
+    "n": 4,
+    "prior": "lo",
+    "r": 0.5,
+    "sanction": true,
+    "sanction_cost": 0.1
+  },
+  "fixed": {
+    "K": {
+      "reason": "Resource unit scale; yields and sanction costs scale with carrying capacity.",
+      "value": 100.0
+    },
+    "S0_frac": {
+      "reason": "Starts at maximum logistic growth. Held fixed for baseline comparability; recovery from depleted stock is untested.",
+      "value": 0.5
+    },
+    "S_min_frac": {
+      "reason": "Assumed irreversible collapse threshold. Held fixed in v0; threshold sensitivity is untested.",
+      "value": 0.05
+    },
+    "lo_frac": {
+      "reason": "Low demand is 80% of maximum sustainable yield, below the knife-edge. Other margins are untested.",
+      "value": 0.8
+    }
+  },
+  "limitations": [
+    "Shares describe sampled assumptions, not probabilities of the world.",
+    "Nonterminal outcomes only describe survival through the recorded duration.",
+    "Constant-action rollouts and expected transitions can miss adaptive plans and threshold risk.",
+    "One-at-a-time endpoints omit interactions; random-sweep associations are not causal effects.",
+    "Source hashes cover local engine, worlds, spec and intent; external data/dependencies need separate provenance."
+  ],
+  "mode": "trace",
+  "provenance": {
+    "git_commit": "f26e7f93bc44ccb953caacce0e27f39c1f2286de",
+    "git_dirty": false,
+    "implementation": "CPython",
+    "python": "3.12.3",
+    "source_sha256": {
+      "INTENT.md": "46d62288c66d79fb4c43a4c1bd5ccd22a82eadb6350c31d0ffaa422c15b4ede3",
+      "engine/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "engine/__main__.py": "4392eeaabc22a04fc25d453cc8f409724c7e24bbd3262b0364ffffc52383cfba",
+      "engine/core.py": "d04e64371c07022b05722d4f1d39ff5048ddda99e9110b374f27e701d5c4548d",
+      "engine/records.py": "32c312f9d30699d393b6b5499a5f94f17cfac8e9c062c4faa6883ca3c7e39029",
+      "engine/sweep.py": "c89162902060508f89039305b700cb360a71b1ab69da0d8845981c507a490565",
+      "spec/PRIMITIVES.md": "6decc3bcd9c9757d227170597437657bfce19445fc81f664a2e20730102fdaa1",
+      "worlds/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "worlds/commons.py": "dea980166a8ab4341e644232216e63c80884c3a9537dd6230b580ac9a7fb24a0"
+    }
+  },
+  "register": {
+    "channels": {
+      "kind": "choice",
+      "values": [
+        "none",
+        "all"
+      ]
+    },
+    "confiscation_to": {
+      "kind": "choice",
+      "values": [
+        "stock",
+        "sanctioners"
+      ]
+    },
+    "discount": {
+      "kind": "float",
+      "max": 0.99,
+      "min": 0.8
+    },
+    "hi_mult": {
+      "kind": "int",
+      "max": 4,
+      "min": 2
+    },
+    "horizon": {
+      "kind": "int",
+      "max": 20,
+      "min": 1
+    },
+    "k": {
+      "kind": "choice",
+      "values": [
+        0,
+        1
+      ]
+    },
+    "n": {
+      "kind": "int",
+      "max": 12,
+      "min": 2
+    },
+    "prior": {
+      "kind": "choice",
+      "values": [
+        "lo",
+        "hi",
+        "ready"
+      ]
+    },
+    "r": {
+      "kind": "float",
+      "max": 0.8,
+      "min": 0.3
+    },
+    "sanction": {
+      "kind": "choice",
+      "values": [
+        false,
+        true
+      ]
+    },
+    "sanction_cost": {
+      "kind": "float",
+      "max": 1.0,
+      "min": 0.0
+    }
+  },
+  "results": [
+    {
+      "final_state": {
+        "S": 0.0,
+        "collapsed": true,
+        "last": {
+          "u0": [
+            "hi",
+            false
+          ],
+          "u1": [
+            "hi",
+            false
+          ],
+          "u2": [
+            "hi",
+            false
+          ],
+          "u3": [
+            "hi",
+            false
+          ]
+        },
+        "value": {
+          "u0": 5.0,
+          "u1": 5.0,
+          "u2": 5.0,
+          "u3": 5.0
+        },
+        "wealth": {
+          "u0": 25.0,
+          "u1": 25.0,
+          "u2": 25.0,
+          "u3": 25.0
+        }
+      },
+      "label": "collapsed",
+      "params": {
+        "channels": "all",
+        "confiscation_to": "sanctioners",
+        "discount": 0.9,
+        "hi_mult": 2,
+        "horizon": 1,
+        "k": 1,
+        "n": 4,
+        "prior": "lo",
+        "r": 0.5,
+        "sanction": false,
+        "sanction_cost": 0.1
+      },
+      "rounds_requested": 30,
+      "rounds_run": 5,
+      "seed": 0,
+      "terminal": "collapsed",
+      "trace": [
+        {
+          "actions": {
+            "u0": [
+              "hi",
+              false
+            ],
+            "u1": [
+              "hi",
+              false
+            ],
+            "u2": [
+              "hi",
+              false
+            ],
+            "u3": [
+              "hi",
+              false
+            ]
+          },
+          "round": 1,
+          "state": {
+            "S": 42.5,
+            "collapsed": false,
+            "last": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "value": {
+              "u0": 5.0,
+              "u1": 5.0,
+              "u2": 5.0,
+              "u3": 5.0
+            },
+            "wealth": {
+              "u0": 5.0,
+              "u1": 5.0,
+              "u2": 5.0,
+              "u3": 5.0
+            }
+          }
+        },
+        {
+          "actions": {
+            "u0": [
+              "hi",
+              false
+            ],
+            "u1": [
+              "hi",
+              false
+            ],
+            "u2": [
+              "hi",
+              false
+            ],
+            "u3": [
+              "hi",
+              false
+            ]
+          },
+          "round": 2,
+          "state": {
+            "S": 34.71875,
+            "collapsed": false,
+            "last": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "value": {
+              "u0": 5.0,
+              "u1": 5.0,
+              "u2": 5.0,
+              "u3": 5.0
+            },
+            "wealth": {
+              "u0": 10.0,
+              "u1": 10.0,
+              "u2": 10.0,
+              "u3": 10.0
+            }
+          }
+        },
+        {
+          "actions": {
+            "u0": [
+              "hi",
+              false
+            ],
+            "u1": [
+              "hi",
+              false
+            ],
+            "u2": [
+              "hi",
+              false
+            ],
+            "u3": [
+              "hi",
+              false
+            ]
+          },
+          "round": 3,
+          "state": {
+            "S": 26.051166992187504,
+            "collapsed": false,
+            "last": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "value": {
+              "u0": 5.0,
+              "u1": 5.0,
+              "u2": 5.0,
+              "u3": 5.0
+            },
+            "wealth": {
+              "u0": 15.0,
+              "u1": 15.0,
+              "u2": 15.0,
+              "u3": 15.0
+            }
+          }
+        },
+        {
+          "actions": {
+            "u0": [
+              "hi",
+              false
+            ],
+            "u1": [
+              "hi",
+              false
+            ],
+            "u2": [
+              "hi",
+              false
+            ],
+            "u3": [
+              "hi",
+              false
+            ]
+          },
+          "round": 4,
+          "state": {
+            "S": 15.68343398000706,
+            "collapsed": false,
+            "last": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "value": {
+              "u0": 5.0,
+              "u1": 5.0,
+              "u2": 5.0,
+              "u3": 5.0
+            },
+            "wealth": {
+              "u0": 20.0,
+              "u1": 20.0,
+              "u2": 20.0,
+              "u3": 20.0
+            }
+          }
+        },
+        {
+          "actions": {
+            "u0": [
+              "hi",
+              false
+            ],
+            "u1": [
+              "hi",
+              false
+            ],
+            "u2": [
+              "hi",
+              false
+            ],
+            "u3": [
+              "hi",
+              false
+            ]
+          },
+          "round": 5,
+          "state": {
+            "S": 0.0,
+            "collapsed": true,
+            "last": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "value": {
+              "u0": 5.0,
+              "u1": 5.0,
+              "u2": 5.0,
+              "u3": 5.0
+            },
+            "wealth": {
+              "u0": 25.0,
+              "u1": 25.0,
+              "u2": 25.0,
+              "u3": 25.0
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "settings": {
+    "baseline": {
+      "channels": "all",
+      "confiscation_to": "sanctioners",
+      "discount": 0.9,
+      "hi_mult": 2,
+      "horizon": 1,
+      "k": 1,
+      "n": 4,
+      "prior": "lo",
+      "r": 0.5,
+      "sanction": false,
+      "sanction_cost": 0.1
+    },
+    "overrides": {
+      "horizon": 1,
+      "sanction": false
+    },
+    "rounds": 30,
+    "seed": 0
+  },
+  "world": "worlds.commons"
+}
