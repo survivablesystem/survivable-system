@@ -1,0 +1,297 @@
+{
+  "cases": {
+    "directed": [
+      {
+        "actor_observes": false,
+        "chosen": "take",
+        "responder_observes": false,
+        "values": [
+          {
+            "action": "quiet",
+            "value": 1.0
+          },
+          {
+            "action": "take",
+            "value": 2.0
+          }
+        ]
+      },
+      {
+        "actor_observes": false,
+        "chosen": "quiet",
+        "responder_observes": true,
+        "values": [
+          {
+            "action": "quiet",
+            "value": 1.0
+          },
+          {
+            "action": "take",
+            "value": 1.0
+          }
+        ]
+      },
+      {
+        "actor_observes": true,
+        "chosen": "take",
+        "responder_observes": false,
+        "values": [
+          {
+            "action": "quiet",
+            "value": 1.0
+          },
+          {
+            "action": "take",
+            "value": 2.0
+          }
+        ]
+      },
+      {
+        "actor_observes": true,
+        "chosen": "quiet",
+        "responder_observes": true,
+        "values": [
+          {
+            "action": "quiet",
+            "value": 1.0
+          },
+          {
+            "action": "take",
+            "value": 1.0
+          }
+        ]
+      }
+    ],
+    "fixed": {
+      "DirectedResponse": {
+        "discount": 1.0,
+        "gain": 1.0,
+        "horizon": 2,
+        "penalty": 3.0,
+        "response_reward": 1.0,
+        "wrong_response_cost": 1.0
+      },
+      "EqualActions": {
+        "discount": 1.0,
+        "horizon": 1,
+        "payoff": 1.0
+      },
+      "HiddenBit": {
+        "correct": 1.0,
+        "discount": 1.0,
+        "horizon": 1,
+        "incorrect": 0.0,
+        "prior_bit": 0
+      },
+      "Investment": {
+        "consume": 1.0,
+        "cost": 1.0,
+        "discount": 1.0,
+        "horizon": 2,
+        "return": 4.0
+      },
+      "ThresholdRisk": {
+        "discount": 1.0,
+        "high_stock": 7.0,
+        "horizon": 1,
+        "loss": -10.0,
+        "low_probability": 0.5,
+        "low_stock": 3.0,
+        "safe": 1.0,
+        "threshold": 4.0,
+        "upside": 2.0
+      }
+    },
+    "hidden": [
+      {
+        "chosen": 0,
+        "secret": 0,
+        "values": [
+          {
+            "action": 0,
+            "value": 1.0
+          },
+          {
+            "action": 1,
+            "value": 0.0
+          }
+        ],
+        "visible": false
+      },
+      {
+        "chosen": 0,
+        "secret": 1,
+        "values": [
+          {
+            "action": 0,
+            "value": 1.0
+          },
+          {
+            "action": 1,
+            "value": 0.0
+          }
+        ],
+        "visible": false
+      },
+      {
+        "chosen": 0,
+        "secret": 0,
+        "values": [
+          {
+            "action": 0,
+            "value": 1.0
+          },
+          {
+            "action": 1,
+            "value": 0.0
+          }
+        ],
+        "visible": true
+      },
+      {
+        "chosen": 1,
+        "secret": 1,
+        "values": [
+          {
+            "action": 0,
+            "value": 0.0
+          },
+          {
+            "action": 1,
+            "value": 1.0
+          }
+        ],
+        "visible": true
+      }
+    ],
+    "investment": {
+      "after_invest": {
+        "chosen": "consume",
+        "values": [
+          {
+            "action": "consume",
+            "value": 8.0
+          },
+          {
+            "action": "invest",
+            "value": 3.0
+          }
+        ]
+      },
+      "chosen": "invest",
+      "sequences": [
+        {
+          "actions": [
+            "consume",
+            "consume"
+          ],
+          "value": 2.0
+        },
+        {
+          "actions": [
+            "consume",
+            "invest"
+          ],
+          "value": 0.0
+        },
+        {
+          "actions": [
+            "invest",
+            "consume"
+          ],
+          "value": 3.0
+        },
+        {
+          "actions": [
+            "invest",
+            "invest"
+          ],
+          "value": -2.0
+        }
+      ],
+      "values": [
+        {
+          "action": "consume",
+          "value": 2.0
+        },
+        {
+          "action": "invest",
+          "value": 3.0
+        }
+      ]
+    },
+    "threshold": {
+      "chosen": "safe",
+      "exact_values": {
+        "risky": -4.0,
+        "safe": 1.0
+      },
+      "values": [
+        {
+          "action": "safe",
+          "value": 1.0
+        },
+        {
+          "action": "risky",
+          "value": -4.0
+        }
+      ]
+    },
+    "ties": [
+      {
+        "chosen": "left",
+        "order": [
+          "left",
+          "right"
+        ],
+        "values": [
+          {
+            "action": "left",
+            "value": 1.0
+          },
+          {
+            "action": "right",
+            "value": 1.0
+          }
+        ]
+      },
+      {
+        "chosen": "right",
+        "order": [
+          "right",
+          "left"
+        ],
+        "values": [
+          {
+            "action": "right",
+            "value": 1.0
+          },
+          {
+            "action": "left",
+            "value": 1.0
+          }
+        ]
+      }
+    ]
+  },
+  "fixture_sha256": "50b3ba79681159e2327235fc4307d826a37d6f1974544735f76afd4de5d1fdc0",
+  "kind": "planner-audit",
+  "provenance": {
+    "git_commit": "8bfa73a4cbd2cb3da8c1c99ddd755b99b2b61ecb",
+    "git_dirty": false,
+    "implementation": "CPython",
+    "python": "3.12.3",
+    "source_sha256": {
+      "INTENT.md": "683e2da3b9a3daba69f7ed71c616b63d1ea0145bca0fed19944d6a6e52d36482",
+      "engine/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "engine/__main__.py": "ec1e31398de395b2a2260694ff3f47b9e87360d989612349fb020b4f43d2456d",
+      "engine/core.py": "c0570273198840c22402c947e4e68ae30471575161da57e908fc196453518d75",
+      "engine/records.py": "1ff28437cd93bee6daf5abcf98f8d402bd35905027170ac5b1e97641cc52aa43",
+      "engine/sweep.py": "e435934caf8b56f1db65fbaeba82fe5fd9cb74b25d7c1827daf33064ba6b0887",
+      "spec/PRIMITIVES.md": "7fd7ca59dc51afeb602fac236578e6699028dfddaf6fcaed1b56f5ca92bf2279",
+      "worlds/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "worlds/commons.py": "6fdecd9f83f6439d302217e0aecdecfa5ceadd30536e6c7305be6babc62bbae0"
+    }
+  },
+  "schema_version": 1
+}
