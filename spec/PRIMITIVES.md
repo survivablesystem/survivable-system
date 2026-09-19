@@ -1,4 +1,4 @@
-# Primitives, v0.1
+# Primitives, v0.2
 
 The current model, not an immutable ontology. Adopted 2026-09-15 and revised through `DECISIONS.md`. Replace abstractions when discriminating cases support a simpler or more capable account consistent with INTENT. The status table distinguishes implemented mechanisms from proposals.
 
@@ -18,7 +18,7 @@ agent:
                 and beliefs about what other agents will do. Beliefs exist with or
                 without a channel; they decide whether coalitions form. Beliefs are
                 level-k (engine/core.py): level 0 expects repetition; level 1 models
-                one response by agents that observe the actor. Observation is directed.
+                direct observers as level-0 planners at future nodes. Observation is directed.
                 Their effects on norms are case-dependent findings.
   resources:    vector over resource kinds.
   horizon:      how far ahead it plans and how it discounts. A parameter, not a behavior.
@@ -26,11 +26,15 @@ agent:
 
 No behavior is scripted. Each round an agent plans from its goals, capabilities, information and horizon, and acts. The planner belongs to the engine, not the model. Its rationality is a swept assumption.
 
-Planning information: each world must implement `belief_state(state, agent)`, a pure projection to a complete hypothetical state using permitted observations and declared point priors. Candidate actions and rollouts use that state; execution uses truth. Two states indistinguishable to an agent must yield the same planning state and action values. Nested plans receive the parent's hypothetical state, not the original hidden truth. Fully informed worlds may explicitly return state. World methods and attributes must not bypass this contract by reading stored private facts; this is a modeling interface, not a security sandbox.
+Planning information: worlds implement pure `observe(state, agent)` and `beliefs(observation, agent)`. Observations contain only permitted information, including any modeled memory. Beliefs are finite `(probability, hypothetical state)` supports consistent with that observation; full information uses a singleton. Menus receive observations. Nested plans receive the parent's hypothetical state, never original hidden truth. Indistinguishable states must yield identical root beliefs, menus and values. Methods and attributes must not bypass this contract. This is a modeling interface, not a security sandbox. Observations must include channel-permitted action history used by `observed_last`; authors declare any additional public information.
 
-Level 1 assumes known channel topology and utility functions. After one simulated step, it models a response by each other agent whose incoming channels include the actor, even if the actor cannot observe that responder. This is a direct-observation approximation; inferring an action from public effects is not modeled. Point priors are not distributions over hidden states or Bayesian learning.
+Search: enumerate candidate actions, integrate immediate utility over `outcomes(state, joint)`, then group nonterminal successors by the actor's observation. Each group forms a conditional belief; choose one future action for that group. Different hidden truths cannot receive different actions unless observations distinguish them. Histories are retained along separate tree paths. No automatic belief memory persists between real rounds: a world must include sufficient history in its observations and reconstruct its beliefs. World states/actions/observations use finite JSON-compatible data with string dictionary keys. Goals must be finite.
 
-Remaining limits: v0 holds each candidate action throughout the horizon, then replans next round. Modeled responses are held after one update; ties select the first listed action within numerical tolerance. Rollouts use expected transitions, not trajectory distributions. `rediscovery/planner-audit.md` demonstrates rejected profitable sequences and reversed rankings at irreversible thresholds. Actions must remain meaningful throughout rollouts. These cases now justify T1.3, a coherent planner/transition replacement rather than world-specific fixes.
+Level 1 assumes known topology and utilities. At every future search node, direct observers of the actor replan at level 0, even if the actor cannot observe them. Their depth is bounded by their own effective depth and the remaining parent depth. At the root everyone else repeats observed last actions or declared priors; simulated responses begin after one transition. Non-observers continue repetition/priors. This is a subjective direct-response approximation, not simultaneous equilibrium, theory-of-mind inference from arbitrary effects, or higher-level belief reasoning. Only levels 0 and 1 are supported.
+
+Computation: effective depth is `min(horizon, search_depth)` when a cap is supplied, otherwise horizon. There is no tail estimate. First-listed ties within absolute tolerance `1e-12` remain substantive. Search integrates all supplied branches; `node_budget` counts emitted belief and transition entries, including zero-weight entries and nested plans. A cap overrun aborts the decision and run as `search_limit`; it never chooses a partially evaluated winner. The cap bounds enumeration work, not runtime of arbitrary Python world code. Execution samples one outcome from the same kernel; deterministic execution needs no RNG, stochastic execution requires one. Kernel weights are nonnegative, finite and sum to one within `1e-12` (only floating-point normalization is applied). Terminal rewards count on entry, never again.
+
+Commons declares depth choices 1/2/3 and a fixed work cap. Large populations or deeper trees may be unresolved; they cannot be counted as survival or collapse. Exactness means agreement with this finite subjective model and depth, not an optimal institutional design. The investment, nonlinear-risk and hidden-branch diagnostics justify this replacement; see `rediscovery/planner-replacement.md` for measured cost and changed conclusions.
 
 ## The world
 
@@ -82,7 +86,7 @@ For a composed world, under a sweep over the assumptions register:
 
 Everything that must be swept, because it is where modeling opinion hides: goals per type; horizon and discount per type; conversion rates and returns to scale; contest function form; channel noise; delegation drift; planner rationality. A finding is robust if it holds across the sweep. Otherwise it is reported with the assumption it depends on.
 
-Fixed values require reasons, including substantive assumptions held fixed for a scoped experiment. A run record includes parameters, stochastic seed, requested/executed rounds, final state and source provenance. One-at-a-time results are local diagnostics; random-sweep dependence tables are associations, not causal estimates. Design choices and uncertain conditions still share SPACE; separating them for paired comparisons is pending.
+Fixed values require reasons, including substantive assumptions held fixed for a scoped experiment. Schema-2 run records include parameters, seed, requested/executed rounds, final state, status, per-agent effective planning limits and source provenance. Unresolved records have `label: null`; partial traces contain only completed physical rounds. Shares retain unresolved records in the denominator and label them separately. One-at-a-time results are local diagnostics; random-sweep dependence tables are associations, not causal estimates. Design choices and uncertain conditions still share SPACE; separating them for paired comparisons is pending.
 
 ## Not in the model
 

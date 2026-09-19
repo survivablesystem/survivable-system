@@ -1,173 +1,258 @@
-"""Survivable System engine, v0.
-
-Implements the parts of spec/PRIMITIVES.md marked implemented there. A World defines
-state, available actions, dynamics and per-round goal values. The engine supplies what
-no world may supply for itself: the planner, the run loop, and (in sweep.py) the sweep.
-
-No behavior is scripted. Each round every agent evaluates each available action by
-rolling the world forward over its horizon under its beliefs about the others, and takes
-the action with the best discounted goal.
-
-Beliefs are level-k, and k is a swept assumption:
-  k = 0  an observed agent repeats its last action; an unobserved one takes the prior.
-  k = 1  agents that observe this agent are modeled as level-0 planners: after one
-         simulated step they pick a response and hold it, including one-way observers.
-         Others repeat their last observed action or take the prior.
-These are restricted, constant-action rollouts from an explicit subjective state,
-not optimal adaptive policies or distributions over possible trajectories.
-"""
+"""Finite belief-tree search over one stochastic kernel. See spec/PRIMITIVES.md."""
 from __future__ import annotations
-
 from dataclasses import dataclass
+import json
+import math
 
 
 @dataclass(frozen=True)
 class Agent:
     id: str
-    horizon: int = 10           # rounds it plans over
-    discount: float = 0.9       # per-round discount on goal value
+    horizon: int = 10
+    discount: float = 0.9
     capabilities: frozenset = frozenset()
-    channels: frozenset = frozenset()   # ids of agents this one observes
-    k: int = 0                  # belief level, see module docstring
+    channels: frozenset = frozenset()  # incoming: whom this agent observes
+    k: int = 0
+    search_depth: int | None = None
+    node_budget: int = 20_000
 
-    def can(self, capability: str) -> bool:
+    def __post_init__(self):
+        for name, value in (("horizon", self.horizon), ("node_budget", self.node_budget),
+                            ("search_depth", self.horizon if self.search_depth is None else self.search_depth)):
+            if type(value) is not int or value < 1:
+                raise ValueError(f"{name} must be a positive integer")
+        if self.k not in (0, 1):
+            raise ValueError("implemented belief levels are 0 and 1")
+        if not math.isfinite(self.discount) or not 0 <= self.discount <= 1:
+            raise ValueError("discount must be finite and in [0, 1]")
+
+    @property
+    def depth(self):
+        return min(self.horizon, self.search_depth) if self.search_depth is not None else self.horizon
+
+    def can(self, capability):
         return capability in self.capabilities
 
-    def observes(self, other_id: str) -> bool:
+    def observes(self, other_id):
         return other_id in self.channels
 
 
-class World:
-    """Subclass per world in worlds/. Keep state as plain data and step pure, so rollouts
-    are cheap copies. Every number a world uses is either in its SPACE (swept) or in its
-    FIXED (with a reason). See AGENTS.md, "Adding a world"."""
+def distribution(items, visit=lambda: None):
+    """Validate finite support; reject broken kernels rather than renormalizing them."""
+    support = []
+    for probability, state in items:
+        visit()  # zero-weight entries also consume work
+        if not math.isfinite(probability) or probability < 0:
+            raise ValueError("probabilities must be finite and nonnegative")
+        if probability:
+            support.append((probability, state))
+    total = math.fsum(p for p, _ in support)
+    if not math.isclose(total, 1.0, rel_tol=0, abs_tol=1e-12):
+        raise ValueError(f"probabilities must sum to 1, got {total}")
+    return [(p / total, s) for p, s in support]
 
+
+def key(data):
+    """States, actions and observations must be finite JSON-compatible data."""
+    return json.dumps(data, sort_keys=True, separators=(",", ":"), allow_nan=False)
+
+
+class World:
     name = "world"
 
-    def __init__(self, params: dict, rng):
-        self.params = params
-        self.rng = rng
+    def __init__(self, params, rng):
+        self.params, self.rng = params, rng
         self.agents: list[Agent] = []
         self.by_id: dict[str, Agent] = {}
 
-    def add(self, agent: Agent) -> None:
+    def add(self, agent):
         self.agents.append(agent)
         self.by_id[agent.id] = agent
 
-    # ---- a world must define these ----
-    def initial_state(self) -> dict:
+    def initial_state(self):
         raise NotImplementedError
 
-    def belief_state(self, state: dict, agent: Agent) -> dict:
-        """Pure projection to a complete hypothetical state for this agent.
+    def observe(self, state, agent):
+        """Pure permitted information, including any memory the world models."""
+        raise NotImplementedError("world must declare observe(state, agent)")
 
-        Use permitted observations and declared point priors, not inaccessible truth.
-        Indistinguishable real states must yield the same planning state. Nested plans
-        receive the parent's hypothetical state; never restore truth from world fields.
-        Fully informed worlds may explicitly return state. All other planning methods
-        must use the projected state and publicly known model, not stored private data.
-        This is a modeling contract, not a security boundary or a belief distribution.
+    def beliefs(self, observation, agent):
+        """Finite (probability, hypothetical state) support from observation and priors.
+
+        Never recover private truth from attributes. Hypotheses must reproduce the
+        observation. Nested agents only see the parent's hypothetical state. Across
+        real rounds, learning requires sufficient history in observations.
         """
-        raise NotImplementedError("world must declare belief_state(state, agent)")
+        raise NotImplementedError("world must declare beliefs(observation, agent)")
 
-    def actions(self, state: dict, agent: Agent) -> list:
-        """Available actions, in a fixed order. Ties in value go to the earlier one."""
+    def actions(self, observation, agent):
+        """Nonempty finite menu from permitted information; first-listed ties win."""
         raise NotImplementedError
 
-    def step(self, state: dict, joint: dict, rng=None) -> dict:
-        """Apply every agent's action and advance one round. Pure: returns a new state.
-        rng None means use expected values (rollouts); an rng means sample (actual play).
-        Must set state["last"] = joint and state["value"][agent_id] = this round's goal value."""
+    def outcomes(self, state, joint):
+        """Pure finite (probability, next state) iterable, including last and value.
+
+        Define dynamics once: planning integrates this kernel, execution samples it.
+        Never return an average of distinct physical states.
+        """
         raise NotImplementedError
 
-    def prior_action(self, agent: Agent, other: Agent):
-        """What `agent` assumes `other` does when it cannot observe it."""
+    def step(self, state, joint, rng=None):
+        support = distribution(self.outcomes(state, joint))
+        if len(support) == 1:
+            return support[0][1]
+        if rng is None:
+            raise ValueError("stochastic execution requires an rng; use outcomes for planning")
+        draw, cumulative = rng.random(), 0.0
+        for probability, successor in support:
+            cumulative += probability
+            if draw < cumulative:
+                return successor
+        return support[-1][1]  # floating-point accumulation at upper endpoint
+
+    def prior_action(self, agent, other):
         raise NotImplementedError
 
-    def terminal(self, state: dict):
-        """Label if the world is in an absorbing state, else None."""
+    def terminal(self, state):
         raise NotImplementedError
 
-    def label(self, state: dict) -> str:
-        """Finite-outcome label at the end of a run; not evidence of convergence."""
+    def label(self, state):
         raise NotImplementedError
 
-    # ---- defaults a world may override ----
-    def value(self, state: dict, agent: Agent) -> float:
+    def value(self, state, agent):
         return state["value"][agent.id]
 
-    def observed_last(self, state: dict, agent: Agent, other: Agent):
+    def observed_last(self, state, agent, other):
         if agent.observes(other.id):
             return state["last"].get(other.id)
         return None
 
 
-# ---------- planner ----------
-
-def believed_joint(world: World, state: dict, agent: Agent, own_action, responses=None) -> dict:
-    """Others' actions as `agent` believes them: a computed response if one is held,
-    else the last observed action, else the prior."""
+def believed_joint(world, state, agent, own_action, responses=None):
     joint = {agent.id: own_action}
     for other in world.agents:
         if other.id == agent.id:
             continue
         if responses and other.id in responses:
             joint[other.id] = responses[other.id]
-            continue
-        last = world.observed_last(state, agent, other)
-        joint[other.id] = last if last is not None else world.prior_action(agent, other)
+        else:
+            last = world.observed_last(state, agent, other)
+            joint[other.id] = last if last is not None else world.prior_action(agent, other)
     return joint
 
 
-def _evaluate(world: World, state: dict, agent: Agent, action, k: int) -> float:
-    """Evaluate an action from an already projected planning state."""
-    total = 0.0
-    s = state
-    responses = None
-    for t in range(agent.horizon):
-        if k >= 1 and t == 1:
-            # The response depends on who sees me, not on whom I can see.
-            responses = {o.id: plan(world, s, o, k - 1)
-                         for o in world.agents if o.id != agent.id and o.observes(agent.id)}
-        s = world.step(s, believed_joint(world, s, agent, action, responses))
-        total += (agent.discount ** t) * world.value(s, agent)
-        if world.terminal(s) is not None:
-            break
-    return total
+class SearchLimitExceeded(RuntimeError):
+    def __init__(self, agent, budget):
+        self.agent, self.budget = agent, budget
+        self.state, self.trace = None, None
+        super().__init__(f"{agent}: search exceeded {budget} belief/transition entries; no decision")
 
 
-def evaluate(world: World, state: dict, agent: Agent, action, k: int) -> float:
-    """Discounted value of holding an action, using only this agent's planning state."""
-    return _evaluate(world, world.belief_state(state, agent), agent, action, k)
+def best(values):
+    winner, maximum = None, None
+    for action, value in values:
+        if maximum is None or value > maximum + 1e-12:
+            winner, maximum = action, value
+    return winner, maximum
 
 
-def action_values(world: World, state: dict, agent: Agent, k: int | None = None) -> list:
-    """Candidate/value pairs in tie-breaking order, from one information projection."""
-    if k is None:
-        k = agent.k
-    belief = world.belief_state(state, agent)
-    return [(action, _evaluate(world, belief, agent, action, k))
-            for action in world.actions(belief, agent)]
+class Search:
+    def __init__(self, world, agent):
+        self.world, self.agent = world, agent
+        self.nodes = 0
+        self.responses = {}
+
+    def visit(self):
+        self.nodes += 1
+        if self.nodes > self.agent.node_budget:
+            raise SearchLimitExceeded(self.agent.id, self.agent.node_budget)
+
+    def initial(self, state, agent):
+        observation = self.world.observe(state, agent)
+        support = distribution(self.world.beliefs(observation, agent), self.visit)
+        if any(key(self.world.observe(s, agent)) != key(observation) for _, s in support):
+            raise ValueError("belief hypotheses must agree with the supplied observation")
+        return observation, support
+
+    def response(self, state, agent, depth):
+        depth = min(depth, agent.depth)
+        cache_key = (agent.id, depth, key(self.world.observe(state, agent)))
+        if cache_key not in self.responses:
+            observation, support = self.initial(state, agent)
+            values = self.values(support, observation, agent, depth, 0, False)
+            self.responses[cache_key] = best(values)[0]
+        return self.responses[cache_key]
+
+    def values(self, support, observation, agent, depth, k, future):
+        if all(self.world.terminal(s) is not None for _, s in support):
+            return []
+        actions = self.world.actions(observation, agent)
+        if not actions:
+            raise ValueError("nonterminal observation requires an action")
+        return [(action, self.q(support, agent, action, depth, k, future)) for action in actions]
+
+    def q(self, support, agent, action, depth, k, future):
+        rewards, groups = [], {}
+        for weight, state in support:
+            if self.world.terminal(state) is not None:
+                continue
+            responses = None
+            if k == 1 and future:
+                responses = {o.id: self.response(state, o, depth) for o in self.world.agents
+                             if o.id != agent.id and o.observes(agent.id)}
+            joint = believed_joint(self.world, state, agent, action, responses)
+            for probability, successor in distribution(self.world.outcomes(state, joint), self.visit):
+                mass = weight * probability
+                reward = self.world.value(successor, agent)
+                if not math.isfinite(reward):
+                    raise ValueError("goal values must be finite")
+                rewards.append(mass * reward)
+                if depth > 1 and self.world.terminal(successor) is None:
+                    observation = self.world.observe(successor, agent)
+                    group = groups.setdefault(key(observation), (observation, []))
+                    group[1].append((mass, successor))
+        total = math.fsum(rewards)
+        for observation, branches in groups.values():
+            mass = math.fsum(p for p, _ in branches)
+            posterior = [(p / mass, s) for p, s in branches]
+            # One continuation per information set, never one per hidden truth.
+            values = self.values(posterior, observation, agent, depth - 1, k, True)
+            total += agent.discount * mass * best(values)[1]
+        return total
 
 
-def plan(world: World, state: dict, agent: Agent, k: int | None = None):
-    best, best_value = None, None
-    for action, v in action_values(world, state, agent, k):
-        if best_value is None or v > best_value + 1e-12:
-            best, best_value = action, v
-    return best
+def action_values(world, state, agent, k=None):
+    level = agent.k if k is None else k
+    if level not in (0, 1):
+        raise ValueError("implemented belief levels are 0 and 1")
+    search = Search(world, agent)
+    observation, support = search.initial(state, agent)
+    return search.values(support, observation, agent, agent.depth, level, False)
 
 
-# ---------- run ----------
+def evaluate(world, state, agent, action, k):
+    for candidate, value in action_values(world, state, agent, k):
+        if candidate == action:
+            return value
+    raise ValueError("action is not available")
 
-def run(world: World, rounds: int, rng):
-    """Play the world for `rounds` rounds or until terminal. Returns (label, state, trace)."""
-    state = world.initial_state()
-    trace = []
+
+def plan(world, state, agent, k=None):
+    return best(action_values(world, state, agent, k))[0]
+
+
+def run(world, rounds, rng):
+    if rounds < 1:
+        raise ValueError("rounds must be positive")
+    state, trace = world.initial_state(), []
     for _ in range(rounds):
-        joint = {a.id: plan(world, state, a) for a in world.agents}
-        state = world.step(state, joint, rng)
-        trace.append((joint, state))
         if world.terminal(state) is not None:
             break
+        try:
+            joint = {a.id: plan(world, state, a) for a in world.agents}
+        except SearchLimitExceeded as error:
+            error.state, error.trace = state, trace
+            raise
+        state = world.step(state, joint, rng)
+        trace.append((joint, state))
     return world.label(state), state, trace

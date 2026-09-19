@@ -37,7 +37,7 @@ def test_cli_json_records_replay(mode):
                     "--fix", "n=4", "horizon=1", "k=0")
     assert completed.returncode == 0, completed.stderr
     data = json.loads(completed.stdout)
-    assert data["schema_version"] == 1 and data["mode"] == mode
+    assert data["schema_version"] == 2 and data["mode"] == mode
     assert data["world"] == "worlds.commons"
     assert data["register"]["n"]["kind"] == "int"
     assert data["fixed"]["S_min_frac"]["reason"]
@@ -63,7 +63,7 @@ def test_stochastic_contests_replay_across_hash_seeds():
     script = """
 import json, random
 from worlds import commons
-w = commons.make({**commons.DEFAULTS, 'n': 6}, random.Random(0))
+w = commons.make({**commons.DEFAULTS, 'n': 6}, random.Random(1))
 joint = {a.id: (commons.LO, True) if i < 2 else (commons.HI, False)
          for i, a in enumerate(w.agents)}
 print(json.dumps(w.step(w.initial_state(), joint, w.rng), sort_keys=True))

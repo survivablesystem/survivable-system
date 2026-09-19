@@ -100,7 +100,10 @@ def main():
         print("params:", params)
         for entry in result["trace"]:
             print(f"round {entry['round']:3d}  " + mod.describe(entry["actions"], entry["state"]))
-        print(f"outcome: {result['label']}; rounds run: {result['rounds_run']}/{args.rounds}; terminal: {result['terminal']}")
+        print(f"status: {result['status']}; outcome: {result['label']}; rounds run: {result['rounds_run']}/{args.rounds}; terminal: {result['terminal']}")
+        print("planning:", result["planning"])
+        if "error" in result:
+            print(result["error"]["message"])
         print("Finite duration only; no convergence or real-world probability is established.")
         return
 

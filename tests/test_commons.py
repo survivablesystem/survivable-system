@@ -6,63 +6,99 @@ diagnose it and record the finding; do not tune the model until it passes.
 """
 import random
 
-from engine.core import run
+import pytest
+
+from engine.core import action_values, run
+from engine.records import run_record
 from worlds import commons
 
-FAVORABLE = commons.DEFAULTS
+BASELINE = commons.DEFAULTS
 SEEDS = 4
 ROUNDS = 30
 
 
-def sustained_share(overrides, seeds=SEEDS, rounds=ROUNDS):
+def survival_share(overrides, seeds=SEEDS, rounds=ROUNDS):
     labels = []
     for s in range(seeds):
-        params = {**FAVORABLE, **overrides}
+        params = {**BASELINE, **overrides}
         world = commons.make(params, random.Random(s))
         labels.append(run(world, rounds, world.rng)[0])
     return labels.count("survived") / len(labels)
 
 
-def test_favorable_conditions_sustain():
-    assert sustained_share({}) >= 0.75
+def test_old_favorable_baseline_now_collapses():
+    # T1.3: adaptive plans and branch-weighted payoffs produce a depleting cycle.
+    # Preserve the contrary finding; no mechanism was tuned to restore survival.
+    assert survival_share({}) <= 0.25
+
+
+def test_baseline_depletion_cycle_has_computed_choices():
+    world = commons.make(BASELINE, random.Random(0))
+    state = world.initial_state()
+    expected = [(commons.HI, False), (commons.LO, True), (commons.LO, False)]
+    for action in expected:
+        for actor in world.agents:
+            values = action_values(world, state, actor)
+            assert dict(values)[action] == max(value for _, value in values)
+        state = world.step(state, {a.id: action for a in world.agents}, world.rng)
+    assert state["S"] < world.initial_state()["S"]
 
 
 def test_no_channels_collapses():
-    assert sustained_share({"channels": "none"}) <= 0.25
+    assert survival_share({"channels": "none"}) <= 0.25
 
 
 def test_no_sanction_capability_collapses():
-    assert sustained_share({"sanction": False}) <= 0.25
+    assert survival_share({"sanction": False}) <= 0.25
 
 
 def test_channels_alone_are_not_enough():
     # detection without response
-    assert sustained_share({"sanction": False, "channels": "all"}) <= 0.25
+    assert survival_share({"sanction": False, "channels": "all"}) <= 0.25
 
 
 def test_sanction_alone_is_not_enough():
     # response without detection
-    assert sustained_share({"sanction": True, "channels": "none"}) <= 0.25
+    assert survival_share({"sanction": True, "channels": "none"}) <= 0.25
 
 
 def test_short_horizon_collapses():
-    assert sustained_share({"horizon": 1}) <= 0.25
+    assert survival_share({"horizon": 1}) <= 0.25
 
 
 def test_unpaid_sanctioning_collapses():
-    # second-order free riding: a sanction whose only benefit is the shared stock is
-    # never worth its cost to the sanctioner within its horizon, so nobody sanctions
-    assert sustained_share({"confiscation_to": "stock"}) <= 0.25
+    # Scoped unpaid-sanction control; no universal free-riding claim.
+    assert survival_share({"confiscation_to": "stock"}) <= 0.25
 
 
-def test_group_size_does_not_matter_when_sanctioning_pays():
-    # engine finding against the paper case: with full observability and paid
-    # sanctioning, ten users survive as well as four through ROUNDS. The role of
-    # sparse channels in any size effect remains a hypothesis.
-    assert sustained_share({"n": 10}) >= 0.75
+def test_larger_exact_search_is_unresolved_not_a_size_finding():
+    for seed in range(SEEDS):
+        record = run_record(commons.make, {**BASELINE, "n": 10}, ROUNDS, seed)
+        assert record["status"] == "search_limit"
+        assert record["label"] is None and record["terminal"] is None
 
 
 def test_level0_beliefs_cannot_hold_a_norm():
-    # engine finding: with level-0 beliefs nobody expects a sanction before one has
-    # happened, so everyone defects at once and there is never a target to sanction
-    assert sustained_share({"k": 0}) <= 0.25
+    # Duration matters: this configuration survives 12 rounds, but not 30.
+    assert survival_share({"k": 0}) <= 0.25
+
+
+@pytest.mark.parametrize("destination", ["stock", "sanctioners"])
+def test_contest_kernel_matches_independent_bernoulli_arithmetic(destination):
+    world = commons.make({**BASELINE, "n": 6, "confiscation_to": destination}, random.Random(0))
+    joint = {a.id: (commons.LO, True) if i < 2 else (commons.HI, False)
+             for i, a in enumerate(world.agents)}
+    state = world.initial_state()
+    outcomes = list(world.outcomes(state, joint))
+    # Two sanctioners per target: p=2/3. Four independent targets -> 16 branches.
+    assert len(outcomes) == 16 and sum(p for p, _ in outcomes) == pytest.approx(1)
+    assert state == world.initial_state()  # enumeration is pure
+    means = {a.id: sum(p * s["value"][a.id] for p, s in outcomes) for a in world.agents}
+    assert means["u2"] == pytest.approx(world.hi / 3)
+    bounty = 4 * world.hi * (2 / 3) / 2 if destination == "sanctioners" else 0
+    assert means["u0"] == pytest.approx(world.lo - 4 * world.cost + bounty)
+    stock = state["S"] + BASELINE["r"] * state["S"] * (1 - state["S"] / world.K)
+    stock -= 2 * world.lo + 4 * world.hi
+    if destination == "stock":
+        stock += 4 * world.hi * (2 / 3)
+    assert sum(p * s["S"] for p, s in outcomes) == pytest.approx(stock)

@@ -1,5 +1,7 @@
 # Diagnostic cases: information and planning (T1.0)
 
+Historical audit of the pre-replacement engine. T1.3 supersedes its point-belief/mean-transition interfaces and resolves the measured sequence/risk gaps; current findings and migrated exact tests are in `planner-replacement.md`. Before/after T1.0 artifacts remain unchanged.
+
 These are constructed counterexamples with arithmetic reference answers, not historical claims. They test engine contracts before sparse channels or hidden-information worlds rely on them. Constants are named in the diagnostic fixtures; no result is a frequency estimate about real systems.
 
 ## Questions and disconfirmation

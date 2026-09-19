@@ -9,12 +9,15 @@ or to the sanctioners, a design choice in the register.
 
 Nothing here says when to take or when to sanction. The planner decides from goals.
 """
+from itertools import product
+
 from engine.core import Agent, World
 
 # Assumptions register for this world. Everything here is swept.
 SPACE = {
     "n": (2, 12, int),
     "horizon": (1, 20, int),
+    "search_depth": [1, 2, 3],       # explicit computational cap; no tail estimate
     "discount": (0.8, 0.99),
     "channels": ["none", "all"],      # whether users observe each other's takes
     "sanction": [False, True],        # whether users have the sanction capability
@@ -26,8 +29,10 @@ SPACE = {
     "confiscation_to": ["stock", "sanctioners"],  # where a confiscated take goes: a design choice
 }
 # Only K is a scale choice. The dimensionless fractions are substantive assumptions.
-FIXED = {"K": 100.0, "S0_frac": 0.5, "S_min_frac": 0.05, "lo_frac": 0.8}
+FIXED = {"K": 100.0, "S0_frac": 0.5, "S_min_frac": 0.05, "lo_frac": 0.8,
+         "node_budget": 20_000}
 FIXED_REASONS = {
+    "node_budget": "Per-decision belief/transition-entry cap, including nested plans. Exhaustion is unresolved, not a physical outcome; chosen to bound exact enumeration cost.",
     "K": "Resource unit scale; yields and sanction costs scale with carrying capacity.",
     "S0_frac": "Starts at maximum logistic growth. Held fixed for baseline comparability; recovery from depleted stock is untested.",
     "S_min_frac": "Assumed irreversible collapse threshold. Held fixed in v0; threshold sensitivity is untested.",
@@ -36,7 +41,7 @@ FIXED_REASONS = {
 # Used by --trace when a swept param is not fixed on the command line.
 DEFAULTS = {"n": 4, "horizon": 12, "discount": 0.9, "channels": "all", "sanction": True,
             "sanction_cost": 0.1, "prior": "lo", "r": 0.5, "hi_mult": 2, "k": 1,
-            "confiscation_to": "sanctioners"}
+            "confiscation_to": "sanctioners", "search_depth": 2}
 
 LO, HI = "lo", "hi"
 
@@ -57,7 +62,8 @@ class Commons(World):
         caps = frozenset({"take", "sanction"} if p["sanction"] else {"take"})
         for i in ids:
             channels = frozenset(j for j in ids if j != i) if p["channels"] == "all" else frozenset()
-            self.add(Agent(i, p["horizon"], p["discount"], caps, channels, p["k"]))
+            self.add(Agent(i, p["horizon"], p["discount"], caps, channels, p["k"],
+                           p["search_depth"], FIXED["node_budget"]))
 
     def prior_last(self):
         p = self.params["prior"]
@@ -69,13 +75,16 @@ class Commons(World):
                 "last": {i: self.prior_last() for i in ids},
                 "value": {i: 0.0 for i in ids}, "wealth": {i: 0.0 for i in ids}}
 
-    def belief_state(self, state, agent):
+    def observe(self, state, agent):
         # Stock, wealth, dynamics, utilities and channel topology are known in this
-        # world. Other users' unobserved actions are replaced with the declared prior.
+        # world. Other users' unobserved actions are omitted.
         last = {other.id: state["last"][other.id]
-                if other.id == agent.id or agent.observes(other.id)
-                else self.prior_action(agent, other) for other in self.agents}
+                for other in self.agents if other.id == agent.id or agent.observes(other.id)}
         return {**state, "last": last}
+
+    def beliefs(self, observation, agent):
+        last = {o.id: observation["last"].get(o.id, self.prior_action(agent, o)) for o in self.agents}
+        return [(1.0, {**observation, "last": last})]
 
     def actions(self, state, agent):
         acts = [(LO, False), (HI, False)]
@@ -89,11 +98,12 @@ class Commons(World):
     def amount(self, level):
         return self.lo if level == LO else self.hi
 
-    def step(self, state, joint, rng=None):
+    def outcomes(self, state, joint):
         ids = list(joint)
         value = {i: 0.0 for i in ids}
         if state["collapsed"]:
-            return {**state, "last": dict(joint), "value": value}
+            yield 1.0, {**state, "last": dict(joint), "value": value}
+            return
         S = state["S"]
         S = S + self.params["r"] * S * (1 - S / self.K)     # regrowth, then harvest
         takes = {i: self.amount(a[0]) for i, a in joint.items()}
@@ -111,27 +121,30 @@ class Commons(World):
                 if takes[j] > takes[i]:
                     targets.setdefault(j, []).append(i)
                     cost[i] += self.cost
-        confiscated = {i: 0.0 for i in ids}
-        received = {i: 0.0 for i in ids}
-        for j, sanctioners in targets.items():
-            m = len(sanctioners)
-            p_success = m / (m + 1)            # contest: m of capability 1 against 1 of capability 1
-            hit = p_success if rng is None else (1.0 if rng.random() < p_success else 0.0)
-            confiscated[j] = yields[j] * hit
-            if self.params["confiscation_to"] == "sanctioners":
-                for i in sanctioners:
-                    received[i] += confiscated[j] / m
-
-        returned = sum(confiscated.values()) if self.params["confiscation_to"] == "stock" else 0.0
-        S2 = S - sum(yields.values()) + returned
-        collapsed = S2 < self.S_min
-        if collapsed:
-            S2 = 0.0
-        wealth = dict(state["wealth"])
-        for i in ids:
-            value[i] = yields[i] - confiscated[i] - cost[i] + received[i]
-            wealth[i] += value[i]
-        return {"S": S2, "collapsed": collapsed, "last": dict(joint), "value": value, "wealth": wealth}
+        ordered_targets = sorted(targets)
+        # Independent Bernoulli contests; one joint kernel for planning and play.
+        for hits in product((False, True), repeat=len(ordered_targets)):
+            probability = 1.0
+            confiscated = {i: 0.0 for i in ids}
+            received = {i: 0.0 for i in ids}
+            for j, hit in zip(ordered_targets, hits):
+                sanctioners = targets[j]
+                m = len(sanctioners)
+                p_success = m / (m + 1)
+                probability *= p_success if hit else 1 - p_success
+                confiscated[j] = yields[j] if hit else 0.0
+                if self.params["confiscation_to"] == "sanctioners":
+                    for i in sanctioners:
+                        received[i] += confiscated[j] / m
+            returned = sum(confiscated.values()) if self.params["confiscation_to"] == "stock" else 0.0
+            S2 = S - sum(yields.values()) + returned
+            collapsed = S2 < self.S_min
+            wealth, value = dict(state["wealth"]), {}
+            for i in ids:
+                value[i] = yields[i] - confiscated[i] - cost[i] + received[i]
+                wealth[i] += value[i]
+            yield probability, {"S": 0.0 if collapsed else S2, "collapsed": collapsed,
+                                "last": dict(joint), "value": value, "wealth": wealth}
 
     def terminal(self, state):
         return "collapsed" if state["collapsed"] else None

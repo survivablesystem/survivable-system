@@ -18,7 +18,7 @@ When a case reveals a consequential limitation, compare extending the current de
 
 - One object, the agent, at every scale: person, kin group, firm, court, state, AI system, civilization. Institutions are agents made of agents.
 - A world of resources, contests, nested rules, delegation, irreversible transitions, error and selection. `spec/PRIMITIVES.md`.
-- A planner that selects among actions under explicit assumptions about goals and beliefs. The current planner compares constant-action rollouts, not all adaptive plans. Choices are computed; action semantics and planner assumptions remain authored and contestable.
+- A planner that compares adaptive actions over finite belief trees under explicit goals, observations, opponent beliefs and search limits. Choices are computed; action semantics and planner assumptions remain authored and contestable. Exact small-model search is not a global-optimum certificate.
 - Modules: interventions on a world. Composition is the union of interventions, so interactions emerge.
 - Queries: where a world settles, which coalitions can force lock-in, which can correct, and how that differs between designs.
 - A rediscovery suite: sourced hypotheses about known systems, competing explanations and counterexamples. Reproducing an outcome is evidence of expressiveness, not proof of its cause or of the primitives.

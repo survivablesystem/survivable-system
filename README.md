@@ -25,11 +25,11 @@ python -m engine worlds.commons --oat --seeds 4 --fix n=4 --json > oat.json
 python -m engine worlds.commons --trace --rounds 30 --seed 7 --json > trace.json
 ```
 
-The full one-at-a-time run can take several minutes. It starts from a favorable baseline and varies categorical values or numeric endpoints. `--fix` holds a parameter fixed throughout every mode. Overrides must belong to the declared register; unknown names and invalid values fail early. `--trace` and `--oat` are mutually exclusive.
+The full one-at-a-time run can take several minutes. It starts from the declared baseline and varies categorical values or numeric endpoints. `--fix` holds a parameter fixed throughout every mode. Overrides must belong to the register; unknown names and invalid values fail early. `--trace` and `--oat` are mutually exclusive. Commons searches depth 2 by default; `--fix search_depth=3` investigates the next depth. Desired horizon and effective search depth are different assumptions, both recorded. There is no estimate of utility beyond the cap.
 
 ## Reproducing a result
 
-All modes support `--json` (schema version 1). Artifacts contain the world, source hashes, Git revision and dirty status, Python version, register, fixed assumptions with reasons, settings and raw runs. Each run includes parameters, an integer seed, requested/executed rounds, terminal status and final state; trace mode also records actions and states. Keep the artifact with the matching source revision. A dirty revision cannot be recovered from the commit alone; hashes identify it but do not archive it.
+All modes support `--json` (schema version 2). Artifacts contain the world, source hashes, Git revision and dirty status, Python version, register, fixed assumptions with reasons, settings and raw runs. Runs record parameters, seed, requested/executed rounds, final state, terminal status, completion status and per-agent planning limits; trace mode also records actions/states. `search_limit` means unresolved, with a null outcome label and only completed rounds retained. Keep artifacts with their matching source revision, including older schema-1 evidence. A dirty revision cannot be recovered from the commit alone; hashes identify it but do not archive it.
 
 To replay a saved sweep record using the matching source:
 
@@ -66,11 +66,11 @@ For one-at-a-time artifacts the records are inside each result's `runs` list; tr
 
 A `survived` label means only that the run did not collapse before its time limit. `terminal: null` means no absorbing outcome was detected. These are not attractors or probabilities of real-world survival. `sustained` was the earlier, overstated label.
 
-Random sweeps sample parameter values independently and uniformly within the declared register. Outcome shares change when that register or sampling rule changes. Dependence tables show marginal associations; one-at-a-time endpoints miss interactions. Neither establishes global robustness.
+Random sweeps sample parameter values independently and uniformly within the register. Shares change with the register or sampling rule. Unresolved search-limit runs remain in the denominator and appear separately from physical outcomes. Dependence tables show marginal associations; one-at-a-time endpoints miss interactions. Neither establishes global robustness.
 
-Each world explicitly supplies the agent's hypothetical planning state from permitted information and point priors. Action menus and rollouts use that state; actual execution uses truth. Level-1 responses follow directed observation, so an observer can react even when the actor cannot see it. World methods must respect this information contract; they are not sandboxed.
+Worlds supply observations, finite subjective beliefs and a stochastic outcome kernel. The planner evaluates changing actions, grouping future branches by observation so choices cannot see hidden truth. Execution samples the same kernel. Level-1 responses follow directed observation; direct observers replan at level 0 within the remaining search depth. This is an opponent model, not an equilibrium solver. World methods must respect the information contract; they are not sandboxed. Belief memory across real rounds must be explicitly modeled.
 
-The planner still compares repeating each available action and uses expected transitions. The audit demonstrates rejected profitable action sequences, reversed rankings at irreversible thresholds, and order-dependent ties. Goals, priors, known-model assumptions and action semantics remain authored. A green suite establishes the tested behavior, not a validated model of civilization.
+The replacement resolves the audit's profitable-investment and threshold-risk reversals against exact references. First-listed ties remain, and finite search becomes expensive quickly. A fixed per-decision budget aborts excessive work rather than returning a partly scored choice. Goals, priors, known-model assumptions and action semantics remain authored. A green suite establishes tested behavior, not a validated model of civilization.
 
 Run the small diagnostics, including candidate action values and exact reference calculations:
 
@@ -78,11 +78,11 @@ Run the small diagnostics, including candidate action values and exact reference
 python -m tests.planner_cases
 ```
 
-See [`rediscovery/planner-audit.md`](rediscovery/planner-audit.md). `engine.core.action_values` exposes the same candidate values used by the planner. New worlds must implement `belief_state(state, agent)`; there is no silent full-information default.
+See [`rediscovery/planner-replacement.md`](rediscovery/planner-replacement.md), including the changed commons conclusions and cost comparison. `engine.core.action_values` exposes the same values used by the planner. New worlds implement `observe`, `beliefs`, `actions` and `outcomes`; no implicit full-information or mean-state path remains. `step` is the shared execution sampler.
 
 ## Next evidence gates
 
-Replace the planner/transition approximation coherently using the audit's exact small cases, then investigate sparse channels without prescribing the result and compare auditor arrangements with matched assumptions. Separate design choices from uncertain conditions before ranking institutions. A real use case must identify affected groups, rival explanations and a decision someone can actually change. See [`TASKS.md`](TASKS.md).
+Address search cost with measured equivalence before extrapolating to larger populations or deeper horizons. Then investigate sparse channels while reporting search failures separately, and compare auditor arrangements with matched assumptions. Separate design choices from uncertain conditions before ranking institutions. A real use case must identify affected groups, rival explanations and a decision someone can actually change. See [`TASKS.md`](TASKS.md).
 
 The purpose and evidence standards are durable; the model and implementation are replaceable. Expand or rebuild when demonstrated limitations justify it, retiring obsolete mechanisms instead of accumulating exceptions. Generality must be shown across cases.
 

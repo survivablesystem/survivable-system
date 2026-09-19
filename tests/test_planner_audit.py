@@ -12,7 +12,8 @@ from tests.planner_cases import DirectedResponse, EqualActions, HiddenBit, Inves
 def test_response_follows_incoming_observation(actor_observes, responder_observes):
     world = DirectedResponse(actor_observes, responder_observes)
     actor, state = world.agents[0], world.initial_state()
-    assert evaluate(world, state, actor, "take", 1) == (-1 if responder_observes else 2)
+    # Adaptive actor can take then go quiet to evade the second-round response.
+    assert evaluate(world, state, actor, "take", 1) == (1 if responder_observes else 2)
     assert plan(world, state, actor) == ("quiet" if responder_observes else "take")
     assert evaluate(world, state, actor, "take", 0) == 2  # level 0 still expects repetition
 
@@ -34,17 +35,17 @@ def test_revealed_information_can_change_choice():
         assert plan(world, world.initial_state(), world.agents[0]) == secret
 
 
-def test_action_menu_uses_belief_and_projection_runs_once():
+def test_action_menu_uses_observation_and_prior_runs_once():
     class PrivateMenu(HiddenBit):
         calls = 0
 
-        def belief_state(self, state, agent):
+        def beliefs(self, observation, agent):
             self.calls += 1
-            return super().belief_state(state, agent)
+            return super().beliefs(observation, agent)
 
         def actions(self, state, agent):
-            assert state["secret"] == self.params["prior_bit"]
-            return [state["secret"]]
+            assert "secret" not in state
+            return [self.params["prior_bit"]]
 
     world = PrivateMenu(1)
     assert plan(world, world.initial_state(), world.agents[0]) == 0
@@ -63,7 +64,7 @@ def test_world_must_explicitly_declare_planning_information():
         def actions(self, state, agent):
             return []
 
-    with pytest.raises(NotImplementedError, match="belief_state"):
+    with pytest.raises(NotImplementedError, match="observe"):
         plan(Undeclared({}, None), {}, Agent("a"))
 
 
@@ -76,13 +77,16 @@ def test_nested_response_cannot_recover_truth_hidden_from_parent():
         def initial_state(self):
             return {**super().initial_state(), "secret": self.secret}
 
-        def belief_state(self, state, agent):
+        def observe(self, state, agent):
             # Responder knows its own bit; actor assumes 0. A nested responder
             # receives the actor's hypothetical bit, not the true self.secret.
-            return {**state, "secret": 0 if agent.id == "actor" else state["secret"]}
+            return {k: v for k, v in state.items() if k != "secret" or agent.id != "actor"}
 
-        def step(self, state, joint, rng=None):
-            next_state = super().step(state, joint, rng)
+        def beliefs(self, observation, agent):
+            return [(1.0, {"secret": 0, **observation})]
+
+        def transition(self, state, joint):
+            next_state = super().transition(state, joint)
             next_state["secret"] = state["secret"]
             next_state["value"]["responder"] = (1 if state["secret"] else -1) if joint["responder"] == "respond" else 0
             return next_state
@@ -108,24 +112,24 @@ def test_equal_utility_can_hide_order_dependent_side_effects():
 
 
 @pytest.mark.parametrize("cost", [0.5, 1.0, 1.5])
-def test_constant_action_planning_has_a_sequence_value_gap(cost):
+def test_adaptive_planning_matches_best_sequence(cost):
     world = Investment({"cost": cost})
     state, actor = world.initial_state(), world.agents[0]
     chosen = plan(world, state, actor)
     reference = max(world.sequence_values(), key=lambda row: row["value"])
     assert reference["actions"] == ("invest", "consume")
     assert reference["value"] == 4 - cost > 2
-    assert chosen == "consume" and evaluate(world, state, actor, chosen, 0) == 2
+    assert chosen == "invest" and evaluate(world, state, actor, chosen, 0) == reference["value"]
 
 
 @pytest.mark.parametrize("probability", [0.25, 0.5, 0.75])
-def test_mean_transition_reverses_expected_utility_ranking(probability):
+def test_branch_weighted_utility_matches_exact_risk_ranking(probability):
     world = ThresholdRisk({"low_probability": probability})
     state, actor = world.initial_state(), world.agents[0]
     exact = world.exact_values()
     assert exact["risky"] == 2 - 12 * probability < exact["safe"] == 1
-    assert evaluate(world, state, actor, "risky", 0) == 2
-    assert plan(world, state, actor) == "risky"
+    assert evaluate(world, state, actor, "risky", 0) == exact["risky"]
+    assert plan(world, state, actor) == "safe"
 
 
 def test_threshold_reference_agrees_when_there_is_no_uncertainty():

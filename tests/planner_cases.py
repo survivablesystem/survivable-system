@@ -14,13 +14,19 @@ from engine.records import provenance
 
 
 class DiagnosticWorld(World):
-    """These fixtures declare their state known unless they override belief_state."""
+    """These fixtures declare their state known unless they override observe/beliefs."""
 
     def __init__(self, params):
         super().__init__(params, None)
 
-    def belief_state(self, state, agent):
+    def observe(self, state, agent):
         return state
+
+    def beliefs(self, observation, agent):
+        return [(1.0, observation)]
+
+    def outcomes(self, state, joint):
+        return [(1.0, self.transition(state, joint))]
 
     def terminal(self, state):
         return None
@@ -51,7 +57,7 @@ class DirectedResponse(DiagnosticWorld):
     def prior_action(self, agent, other):
         return "quiet" if other.id == "actor" else "ignore"
 
-    def step(self, state, joint, rng=None):
+    def transition(self, state, joint):
         taking, responding = joint["actor"] == "take", joint["responder"] == "respond"
         actor = self.params["gain"] * taking - self.params["penalty"] * taking * responding
         responder = (self.params["response_reward"] if taking else
@@ -73,9 +79,11 @@ class HiddenBit(DiagnosticWorld):
         return {"secret": self.initial_secret, "visible": self.params["visible"],
                 "last": {}, "value": {"guesser": 0.0}}
 
-    def belief_state(self, state, agent):
-        # A declared point belief, not a distribution or Bayesian learning model.
-        return {**state, "secret": state["secret"] if state["visible"] else self.params["prior_bit"]}
+    def observe(self, state, agent):
+        return dict(state) if state["visible"] else {k: v for k, v in state.items() if k != "secret"}
+
+    def beliefs(self, observation, agent):
+        return [(1.0, {"secret": self.params["prior_bit"], **observation})]
 
     def actions(self, state, agent):
         return [0, 1]
@@ -83,7 +91,7 @@ class HiddenBit(DiagnosticWorld):
     def prior_action(self, agent, other):
         return self.params["prior_bit"]
 
-    def step(self, state, joint, rng=None):
+    def transition(self, state, joint):
         value = self.params["correct"] if joint["guesser"] == state["secret"] else self.params["incorrect"]
         return {**state, "last": dict(joint), "value": {"guesser": value}}
 
@@ -104,7 +112,7 @@ class EqualActions(DiagnosticWorld):
     def prior_action(self, agent, other):
         return self.params["order"][0]
 
-    def step(self, state, joint, rng=None):
+    def transition(self, state, joint):
         return {"last": dict(joint), "value": {"chooser": self.params["payoff"]},
                 "beneficiary": joint["chooser"]}
 
@@ -125,7 +133,7 @@ class Investment(DiagnosticWorld):
     def prior_action(self, agent, other):
         return "consume"
 
-    def step(self, state, joint, rng=None):
+    def transition(self, state, joint):
         investing = joint["investor"] == "invest"
         reward = -self.params["cost"] if investing else self.params["return" if state["asset"] else "consume"]
         return {"t": state["t"] + 1, "asset": state["asset"] or investing,
@@ -171,15 +179,12 @@ class ThresholdRisk(DiagnosticWorld):
         payoff = self.params["safe"] if safe else self.params["loss" if collapsed else "upside"]
         return {"stock": stock, "collapsed": collapsed, "last": dict(joint), "value": {"chooser": payoff}}
 
-    def step(self, state, joint, rng=None):
+    def outcomes(self, state, joint):
+        if joint["chooser"] == "safe" or state["collapsed"]:
+            return [(1.0, self.at_stock(state, joint, state["stock"]))]
         p = self.params["low_probability"]
-        if joint["chooser"] == "safe":
-            stock = state["stock"]
-        elif rng is None:
-            stock = p * self.params["low_stock"] + (1 - p) * self.params["high_stock"]
-        else:
-            stock = self.params["low_stock" if rng.random() < p else "high_stock"]
-        return self.at_stock(state, joint, stock)
+        return [(p, self.at_stock(state, joint, self.params["low_stock"])),
+                (1 - p, self.at_stock(state, joint, self.params["high_stock"]))]
 
     def terminal(self, state):
         return "collapsed" if state["collapsed"] else None

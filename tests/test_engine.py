@@ -14,14 +14,17 @@ class TwoAction(World):
     def initial_state(self):
         return {"t": 0, "last": {}, "value": {"a": 0.0}}
 
-    def belief_state(self, state, agent):
+    def observe(self, state, agent):
         return state  # This deterministic, single-agent test has no private information.
+
+    def beliefs(self, observation, agent):
+        return [(1.0, observation)]
 
     def actions(self, state, agent):
         return ["bad", "good"]
 
-    def step(self, state, joint, rng=None):
-        return {"t": state["t"] + 1, "last": dict(joint), "value": {"a": 1.0 if joint["a"] == "good" else 0.0}}
+    def outcomes(self, state, joint):
+        return [(1.0, {"t": state["t"] + 1, "last": dict(joint), "value": {"a": 1.0 if joint["a"] == "good" else 0.0}})]
 
     def prior_action(self, agent, other):
         return "bad"

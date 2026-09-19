@@ -42,8 +42,9 @@ def sweep(make_world, space: dict, samples: int, rounds: int, seed: int = 0) -> 
 
 def shares(rows: list) -> dict:
     n = len(rows)
-    labels = sorted({row["label"] for row in rows})
-    return {lab: sum(row["label"] == lab for row in rows) / n for lab in labels}
+    labels = [row["label"] if row.get("status", "complete") == "complete"
+              else "unresolved:" + row["status"] for row in rows]
+    return {lab: labels.count(lab) / n for lab in sorted(set(labels))}
 
 
 def dependence(rows: list, space: dict, threshold: float = 0.2) -> list:
@@ -110,6 +111,7 @@ def report_oat(rows: list, threshold: float = 0.25) -> str:
         mark = "  <-- share shift" if effect >= threshold else ""
         lines.append(f"  {k}={v}: " + ", ".join(f"{lab}={s.get(lab, 0.0):.2f}" for lab in sorted(labels)) + mark)
     lines.append("Local endpoint comparisons only; interactions and untested values remain unknown.")
+    lines.append("Search uses the declared depth/work caps; unresolved runs stay in the denominator.")
     return "\n".join(lines)
 
 
@@ -123,4 +125,5 @@ def report(rows: list, space: dict) -> str:
         detail = "; ".join(f"{g}: " + ", ".join(f"{lab}={v}" for lab, v in sorted(s.items())) for g, s in d["shares"].items())
         lines.append(f"  {d['param']} (effect {d['effect']}): {detail}")
     lines.append("not modeled: anything outside the world file. Shares are over the sweep, not probabilities of the world.")
+    lines.append("Search uses the declared depth/work caps; unresolved runs stay in the denominator.")
     return "\n".join(lines)

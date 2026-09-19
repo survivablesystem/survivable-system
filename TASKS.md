@@ -17,6 +17,8 @@ Research acceptance means testing the stated hypothesis and recording its bounda
 
 - T1.3 Planner and transition replacement. [claimed: Codex, 2026-09-19] Inserted before sparse-channel findings: T1.0 proves constant-action planning rejects a profitable investment and mean transitions reverse a risk ranking. Acceptance: one coherent transition/search model supports action sequences and branch-weighted utility, using the investment and threshold cases as exact references. Preserve information isolation and directed response tests; compare commons conclusions, runtime and approximations explicitly. Replace superseded internals rather than adding investment heuristics or catastrophe penalties. Exact small cases first; bound and declare search limits before large worlds. If uncertain hidden states require distributions, replace the point-belief interface coherently rather than layering contradictory paths.
 
+- T1.4 Search reduction with preserved evidence. Inserted after T1.3: n=10 at depth 2 exceeds the work cap; depth 3 at n=4 is already expensive, and the old favorable result depends on horizon. Acceptance: profile branching and nested response work; propose the smallest exact caching/aggregation or explicitly approximate search that improves tractable depth/population. Compare action values and branch-risk rankings against the exact small cases, retained commons traces and adversarial hidden-information cases. Record approximation error and unresolved runs; no claimed same-horizon or population comparison without actual coverage. Decision record before implementation.
+
 - T1.1 Sparse channels. `channels` gains a structured option (ring, or each user observes m random others). Hypothesis: limited observability may produce a size effect. Acceptance: measure survival through a stated duration across sizes and channel structures with matched assumptions and several seeds; record absent or reversed effects. Test directed observation separately before relying on asymmetric graphs.
 - T1.2 Readiness tie artifact. Decide: leave it, or break ties toward the current action. Record in DECISIONS.md either way. Low priority.
 
@@ -59,7 +61,7 @@ Forces: claims as a candidate primitive (a decision record and discriminating ca
 ## Stage 8: scale
 
 - T8.1 Types with populations: a world declares types and counts; the engine expands them. Aggregation or mean field needs a case, a decision record and comparison with smaller exact populations. Demonstrate what is preserved and lost; internal architecture changes are covered by the owner's standing direction.
-- T8.2 Performance: profile `step` and `evaluate` before any world with more than a dozen agents. The commons one-at-a-time run takes three minutes.
+- T8.2 Performance: profile `outcomes` and belief-tree search before any world with more than a dozen agents. T1.4 records the current exact-search bottleneck; expand benchmarks before scaling further.
 
 ## Stage 9: first real scenario
 
