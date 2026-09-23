@@ -20,6 +20,7 @@ import random
 from .power import BUDGET, externalization, joint_prevention, lock_in, power_table, profile, threshold
 from .records import artifact, run_record
 from .rules import enforcement
+from .history import History, lift as lift_history
 from .transfers import Transfers, lift
 from .sweep import one_at_a_time, report, report_oat, sample_params, sweep
 
@@ -90,6 +91,8 @@ def main():
                    help="any mode: wrap the world so these agents may pay each other (side payments, engine/transfers.py)")
     p.add_argument("--amounts", nargs="*", type=float, default=[0.5, 1.0], help="with --pay: payment sizes (utility)")
     p.add_argument("--disclosure", choices=["parties", "public"], default="parties", help="with --pay: who sees payments")
+    p.add_argument("--records", type=positive_int, metavar="K",
+                   help="any mode: keep the last K public records in every observation (engine/history.py)")
     p.add_argument("--state", nargs="*", help="key=value overrides of top-level initial-state fields for --power/--externalities")
     p.add_argument("--lock", type=positive_int, metavar="K",
                    help="with --externalities: smallest coalition that can force each harm and then keep it K rounds against everyone")
@@ -122,6 +125,13 @@ def main():
         rules = {name: lift(rule) for name, rule in rules.items()}
         rules.update(getattr(mod, "PAID_RULES", {}))  # rules that use payments themselves
         settings["transfers"] = {"pairs": pairs, "amounts": args.amounts, "disclosure": args.disclosure}
+    if args.records:
+        inner_make = make
+        make = lambda params, rng: History(inner_make(params, rng), args.records)
+        rules = {name: lift_history(rule) for name, rule in rules.items()}
+        if not args.pay:
+            rules.update(getattr(mod, "RECORD_RULES", {}))  # rules that read the record themselves
+        settings["records"] = args.records
 
     def emit(mode_name, results):
         print(json.dumps(artifact(mod, mode_name, settings, results), indent=2,

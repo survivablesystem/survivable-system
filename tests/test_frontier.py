@@ -88,3 +88,20 @@ def test_stale_certification_is_a_harmful_departure():
     harmful = report["unilateral"]["l1"]["harmful"]
     assert report["no_harmful_departure"] is False and harmful["action"] == F.DEPLOY
     assert "unsafe deployment" in harmful["new_harms"] and not harmful["at_start"]
+
+
+def test_binding_certification_removes_the_stale_pass_departure():
+    from engine.history import History
+    from engine.rules import enforcement
+    w = History(world(oversight="continuous"), 1)
+    report = enforcement(w, F, F.licensing_bound, w.initial_state(), 4, reach=1)
+    assert report["no_harmful_departure"] is True
+    capture = [c for c in report["coalitions"] if c["externalizing_every"] and c["externalizing_every"]["gain"] > 0]
+    assert [c["coalition"] for c in capture] == [["l0", "state"]]  # the leader with the state remains
+
+
+def test_cli_records_mode_runs_record_rules():
+    import subprocess, sys
+    done = subprocess.run([sys.executable, "-m", "engine", "worlds.frontier", "--enforce", "2", "--records", "1",
+                           "--rule", "licensing (bound)", "--json"], capture_output=True, text=True)
+    assert done.returncode == 0, done.stderr

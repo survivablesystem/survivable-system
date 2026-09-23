@@ -146,3 +146,20 @@ Scope: two labs, one evaluator, one state, capability ceiling 6, depth 4, one ro
 the path, pairs; AI systems are a stock, not agents; no recall, proliferation or other
 jurisdictions; utility payments without budgets. Nothing here is a forecast or a claim about
 any real regime; it is what this model's assumptions imply, with the assumptions listed.
+
+## Binding certification (expectations before the sweep)
+
+Finding 2 says the regime breaks because a pass outlives the capability it certified. The
+direct test: `licensing_bound` (with public records, `engine/history.py`, length 1) makes a
+pass valid only for the capability the evaluator saw. The state halts any undeployed lab
+without a pass or whose capability grew since the certified round, and under continuous
+oversight any deployed lab whose report failed or whose capability grew since; labs deploy
+only on a pass for their current capability. Sweep: `tests/binding_study.py`, the same grid.
+
+- B1: binding removes the stale-certification departure (a lab deploying unsafe on an old
+  pass) wherever halts are reliable. Contradiction: that departure survives with capacity 1.
+- B2: under deployment-only oversight, binding does not stop scaling after deployment;
+  harmful departures remain there, fewer under continuous oversight. Contradiction: binding
+  alone removes them under both.
+- B3: the leading lab and the state still gain by halting the rival's safe progress;
+  binding does not touch that pair. Contradiction: it disappears.

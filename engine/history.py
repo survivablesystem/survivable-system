@@ -68,3 +68,11 @@ class History(World):
 
     def label(self, state):
         return self.inner.label(state["inner"])
+
+
+def lift(rule):
+    """A rule for the inner world, followed with records present (it ignores them)."""
+    def lifted(world, observation, agent):
+        return rule(world.inner, observation["now"], agent)
+    lifted.__doc__ = (rule.__doc__ or "").strip()
+    return lifted

@@ -279,6 +279,29 @@ def licensing_paid(world, observation, agent):
 PAID_RULES = {"licensing": licensing_paid}  # need a world wrapped with side payments
 
 
+def licensing_bound(world, observation, agent):
+    """Licensing where a pass certifies only the capability the evaluator saw (needs public
+    records, engine/history.py). Labs deploy only on a pass for their current capability.
+    The state halts any undeployed lab without such a pass and, under continuous oversight,
+    any deployed lab whose report failed or whose capability grew since the certified round."""
+    now, record = observation["now"], observation["record"]
+    base = world.inner
+    certified = record[0]["cap"] if record else None
+    grew = {lab: certified is None or now["cap"][lab] > certified[lab] for lab in LABS}
+    if agent.id == "state" and now["end"] is None:
+        continuous = base.params["oversight"] == "continuous"
+        bad = [lab for lab in LABS if (now["report"][lab] != "pass" or grew[lab])
+               and (not now["deployed"][lab] or continuous)]
+        return halts(bad)
+    action = licensing(base, now, agent)
+    if agent.id in LABS and action == DEPLOY and grew[agent.id]:
+        return WAIT  # wait for a pass on the current capability
+    return action
+
+
+RECORD_RULES = {"licensing (bound)": licensing_bound}  # need a world wrapped with public records
+
+
 def make(params, rng):
     return Frontier(params, rng)
 
