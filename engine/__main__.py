@@ -9,6 +9,7 @@
     python -m engine worlds.commons --externalities 3 --state S=20   per declared harm: who can force, impose, prevent
     python -m engine worlds.authority --externalities 2 --lock 3      ...and who can force it, then keep it 3 rounds
     python -m engine worlds.treaty --enforce 4 --rule restraint       does a declared rule hold; who profits by breaking it
+    python -m engine worlds.frontier --assess 2 --rule licensing      one screen: power, the rule, capture, exclusions
     python -m engine worlds.audit --enforce 4 --rule independence --pay firm>a0   ...when the firm can pay its auditor
 """
 import argparse
@@ -18,6 +19,7 @@ import math
 import random
 
 from .power import BUDGET, externalization, joint_prevention, lock_in, power_table, profile, threshold
+from .assess import assess, render
 from .records import artifact, run_record
 from .rules import enforcement
 from .history import History, lift as lift_history
@@ -82,11 +84,15 @@ def main():
                       help="goal-free: what each coalition can force or prevent within T rounds from the initial state")
     mode.add_argument("--externalities", type=positive_int, metavar="T",
                       help="goal-free, per declared harm: who can force it, impose it from outside, or prevent it within T rounds")
+    mode.add_argument("--assess", type=positive_int, metavar="T",
+                      help="one screen: goal-free power over declared harms within T rounds, then --rule if given, then exclusions")
     mode.add_argument("--enforce", type=positive_int, metavar="D",
                       help="goal-based: does the world's rule --rule hold within D rounds (one-shot departures); who profits by breaking it")
     p.add_argument("--rule", help="with --enforce: a name from the world's RULES")
     p.add_argument("--reach", type=int, default=1, help="with --enforce: check states within this many rounds (default 1)")
     p.add_argument("--size", type=positive_int, default=2, help="with --enforce: largest coalition checked (default 2)")
+    p.add_argument("--window", type=positive_int, default=1,
+                   help="with --enforce/--assess: also check coordinated departures over this many rounds (--assess default 2)")
     p.add_argument("--pay", nargs="*", metavar="PAYER>RECIPIENT",
                    help="any mode: wrap the world so these agents may pay each other (side payments, engine/transfers.py)")
     p.add_argument("--amounts", nargs="*", type=float, default=[0.5, 1.0], help="with --pay: payment sizes (utility)")
@@ -105,8 +111,8 @@ def main():
 
     if args.profile and not args.trace:
         p.error("--profile requires --trace")
-    if args.lock and not args.externalities:
-        p.error("--lock requires --externalities")
+    if args.lock and not (args.externalities or args.assess):
+        p.error("--lock requires --externalities or --assess")
     mod = importlib.import_module(args.world)
     space = dict(mod.SPACE)
     try:
@@ -166,12 +172,28 @@ def main():
         settings["state_overrides"] = overrides
         return state
 
+    if args.assess:
+        if args.rule is not None and args.rule not in rules:
+            p.error(f"unknown --rule; choose from: {', '.join(rules) or '(world declares no RULES)'}")
+        params = baseline_params()
+        world = make(dict(params), random.Random(args.seed))
+        window = args.window if args.window > 1 else 2
+        report = assess(world, mod, start_state(world), args.assess, rules.get(args.rule), args.lock, window=window)
+        settings.update({"baseline": params, "rule": args.rule, "assess_rounds": args.assess, "keep_rounds": args.lock,
+                         "window": window})
+        if args.json:
+            emit("assess", report)
+            return
+        print(render(report, params))
+        return
+
     if args.enforce:
         if args.rule not in rules:
             p.error(f"--enforce needs --rule, one of: {', '.join(rules) or '(world declares no RULES)'}")
         params = baseline_params()
         world = make(dict(params), random.Random(args.seed))
-        report = enforcement(world, mod, rules[args.rule], start_state(world), args.enforce, args.reach, args.size)
+        report = enforcement(world, mod, rules[args.rule], start_state(world), args.enforce, args.reach, args.size,
+                             window=args.window)
         settings.update({"baseline": params, "rule": args.rule, "rule_claim": (rules[args.rule].__doc__ or "").strip(),
                          "depth": args.enforce, "reach": args.reach, "max_size": args.size,
                          "query": "One-shot departures, then everyone follows the rule for the rest of D rounds; unilateral with own information, coalitions with full information and summed value (upper bound)."})

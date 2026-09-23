@@ -196,3 +196,15 @@ def test_sequential_capture_needs_the_window():
     seq = next(r for r in two["coalitions"] if r["coalition"] == ["r", "d"])["sequential"]
     assert seq["capture"] and seq["alone"] == 0.0 and seq["falls_outside"] == {"hurt": ["c"]}
     assert seq["first"] == {"r": "false", "d": "wait"}  # the report first, the act next round
+
+
+def test_assess_orders_power_then_rule_then_exclusions():
+    import random
+    from engine.assess import assess, render
+    from worlds import commons
+    world = commons.make({**commons.DEFAULTS, "n": 2}, random.Random(0))
+    report = assess(world, commons, world.initial_state(), 1, commons.RULES["quota"], keep=1, depth=2, window=2)
+    assert [h["harm"] for h in report["power"]] == list(commons.HARMS)
+    assert report["rule"]["holds"] is False and report["excluded"] == commons.EXCLUDED
+    text = render(report, {"n": 2})
+    assert text.index("WHAT CAN BE FORCED") < text.index("DOES THE RULE HOLD") < text.index("NOT IN THE MODEL")

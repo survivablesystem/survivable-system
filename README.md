@@ -50,6 +50,14 @@ python -m engine worlds.race_commons --externalities 2 --state parts.commons.S=3
 python -m engine worlds.authority --externalities 3 --lock 3 --state extracting=true
 ```
 
+## One screen
+
+`--assess T [--rule NAME] [--lock K]` puts it together for any world: what can be forced, prevented or locked over each declared harm and on whom it falls (goal-free), then whether the proposed rule holds, who gains by a harmful departure and who captures it (goal-based, including coordinated departures over two rounds), then what the model leaves out.
+
+```sh
+python -m engine worlds.frontier --assess 2 --rule licensing --lock 2
+```
+
 ## Does a rule hold?
 
 Worlds declare candidate `RULES`: conduct each agent could follow, never enforced by the kernel. `--enforce D --rule NAME` asks whether anyone gains by departing (at the start and one step off the path, so empty threats are caught) and which coalitions gain by departing together while a declared harm lands on someone outside them. In the audit world, independence holds against every single agent while the firm and its auditor gain together at investors' expense ([`rediscovery/captured-auditor.md`](rediscovery/captured-auditor.md)).

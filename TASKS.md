@@ -104,4 +104,4 @@ Forces: claims as a candidate primitive (a decision record and discriminating ca
 
 - A1 Beliefs beyond level 1 (full re-planning, level 2, learned) only when a discriminating case exposes a consequential limitation. Record the case; disagreement with a preferred outcome alone does not justify a stronger planner.
 - A2 Contest function family: add a second form only when a case's outcome depends on the form.
-- A3 Report format: one screen, robust first, then dependent, then not modeled.
+- A3 Report format: one screen, robust first, then dependent, then not modeled. [done: Claude, 2026-09-23: `engine/assess.py`, `--assess T [--rule] [--lock]`]
