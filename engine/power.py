@@ -162,3 +162,26 @@ def threshold(rows, kind, p=1.0):
         exact = exact and all(r[kind]["alpha"] is not None and r[kind]["beta"] is not None
                               and r[kind]["beta"] < p - TOLERANCE for r in group)
     return {"kind": kind, "p": p, "size": None, "witnesses": [], "exact": exact}
+
+
+def profile(world, trace, rounds, target=None, levels=(1.0, 0.5), budget=BUDGET):
+    """Power before each played round, beside what was played.
+
+    `trace` is a run record's trace (dicts with actions and resulting state). Each entry
+    gives the smallest coalitions that could force or prevent the target within `rounds`
+    from the state the round started in. `fragile` marks rounds where one agent (or
+    nobody: sealed) could force it with certainty: whatever held, goals held it.
+    """
+    state, out = world.initial_state(), []
+    for entry in trace:
+        rows = power_table(world, state, rounds, target, budget)
+        marks = [threshold(rows, kind, p) for kind in ("force", "prevent") for p in levels]
+        certain = marks[0]
+        out.append({"round": entry["round"], "actions": entry["actions"], "thresholds": marks,
+                    "sealed": certain["size"] == 0,
+                    "fragile": certain["size"] is not None and certain["size"] <= 1,
+                    "unresolved": any(v is None for r in rows for v in r["force"].values())})
+        state = entry["state"]
+    first = lambda flag: next((e["round"] for e in out if e[flag]), None)
+    return {"rounds": out, "first_fragile": first("fragile"), "first_sealed": first("sealed"),
+            "power_rounds": rounds, "target": target, "levels": list(levels)}

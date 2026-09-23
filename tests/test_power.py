@@ -227,3 +227,29 @@ def test_restraint_helps_only_prevention(destination, S):
         assert y["prevent"]["alpha"] >= x["prevent"]["alpha"] - 1e-12
     everyone = [r for r in b if len(r["coalition"]) == 3][0]
     assert everyone["prevent"]["alpha"] == 1.0  # regrowth is positive on (0, K)
+
+
+def test_profile_reports_power_before_each_played_round():
+    from engine.power import profile
+    world = Push(1.0)
+    trace = [{"round": 1, "actions": {"a": "wait", "b": "block"}, "state": {"t": 1, "end": None}},
+             {"round": 2, "actions": {"a": "push", "b": "block"}, "state": {"t": 2, "end": "collapsed"}}]
+    result = profile(world, trace, 1, "collapsed")
+    first, second = result["rounds"]
+    # q=1: a alone forces collapse every round; b can never prevent it.
+    assert first["thresholds"][0]["size"] == 1 and first["thresholds"][0]["witnesses"] == [["a"]]
+    assert first["fragile"] and not first["sealed"] and second["actions"] == trace[1]["actions"]
+    assert result["first_fragile"] == 1 and result["first_sealed"] is None
+
+
+def test_cli_trace_profile_matches_library():
+    import json
+    from engine.power import profile
+    from tests.test_records import cli
+    completed = cli("--trace", "--rounds", "3", "--profile", "1", "--json", "--fix", "n=2",
+                    "--target", "collapsed")
+    assert completed.returncode == 0, completed.stderr
+    record = json.loads(completed.stdout)["results"][0]
+    world = commons.make(record["params"], random.Random(0))
+    assert record["power_profile"] == profile(world, record["trace"], 1, ["collapsed"])
+    assert cli("--profile", "2").returncode != 0  # requires --trace

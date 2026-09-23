@@ -3,6 +3,7 @@
     python -m engine worlds.commons                       sweep the world's SPACE
     python -m engine worlds.commons --fix n=4 horizon=12  sweep with some params fixed
     python -m engine worlds.commons --trace --fix n=4     play one world and print each round
+    python -m engine worlds.commons --trace --profile 3   ...beside what coalitions could force each round
     python -m engine worlds.commons --oat                 move one parameter at a time from DEFAULTS
     python -m engine worlds.commons --power 3             what each coalition can force within 3 rounds
 """
@@ -12,7 +13,7 @@ import json
 import math
 import random
 
-from .power import BUDGET, power_table, threshold
+from .power import BUDGET, power_table, profile, threshold
 from .records import artifact, run_record
 from .sweep import one_at_a_time, report, report_oat, sample_params, sweep
 
@@ -72,11 +73,15 @@ def main():
     mode.add_argument("--oat", action="store_true", help="vary unfixed parameters from DEFAULTS plus --fix")
     mode.add_argument("--power", type=positive_int, metavar="T",
                       help="goal-free: what each coalition can force or prevent within T rounds from the initial state")
-    p.add_argument("--target", nargs="*", help="terminal labels for --power (default: any terminal)")
+    p.add_argument("--profile", type=positive_int, metavar="T",
+                   help="with --trace: smallest coalitions able to force/prevent the target within T rounds, each round")
+    p.add_argument("--target", nargs="*", help="terminal labels for --power/--profile (default: any terminal)")
     p.add_argument("--seeds", type=positive_int, default=4, help="seeds per point for --oat")
     p.add_argument("--json", action="store_true")
     args = p.parse_args()
 
+    if args.profile and not args.trace:
+        p.error("--profile requires --trace")
     mod = importlib.import_module(args.world)
     space = dict(mod.SPACE)
     try:
@@ -127,12 +132,28 @@ def main():
         params = baseline_params()
         result = run_record(mod.make, params, args.rounds, args.seed, include_trace=True)
         settings["baseline"] = params
+        if args.profile:
+            world = mod.make(dict(params), random.Random(args.seed))
+            result["power_profile"] = profile(world, result["trace"], args.profile, args.target or None)
+            settings["query"] = "Per round: goal-free finite-horizon power from the state the round started in."
         if args.json:
             emit("trace", [result])
             return
         print("params:", params)
+        powers = {e["round"]: e for e in result.get("power_profile", {}).get("rounds", [])}
+        size = lambda m: ("-" if m["size"] is None else str(m["size"])) + ("" if m["exact"] else "?")
         for entry in result["trace"]:
-            print(f"round {entry['round']:3d}  " + mod.describe(entry["actions"], entry["state"]))
+            line = f"round {entry['round']:3d}  " + mod.describe(entry["actions"], entry["state"])
+            if entry["round"] in powers:
+                e = powers[entry["round"]]
+                f, v = e["thresholds"][0], e["thresholds"][2]
+                flag = "  SEALED" if e["sealed"] else "  FRAGILE" if e["fragile"] else ""
+                line += f"   before: force {size(f)} prevent {size(v)}{flag}"
+            print(line)
+        if args.profile:
+            prof = result["power_profile"]
+            print(f"power within {args.profile} rounds, p=1, smallest coalition (- none, ? upper bound): "
+                  f"first fragile round {prof['first_fragile']}, first sealed round {prof['first_sealed']}")
         print(f"status: {result['status']}; outcome: {result['label']}; rounds run: {result['rounds_run']}/{args.rounds}; terminal: {result['terminal']}")
         print("planning:", result["planning"])
         if "error" in result:
