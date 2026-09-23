@@ -82,7 +82,7 @@ time:            discrete rounds.
 
 ## Scale
 
-Worlds may declare groups of exchangeable agents (`World.types()`, decision 2026-09-23, E2): permuting their actions leaves successor physical states, menus and harms unchanged. Power queries then enumerate action multisets per group and coalitions up to permutation, exactly; rows carry `stands_for`. Symmetry is a declared, tested claim, not a detected one. The planner still expands individuals.
+Worlds may declare groups of exchangeable agents (`World.types()`, decision 2026-09-23, E2): permuting their actions leaves successor physical states, menus and harms unchanged. Power queries then enumerate action multisets per group and coalitions up to permutation, exactly; rows carry `stands_for`. Symmetry is a declared, tested claim, not a detected one; `engine.power.symmetry_violations` checks any world's declaration by sampled swaps. A composite derives its groups from its parts (exchangeable in every part they share) and splits out the actors its coupling reads by identity (`couple_reads`); a coupling that declares nothing claims no symmetry. The planner still expands individuals.
 
 The engine otherwise expands individual agents. Types with populations and nested institutions are proposed abstractions, not demonstrated equivalences across scale. Use mean field only after a case and comparison justify what it preserves and loses (T8.1).
 

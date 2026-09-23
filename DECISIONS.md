@@ -31,6 +31,9 @@ Change:
   build), so the race's demand on the stock does not shrink as more people share it and
   the E4 evidence reproduces at fishers = 1.
 
+Also fixed: repeated CLI list flags (`--fix`, `--state`, `--pay`, `--target`) accumulate; a
+second `--fix` used to replace the first silently, dropping a stated assumption.
+
 What it assumes and loses: exchangeable fishers are an authored claim (same menus, channels
 and role), checked by sampling, not proved. Power only; the planner is unchanged.
 

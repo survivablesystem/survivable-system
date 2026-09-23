@@ -92,3 +92,15 @@ def test_cli_nested_state_override_reaches_the_part():
     whole = rc.make({**rc.DEFAULTS, "draw": 0.0}, random.Random(0))
     expected = externalization(whole, rc, at_stock(whole, 12.0), 1)
     assert json.loads(out.stdout)["results"]["harms"] == json.loads(json.dumps(expected))
+
+
+def test_cli_repeated_fix_flags_accumulate():
+    import subprocess, sys
+    from pathlib import Path
+    out = subprocess.run([sys.executable, "-m", "engine", "worlds.race_commons", "--externalities", "1", "--json",
+                          "--fix", "fishers=2", "--fix", "draw=2.0"],
+                         cwd=Path(__file__).resolve().parents[1], capture_output=True, text=True)
+    assert out.returncode == 0, out.stderr
+    import json
+    baseline = json.loads(out.stdout)["settings"]["baseline"]
+    assert baseline["fishers"] == 2 and baseline["draw"] == 2.0

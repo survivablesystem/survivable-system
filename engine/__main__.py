@@ -76,7 +76,7 @@ def main():
     p.add_argument("--samples", type=positive_int, default=100)
     p.add_argument("--rounds", type=positive_int, default=40)
     p.add_argument("--seed", type=int, default=0)
-    p.add_argument("--fix", nargs="*", help="param=value pairs held fixed")
+    p.add_argument("--fix", nargs="*", action="extend", help="param=value pairs held fixed")
     mode = p.add_mutually_exclusive_group()
     mode.add_argument("--trace", action="store_true", help="play one world (DEFAULTS plus --fix) and print rounds")
     mode.add_argument("--oat", action="store_true", help="vary unfixed parameters from DEFAULTS plus --fix")
@@ -93,18 +93,18 @@ def main():
     p.add_argument("--size", type=positive_int, default=2, help="with --enforce: largest coalition checked (default 2)")
     p.add_argument("--window", type=positive_int, default=1,
                    help="with --enforce/--assess: also check coordinated departures over this many rounds (--assess default 2)")
-    p.add_argument("--pay", nargs="*", metavar="PAYER>RECIPIENT",
+    p.add_argument("--pay", nargs="*", action="extend", metavar="PAYER>RECIPIENT",
                    help="any mode: wrap the world so these agents may pay each other (side payments, engine/transfers.py)")
     p.add_argument("--amounts", nargs="*", type=float, default=[0.5, 1.0], help="with --pay: payment sizes (utility)")
     p.add_argument("--disclosure", choices=["parties", "public"], default="parties", help="with --pay: who sees payments")
     p.add_argument("--records", type=positive_int, metavar="K",
                    help="any mode: keep the last K public records in every observation (engine/history.py)")
-    p.add_argument("--state", nargs="*", help="key=value overrides of top-level initial-state fields for --power/--externalities")
+    p.add_argument("--state", nargs="*", action="extend", help="key=value overrides of top-level initial-state fields for --power/--externalities")
     p.add_argument("--lock", type=positive_int, metavar="K",
                    help="with --externalities: smallest coalition that can force each harm and then keep it K rounds against everyone")
     p.add_argument("--profile", type=positive_int, metavar="T",
                    help="with --trace: smallest coalitions able to force/prevent the target within T rounds, each round")
-    p.add_argument("--target", nargs="*", help="terminal labels for --power/--profile (default: any terminal)")
+    p.add_argument("--target", nargs="*", action="extend", help="terminal labels for --power/--profile (default: any terminal)")
     p.add_argument("--seeds", type=positive_int, default=4, help="seeds per point for --oat")
     p.add_argument("--json", action="store_true")
     args = p.parse_args()
