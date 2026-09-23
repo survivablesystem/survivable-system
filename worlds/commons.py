@@ -43,7 +43,7 @@ FIXED_REASONS = {
 # Used by --trace when a swept param is not fixed on the command line.
 DEFAULTS = {"n": 4, "horizon": 12, "discount": 0.9, "channels": "all", "sanction": True,
             "sanction_cost": 0.1, "prior": "lo", "r": 0.5, "hi_mult": 2, "k": 1,
-            "confiscation_to": "sanctioners", "search_depth": 2, "restraint": False}
+            "confiscation_to": "sanctioners", "search_depth": 2, "restraint": True}
 
 REST, LO, HI = "rest", "lo", "hi"
 

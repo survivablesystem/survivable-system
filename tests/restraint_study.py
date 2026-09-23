@@ -62,7 +62,7 @@ def power_maps():
     out = []
     for design in ("paid", "unpaid"):
         for rest in (False, True):
-            world = world_for(**DESIGNS[design], restraint=rest)
+            world = world_for(**{**DESIGNS[design], "restraint": rest})
             for S in STOCKS:
                 out.append({"design": design, "restraint": rest,
                             **summary(world, {**world.initial_state(), "S": S}, 3)})

@@ -215,18 +215,10 @@ def test_cli_power_json_matches_library():
     assert data["results"]["rows"] == power_table(world, world.initial_state(), 1, ["collapsed"])
 
 
-def test_restraint_off_is_the_previous_world():
-    for S in (10.0, 30.0):
-        old = small_commons(confiscation_to="stock")
-        explicit = small_commons(confiscation_to="stock", restraint=False)
-        assert (power_table(old, at_stock(old, S), 2, "collapsed")
-                == power_table(explicit, at_stock(explicit, S), 2, "collapsed"))
-
-
 @pytest.mark.parametrize("destination", ["stock", "sanctioners"])
 @pytest.mark.parametrize("S", [6.0, 12.0, 20.0, 40.0])
 def test_restraint_helps_only_prevention(destination, S):
-    without = small_commons(confiscation_to=destination)
+    without = small_commons(confiscation_to=destination, restraint=False)
     with_rest = small_commons(confiscation_to=destination, restraint=True)
     a = power_table(without, at_stock(without, S), 2, "collapsed")
     b = power_table(with_rest, at_stock(with_rest, S), 2, "collapsed")

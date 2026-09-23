@@ -11,9 +11,10 @@ from engine.power import PowerLimitExceeded, force, power_table, threshold, witn
 from engine.records import provenance
 from worlds import commons
 
-DESIGNS = {"paid": {"sanction": True, "confiscation_to": "sanctioners"},
-           "unpaid": {"sanction": True, "confiscation_to": "stock"},
-           "none": {"sanction": False, "confiscation_to": "sanctioners"}}
+# T1.5 studied the world before restraint (T1.6); pinned so the study still reproduces it.
+DESIGNS = {"paid": {"sanction": True, "confiscation_to": "sanctioners", "restraint": False},
+           "unpaid": {"sanction": True, "confiscation_to": "stock", "restraint": False},
+           "none": {"sanction": False, "confiscation_to": "sanctioners", "restraint": False}}
 TARGET = "collapsed"
 LEVELS = [1.0, 0.5]
 MAP_ROUNDS = 3

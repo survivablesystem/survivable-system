@@ -62,3 +62,11 @@ exactness flags, symmetry checks, work counts, timings, behavioral trajectories 
 per-round power profiles, grand-coalition witnesses and 12-round unavoidability checks
 (null where the work cap was reached). No goal or planner parameter enters a power
 value. See `rediscovery/coalition-power.md`.
+
+## Restraint
+
+`restraint.json` identifies clean source `4175ae0`. Reproduce with
+`python -m tests.restraint_study` at that revision (about 3 minutes). Paired runs with
+restraint off and on (same parameters and seed; menus differ, so random draws are not
+guaranteed to align), full traces for the one-at-a-time neighborhood, random-sample
+outcomes, and T=3 power maps. See `rediscovery/open-commons.md`, restraint findings.

@@ -114,5 +114,5 @@ def test_rest_takes_nothing_and_cannot_sanction():
     grown = state["S"] + BASELINE["r"] * state["S"] * (1 - state["S"] / world.K)
     assert p == 1.0 and after["S"] == pytest.approx(grown)
     assert all(v == 0.0 for v in after["value"].values())
-    base = commons.make(BASELINE, random.Random(0))
+    base = commons.make({**BASELINE, "restraint": False}, random.Random(0))
     assert (commons.REST, False) not in base.actions(base.observe(state, base.agents[0]), base.agents[0])

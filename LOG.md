@@ -149,3 +149,24 @@ Next agent: T1.6 before T1.1. Exact power enumeration is exponential (menus^n pe
 reachable states per round); n <= 4, T <= 4 are comfortable, 8+ rounds at n=4 hit the cap.
 Symmetry by declared types (T8.1) is the scaling path for both queries. When you report
 a behavioral result, report the power profile beside it (T1.7).
+
+## 2026-09-23  Claude: T1.6, commons restraint
+
+Owner authorized merging and pushing to main going forward; T1.5 fast-forwarded main to
+`2583b92`. Claimed T1.6; hypotheses R1-R4 in `open-commons.md` before building.
+
+Changed: register option `restraint` adds `(rest, no sanction)`; default now True. Resting
+users cannot sanction (declared; resting sanctioners untested). Menu order puts rest after
+the two plain takes, before sanction actions; ties resolve accordingly. `power_study.py`
+pins `restraint=False` so T1.5 evidence still reproduces (checked 33 map entries).
+
+Learned: restraint removes every sealed state; minorities can prevent collapse. Agents
+with depth 1-3 still do not rest in the baseline or 15 of 16 variants, and collapse at the
+same round. One random sample survives only with restraint, by a rest-and-raid cycle.
+The bigger lesson: the depth cap, not goals, now decides behavior in this world. Added
+T1.8 ahead of sparse channels.
+
+Evidence `evidence/restraint.json` (clean `4175ae0`, 3 min). 133 tests pass.
+
+Next agent: T1.7 (report power beside behavior), then T1.8. Enlarged menus raise planner
+and power cost (5 actions per user with sanctions; one sample became unresolved).

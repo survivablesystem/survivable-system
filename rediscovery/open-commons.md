@@ -119,3 +119,38 @@ Expected, before runs:
 
 Default: decide after runs. If R1 holds, the world with restraint is the more faithful
 baseline; old results stay reproducible at `restraint=False` and at their revisions.
+
+### Restraint findings
+
+Artifact: `evidence/restraint.json`, clean source `4175ae0`, 3 min. Reproduce with
+`python -m tests.restraint_study` at that revision. 17 one-at-a-time variants x seeds 0-2,
+and 60 random register samples (seed 616), each run with restraint off and on at the same
+parameters and seed; power maps at T=3 for paid and unpaid designs.
+
+| Expectation | Result |
+|---|---|
+| R1 whole group can always prevent | holds: with rest, prevent(everyone) = 1 at every tested stock; no stock is sealed |
+| R2 rest only helps prevention | holds at every state and coalition; paid S=20: one user could force collapse, now three are needed; paid S=30: one user prevents |
+| R3 baseline agents do not rest | holds: 48 of 51 neighborhood runs have identical traces and no rest; only n=2 rests (twice, at the brink) and collapses one round later |
+| R4 restraint anywhere | 1 of 60 random samples survives only with restraint; 1 becomes unresolved (larger menu, same work cap); 53 collapse either way, 4 unresolved either way, 1 survives either way |
+
+1. **Collapse is now a choice, not a physical necessity.** With restraint the commons has
+   no sealed state short of S_min, and small minorities can prevent collapse over wide
+   stock ranges. The planner's agents still collapse it at the same rounds. Every
+   collapse in the neighborhood is a failure of behavior under the declared goals and
+   search depth, not of capability.
+2. **Restraint is used only as a brink tactic.** Where agents rest, they rest when the
+   stock nears S_min and then take high: at n=2, rest at S=7.7, recover to 11.2, both take
+   high, collapse. The one survivor (n=2, no channels, no sanctions, unpaid, depth 3,
+   horizon 4) runs a rest-and-raid cycle between S=12 and 30 for 30 rounds: finite
+   survival held near the edge, not a sustained norm.
+3. **Search depth is the binding behavioral assumption.** Resting pays over more rounds
+   than depth 1-3 can see. The archived old planner at horizon 12 survived the baseline
+   (`planner-replacement.md`). Behavioral conclusions about restraint in this world are
+   conclusions about a myopic planner. T1.8.
+
+Decision: restraint is now the default (`DEFAULTS["restraint"] = True`). The world without
+it had a wrong menu (findings 1 and 5 of `coalition-power.md`). The baseline trace is
+unchanged; `restraint=False` remains in the register and reproduces the earlier world, and
+`tests/power_study.py` pins it so T1.5 evidence still reproduces (33 of 33 map entries
+rechecked). Resting sanctioners remain untested.
