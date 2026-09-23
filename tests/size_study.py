@@ -42,6 +42,25 @@ def case(setting):
     return {"sanctions": name, "elapsed_seconds": perf_counter() - start, **record}
 
 
+COSTS = (0.05, 0.1, 0.2)
+COST_SIZES = (4, 6, 8, 12, 16, 24)
+COST_BASE = {"confiscation_to": "stock", "prior": "lo", "r": 0.3, "hi_mult": 2}
+
+
+def cost_case(setting):
+    """Discriminating check: the unpaid brink brake should vanish where (n-1) x cost
+    crosses a fixed multiple of one's own low take."""
+    cost, n, others = setting
+    params = {**commons.DEFAULTS, **COST_BASE, "sanction_cost": cost, "n": n, "others": others}
+    record = compact(run_record(commons.make, params, ROUNDS, 0, include_trace=True))
+    return {"brake": any("lo+s" in r["choices"] for r in record["rounds"]), **record}
+
+
+def cost_settings():
+    return ([(c, n, "react") for c in COSTS for n in COST_SIZES]
+            + [(0.1, n, "plan") for n in (6, 8, 12)])
+
+
 def settings():
     grid = [(name, extra, prior, r, hi, n, seed) for (name, extra), prior, r, hi, n, seed
             in product(SANCTIONS, PRIORS, REGROWTH, HIGH, SIZES, SEEDS)]
@@ -53,12 +72,15 @@ if __name__ == "__main__":
     start = perf_counter()
     with Pool(4) as pool:
         results = pool.map(case, settings(), chunksize=1)
+        cost_check = pool.map(cost_case, cost_settings(), chunksize=1)
     results.sort(key=lambda r: (r["sanctions"], r["params"]["prior"], r["params"]["r"], r["params"]["hi_mult"],
                                 r["params"]["n"], r["seed"]))
     print(json.dumps({"schema_version": 1, "kind": "size", "provenance": provenance(),
                       "fixture_sha256": {p.as_posix(): hashlib.sha256(p.read_text(encoding="utf-8").encode()).hexdigest() for p in paths},
                       "fixed": commons.FIXED, "fixed_reasons": commons.FIXED_REASONS, "defaults": commons.DEFAULTS,
                       "settings": {"sizes": SIZES, "sanctions": dict(SANCTIONS), "priors": PRIORS, "regrowth": REGROWTH,
-                                   "high": HIGH, "seeds": SEEDS, "rounds": ROUNDS},
+                                   "high": HIGH, "seeds": SEEDS, "rounds": ROUNDS,
+                                   "cost_check": {"base": COST_BASE, "costs": COSTS, "sizes": COST_SIZES, "seed": 0}},
+                      "cost_check": cost_check,
                       "duration_seconds": perf_counter() - start, "results": results},
                      indent=2, sort_keys=True, allow_nan=False))
