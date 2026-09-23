@@ -30,6 +30,8 @@ The implementation and current model are replaceable. When a limitation matters,
 - Commit at the end of every session with the task id in the message. Pull before claiming.
 - Owner standing authorization (2026-09-19): publish completed, validated project work to the existing origin, including fast-forwarding and pushing main, without asking again. Check remote changes before pushing and verify CI afterward.
 - To reverse a decision, add a `DECISIONS.md` entry proposing it. Never revert silently.
+- Long studies run from a clean worktree so evidence provenance stays clean while work continues: commit first, `git worktree add <scratch>/run HEAD`, run `python -m tests.<name>_study` there with output outside the repo, copy the JSON into `evidence/`, then `git worktree remove`. Evidence whose `source.dirty` is true is not evidence.
+- Studies are the modules in `tests/*_study.py`; each case file names its study, evidence file and clean revision. Re-run evidence after any engine change that could move it, and record the new revision in the case file and `TASKS.md`.
 
 ## Adding a world
 
@@ -68,4 +70,9 @@ python -m engine worlds.commons --trace --fix n=4     one world, round by round
 python -m engine worlds.commons --power 3             goal-free: what each coalition can force or prevent
 python -m engine worlds.commons --trace --profile 3   a run, with who could force or prevent collapse each round
 python -m engine worlds.commons --externalities 3 --state S=20   per declared harm: force, impose, prevent, end
+python -m engine worlds.control --assess 3 --rule corrigibility   one screen: power, rule, capture, exclusions
+python -m engine worlds.frontier --enforce 4 --rule licensing --size 2 --window 2   rule as a claim: who breaks it, who captures it
+python -m engine worlds.authority --externalities 2 --lock 3     who can force a harm, then keep it 3 rounds against everyone
 ```
+
+Rule checks: use `window=2` (two-round coordinated departures) when asking about capture; one-round checks missed the frontier capture. `precaution=q` values acting on revealed departures. Modules that wrap any world (`engine/transfers.py`, `history.py`, `constitution.py`, `delegation.py`) never change power; worlds expose `PAID_RULES` / `RECORD_RULES` for them.

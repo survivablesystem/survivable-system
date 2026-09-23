@@ -437,3 +437,22 @@ A3: `--assess` one-screen report. Worktrees keep long studies clean while work c
 Next agent: frontier payments and binding re-runs with the window are in progress at
 `af8b46e` (write-up pending in `rediscovery/frontier-ai.md`); E12 Bayesian learning; the
 control case's precaution question needs hidden drift (types), not only persistence.
+
+## 2026-09-23  Claude: frontier re-runs, precaution posterior, handover
+
+Binding certification (`evidence/binding.json`, clean `af8b46e`): stale-pass exploit 34 -> 14
+of 72 settings; what remains is two-round capture. Frontier payment designs re-run with
+two-round checks (`evidence/frontier.json`, clean `67cf935`): F3 contradicted, evaluator
+liability for false passes, not who pays the evaluator, removes capture; leader-plus-state
+capture is the Stigler pattern. E12 amended: `precaution=q` is a posterior that a revealed
+departer is a persisting type with its own goals (`persistent_world`); `evidence/precaution.json`
+(clean `2ec45c1`): suspicion after autonomy moved the veto lowers the will to correct
+(control findings 7-8). Rule-check work cap is now per evaluation; caps report unresolved.
+Coordination: E2 claim released (step 1 stays done); AGENTS.md now states the clean-worktree
+study practice, `window=2` for capture, and `--assess`. 293 tests pass.
+
+Next agent: open, unclaimed: E12 Bayesian updating over hidden types (derive q from public
+records; the control case's precaution question needs hidden drift); E2 planner symmetry and
+types in composites; E6 remainder (council-controlled pay, term limits, courts); A2 contest
+family (E5 finding 3 is its case); E3 declarative worlds (six worlds now repeat structure:
+register, stakeholders, harms, rules; worth a decision entry).
