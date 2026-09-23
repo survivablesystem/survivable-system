@@ -304,3 +304,15 @@ preventing coalitions. Evidence `evidence/race-commons.json` (clean `2d220b6`).
 
 Next agent: E2 scale (types and symmetry), now needed by composites: menus multiply
 across parts and `others = plan` already exceeds the work cap at three actors.
+
+## 2026-09-23  Claude: E2 step 1, exact symmetry in power queries
+
+`World.types()` (decision first): exchangeable groups; stages enumerate action multisets
+per group, tables one row per count vector with `stands_for`. Outsider witnesses are
+re-represented by members outside the affected. Tests: kernel invariance under
+permutations, reduced equals full tables at n=3 across four designs. Commons power exact
+at n=20, T=3 (154 s). Power depends on fractions of users, not numbers.
+Evidence `evidence/scale.json` (clean `dc8a981`). 200 tests pass.
+
+Next agent: E2 remaining (planner symmetry; types in composites), or a third world that
+exercises the whole-system tools on a question with more actors.

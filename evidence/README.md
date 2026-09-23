@@ -123,3 +123,9 @@ per-harm reports for commons stocks and treaty settings at T=3.
 `python -m tests.race_commons_study` (about 5 minutes). Declarations and coverage,
 fishery harms alone versus in the whole by draw and stock, forced choices over draw,
 stock and treaty settings, and planner runs under both opponent models.
+
+## Scale
+
+`scale.json` identifies clean source `dc8a981`. Reproduce with `python -m tests.scale_study`
+(about 4 minutes). Exact commons power tables for n up to 20 using declared symmetry, with
+per-size rows, `stands_for` counts, thresholds, work and timing.

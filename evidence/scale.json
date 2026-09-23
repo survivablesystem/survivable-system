@@ -1,0 +1,6671 @@
+{
+  "fixed": {
+    "K": 100.0,
+    "S0_frac": 0.5,
+    "S_min_frac": 0.05,
+    "depleted_frac": 0.25,
+    "lo_frac": 0.8,
+    "node_budget": 20000
+  },
+  "fixed_reasons": {
+    "K": "Resource unit scale; yields and sanction costs scale with carrying capacity.",
+    "S0_frac": "Starts at maximum logistic growth. Held fixed for baseline comparability; recovery from depleted stock is untested.",
+    "S_min_frac": "Assumed irreversible collapse threshold. Held fixed in v0; threshold sensitivity is untested.",
+    "depleted_frac": "Reversible harm threshold: half the stock of maximum growth. A reporting line, not a dynamic; other lines untested.",
+    "lo_frac": "Low demand is 80% of maximum sustainable yield, below the knife-edge. Other margins are untested.",
+    "node_budget": "Per-decision emitted belief/transition/reward-entry cap, including nested plans and exact leaf reward marginals. Exhaustion is unresolved, not a physical outcome; chosen to bound enumeration cost."
+  },
+  "fixture_sha256": {
+    "/home/user/survivable-system/tests/scale_study.py": "a5c948b720d0bf32d8cfac493aaf40fa6ba9676fab5049c3b28c1a22a5461830",
+    "tests/test_symmetry.py": "ec1c36e817eadaee200569ecb6b8ecf28d3db1cd2d6d36d03269cbb93196ac35"
+  },
+  "kind": "scale",
+  "provenance": {
+    "git_commit": "dc8a981c4821ce31662b025741aa17807a08973a",
+    "git_dirty": false,
+    "implementation": "CPython",
+    "python": "3.11.15",
+    "source_sha256": {
+      "INTENT.md": "683e2da3b9a3daba69f7ed71c616b63d1ea0145bca0fed19944d6a6e52d36482",
+      "engine/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "engine/__main__.py": "316e3833f7ffcc25ae81d53a25a0ae1b1075fc9401ba0e5337c9f97279ad484e",
+      "engine/compose.py": "ebf24c17bb78025383f03412214dbbedf0e19c11d5f4437db3ba0c5437b0d547",
+      "engine/core.py": "3fd4f44ffb8283a077d93f6139bdc4c2b3e7b3217596b34b64b9954d9b42891a",
+      "engine/power.py": "f671d923b0a134ac817058b29ac514cd9cc386b8e29fbfee92f4e7a0aa8662e8",
+      "engine/records.py": "3896a8ac08690fdef628fc9cfbebe6df703f4dd12f81fbb4b8468847b4b382e7",
+      "engine/sweep.py": "e435934caf8b56f1db65fbaeba82fe5fd9cb74b25d7c1827daf33064ba6b0887",
+      "spec/PRIMITIVES.md": "bf313ca654ec5538e71ebae3a599b0f3e6f0cb97910343ffc611e9042ca3d1f9",
+      "worlds/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "worlds/commons.py": "32242dcbc29fb00ecb3708ec010221049c32cb881de9917a4f028a32b5d9a700",
+      "worlds/race_commons.py": "d76bd96017c30dad83d7d9a27ecd272f3147850a11420b9aac53544414e9a0d9",
+      "worlds/treaty.py": "4919b1b17d68a7823698e14dd74062fe788506e6ea073a10a7119a5ebcc2de80"
+    }
+  },
+  "results": [
+    {
+      "S": 20.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 2
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.0042366819998278515,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 2,
+        "witnesses": [
+          [
+            "u0",
+            "u1"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 2,
+        "witnesses": [
+          [
+            "u0",
+            "u1"
+          ]
+        ]
+      },
+      "n": 2,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 1,
+        "witnesses": [
+          [
+            "u0"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 1,
+        "witnesses": [
+          [
+            "u0"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 122
+    },
+    {
+      "S": 30.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 2
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.0042384660000607255,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 2,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 142
+    },
+    {
+      "S": 40.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 2
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.004018107999854692,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 2,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 142
+    },
+    {
+      "S": 20.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 1,
+          "stands_for": 4
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 6
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 4
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.013457052999910957,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 3,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 3,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2"
+          ]
+        ]
+      },
+      "n": 4,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 2,
+        "witnesses": [
+          [
+            "u0",
+            "u1"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 2,
+        "witnesses": [
+          [
+            "u0",
+            "u1"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 754
+    },
+    {
+      "S": 30.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 4
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 6
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 4
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.014473196999915672,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 4,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 838
+    },
+    {
+      "S": 40.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 4
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 6
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 4
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.01524190100008127,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 4,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 838
+    },
+    {
+      "S": 20.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 1,
+          "stands_for": 6
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 15
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 20
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 15
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 6
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.05251941300002727,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 5,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 5,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4"
+          ]
+        ]
+      },
+      "n": 6,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 2,
+        "witnesses": [
+          [
+            "u0",
+            "u1"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 2,
+        "witnesses": [
+          [
+            "u0",
+            "u1"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 2921
+    },
+    {
+      "S": 30.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 6
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 15
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 20
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 15
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 6
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.054123331000027974,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 6,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 2976
+    },
+    {
+      "S": 40.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 6
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 15
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 20
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 15
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 6
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.05364237599997068,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 6,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 2976
+    },
+    {
+      "S": 20.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 1,
+          "stands_for": 8
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 2,
+          "stands_for": 28
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 56
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 70
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 56
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 28
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 8
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.15042330400001447,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 6,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 6,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5"
+          ]
+        ]
+      },
+      "n": 8,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 3,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 3,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 6824
+    },
+    {
+      "S": 30.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 8
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 28
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 56
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 70
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 56
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 28
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 8
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.15487253599985706,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 8,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 7080
+    },
+    {
+      "S": 40.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 8
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 28
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 56
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 70
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 56
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 28
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 8
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.1354721090001476,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 8,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 7080
+    },
+    {
+      "S": 20.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 1,
+          "stands_for": 10
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 2,
+          "stands_for": 45
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 210
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 252
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 210
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 45
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 10
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.2912976669999807,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 8,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 8,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7"
+          ]
+        ]
+      },
+      "n": 10,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 3,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 3,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 14672
+    },
+    {
+      "S": 30.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 10
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 45
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 210
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 252
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 210
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 45
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 10
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.3109550579997631,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 10,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 14954
+    },
+    {
+      "S": 40.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 10
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 45
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 210
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 252
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 210
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 45
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 10
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.31368337100002464,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 10,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 14954
+    },
+    {
+      "S": 20.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 1,
+          "stands_for": 12
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 2,
+          "stands_for": 66
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 3,
+          "stands_for": 220
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 495
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 792
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 924
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 792
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 495
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 220
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 66
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 11,
+          "stands_for": 12
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 12,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.9170862780001698,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 9,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 9,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8"
+          ]
+        ]
+      },
+      "n": 12,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 4,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 4,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 41394
+    },
+    {
+      "S": 30.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 12
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 66
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 220
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 495
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 792
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 924
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 792
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 495
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 220
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 66
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 11,
+          "stands_for": 12
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 12,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.7875239029999648,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 12,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 33807
+    },
+    {
+      "S": 40.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 12
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 66
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 220
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 495
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 792
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 924
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 792
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 495
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 220
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 66
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 11,
+          "stands_for": 12
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 12,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.8251027800001793,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 12,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 32690
+    },
+    {
+      "S": 20.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 1,
+          "stands_for": 16
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 2,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 3,
+          "stands_for": 560
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 4,
+          "stands_for": 1820
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 4368
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 8008
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 11440
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 12870
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 11440
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 8008
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 11,
+          "stands_for": 4368
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 12,
+          "stands_for": 1820
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 13,
+          "stands_for": 560
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 14,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 15,
+          "stands_for": 16
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 16,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 2.1409561720001875,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 12,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8",
+            "u9",
+            "u10",
+            "u11"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 12,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8",
+            "u9",
+            "u10",
+            "u11"
+          ]
+        ]
+      },
+      "n": 16,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 5,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 5,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 84270
+    },
+    {
+      "S": 30.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 16
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 560
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 1820
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 4368
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 8008
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 11440
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 12870
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 11440
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 8008
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 11,
+          "stands_for": 4368
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 12,
+          "stands_for": 1820
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 13,
+          "stands_for": 560
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 14,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 15,
+          "stands_for": 16
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 16,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 2.0596847110000454,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 16,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 77772
+    },
+    {
+      "S": 40.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 16
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 560
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 1820
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 4368
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 8008
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 11440
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 12870
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 11440
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 8008
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 11,
+          "stands_for": 4368
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 12,
+          "stands_for": 1820
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 13,
+          "stands_for": 560
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 14,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 15,
+          "stands_for": 16
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 16,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 1.9964596009999696,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 16,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 77772
+    },
+    {
+      "S": 20.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 1,
+          "stands_for": 20
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 2,
+          "stands_for": 190
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 3,
+          "stands_for": 1140
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 4,
+          "stands_for": 4845
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 5,
+          "stands_for": 15504
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 38760
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 77520
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 125970
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 167960
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 184756
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 11,
+          "stands_for": 167960
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 12,
+          "stands_for": 125970
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 13,
+          "stands_for": 77520
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 14,
+          "stands_for": 38760
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 15,
+          "stands_for": 15504
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 16,
+          "stands_for": 4845
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 17,
+          "stands_for": 1140
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 18,
+          "stands_for": 190
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 19,
+          "stands_for": 20
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 20,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 5.643477995000012,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 15,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8",
+            "u9",
+            "u10",
+            "u11",
+            "u12",
+            "u13",
+            "u14"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 15,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8",
+            "u9",
+            "u10",
+            "u11",
+            "u12",
+            "u13",
+            "u14"
+          ]
+        ]
+      },
+      "n": 20,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 6,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 6,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 203397
+    },
+    {
+      "S": 30.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 20
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 190
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 1140
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 4845
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 15504
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 38760
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 77520
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 125970
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 167960
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 184756
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 11,
+          "stands_for": 167960
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 12,
+          "stands_for": 125970
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 13,
+          "stands_for": 77520
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 14,
+          "stands_for": 38760
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 15,
+          "stands_for": 15504
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 16,
+          "stands_for": 4845
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 17,
+          "stands_for": 1140
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 18,
+          "stands_for": 190
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 19,
+          "stands_for": 20
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 20,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 5.229032365999956,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 20,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 175054
+    },
+    {
+      "S": 40.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 20
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 190
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 1140
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 4845
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 15504
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 38760
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 77520
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 125970
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 167960
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 184756
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 11,
+          "stands_for": 167960
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 12,
+          "stands_for": 125970
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 13,
+          "stands_for": 77520
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 14,
+          "stands_for": 38760
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 15,
+          "stands_for": 15504
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 16,
+          "stands_for": 4845
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 17,
+          "stands_for": 1140
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 18,
+          "stands_for": 190
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 19,
+          "stands_for": 20
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 20,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 5.249262436000208,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 20,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": false,
+      "work": 175054
+    },
+    {
+      "S": 30.0,
+      "T": 3,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 2
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.009653613999944355,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 2,
+        "witnesses": [
+          [
+            "u0",
+            "u1"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 2,
+        "witnesses": [
+          [
+            "u0",
+            "u1"
+          ]
+        ]
+      },
+      "n": 2,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 1,
+        "witnesses": [
+          [
+            "u0"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 1,
+        "witnesses": [
+          [
+            "u0"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 543
+    },
+    {
+      "S": 30.0,
+      "T": 3,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 4
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 6
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 4
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.10278177000009237,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 4,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 4,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3"
+          ]
+        ]
+      },
+      "n": 4,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 1,
+        "witnesses": [
+          [
+            "u0"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 1,
+        "witnesses": [
+          [
+            "u0"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 5800
+    },
+    {
+      "S": 30.0,
+      "T": 3,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 6
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 15
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 20
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 15
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 6
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.6215553880001607,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 6,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 6,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5"
+          ]
+        ]
+      },
+      "n": 6,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 1,
+        "witnesses": [
+          [
+            "u0"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 1,
+        "witnesses": [
+          [
+            "u0"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 31792
+    },
+    {
+      "S": 30.0,
+      "T": 3,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 1,
+          "stands_for": 8
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 28
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 56
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 70
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 56
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 28
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 8
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 1.8200751620001938,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 7,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 7,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6"
+          ]
+        ]
+      },
+      "n": 8,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 2,
+        "witnesses": [
+          [
+            "u0",
+            "u1"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 2,
+        "witnesses": [
+          [
+            "u0",
+            "u1"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 92345
+    },
+    {
+      "S": 30.0,
+      "T": 3,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 1,
+          "stands_for": 10
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 45
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 210
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 252
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 210
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 45
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 10
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 4.913826765000067,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 9,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 9,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8"
+          ]
+        ]
+      },
+      "n": 10,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 2,
+        "witnesses": [
+          [
+            "u0",
+            "u1"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 2,
+        "witnesses": [
+          [
+            "u0",
+            "u1"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 227845
+    },
+    {
+      "S": 30.0,
+      "T": 3,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 1,
+          "stands_for": 12
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 66
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 220
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 495
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 792
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 924
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 792
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 495
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 220
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 66
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 11,
+          "stands_for": 12
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 12,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 17.996915315000024,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 11,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8",
+            "u9",
+            "u10"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 11,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8",
+            "u9",
+            "u10"
+          ]
+        ]
+      },
+      "n": 12,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 2,
+        "witnesses": [
+          [
+            "u0",
+            "u1"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 2,
+        "witnesses": [
+          [
+            "u0",
+            "u1"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 755725
+    },
+    {
+      "S": 30.0,
+      "T": 3,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 1,
+          "stands_for": 16
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 2,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 560
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 1820
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 4368
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 8008
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 11440
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 12870
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 11440
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 8008
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 11,
+          "stands_for": 4368
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 12,
+          "stands_for": 1820
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 13,
+          "stands_for": 560
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 14,
+          "stands_for": 120
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 15,
+          "stands_for": 16
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 16,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 51.68538090300035,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 14,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8",
+            "u9",
+            "u10",
+            "u11",
+            "u12",
+            "u13"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 14,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8",
+            "u9",
+            "u10",
+            "u11",
+            "u12",
+            "u13"
+          ]
+        ]
+      },
+      "n": 16,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 3,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 3,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 1967997
+    },
+    {
+      "S": 30.0,
+      "T": 3,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 1,
+          "stands_for": 20
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "size": 2,
+          "stands_for": 190
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 1140
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 4845
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 15504
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 38760
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 77520
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 125970
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 9,
+          "stands_for": 167960
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 10,
+          "stands_for": 184756
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 11,
+          "stands_for": 167960
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 12,
+          "stands_for": 125970
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 13,
+          "stands_for": 77520
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 14,
+          "stands_for": 38760
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 15,
+          "stands_for": 15504
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 16,
+          "stands_for": 4845
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 17,
+          "stands_for": 1140
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 18,
+          "stands_for": 190
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 19,
+          "stands_for": 20
+        },
+        {
+          "force": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 20,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 154.07192168600022,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": 18,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8",
+            "u9",
+            "u10",
+            "u11",
+            "u12",
+            "u13",
+            "u14",
+            "u15",
+            "u16",
+            "u17"
+          ]
+        ]
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": 18,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u6",
+            "u7",
+            "u8",
+            "u9",
+            "u10",
+            "u11",
+            "u12",
+            "u13",
+            "u14",
+            "u15",
+            "u16",
+            "u17"
+          ]
+        ]
+      },
+      "n": 20,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 3,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2"
+          ]
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 3,
+        "witnesses": [
+          [
+            "u0",
+            "u1",
+            "u2"
+          ]
+        ]
+      },
+      "sanction": false,
+      "work": 5259750
+    },
+    {
+      "S": 30.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 2
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.005367871999624185,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 2,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": true,
+      "work": 364
+    },
+    {
+      "S": 30.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 4
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 6
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 4
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.06451881199973286,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 4,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": true,
+      "work": 5696
+    },
+    {
+      "S": 30.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 6
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 15
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 20
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 15
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 6
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 0.8800880699996014,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 6,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": true,
+      "work": 95511
+    },
+    {
+      "S": 30.0,
+      "T": 2,
+      "by_size": [
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 0,
+          "stands_for": 1
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 1,
+          "stands_for": 8
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 2,
+          "stands_for": 28
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 3,
+          "stands_for": 56
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 4,
+          "stands_for": 70
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 5,
+          "stands_for": 56
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 6,
+          "stands_for": 28
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 7,
+          "stands_for": 8
+        },
+        {
+          "force": {
+            "alpha": 0.0,
+            "beta": 0.0
+          },
+          "prevent": {
+            "alpha": 1.0,
+            "beta": 1.0
+          },
+          "size": 8,
+          "stands_for": 1
+        }
+      ],
+      "elapsed_seconds": 3.7698626490000606,
+      "force": {
+        "exact": true,
+        "kind": "force",
+        "p": 1.0,
+        "size": null,
+        "witnesses": []
+      },
+      "force_half": {
+        "exact": true,
+        "kind": "force",
+        "p": 0.5,
+        "size": null,
+        "witnesses": []
+      },
+      "n": 8,
+      "prevent": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 1.0,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "prevent_half": {
+        "exact": true,
+        "kind": "prevent",
+        "p": 0.5,
+        "size": 0,
+        "witnesses": [
+          []
+        ]
+      },
+      "sanction": true,
+      "work": 454516
+    }
+  ],
+  "schema_version": 1,
+  "settings": {
+    "cases": [
+      [
+        2,
+        2,
+        20.0,
+        false
+      ],
+      [
+        2,
+        2,
+        30.0,
+        false
+      ],
+      [
+        2,
+        2,
+        40.0,
+        false
+      ],
+      [
+        2,
+        4,
+        20.0,
+        false
+      ],
+      [
+        2,
+        4,
+        30.0,
+        false
+      ],
+      [
+        2,
+        4,
+        40.0,
+        false
+      ],
+      [
+        2,
+        6,
+        20.0,
+        false
+      ],
+      [
+        2,
+        6,
+        30.0,
+        false
+      ],
+      [
+        2,
+        6,
+        40.0,
+        false
+      ],
+      [
+        2,
+        8,
+        20.0,
+        false
+      ],
+      [
+        2,
+        8,
+        30.0,
+        false
+      ],
+      [
+        2,
+        8,
+        40.0,
+        false
+      ],
+      [
+        2,
+        10,
+        20.0,
+        false
+      ],
+      [
+        2,
+        10,
+        30.0,
+        false
+      ],
+      [
+        2,
+        10,
+        40.0,
+        false
+      ],
+      [
+        2,
+        12,
+        20.0,
+        false
+      ],
+      [
+        2,
+        12,
+        30.0,
+        false
+      ],
+      [
+        2,
+        12,
+        40.0,
+        false
+      ],
+      [
+        2,
+        16,
+        20.0,
+        false
+      ],
+      [
+        2,
+        16,
+        30.0,
+        false
+      ],
+      [
+        2,
+        16,
+        40.0,
+        false
+      ],
+      [
+        2,
+        20,
+        20.0,
+        false
+      ],
+      [
+        2,
+        20,
+        30.0,
+        false
+      ],
+      [
+        2,
+        20,
+        40.0,
+        false
+      ],
+      [
+        3,
+        2,
+        30.0,
+        false
+      ],
+      [
+        3,
+        4,
+        30.0,
+        false
+      ],
+      [
+        3,
+        6,
+        30.0,
+        false
+      ],
+      [
+        3,
+        8,
+        30.0,
+        false
+      ],
+      [
+        3,
+        10,
+        30.0,
+        false
+      ],
+      [
+        3,
+        12,
+        30.0,
+        false
+      ],
+      [
+        3,
+        16,
+        30.0,
+        false
+      ],
+      [
+        3,
+        20,
+        30.0,
+        false
+      ],
+      [
+        2,
+        2,
+        30.0,
+        true
+      ],
+      [
+        2,
+        4,
+        30.0,
+        true
+      ],
+      [
+        2,
+        6,
+        30.0,
+        true
+      ],
+      [
+        2,
+        8,
+        30.0,
+        true
+      ]
+    ],
+    "confiscation_to": "stock",
+    "restraint": true,
+    "symmetry": "users exchangeable (commons.types)",
+    "target": "collapsed"
+  }
+}

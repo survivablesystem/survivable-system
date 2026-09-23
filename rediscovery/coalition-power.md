@@ -145,3 +145,24 @@ so whatever held, goals held it. `SEALED`: nobody can prevent it. Artifact
 8. **Survival can be fragile in every other round.** The only restraint-dependent survivor
    rests whenever the stock nears the brink; at each rest round a single user could force
    collapse within 3 rounds. Its 30-round survival is goal-held, not denied.
+
+## Population scale by declared symmetry (E2, 2026-09-23)
+
+Decision `DECISIONS.md` 2026-09-23 (E2). Commons users are declared exchangeable
+(`commons.types`); invariance of the kernel under permuting their actions and equality of
+reduced and full tables at n=3 are tested. Artifact `evidence/scale.json`, clean
+`dc8a981`, 4 min; `python -m tests.scale_study`. Restraint on, no sanctions unless
+stated, n from 2 to 20. Exact at n=20 and T=3 in 154 s (before: n <= 4).
+
+| S, T | force threshold by n (2, 4, 6, 8, 10, 12, 16, 20) | prevent threshold |
+|---|---|---|
+| 20, 2 | 2, 3, 5, 6, 8, 9, 12, 15 | 1, 2, 2, 3, 3, 4, 5, 6 |
+| 30, 3 | 2, 4, 6, 7, 9, 11, 14, 18 | 1, 1, 1, 2, 2, 2, 3, 3 |
+
+9. **Power depends on the fraction of users, not their number.** At S=20 forcing
+   collapse within 2 rounds takes three quarters of the users at every size; force and
+   prevent thresholds always sum to n+1 in this deterministic game, so the preventing
+   share falls from a half toward a quarter only through integer granularity. This rests
+   on the declared scaling of each user's take (`lo_frac` of maximum sustainable yield,
+   divided by n). A world where individual takes do not shrink with n would differ; that
+   is where a size effect would have to come from, not from numbers alone.

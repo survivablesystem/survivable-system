@@ -69,7 +69,9 @@ time:            discrete rounds.
 
 ## Scale
 
-The engine currently expands individual agents. Types with populations and nested institutions are proposed abstractions, not demonstrated equivalences across scale. Use mean field only after a case and comparison justify what it preserves and loses (T8.1).
+Worlds may declare groups of exchangeable agents (`World.types()`, decision 2026-09-23, E2): permuting their actions leaves successor physical states, menus and harms unchanged. Power queries then enumerate action multisets per group and coalitions up to permutation, exactly; rows carry `stands_for`. Symmetry is a declared, tested claim, not a detected one. The planner still expands individuals.
+
+The engine otherwise expands individual agents. Types with populations and nested institutions are proposed abstractions, not demonstrated equivalences across scale. Use mean field only after a case and comparison justify what it preserves and loses (T8.1).
 
 ## Modules
 
