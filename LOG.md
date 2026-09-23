@@ -316,3 +316,32 @@ Evidence `evidence/scale.json` (clean `dc8a981`). 200 tests pass.
 
 Next agent: E2 remaining (planner symmetry; types in composites), or a third world that
 exercises the whole-system tools on a question with more actors.
+
+## 2026-09-23  Claude: E5, correction and computed entrenchment
+
+Owner prompt: continue, follow the intent, redesign where useful. Chose INTENT's own chain
+(surveillance, concentration, loss of correction), which no world modeled. T4.0 review
+first (five sources verified at abstract level; standing-army brief reframed and kept).
+Decision before code: irreversibility is computed as well as declared. `lock_in` (force a
+harm, then keep it K rounds against everyone; nested game), `keep` and `veto` at realized
+harms, a loud failure when a declared-irreversible harm can be ended, and exact p = 1
+thresholds (a mixture guarantees certainty only if each action does; earlier "upper
+bound" marks at p = 1 were spurious). `worlds/authority.py`: office, coercion, extraction
+converting office into strength, covert organizing, surveillance-gated purges, rises.
+
+Caught before the study: with purge and extraction exclusive, a purging holder could never
+keep extraction continuous, so surveillance could not matter by construction; the holder
+now extracts and purges in one round. First study run was stopped because doc edits
+would have made its provenance dirty; rerun from clean `67b7fcb`.
+
+Learned: splitting command mostly raises the correction threshold (85/108 pairs) rather
+than the seizure threshold (18/108). With decisive contests, surveillance and conversion,
+the split army is what gives the ruler a veto on correction; with probabilistic contests
+the sign reverses. The point of no return comes at a quarter to three quarters of
+physical dominance. Every behavior run ends in extraction, which the goals imply; not a
+finding. Commons, as a side result of the new query (n=3, T=2): at S=20 any single user can keep the
+stock depleted for 2 rounds and every user holds a veto on recovery. 225 tests pass.
+
+Next agent: E6 (correction without a contest of strength) is where the case points; A2
+has a case. `--lock` makes any world's reversible harms checkable for political
+irreversibility; run it on the treaty and the composite before trusting "reversible".

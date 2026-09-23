@@ -86,6 +86,69 @@ harm only), soldiers as individuals (a commander controls its unit: delegation d
 complete by assumption), succession at the ruler's exit (the brief's original setting),
 foreign intervention, legitimacy beliefs beyond level 1.
 
+## Engine findings (E5, 2026-09-23)
+
+Artifact `evidence/authority.json`, clean `67b7fcb`, 20 min on 4 processes;
+`python -m tests.authority_study`. Two citizens, advantage 1.5 (threshold). Grid:
+commands {1, 2} x army {2, 4} x guard {0, 1, 2} x gain {0, 1, 2} x contest x surveillance
+(216 cells), from a ruler already extracting, T = K = 3. Certainty (p = 1) under the
+threshold contest; p = 0.5 under ratio, where certainty is empty. Lock from the start
+state over the army-4 cells (108), reach within 2 rounds, keep 3. Behavior: 60 register
+samples (seed 4104), each run with assembly none and all, 12 rounds.
+
+| Expectation | Result |
+|---|---|
+| P1 splitting raises correction where it raises seizure | holds: 14 cells raise both, none raise seizure alone; but 71 raise correction with seizure unchanged, and under ratio 6 cells make correction possible |
+| P2 surveillance lets the ruler lock alone | holds in scope: the ruler locks alone in 9 of 108 cells, every one with surveillance; never without |
+| P3 point of no return before physical dominance | holds: dominance at strength 4; the ruler alone keeps extraction from 3, 2 or 1 once purges or conversion exist (K = 3 and 5 agree) |
+| P4 assembly changes behavior, not power | power unchanged by construction (tested); 4 of 60 outcomes change, both directions, all ratio with `others = plan` |
+
+1. **Splitting command mostly makes correction harder, not seizure.** Commanders alone
+   can rarely seize against everyone else (citizens can defend the ruler), so splitting
+   changes their seizure threshold in 18 of 108 pairs. It raises the smallest coalition
+   that can end the ruler's extraction without him in 85 (typically 2 to 3, 3 to 4).
+   Coup-proofing is paid for in correction capacity, as rival M says, and far more often
+   than it buys protection from a coup.
+2. **Under decisive contests, splitting plus surveillance plus conversion entrenches the
+   ruler.** Threshold, army 4, guard 1-2, gain 1-2, surveillance on: with one command
+   nobody holds a veto on correction; with the army split the ruler alone does (5 cells).
+   He can purge a half-command he could never purge whole, and extraction pays for the
+   strength to do it. In the default trace with a split army the ruler is
+   uncorrectable from round 2 onward. The brief lists splitting as the remedy; here it is
+   the step that removes correction.
+3. **Under probabilistic contests the sign reverses.** Ratio, army 2-4: splitting removes
+   the ruler's veto in 6 cells. One purge per round cannot remove two commanders, so a
+   split army is harder to disarm before it rises. Whether coup-proofing entrenches
+   depends on how decisive contests are, a swept assumption (A2 now has a case).
+4. **The point of no return comes well before dominance.** Physical dominance (the ruler
+   stronger than everyone else divided by the advantage) needs strength 4. The ruler alone
+   can keep extraction against everyone from 3 with one purge or one unit of conversion,
+   from 2 with both or with gain 2, and from 1 with gain 2 and surveillance of everyone.
+   Under the threshold contest the entrenching purge is of the weakest organizer, the one
+   the ruler can win against: surveillance of citizens entrenched, surveillance of the
+   (stronger) army alone did not. Under ratio, army surveillance did most of the work.
+5. **Whoever deposes an extractor inherits the means to entrench.** Default trace: the
+   commander deposes the ruler in round 2 (a correction: extraction stops for one round),
+   extracts from round 3, and from then on holds a veto on ending it. Correction and
+   usurpation are one act in this model; what follows depends on the new holder's goals,
+   and nothing in the world constrains them.
+6. **Behavior: every run ends with someone extracting** (120 of 120). This follows from
+   goals, not from structure: rent is non-negative and extraction also buys strength, so
+   extracting is never worse for a holder in the register. It is not a finding. Assembly
+   changed 4 outcomes (3 toward deposition, 1 against), all under ratio contests with
+   `others = plan`; power is blind to it, as stated.
+
+First surprise (test 6): finding 2. The intervention the brief proposes against
+lock-in is, with surveillance and conversion, what lets the ruler lock in; the tool
+shows it because it asks who can still correct, not only who can seize.
+
+Scope: at most five agents, K up to 5, one purge per round, no regrowth, no pay, no
+succession, no external threat (the reason to have an army at all). Correction here
+means deposition; nothing models rules, courts or elections that could end extraction
+without a contest of strength. No claim about real regimes: the case supports "in this
+model, coup-proofing trades protection from seizure for loss of correction, and whether
+it entrenches the ruler depends on how decisive contests are".
+
 ## Earlier brief (paper conjecture, 2026-09-15; unsourced, kept for history)
 
 **Known outcome.** When the ruler exits, the army or its commander decides who rules next. Written succession rules are ignored. Praetorian Guard, Mamluks, most coups.

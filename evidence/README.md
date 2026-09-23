@@ -129,3 +129,11 @@ stock and treaty settings, and planner runs under both opponent models.
 `scale.json` identifies clean source `dc8a981`. Reproduce with `python -m tests.scale_study`
 (about 4 minutes). Exact commons power tables for n up to 20 using declared symmetry, with
 per-size rows, `stands_for` counts, thresholds, work and timing.
+
+## Authority and correction
+
+`authority.json` identifies clean source `67b7fcb`. Reproduce with
+`python -m tests.authority_study` (about 20 minutes on 4 processes). Correction grid (who
+can end extraction without the ruler, commanders-only seizure, the ruler's keep value,
+veto players), lock grid, point-of-no-return strengths by contest, gain and surveillance,
+per-round correction along four traces, and 60 behavior samples paired on assembly.
