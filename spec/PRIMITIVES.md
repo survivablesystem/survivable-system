@@ -62,6 +62,9 @@ rules:           nested levels. L0 operational: which actions are allowed. L1 co
                  claim, worth what others are believed to honor. rediscovery/money-issuance.
 delegation:      an agent may create a sub-agent, granting capability and setting its goal.
                  The set goal drifts from the intended one by a swept amount.
+                 Implemented as a goal module (decision 2026-09-23, E11): a delegate's utility is
+                 (1 - drift) x its principal's plus drift x its own; capability is granted by the
+                 world's mechanics; the agent set is fixed.
 irreversibility: flagged transitions that cannot be undone, and harms that a coalition can
                  keep against everyone else (computed by the lock query, E5). A case declares
                  catastrophic harms, affected groups and exclusions; majority utility is not a
@@ -129,7 +132,7 @@ Individual psychology beyond goals and horizon. Physical detail of the world bey
 | contests, ratio form | implemented in the commons | second form: A2 |
 | resources with conversion | per-world only; utility transfers as a module (E8) | T2.2 |
 | rules as claims | declared conduct, tested (E7); amendment by declared voters (E10) | L2 nesting when a case needs it |
-| delegation with drift | not yet | standing army |
+| delegation with drift | goal module (E11), `worlds/control.py` | agents created mid-run |
 | irreversibility | declared (terminal labels, harm flags) and computed (lock, E5) | |
 | error and correction | bounded: end, keep, veto and lock of declared harms (E5) | errors in beliefs |
 | selection | not yet | captured auditor |

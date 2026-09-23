@@ -2,7 +2,7 @@
 
 A research prototype for comparing institutions under explicit assumptions, with the long-term aim of reducing civilizational risk. Agents choose actions from goals and beliefs. The tool asks who bears costs, who can force irreversible outcomes, and who can correct errors.
 
-Implemented: five worlds (a commons, a treaty and capability race, authority and coercion, an auditor paid by the audited, frontier AI labs with an evaluator and a state) and a composite of two, a limited planner, finite simulations, parameter sweeps and goal-free coalition power queries: force, prevent, externalization, correction and lock (who can make a harm permanent for everyone else), and goal-based checks of declared rules: does a rule hold, and which coalitions gain by breaking it onto others (capture). Nested institutions, amendment rules and a civilizational protocol are not implemented or validated. The historical briefs are hypotheses awaiting source and counterexample review.
+Implemented: six worlds (a commons, a treaty and capability race, authority and coercion, an auditor paid by the audited, frontier AI labs with an evaluator and a state, an AI system as an agent of its lab) and a composite of two, a limited planner, finite simulations, parameter sweeps and goal-free coalition power queries: force, prevent, externalization, correction and lock (who can make a harm permanent for everyone else), and goal-based checks of declared rules: does a rule hold, and which coalitions gain by breaking it onto others (capture). Nested institutions, amendment rules and a civilizational protocol are not implemented or validated. The historical briefs are hypotheses awaiting source and counterexample review.
 
 Read [`INTENT.md`](INTENT.md) first. It is the measure for every change.
 
@@ -67,7 +67,11 @@ python -m engine worlds.audit --enforce 4 --rule independence --reach 2
 python -m engine worlds.audit --enforce 4 --rule independence --reach 2 --pay firm>a0   # with a bribe available
 ```
 
-Two modules apply to any world: side payments (`--pay PAYER>RECIPIENT`, `engine/transfers.py`) and public records (`engine/history.py`). They never change what can be forced, only which rules can hold. With both, the authority world has a rule that corrects a ruler by restitution instead of deposition; it holds only with public payments, records and decisive contests ([`rediscovery/standing-army.md`](rediscovery/standing-army.md)).
+Four modules apply to any world: side payments (`--pay PAYER>RECIPIENT`, `engine/transfers.py`), public records (`--records K`, `engine/history.py`), amendable rules (`engine/constitution.py`) and delegation with goal drift (`engine/delegation.py`). They never change what can be forced, only which rules can hold. With both, the authority world has a rule that corrects a ruler by restitution instead of deposition; it holds only with public payments, records and decisive contests ([`rediscovery/standing-army.md`](rediscovery/standing-army.md)).
+
+## AI systems as agents
+
+`worlds/control.py`: a lab grants its AI system autonomy; the AI's goal is the lab's, drifted. Each autonomy level granted moves the veto on shutdown toward the AI long before anyone could force escape; an AI aligned to its lab resists a shutdown that costs the lab; and suspicion that arrives after the veto has moved discourages correction rather than prompting it ([`rediscovery/ai-control.md`](rediscovery/ai-control.md)). Rule checks can value precaution with a declared posterior that a caught agent persists (`precaution`).
 
 ## First real scenario: frontier AI
 
