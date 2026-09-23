@@ -73,6 +73,16 @@ def rules(cell):
             for name, rule in F.RULES.items()]
 
 
+def sequential(report):
+    out = []
+    for r in report["coalitions"]:
+        q = r.get("sequential")
+        if q and q.get("gain") is not None:
+            out.append({"coalition": r["coalition"], **{k: q[k] for k in (
+                "gain", "alone", "needs_all", "capture", "every_member", "members", "first", "new_harms", "falls_outside", "at_start")}})
+    return out
+
+
 def paid(cell):
     base = make(cell)
     if cell["design"].startswith("labs"):
@@ -80,7 +90,8 @@ def paid(cell):
     else:
         disclosure = "public" if "public" in cell["design"] else "parties"
         w = Transfers(base, [("state", "evaluator"), ("l0", "evaluator"), ("l1", "evaluator")], AMOUNTS, disclosure)
-    return {**cell, **compact(enforcement(w, F, F.licensing_paid, w.initial_state(), D, REACH))}
+    report = enforcement(w, F, F.licensing_paid, w.initial_state(), D, REACH, window=2)
+    return {**cell, **compact(report), "sequential": sequential(report)}
 
 
 def power():
@@ -105,6 +116,7 @@ if __name__ == "__main__":
                       "rules": {n: (f.__doc__ or "").strip() for n, f in {**F.RULES, "licensing (paid)": F.licensing_paid}.items()},
                       "fixed": F.FIXED, "fixed_reasons": F.FIXED_REASONS, "defaults": F.DEFAULTS,
                       "settings": {"information": INFO, "coalitions": COALITIONS, "rules": RULE_GRID, "payments": PAY_GRID,
-                                   "depth": D, "reach": REACH, "amounts": AMOUNTS, "power_rounds": 3},
+                                   "depth": D, "reach": REACH, "amounts": AMOUNTS, "power_rounds": 3,
+                                   "payments_window": 2},
                       "elapsed_seconds": perf_counter() - t0, "results": results},
                      indent=2, sort_keys=True, allow_nan=False, default=str))

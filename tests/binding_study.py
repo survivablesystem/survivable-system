@@ -10,22 +10,12 @@ from time import perf_counter
 from engine.history import History
 from engine.records import provenance
 from engine.rules import enforcement
-from tests.frontier_study import D, REACH, RULE_GRID, cells, compact, make
+from tests.frontier_study import D, REACH, RULE_GRID, cells, compact, make, sequential
 from worlds import frontier as F
 
 
 WINDOW = 2
 LIABILITY = (0.0, 2.0, 10.0)  # evaluator liability for a false pass
-
-
-def sequential(report):
-    out = []
-    for r in report["coalitions"]:
-        q = r.get("sequential")
-        if q and q.get("gain") is not None:
-            out.append({"coalition": r["coalition"], **{k: q[k] for k in (
-                "gain", "alone", "needs_all", "capture", "every_member", "members", "first", "new_harms", "falls_outside", "at_start")}})
-    return out
 
 
 def check(cell):
