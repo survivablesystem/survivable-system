@@ -130,6 +130,12 @@ class World:
         """
         return state
 
+    def types(self):
+        """Groups of exchangeable agent ids (decision 2026-09-23, E2). Declaring a group
+        asserts that permuting its members' actions leaves the distribution of successor
+        physical states, menus and harms unchanged. Default: no symmetry claimed."""
+        return [[a.id] for a in self.agents]
+
     def stakeholders(self):
         """Stakeholder name -> agent ids (possibly none). Declared with STAKEHOLDERS."""
         raise NotImplementedError("world must declare stakeholders (decision 2026-09-23, E1)")

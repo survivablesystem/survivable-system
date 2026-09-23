@@ -11,7 +11,8 @@ Randomized stage strategies lie between; equal brackets are exact. Prevention is
 dual, prevent_alpha(C) = 1 - force_beta(complement). No claim extends beyond T.
 """
 from __future__ import annotations
-from itertools import combinations, product
+from itertools import combinations, combinations_with_replacement, product
+from math import comb, prod
 
 from .core import distribution, key
 
@@ -42,7 +43,25 @@ class Game:
             self.target = None if target is None else frozenset([target] if isinstance(target, str) else target)
         self.inside = [i for i in ids if i in coalition]
         self.outside = [i for i in ids if i not in coalition]
+        self.groups = world.types()
         self.memo, self.work = {}, 0
+
+    def assignments(self, side, menus):
+        """Joint actions of one side, one per multiset within each exchangeable group."""
+        parts = []
+        for group in self.groups:
+            members = [i for i in group if i in side]
+            if not members:
+                continue
+            menu = menus[members[0]]
+            if len(members) == 1 or any(key(menus[i]) != key(menu) for i in members):
+                parts.append([tuple(zip(members, choice)) for choice in product(*(menus[i] for i in members))])
+            else:
+                parts.append([tuple(zip(members, (menu[k] for k in idx)))
+                              for idx in combinations_with_replacement(range(len(menu)), len(members))])
+        order = {i: n for n, i in enumerate(side)}
+        return [tuple(a for _, a in sorted((x for part in choice for x in part), key=lambda x: order[x[0]]))
+                for choice in product(*parts)]
 
     def visit(self):
         self.work += 1
@@ -73,8 +92,8 @@ class Game:
         """Stage value, the first mover's choice and the second mover's reply to it."""
         world = self.world
         menus = {a.id: world.actions(world.observe(state, a), a) for a in world.agents}
-        mine = list(product(*(menus[i] for i in self.inside)))
-        theirs = list(product(*(menus[i] for i in self.outside)))
+        mine = self.assignments(self.inside, menus)
+        theirs = self.assignments(self.outside, menus)
 
         def q(own, other):
             chosen = {**dict(zip(self.inside, own)), **dict(zip(self.outside, other))}
@@ -124,14 +143,35 @@ def witness(world, state, coalition, rounds, target=None, budget=BUDGET):
             "reply": dict(zip(game.outside, other))}
 
 
-def coalitions(world):
+def counts(world, coalition):
+    return tuple(sum(i in coalition for i in group) for group in world.types())
+
+
+def canonical(world, count_vector):
+    """The representative coalition for a count vector: the first members of each group."""
     ids = [a.id for a in world.agents]
-    return [list(c) for size in range(len(ids) + 1) for c in combinations(ids, size)]
+    chosen = {i for group, c in zip(world.types(), count_vector) for i in group[:c]}
+    return [i for i in ids if i in chosen]
+
+
+def coalitions(world):
+    """Every coalition up to declared symmetry, smallest first; singleton groups give all subsets."""
+    ranges = [range(len(group) + 1) for group in world.types()]
+    vectors = sorted(product(*ranges), key=lambda v: (sum(v), [-c for c in v]))
+    return [canonical(world, v) for v in vectors]
+
+
+def row_for(world, rows, coalition):
+    """The row standing for `coalition` (any coalition with the same counts per group)."""
+    target = counts(world, coalition)
+    return next(r for r in rows if counts(world, r["coalition"]) == target)
 
 
 def power_table(world, state, rounds, target=None, budget=BUDGET):
-    """Force and prevent brackets for every coalition. None marks an unresolved bound."""
+    """Force and prevent brackets for every coalition up to declared symmetry; `stands_for`
+    counts the coalitions a row represents. None marks an unresolved bound."""
     rows = []
+    groups = world.types()
     for coalition in coalitions(world):
         values, work = {}, {}
         for order in ORDERS:
@@ -141,11 +181,13 @@ def power_table(world, state, rounds, target=None, budget=BUDGET):
             except PowerLimitExceeded:
                 values[order] = None
             work[order] = game.work
-        rows.append({"coalition": coalition, "force": values, "work": work})
-    ids = [a.id for a in world.agents]
-    by_members = {frozenset(r["coalition"]): r for r in rows}
+        c = counts(world, coalition)
+        rows.append({"coalition": coalition, "force": values, "work": work,
+                     "stands_for": prod(comb(len(g), k) for g, k in zip(groups, c))})
+    by_counts = {counts(world, r["coalition"]): r for r in rows}
     for row in rows:
-        rest = by_members[frozenset(ids) - frozenset(row["coalition"])]["force"]
+        c = counts(world, row["coalition"])
+        rest = by_counts[tuple(len(g) - k for g, k in zip(groups, c))]["force"]
         row["prevent"] = {"alpha": None if rest["beta"] is None else 1.0 - rest["beta"],
                           "beta": None if rest["alpha"] is None else 1.0 - rest["alpha"]}
     return rows
@@ -288,14 +330,21 @@ def externalization(world, module, state, rounds, p=1.0, budget=BUDGET):
             raise ValueError(f"harm {harm} affects undeclared stakeholders {sorted(unknown)}")
         affected = sorted({i for name in spec["affects"] for i in members[name]}, key=ids.index)
         rows = power_table(world, state, rounds, harm_target(world, harm), budget)
-        outsiders = [r for r in rows if not set(r["coalition"]) & set(affected)]
-        own = next(r for r in rows if set(r["coalition"]) == set(affected)) if affected else None
+        free = [sum(i not in affected for i in group) for group in world.types()]
+        ids = [a.id for a in world.agents]
+        outsiders = []
+        for r in rows:  # re-represent each fitting count vector by members outside the affected
+            c = counts(world, r["coalition"])
+            if all(k <= f for k, f in zip(c, free)):
+                chosen = {i for group, k in zip(world.types(), c) for i in [j for j in group if j not in affected][:k]}
+                outsiders.append({**r, "coalition": [i for i in ids if i in chosen]})
+        own = row_for(world, rows, affected) if affected else None
         realized = harm in world.harmed(state)
         correct = own_correct = None
         if realized:
             ended = power_table(world, state, rounds, lambda s, h=harm: h not in world.harmed(s), budget)
             correct = threshold(ended, "force", p)
-            own_correct = next(r for r in ended if set(r["coalition"]) == set(affected))["force"] if affected else None
+            own_correct = row_for(world, ended, affected)["force"] if affected else None
         report.append({
             "harm": harm, "irreversible": spec["irreversible"], "affects": spec["affects"],
             "affected_agents": affected,

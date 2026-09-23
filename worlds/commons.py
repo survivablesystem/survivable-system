@@ -199,6 +199,12 @@ class Commons(World):
             yield probability, {"S": 0.0 if collapsed else S2, "collapsed": collapsed,
                                 "last": dict(joint), "value": value, "wealth": wealth}
 
+    def types(self):
+        # Users share menus, capability and a symmetric channel structure (all or none);
+        # the kernel and harms read only the stock, so permuting their actions changes
+        # nothing physical. Checked in tests/test_symmetry.py.
+        return [[a.id for a in self.agents]]
+
     def stakeholders(self):
         return {"users": [a.id for a in self.agents], "future users": [], "stock-dependent others": []}
 

@@ -47,7 +47,8 @@ def rename(report, mapping):
 
 def test_without_a_draw_the_whole_reproduces_the_fishery():
     whole = rc.make({**rc.DEFAULTS, "draw": 0.0}, random.Random(0))
-    part = commons.make({**commons.DEFAULTS, "n": 3, "sanction": False}, random.Random(0))
+    from tests.test_symmetry import Unreduced
+    part = Unreduced(commons.make({**commons.DEFAULTS, "n": 3, "sanction": False}, random.Random(0)))
     for S in (30.0, 40.0):
         w = [r for r in externalization(whole, rc, at_stock(whole, S), 2) if r["harm"].startswith("commons")]
         p = externalization(part, commons, {**part.initial_state(), "S": S}, 2)

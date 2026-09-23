@@ -140,13 +140,13 @@ def at_stock(world, S):
 @pytest.mark.parametrize("S", [8.0, 12.0, 30.0])
 def test_commons_brackets_duality_and_monotonicity(destination, S):
     world = small_commons(confiscation_to=destination)
+    from engine.power import row_for
     rows = power_table(world, at_stock(world, S), 2, "collapsed")
-    by = {frozenset(r["coalition"]): r for r in rows}
     for row in rows:
         f, p = row["force"], row["prevent"]
         assert f["alpha"] <= f["beta"] + 1e-12 and p["alpha"] <= p["beta"] + 1e-12
-        for extra in world.by_id:
-            bigger = by[frozenset(row["coalition"]) | {extra}]
+        for extra in set(world.by_id) - set(row["coalition"]):
+            bigger = row_for(world, rows, set(row["coalition"]) | {extra})
             assert f["alpha"] <= bigger["force"]["alpha"] + 1e-12
             assert p["alpha"] <= bigger["prevent"]["alpha"] + 1e-12
 

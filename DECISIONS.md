@@ -7,6 +7,34 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  E2: exact symmetry reduction for power queries
+
+Proposed before implementation. Power queries enumerate every coalition (2^n) and every
+joint action per stage (menus^n). The commons stops at n=4; composites multiply menus.
+Civilizational questions need populations, without trading exactness for a mean field.
+
+Change: optional `World.types()` -> list of groups of exchangeable agent ids (default:
+every agent alone, no reduction). A world declaring a group asserts that permuting those
+agents' actions permutes nothing that matters: the successor distribution over
+`physical` keys, menus and harms are invariant. Then (1) per stage, each side enumerates
+multisets of actions per group instead of tuples (a representative assignment per
+multiset); (2) `power_table` returns one row per count vector (coalition up to
+permutation), with a representative coalition and the number it stands for; complements
+and thresholds use the same canonical form. Exactness is claimed only under the declared
+symmetry, and tests compare reduced and unreduced tables where both run.
+
+What it assumes and loses: exchangeability is a modeling claim; agents that differ in
+channels, capability or position are separate groups. Per-agent witnesses become "any k
+of this group". The planner is unchanged (next step).
+
+Alternatives rejected: mean field or sampling (not exact; saved for when exact fails and
+calibrated against it); detecting symmetry automatically (costly and brittle; a
+declaration is checkable).
+
+Intent tests: 1 one optional declaration, one reduction; 2 no behavior; 3 symmetry is a
+declared, tested assumption; 4 reduced equals unreduced where both run; 5 lets harms be
+mapped at population scale; 6 larger populations may show what n<=4 hid.
+
 ## 2026-09-23  E4: composition, so the whole system is the unit of analysis
 
 Proposed before implementation. Owner note: externalization comes from analysing parts
