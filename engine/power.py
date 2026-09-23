@@ -185,3 +185,72 @@ def profile(world, trace, rounds, target=None, levels=(1.0, 0.5), budget=BUDGET)
     first = lambda flag: next((e["round"] for e in out if e[flag]), None)
     return {"rounds": out, "first_fragile": first("fragile"), "first_sealed": first("sealed"),
             "power_rounds": rounds, "target": target, "levels": list(levels)}
+
+
+def sure(world, state, coalition, rounds, target=None, goal="avoid", informed=False, budget=BUDGET):
+    """Can `coalition` guarantee to avoid (or reach) `target` within `rounds` using only its
+    members' pooled observations? Decision record 2026-09-23 (T3.1).
+
+    Knowledge-set construction: the coalition commits one joint action per set of states
+    consistent with what it has seen; the complement sees everything, including that
+    action; chance is adversarial. `informed=True` gives the coalition the full state.
+    Returns True or False; raises PowerLimitExceeded when the work cap is reached.
+    """
+    if goal not in ("avoid", "reach"):
+        raise ValueError("goal must be avoid or reach")
+    game = Game(world, coalition, target, "alpha", budget)
+    members = [world.by_id[i] for i in game.inside]
+    memo = {}
+
+    def seen(s):
+        if informed:
+            return key(world.physical(s))
+        return key([world.observe(s, a) for a in members])
+
+    def groups(states):
+        out = {}
+        for s in states:
+            out.setdefault(seen(s), {})[key(world.physical(s))] = s
+        return [list(g.values()) for g in out.values()]
+
+    def win(states, t):
+        labels = [world.terminal(s) for s in states]
+        if goal == "avoid":
+            if any(game.hit(label) for label in labels):
+                return False
+            states = [s for s, label in zip(states, labels) if label is None]
+            if not states or t == 0:
+                return True
+        else:
+            if any(label is not None and not game.hit(label) for label in labels):
+                return False
+            states = [s for s, label in zip(states, labels) if label is None]
+            if not states:
+                return True
+            if t == 0:
+                return False
+        memo_key = (frozenset(key(world.physical(s)) for s in states), t)
+        if memo_key in memo:
+            return memo[memo_key]
+
+        def menus(s):
+            return [world.actions(world.observe(s, a), a) for a in members]
+        own_menus = menus(states[0])
+        if any(key(menus(s)) != key(own_menus) for s in states[1:]):
+            raise ValueError("states the coalition cannot tell apart must offer it the same menus")
+        result = False
+        for own in product(*own_menus):
+            successors = []
+            for s in states:
+                others = [world.actions(world.observe(s, world.by_id[i]), world.by_id[i]) for i in game.outside]
+                for other in product(*others):
+                    chosen = {**dict(zip(game.inside, own)), **dict(zip(game.outside, other))}
+                    joint = {a.id: chosen[a.id] for a in world.agents}
+                    successors += [s2 for _, s2 in distribution(world.outcomes(s, joint), game.visit)]
+            if all(win(g, t - 1) for g in groups(successors)):
+                result = True
+                break
+        memo[memo_key] = result
+        return result
+
+    return all(win(g, rounds) for g in groups([state]))

@@ -7,6 +7,42 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  T3.1: information-restricted sure power
+
+Proposed before implementation. The T1.5 query gives both sides the full state, so it
+cannot register verification, disclosure or any channel: a treaty case built on it would
+contain its conclusion ("verification never changes power"). The case needs: can a
+coalition guarantee an outcome using only what its members observe, against a fully
+informed adversary?
+
+Add `sure(world, state, coalition, rounds, target, goal, informed)`: finite-horizon sure
+winning with observation-based strategies, via the knowledge-set construction (Reif 1984;
+Chatterjee, Doyen, Henzinger and Raskin, "Algorithms for omega-regular games with
+imperfect information", CSL 2006 / LMCS 2007). The coalition pools its members'
+observations; its knowledge is the set of states consistent with them. Each round it
+commits one joint action per knowledge set; the complement sees everything, including
+that action, and picks the worst response per state; chance is adversarial (every
+positive-probability branch). The coalition wins iff every possible play avoids (or
+reaches) the target within T. `informed=True` replaces observations by the state itself,
+giving the full-information sure value as a control. Knowledge sets are deduplicated by
+`physical(state)`, which the T1.5 contract already requires to fix menus, kernel and
+terminal status.
+
+Scope: certainty only. Probabilistic values under imperfect information need policy
+enumeration or a solver; not adopted until a case needs them. Randomized coalition
+strategies can matter under imperfect information; this query reports deterministic
+guarantees, a lower bound.
+
+Discriminating checks: a hidden-bit toy where a blind guesser cannot guarantee but a
+verified one can; informed sure values equal full-information values with chance treated
+adversarially (commons paid design, deterministic stock: equals prevent_alpha == 1);
+observation contract (all states in a knowledge set share the coalition's menu); work cap.
+
+Intent tests: 1 one construction over the existing kernel and observe contract; 2 no
+behavior; 3 certainty, pooled observations and adversarial chance declared; 4 blind versus
+verified is the discriminating comparison; 5 names who can prevent an irreversible harm
+given what they can see; 6 measures what information buys as denial, not as deterrence.
+
 ## 2026-09-23  T1.5: goal-free coalition power beside goal-driven behavior
 
 Proposed before implementation. Every commons result so far depends on authored

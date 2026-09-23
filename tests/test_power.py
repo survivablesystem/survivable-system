@@ -253,3 +253,71 @@ def test_cli_trace_profile_matches_library():
     world = commons.make(record["params"], random.Random(0))
     assert record["power_profile"] == profile(world, record["trace"], 1, ["collapsed"])
     assert cli("--profile", "2").returncode != 0  # requires --trace
+
+
+class HiddenBit(Toy):
+    # u hides a bit in round 1; g must match it in round 2 or the world ends in "hit".
+    # g sees the bit only if the channel is verified.
+    def __init__(self, verified):
+        super().__init__({"verified": verified}, None)
+        for i in ("u", "g"):
+            self.add(Agent(i))
+
+    def initial_state(self):
+        return {"t": 0, "bit": None, "end": None}
+
+    def observe(self, state, agent):
+        if agent.id == "g" and not self.params["verified"]:
+            return {k: v for k, v in state.items() if k != "bit"}
+        return state
+
+    def actions(self, observation, agent):
+        if observation["t"] == 0:
+            return [0, 1] if agent.id == "u" else ["wait"]
+        return ["wait"] if agent.id == "u" else [0, 1]
+
+    def outcomes(self, state, joint):
+        if state["t"] == 0:
+            return [(1.0, {"t": 1, "bit": joint["u"], "end": None})]
+        return [(1.0, {"t": 2, "bit": state["bit"], "end": "safe" if joint["g"] == state["bit"] else "hit"})]
+
+
+@pytest.mark.parametrize("verified", [False, True])
+def test_sure_prevention_depends_on_what_the_coalition_sees(verified):
+    from engine.power import sure
+    world = HiddenBit(verified)
+    s = world.initial_state()
+    assert sure(world, s, ["g"], 2, "hit") is verified
+    assert sure(world, s, ["g"], 2, "hit", informed=True) is True
+    # Full-information power cannot see the channel at all.
+    assert force(world, s, ["u"], 2, "hit") == 0.0
+    assert sure(world, s, ["u"], 2, "hit", goal="reach") is False
+
+
+@pytest.mark.parametrize("q", [0.0, 0.5, 1.0])
+def test_sure_treats_chance_as_adversarial(q):
+    from engine.power import sure
+    world = Push(q)
+    s = world.initial_state()
+    assert sure(world, s, ["b"], 2, "collapsed") is (q == 0.0)
+    assert sure(world, s, ["a"], 2, "collapsed", goal="reach") is (q == 1.0)
+    assert sure(world, s, ["a", "b"], 2, "collapsed", goal="reach") is True
+    assert sure(world, s, [], 2, "collapsed") is False  # nobody prevents; a pushes against idle
+
+
+@pytest.mark.parametrize("S", [8.0, 20.0, 25.0, 30.0, 40.0])
+def test_sure_matches_full_information_where_the_state_is_observed(S):
+    from engine.power import sure
+    world = small_commons(confiscation_to="sanctioners", restraint=True)
+    state = at_stock(world, S)
+    for row in power_table(world, state, 2, "collapsed"):
+        guaranteed = row["prevent"]["alpha"] >= 1 - 1e-12  # paid: chance never moves the stock
+        assert sure(world, state, row["coalition"], 2, "collapsed") is guaranteed
+        assert sure(world, state, row["coalition"], 2, "collapsed", informed=True) is guaranteed
+
+
+def test_sure_work_cap():
+    from engine.power import sure
+    world = small_commons()
+    with pytest.raises(PowerLimitExceeded):
+        sure(world, at_stock(world, 20.0), ["u0"], 3, "collapsed", budget=10)
