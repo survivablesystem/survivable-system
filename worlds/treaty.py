@@ -131,24 +131,22 @@ class Treaty(World):
         return {"cap": state["cap"], "budget": state["budget"], "end": state["end"]}
 
     def observe(self, state, agent):
-        i, j = agent.id, RIVAL[agent.id]
+        # Parties see themselves and, if verified, the rival; outsiders (non-members in a
+        # composite, decision 2026-09-23 E4) see only public facts: time, strikes, the end.
         seen = {"t": state["t"], "end": state["end"], "strikes": dict(state["strikes"]),
-                "cap": {i: state["cap"][i]}, "builds": {i: state["builds"][i]},
-                "last": {i: state["last"][i]}, "budget": {i: state["budget"][i]}}
-        if agent.observes(j):
-            for field in ("cap", "builds", "last", "budget"):
-                seen[field][j] = state[field][j]
+                "cap": {}, "builds": {}, "last": {}, "budget": {}}
+        for party in PARTIES:
+            if party == agent.id or (agent.id in PARTIES and agent.observes(party)):
+                for field in ("cap", "builds", "last", "budget"):
+                    seen[field][party] = state[field][party]
         return seen
 
-    def beliefs(self, observation, agent):
-        j = RIVAL[agent.id]
-        base = {**observation, "value": {"a": 0.0, "b": 0.0}}
-        if j in observation["cap"]:
-            return [(1.0, base)]
-        # Unobserved rival: it built in each non-strike round with probability prior_build,
-        # in a uniformly chosen domain. Scarce budget: k builds fit in the last k free rounds
-        # iff reserve plus income covers them; strike timing is ignored (declared). Prior
-        # renormalized over feasible totals; a certain builder builds whenever it can.
+    def party_beliefs(self, observation, agent, j):
+        """Distribution over an unobserved party's build vector (probability, builds)."""
+        # It built in each non-strike round with probability prior_build, in a uniformly
+        # chosen domain. Scarce budget: k builds fit in the last k free rounds iff reserve
+        # plus income covers them; strike timing is ignored (declared). Prior renormalized
+        # over feasible totals; a certain builder builds whenever it can.
         rounds = observation["t"] - observation["strikes"][j]
         q, n = self.params["prior_build"], self.params["domains"]
         reserve = self.params["reserve"] if self.scarce() else 0
@@ -166,15 +164,24 @@ class Treaty(World):
             top = max(feasible)
             weights = {ks: 1.0 for ks in product(range(top + 1), repeat=n) if sum(ks) == top}
             total = sum(weights.values())
-        support = []
-        for ks, weight in weights.items():
-            if weight:
-                support.append((weight / total, {
-                    **base, "cap": {**observation["cap"], j: self.after_builds(j, ks)},
-                    "builds": {**observation["builds"], j: list(ks)},
-                    "budget": {**observation["budget"],
-                               j: reserve + observation["t"] - FIXED["build_units"] * sum(ks) if self.scarce() else 0},
-                    "last": {**observation["last"], j: self.prior_action(agent, self.by_id[j])}}))
+        return [(w / total, ks) for ks, w in weights.items() if w]
+
+    def beliefs(self, observation, agent):
+        base = {**observation, "value": {"a": 0.0, "b": 0.0}}
+        hidden = [j for j in PARTIES if j not in observation["cap"]]
+        reserve = self.params["reserve"] if self.scarce() else 0
+        support = [(1.0, base)]
+        for j in hidden:
+            extended = []
+            for p, s in support:
+                for q, ks in self.party_beliefs(observation, agent, j):
+                    extended.append((p * q, {
+                        **s, "cap": {**s["cap"], j: self.after_builds(j, ks)},
+                        "builds": {**s["builds"], j: list(ks)},
+                        "budget": {**s["budget"],
+                                   j: reserve + observation["t"] - FIXED["build_units"] * sum(ks) if self.scarce() else 0},
+                        "last": {**s["last"], j: self.prior_action(agent, self.by_id[j])}}))
+            support = extended
         return support
 
     def actions(self, observation, agent):

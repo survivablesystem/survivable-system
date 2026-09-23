@@ -14,7 +14,7 @@ import json
 import math
 import random
 
-from .power import BUDGET, externalization, power_table, profile, threshold
+from .power import BUDGET, externalization, joint_prevention, power_table, profile, threshold
 from .records import artifact, run_record
 from .sweep import one_at_a_time, report, report_oat, sample_params, sweep
 
@@ -115,20 +115,30 @@ def main():
         except ValueError as error:
             p.error(str(error))
         for k, v in overrides.items():
-            if k not in state:
-                p.error(f"unknown state field {k!r}; choose from {', '.join(state)}")
-            state[k] = float(v) if isinstance(state[k], float) and isinstance(v, int) else v
+            *path, leaf = k.split(".")  # dotted paths reach nested fields, e.g. parts.commons.S
+            node = state
+            for step in path:
+                if not isinstance(node.get(step), dict):
+                    p.error(f"unknown state path {k!r}")
+                child = dict(node[step])
+                node[step] = child
+                node = child
+            if leaf not in node:
+                p.error(f"unknown state field {k!r}; choose from {', '.join(node)}")
+            node[leaf] = float(v) if isinstance(node[leaf], float) and isinstance(v, int) else v
         settings["state_overrides"] = overrides
         return state
 
     if args.externalities:
         params = baseline_params()
         world = mod.make(dict(params), random.Random(args.seed))
-        report = externalization(world, mod, start_state(world), args.externalities)
+        start = start_state(world)
+        report = externalization(world, mod, start, args.externalities)
+        choices = [r for r in joint_prevention(world, mod, start, args.externalities) if r["forced_choice"]]
         settings.update({"baseline": params, "power_rounds": args.externalities, "budget": BUDGET,
                          "query": "Goal-free, per declared harm: force, force without affected agents, prevent, prevent by the affected; p=1."})
         if args.json:
-            emit("externalities", report)
+            emit("externalities", {"harms": report, "forced_choices": choices})
             return
         size = lambda m: "unresolved" if m is None else ("nobody" if m["size"] is None else
                                                         f"{m['size']} {m['witnesses'][:3]}") + ("" if m is None or m["exact"] else " (upper bound)")
@@ -149,6 +159,9 @@ def main():
                 print(f"  affected agents together can end it: {verdict(r['affected_correct'])}")
             else:
                 print(f"  affected agents together can prevent it: {verdict(own)}")
+        print("\nForced choices (can prevent each harm alone, not both):" + ("" if choices else " none"))
+        for r in choices:
+            print(f"  {' / '.join(r['harms'])}: {r['forced_choice']}")
         print("\nExcluded from the model:")
         for name, reason in mod.EXCLUDED.items():
             print(f"  {name}: {reason}")

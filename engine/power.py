@@ -306,3 +306,29 @@ def externalization(world, module, state, rounds, p=1.0, budget=BUDGET):
             "affected_prevent": own["prevent"] if own else None,
             "realized_now": realized, "correct": correct, "affected_correct": own_correct})
     return report
+
+
+def joint_prevention(world, module, state, rounds, p=1.0, budget=BUDGET):
+    """For each pair of harms, the coalitions that can prevent each one alone but not both
+    together: preventing one forces the other on them (a forced choice), plus the smallest
+    coalitions for each harm and for both."""
+    def table(names):
+        target = lambda s, names=names: bool(set(names) & world.harmed(s))
+        return power_table(world, state, rounds, target, budget)
+
+    def prevents(row):
+        v = row["prevent"]["alpha"]
+        return None if v is None else v >= p - TOLERANCE
+
+    harms = list(module.HARMS)
+    single = {h: table((h,)) for h in harms}
+    report = []
+    for i, h1 in enumerate(harms):
+        for h2 in harms[i + 1:]:
+            both = table((h1, h2))
+            forced = [r1["coalition"] for r1, r2, rb in zip(single[h1], single[h2], both)
+                      if prevents(r1) and prevents(r2) and prevents(rb) is False]
+            report.append({"harms": [h1, h2], "forced_choice": forced,
+                           "prevent_each": [threshold(single[h1], "prevent", p), threshold(single[h2], "prevent", p)],
+                           "prevent_both": threshold(both, "prevent", p)})
+    return report

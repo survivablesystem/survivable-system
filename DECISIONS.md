@@ -7,6 +7,44 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  E4: composition, so the whole system is the unit of analysis
+
+Proposed before implementation. Owner note: externalization comes from analysing parts
+and not how they affect the rest. Every world has been analysed alone, so a harm one
+subsystem imposes on another could not appear in any report.
+
+Change: `engine/compose.py`, a generic `Composite(World)` built from part worlds.
+- Actors: each part's local agent ids map to global ids; one actor may act in several
+  parts. Its action is a mapping part -> local action; its menu is the product of its
+  parts' menus (one action where a part is already terminal). Planning settings belong to
+  the composite (one actor, one planner); channels are the union of mapped part channels.
+- State: one substate per part. The kernel runs the parts in a declared order, chance
+  independent across parts, then applies a declared, deterministic `couple` function that
+  carries flows between parts (for example a resource one part draws from another). The
+  interface is an authored assumption, stated in the composite's module.
+- Observations and beliefs: per part, product of part beliefs. An actor outside a part
+  sees what that part shows a non-member; parts must accept outsider agents in `observe`
+  and `beliefs` (public information only). Values add across parts.
+- Terminal only when every part is terminal; harms are the parts' harms, prefixed by part,
+  plus any the composite declares. Stakeholders are mapped to global names so the same
+  people are one stakeholder across parts. Every part exclusion must be carried into the
+  whole's EXCLUDED or listed in COVERS with how the whole models it (tested).
+
+New query `joint_prevention`: for pairs of harms, smallest coalition that prevents each
+alone and both together. A larger joint threshold means preventing one harm forces the
+other: a tradeoff only the whole can show.
+
+Scope: exponential in actors and menus; the first composite is small. No planner or
+power semantics change; composition is a world.
+
+Alternatives rejected: hand-writing each combined world (no general tool, no check that
+parts reproduce); shared-field identity only (cannot express flows or conversions);
+running parts separately and summing reports (misses exactly the interactions at issue).
+
+Intent tests: 1 one generic composite; 2 no behavior; 3 interface, order and coverage
+declared; 4 parts must reproduce alone and the comparison part-versus-whole is the test;
+5 cross-part harms and uncovered exclusions become visible; 6 tradeoffs between harms.
+
 ## 2026-09-23  E1: harms and stakeholders are declared; externalization is a query
 
 Proposed before implementation. Owner direction: analyse any system on many dimensions

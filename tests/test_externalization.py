@@ -112,5 +112,5 @@ def test_cli_externalities_json_matches_library():
     data = json.loads(completed.stdout)
     assert data["mode"] == "externalities" and data["harms"] == commons.HARMS
     world = commons.make({**commons.DEFAULTS, "n": 2}, random.Random(0))
-    assert data["results"] == externalization(world, commons, {**world.initial_state(), "S": 20.0}, 1)
+    assert data["results"]["harms"] == externalization(world, commons, {**world.initial_state(), "S": 20.0}, 1)
     assert cli("--power", "1", "--state", "nope=1").returncode != 0
