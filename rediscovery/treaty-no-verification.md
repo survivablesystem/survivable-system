@@ -67,3 +67,29 @@ party, third states, future generations, anyone harmed by use rather than by dis
 The "disarmed" label is not a welfare measure and does not mean harm is limited to the
 loser. AI-specific structure (self-improvement, misaligned systems as a third party) is
 not in this world; T9.1 needs owner steering on scope (ASK).
+
+## T3.1 world as built, expectations stated before runs
+
+`worlds/treaty.py`. Parties a and b; integer capability capped at C. Each round: hold,
+build or strike. Build adds `1 + floor(returns * capability)`. Strikes use start-of-round
+capabilities; the contest is swept: `ratio` (success c_s / (c_s + c_t)) or `threshold`
+(success iff c_s >= advantage * c_t). Success disarms the target (flagged, irreversible);
+simultaneous strikes are one contest. A strike is overt. Verification `none`: each sees
+only its own capability and the rival's strikes, and believes the rival built each
+unobserved round with probability `prior_build`. `exact`: each sees the rival's
+capability and actions. Utility per round: `security` x (own - rival capability) / C,
+minus `build_cost` if building, minus `strike_cost` if striking; disarming the rival
+gains `prize`, being disarmed loses it. Treaty "neither builds" is not a rule in the
+kernel: it is a pattern of play whose enforcement is the rival's response.
+
+- E1 (power, full information): at a fixed lead, raising `returns` lowers the smallest
+  coalition that can force the rival's disarmament to one party (lock-in) under the
+  threshold contest; with `returns` 0 the trailing party can always prevent it by
+  building, because an additive lead shrinks as a ratio. Contradiction: no dependence on
+  returns, or lock-in at returns 0.
+- E2 (power, information): the trailing party's sure prevention is the same blind and
+  verified wherever prevention works by building, which needs no information. Verification
+  should matter only where prevention requires timing a strike. Stated risk: it matters
+  in few tested states. The count is the result.
+- E3 (behavior): no prediction between V1 (verification brings compliance) and rival C
+  (verification triggers preventive strikes). The runs discriminate; both outcomes are kept.
