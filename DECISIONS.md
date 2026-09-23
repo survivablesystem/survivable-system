@@ -20,8 +20,12 @@ That states the belief "a revealed departer persists" as an assumption, reported
 result. A toy reference (a thief who is locked out) shows a trigger that is credible only
 under it. Default off: every earlier result stands.
 
-Scope: one revealed departer per state; persistence is certain, not probabilistic; the
-departer's own check is unchanged. The Bayesian version remains open (E12).
+Scope: one revealed departer per state; the departer's own check is unchanged.
+Amended the same day: `precaution` may be a probability q, the posterior that the departer
+is a persisting type, computed by the case from a declared prior and a declared evidence
+model (how likely each type is to depart) by Bayes; others' values mix the persisting and
+the returning continuation before the best action is taken. What remains open is deriving
+the evidence model from the types' own best responses (an equilibrium question).
 
 Intent tests: 1 one option on the existing check; 2 conduct still computed; 3 the belief is
 declared, not hidden; 4 a toy where the answer flips; 5 precautions that protect the public

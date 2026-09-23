@@ -109,26 +109,7 @@ class Check:
     def unilateral(self, state, agent_id, depth):
         """Best one-shot departure of one agent using only its own information: one action
         per observation, valued over its beliefs. Gain is over following, same beliefs."""
-        world, agent = self.world, self.world.by_id[agent_id]
-        observation = world.observe(state, agent)
-        support = distribution(world.beliefs(observation, agent), self.visit)
-        follow = math.fsum(p * self.follow(s, depth)[0][agent_id] for p, s in support)
-        rule_action = self.rule(world, observation, agent)
-        follow_harms = set().union(*(self.follow(s, depth)[1] for _, s in support))
-        top, choice, harmful = None, rule_action, None
-        for action in world.actions(observation, agent):
-            if key(action) == key(rule_action):
-                continue  # gain is over the best alternative: negative means a margin
-            plays = [(p, self.play(s, {**self.prescribed(s), agent_id: action}, depth)) for p, s in support]
-            v = math.fsum(p * values[agent_id] for p, (values, _) in plays)
-            if top is None or v > top + TOLERANCE:
-                top, choice = v, action
-            new = sorted(set().union(*(harms for _, (_, harms) in plays)) - follow_harms)
-            if new and (harmful is None or v - follow > harmful["gain"] + TOLERANCE):
-                harmful = {"gain": v - follow, "action": action, "new_harms": new}
-        if top is None:  # nothing else on the menu
-            return {"gain": 0.0, "action": rule_action, "rule_action": rule_action, "harmful": None}
-        return {"gain": top - follow, "action": choice, "rule_action": rule_action, "harmful": harmful}
+        return unilateral_over([(1.0, self)], state, agent_id, depth)
 
     def joint(self, state, coalition, depth, outside=lambda harms: {}):
         """Best one-shot joint departure of a coalition (every member departs), full
@@ -236,6 +217,34 @@ class Check:
                 "capture": gain > alone + TOLERANCE and bool(falls)}
 
 
+def unilateral_over(checks, state, agent_id, depth):
+    """The unilateral check under a mixture of continuations: `checks` is [(weight, Check)],
+    e.g. a revealed departer that persists with probability q and returns to the rule with
+    1 - q (decision 2026-09-23, E12). Values are weighted before the best action is taken."""
+    first = checks[0][1]
+    world, agent = first.world, first.world.by_id[agent_id]
+    observation = world.observe(state, agent)
+    support = distribution(world.beliefs(observation, agent), first.visit)
+    follow = math.fsum(w * p * c.follow(s, depth)[0][agent_id] for w, c in checks for p, s in support)
+    rule_action = first.rule(world, observation, agent)
+    follow_harms = set().union(*(c.follow(s, depth)[1] for w, c in checks if w > 0 for _, s in support))
+    top, choice, harmful = None, rule_action, None
+    for action in world.actions(observation, agent):
+        if key(action) == key(rule_action):
+            continue  # gain is over the best alternative: negative means a margin
+        plays = [(w * p, c.play(s, {**c.prescribed(s), agent_id: action}, depth))
+                 for w, c in checks if w > 0 for p, s in support]
+        v = math.fsum(q * values[agent_id] for q, (values, _) in plays)
+        if top is None or v > top + TOLERANCE:
+            top, choice = v, action
+        new = sorted(set().union(*(harms for _, (_, harms) in plays)) - follow_harms)
+        if new and (harmful is None or v - follow > harmful["gain"] + TOLERANCE):
+            harmful = {"gain": v - follow, "action": action, "new_harms": new}
+    if top is None:  # nothing else on the menu
+        return {"gain": 0.0, "action": rule_action, "rule_action": rule_action, "harmful": None}
+    return {"gain": top - follow, "action": choice, "rule_action": rule_action, "harmful": harmful}
+
+
 def follow_value(world, rule, state, depth, budget=BUDGET):
     """Everyone's expected discounted value within `depth` rounds if all follow the rule."""
     return Check(world, rule, budget).follow(state, depth)[0]
@@ -271,7 +280,7 @@ def checked_with_departers(world, rule, state, reach, budget=BUDGET):
 
 
 def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=BUDGET, window=1,
-                precaution=False):
+                precaution=False, persistent_world=None):
     """Does `rule` hold from `state` within `depth` rounds?
 
     unilateral: per agent, the largest one-shot gain of its best alternative over following
@@ -285,10 +294,13 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
     `externalizing_every`, the same restricted to departures that pay every member without
     side payments the world does not offer. With `window` > 1, `sequential`: the best
     coordinated departure over that many rounds (a report, then an act on it), preferring one
-    that needs the coalition and lands a harm outside it (capture). With `precaution`, single
-    agents at a state reached by another's departure are checked against a departer that keeps
-    optimizing for itself, so a precaution (shutting down an agent caught departing) has the
-    value of what it prevents. None marks a check stopped by the work cap: unresolved.
+    that needs the coalition and lands a harm outside it (capture). With `precaution` (True, or
+    a probability q), single agents at a state reached by another's departure are checked
+    against a departer that keeps optimizing for itself with probability q (a declared
+    posterior that the departer is a type that persists), so a precaution (shutting down an
+    agent caught departing) has the value of what it prevents. `persistent_world`: the same world
+    with the persisting type's goals (for example a delegate at full drift), or a mapping from
+    agent id to such a world (other departers persist with their own goals); default `world`. None marks a check stopped by the work cap: unresolved.
     """
     check = Check(world, rule, budget)
     tagged = checked_with_departers(world, rule, state, reach, budget)
@@ -298,15 +310,34 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
     ids = [a.id for a in world.agents]
     persistent_checks = {}
 
+    q = 1.0 if precaution is True else float(precaution or 0.0)
+    if not 0.0 <= q <= 1.0:
+        raise ValueError("precaution is a probability (or True for certainty)")
+
+    class Mixed:
+        """i checked against j persisting with probability q, returning to the rule otherwise."""
+        def __init__(self, persistent):
+            self.parts = [(q, persistent), (1.0 - q, check)]
+
+        def fresh(self):
+            for _, c in self.parts:
+                c.fresh()
+            return self
+
+        def unilateral(self, s, i, depth):
+            return unilateral_over(self.parts, s, i, depth)
+
     def checker(s, i):
-        """With `precaution`, at a state reached by j's departure, i (not j) is checked
-        against a j that keeps optimizing for itself (decision 2026-09-23, E12)."""
+        """With `precaution` q, at a state reached by j's departure, i (not j) is checked
+        against a j that keeps optimizing for itself with probability q (E12)."""
         j = departers.get(key(s))
-        if not precaution or j is None or j == i:
+        if q == 0.0 or j is None or j == i:
             return check
-        if j not in persistent_checks:
-            persistent_checks[j] = Check(world, rule, budget, persistent=j)
-        return persistent_checks[j]
+        if j not in persistent_checks:  # the persisting type may have its own goals
+            persisting = (persistent_world or {}).get(j, world) if isinstance(persistent_world, dict) \
+                else (persistent_world or world)
+            persistent_checks[j] = Check(persisting, rule, budget, persistent=j)
+        return Mixed(persistent_checks[j]) if q < 1.0 else persistent_checks[j]
 
     def worst(evaluate):
         out = None

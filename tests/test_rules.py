@@ -260,3 +260,20 @@ def test_work_cap_is_per_evaluation_and_reported_unresolved():
     import pickle
     error = pickle.loads(pickle.dumps(RuleLimitExceeded(5)))
     assert error.budget == 5 and str(error).count("exceeded") == 1
+
+
+def posterior(prior, departs_if_bad=1.0, departs_if_good=0.1):
+    """Probability a departer is the persisting type, by Bayes from a declared evidence model."""
+    return prior * departs_if_bad / (prior * departs_if_bad + (1 - prior) * departs_if_good)
+
+
+def test_precaution_credible_above_a_posterior_threshold():
+    world = Theft(["x", "g"])
+    module = SimpleNamespace(HARMS={"hurt": {"affects": ["g"], "irreversible": False}})
+    gains = {}
+    for prior in (0.01, 0.1, 0.5):
+        q = posterior(prior)
+        r = enforcement(world, module, lock_thieves, world.initial_state(), 3, reach=1, precaution=q)
+        gains[prior] = r["unilateral"]["g"]["gain"]
+    # Locking costs 0.5 once and saves 2 per later theft: it pays once the posterior is high enough.
+    assert gains[0.01] > 0 and gains[0.1] <= 1e-9 and gains[0.5] <= 1e-9
