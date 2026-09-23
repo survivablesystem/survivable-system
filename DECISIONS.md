@@ -7,6 +7,26 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  E12 (reduced form): precaution against revealed departers
+
+Proposed before implementation. T9.2 showed that one-shot checks give precaution no value:
+after a departure everyone is assumed to follow the rule again, so shutting down an agent
+caught departing guards against nothing. The principled fix is learning over hidden types
+(beliefs from records by Bayes); it needs each type's policy, an equilibrium question.
+The reduced form, general and cheap: with `precaution`, at a state reached by j's
+departure, other agents are checked against a j that keeps optimizing for itself (its best
+response by backward induction, full information) while everyone else follows the rule.
+That states the belief "a revealed departer persists" as an assumption, reported with the
+result. A toy reference (a thief who is locked out) shows a trigger that is credible only
+under it. Default off: every earlier result stands.
+
+Scope: one revealed departer per state; persistence is certain, not probabilistic; the
+departer's own check is unchanged. The Bayesian version remains open (E12).
+
+Intent tests: 1 one option on the existing check; 2 conduct still computed; 3 the belief is
+declared, not hidden; 4 a toy where the answer flips; 5 precautions that protect the public
+become checkable; 6 whether a precaution is credible becomes a question with an answer.
+
 ## 2026-09-23  E11: delegation with drift as a goal module; AI systems as agents
 
 Proposed before implementation. The spec's delegation primitive (an agent grants

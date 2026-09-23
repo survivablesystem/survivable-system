@@ -29,9 +29,12 @@ class RuleLimitExceeded(RuntimeError):
 
 
 class Check:
-    def __init__(self, world, rule, budget=BUDGET):
-        self.world, self.rule, self.budget = world, rule, budget
-        self.memo, self.work = {}, 0
+    def __init__(self, world, rule, budget=BUDGET, persistent=None):
+        """`persistent`: an agent that has revealed itself by departing and keeps optimizing
+        for itself afterwards (best response by backward induction, full information) while
+        everyone else follows the rule (decision 2026-09-23, E12). None: everyone follows."""
+        self.world, self.rule, self.budget, self.persistent = world, rule, budget, persistent
+        self.memo, self.policies, self.work = {}, {}, 0
 
     def visit(self):
         self.work += 1
@@ -65,10 +68,30 @@ class Check:
                 values[a.id] += p * (world.value(successor, a) + a.discount * later[a.id])
         return values, harms
 
+    def policy(self, state, depth):
+        """What is played if nobody departs now: the rule, except a persistent agent's best
+        response (ties go to the rule's action)."""
+        base = self.prescribed(state)
+        r = self.persistent
+        if r is None:
+            return base
+        memo_key = (key(state), depth)
+        if memo_key not in self.policies:
+            agent = self.world.by_id[r]
+            best_action, best_value = base[r], self.play(state, base, depth)[0][r]
+            for action in self.world.actions(self.world.observe(state, agent), agent):
+                if key(action) == key(base[r]):
+                    continue
+                v = self.play(state, {**base, r: action}, depth)[0][r]
+                if v > best_value + TOLERANCE:
+                    best_action, best_value = action, v
+            self.policies[memo_key] = {**base, r: best_action}
+        return self.policies[memo_key]
+
     def follow(self, state, depth):
         memo_key = (key(state), depth)
         if memo_key not in self.memo:
-            self.memo[memo_key] = self.play(state, self.prescribed(state), depth)
+            self.memo[memo_key] = self.play(state, self.policy(state, depth), depth)
         return self.memo[memo_key]
 
     def menus(self, state, coalition):
@@ -213,27 +236,34 @@ def follow_value(world, rule, state, depth, budget=BUDGET):
 def checked_states(world, rule, state, reach, budget=BUDGET):
     """The start and every state within `reach` rounds where at most one agent departs per
     round: the rule's path and the punishments it prescribes one step off it."""
+    return [s for s, _ in checked_with_departers(world, rule, state, reach, budget)]
+
+
+def checked_with_departers(world, rule, state, reach, budget=BUDGET):
+    """checked_states with, for each state, the agent whose departure reached it (the last
+    one; None on the rule's path)."""
     check = Check(world, rule, budget)
-    frontier, seen = [state], {key(state): state}
+    frontier, seen, who = [state], {key(state): state}, {key(state): None}
     for _ in range(reach):
         nxt = []
         for s in frontier:
             if world.terminal(s) is not None:
                 continue
             base = check.prescribed(s)
-            joints = [base] + [{**base, a.id: action} for a in world.agents
-                               for action in world.actions(world.observe(s, a), a)
-                               if key(action) != key(base[a.id])]
-            for joint in joints:
+            joints = [(base, who[key(s)])] + [({**base, a.id: action}, a.id) for a in world.agents
+                                              for action in world.actions(world.observe(s, a), a)
+                                              if key(action) != key(base[a.id])]
+            for joint, departer in joints:
                 for _, s2 in distribution(world.outcomes(s, joint), check.visit):
                     if key(s2) not in seen and world.terminal(s2) is None:
-                        seen[key(s2)] = s2
+                        seen[key(s2)], who[key(s2)] = s2, departer
                         nxt.append(s2)
         frontier = nxt
-    return list(seen.values())
+    return [(s, who[k]) for k, s in seen.items()]
 
 
-def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=BUDGET, window=1):
+def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=BUDGET, window=1,
+                precaution=False):
     """Does `rule` hold from `state` within `depth` rounds?
 
     unilateral: per agent, the largest one-shot gain of its best alternative over following
@@ -247,13 +277,28 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
     `externalizing_every`, the same restricted to departures that pay every member without
     side payments the world does not offer. With `window` > 1, `sequential`: the best
     coordinated departure over that many rounds (a report, then an act on it), preferring one
-    that needs the coalition and lands a harm outside it (capture). None marks a check stopped
-    by the work cap: unresolved.
+    that needs the coalition and lands a harm outside it (capture). With `precaution`, single
+    agents at a state reached by another's departure are checked against a departer that keeps
+    optimizing for itself, so a precaution (shutting down an agent caught departing) has the
+    value of what it prevents. None marks a check stopped by the work cap: unresolved.
     """
     check = Check(world, rule, budget)
-    states = checked_states(world, rule, state, reach, budget)
+    tagged = checked_with_departers(world, rule, state, reach, budget)
+    states = [s for s, _ in tagged]
+    departers = {key(s): d for s, d in tagged}
     members = world.stakeholders()
     ids = [a.id for a in world.agents]
+    persistent_checks = {}
+
+    def checker(s, i):
+        """With `precaution`, at a state reached by j's departure, i (not j) is checked
+        against a j that keeps optimizing for itself (decision 2026-09-23, E12)."""
+        j = departers.get(key(s))
+        if not precaution or j is None or j == i:
+            return check
+        if j not in persistent_checks:
+            persistent_checks[j] = Check(world, rule, budget, persistent=j)
+        return persistent_checks[j]
 
     def worst(evaluate):
         out = None
@@ -266,13 +311,13 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
                 out = {**r, "at_start": n == 0, "state": s}
         return out
 
-    unilateral = {i: worst(lambda s, i=i: check.unilateral(s, i, depth)) for i in ids}
+    unilateral = {i: worst(lambda s, i=i: checker(s, i).unilateral(s, i, depth)) for i in ids}
     for i, r in unilateral.items():  # the most profitable departure that newly reaches a declared harm
         if r["gain"] is None:
             continue
         best_harmful = None
         for n, s in enumerate(states):
-            h = check.unilateral(s, i, depth)["harmful"]
+            h = checker(s, i).unilateral(s, i, depth)["harmful"]
             if h is not None and (best_harmful is None or h["gain"] > best_harmful["gain"] + TOLERANCE):
                 best_harmful = {**h, "at_start": n == 0, "state": s}
         r["harmful"] = best_harmful
@@ -310,4 +355,4 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
             "no_harmful_departure": None if None in gains else all(g is None or g <= TOLERANCE for g in harmful),
             "unilateral": unilateral, "coalitions": coalitions,
             "follow": check.follow(state, depth)[0], "harms_under_rule": sorted(check.follow(state, depth)[1]),
-            "depth": depth, "reach": reach, "states_checked": len(states)}
+            "depth": depth, "reach": reach, "states_checked": len(states), "precaution": precaution}

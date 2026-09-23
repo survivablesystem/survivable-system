@@ -208,3 +208,38 @@ def test_assess_orders_power_then_rule_then_exclusions():
     assert report["rule"]["holds"] is False and report["excluded"] == commons.EXCLUDED
     text = render(report, {"n": 2})
     assert text.index("WHAT CAN BE FORCED") < text.index("DOES THE RULE HOLD") < text.index("NOT IN THE MODEL")
+
+
+class Theft(Repeated):
+    """x may steal (x +1, g -2) unless locked out; g may lock x out for good (g pays 0.5 once)."""
+    def initial_state(self):
+        return {**super().initial_state(), "locked": False, "stole": False}
+
+    def actions(self, observation, agent):
+        if agent.id == "x":
+            return ["idle"] if observation["locked"] else ["idle", "steal"]
+        return ["watch", "lock"] if not observation["locked"] else ["watch"]
+
+    def outcomes(self, state, joint):
+        locked = state["locked"] or joint["g"] == "lock"
+        stole = not state["locked"] and joint["x"] == "steal"
+        pay = {"x": 1.0 if stole else 0.0, "g": (-2.0 if stole else 0.0) - (0.5 if joint["g"] == "lock" else 0.0)}
+        return [(1.0, {**state, "t": state["t"] + 1, "locked": locked, "stole": stole, "hurt": stole, "value": pay})]
+
+
+def lock_thieves(world, observation, agent):
+    """x never steals; g locks x out once it has seen a theft."""
+    if agent.id == "x":
+        return "idle"
+    return "lock" if observation["stole"] and not observation["locked"] else "watch"
+
+
+def test_precaution_has_value_only_against_a_departer_who_persists():
+    world = Theft(["x", "g"])
+    module = SimpleNamespace(HARMS={"hurt": {"affects": ["g"], "irreversible": False}})
+    plain = enforcement(world, module, lock_thieves, world.initial_state(), 3, reach=1)
+    careful = enforcement(world, module, lock_thieves, world.initial_state(), 3, reach=1, precaution=True)
+    # After a theft, locking out a thief who then follows the rule is pure cost...
+    assert plain["unilateral"]["g"]["gain"] == pytest.approx(0.5) and plain["unilateral"]["g"]["action"] == "watch"
+    # ...and worth it against one who keeps stealing.
+    assert careful["unilateral"]["g"]["gain"] <= 1e-9
