@@ -174,3 +174,19 @@ report, not to the pass that licensed the deployment; it now follows the false p
 - B4: with binding, capture returns as a sequence (lenient report, then deployment) and
   evaluator liability tied to the false pass removes it above some level. Contradiction:
   no sequential capture, or liability changes nothing.
+
+## Rule-making (E10, expectations stated after one probe grid, before the recorded sweep)
+
+Who writes the rules is a lever of its own. With `engine/constitution.py` the regime in
+force (licensing or race) is a public fact that declared voters can amend; the checked rule
+is "follow the regime in force and vote to keep it". A 24-setting probe found amendment
+capture only with labs seated in rule-making by majority and no lab liability.
+Sweep `tests/amendment_study.py`: lab liability x first-mover bonus x oversight x lead x
+rule-making (state alone; labs seated, majority; labs seated, unanimity).
+
+- A1: with the state alone writing the rules, no coalition gains by amendment.
+  Contradiction: an amendment capture with state-alone rule-making.
+- A2: with labs seated and a majority rule, the labs together amend licensing away where
+  the race pays both (no liability, small first-mover bonus); the harm lands on the public.
+  Contradiction: no amendment capture anywhere.
+- A3: unanimity (the state's veto) removes it. Contradiction: capture under unanimity.

@@ -7,6 +7,36 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  E10: amendable rules (a constitution module over any world)
+
+Proposed before implementation. The spec's rules have levels (L0 conduct; L1 who changes
+L0; L2 who changes L1), and INTENT asks protocol proposals to specify amendment. Rules as
+claims (E7) are fixed profiles: nothing can change which rule is in force, so capture by
+rewriting the rules, the route standard-setting and regulatory capture usually take, is
+invisible.
+
+Change (`engine/constitution.py`): `Constitution(world, regimes, voters, threshold, initial)`
+wraps any world. The regime in force is a public fact in the state. Declared voters add a
+vote to each action ("keep" or "amend:<regime>"); when at least `threshold` votes name the
+same regime it is in force from the next round. The constitutional rule is: follow the
+conduct of the regime in force and vote to keep it. Nothing in the kernel changes, so
+goal-free power cannot change (tested); what changes is which conduct the others follow if
+they treat the regime in force as binding, which is the assumption under test. The rule
+checks then show which coalitions gain by amending (one round or coordinated over rounds)
+and whether the harms of the new regime land outside them. Voters and threshold are the
+L1 rule; L2 (who changes voters and threshold) is the same module nested, not yet needed.
+
+Scope: finite regime menu declared by the case; one vote per voter per round; no
+deliberation, agenda control or courts.
+
+Alternatives rejected: a regime switch inside each world (a patch per case); modeling
+legitimacy as a goal term (hides the obedience assumption instead of stating it).
+
+Intent tests: 1 one wrapper reusing the rule checks; 2 amendment is chosen, not scripted;
+3 voters, threshold and regime menu declared; 4 a regime can be captured by amendment or
+not, and the check shows which; 5 the harms of the amended regime are named with who bears
+them; 6 capture of the rulebook, not of the regulator, becomes computable.
+
 ## 2026-09-23  T9.1 scope (owner, ASK answered)
 
 The owner chose the first frontier-AI scenario's boundary: two labs racing, a third-party
