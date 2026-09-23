@@ -99,7 +99,7 @@ coverage, full-enumeration comparisons and remaining limits.
 
 ## Next evidence gates
 
-Exact leaf reduction extends a scoped eight-user depth-2 case; ten-user searches can still be unresolved. Investigate sparse channels while reporting search failures separately, then compare auditor arrangements with matched assumptions. Larger/deeper claims still require actual coverage. Separate design choices from uncertain conditions before ranking institutions. A real use case must identify affected groups, rival explanations and a decision someone can actually change. See [`TASKS.md`](TASKS.md).
+The power query showed that the commons' collapse label lags its real point of no return and that its menu lacks a restraint action; fix or justify that world semantics (T1.6) before building on commons results. Exact leaf reduction extends a scoped eight-user depth-2 case; ten-user searches can still be unresolved. Investigate sparse channels while reporting search failures separately, then compare auditor arrangements with matched assumptions. Larger/deeper claims still require actual coverage. Separate design choices from uncertain conditions before ranking institutions. A real use case must identify affected groups, rival explanations and a decision someone can actually change. See [`TASKS.md`](TASKS.md).
 
 The purpose and evidence standards are durable; the model and implementation are replaceable. Expand or rebuild when demonstrated limitations justify it, retiring obsolete mechanisms instead of accumulating exceptions. Generality must be shown across cases.
 

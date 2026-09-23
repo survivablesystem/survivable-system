@@ -85,3 +85,7 @@ T1.0 (`planner-audit.md`) finds information leaks, a directed-observation error,
 At n=4, depths 1/2/3 all collapse at 17; at n=2, collapse occurs at 5/7/9. At n=10, depth 1 collapses at 17 but depths 2/3 exceed the work budget. Unresolved searches say nothing about physical survival or a population size effect. Exact branch enumeration fixes the small risk diagnostic, but currently limits deeper/larger-world conclusions. Record the limit; do not tune the world or count incomplete searches as an outcome.
 
 The old claim that tie alternation does not change outcomes was not a general result. T1.2 must measure its effects under the replacement. Future people and excluded groups remain absent, and no institutional protocol is validated by this world.
+
+## Power findings (2026-09-23, T1.5)
+
+`coalition-power.md`. Goal-free: the real point of no return is S* = 0.276K (fixed by `lo_frac` and the absence of any take below `lo`), not S_min. In the paid baseline all four users took the step below S* at round 13, when any one of them could have blocked it; collapse became unavoidable then and was labeled at 17. Paid sanctions change no power value: the norm they sustain is deterrence only. Unpaid sanctions give denial the agents do not use. The menu lacks a restraint action (T1.6).

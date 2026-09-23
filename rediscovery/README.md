@@ -6,6 +6,8 @@ If an expected outcome emerges, test rival mechanisms and nearby assumptions. If
 
 Each case file has: setup, sources/evidence status, hypothesis, competing explanation, disconfirming result, affected groups/exclusions, and findings with source revision, seeds and duration. Label paper derivations separately from engine results. One-at-a-time tables diagnose local sensitivity; they do not establish global robustness.
 
+`coalition-power.md` applies the goal-free power query to the commons: what coalitions could force or prevent, beside what the planner's agents did.
+
 `planner-audit.md` is a separate set of constructed arithmetic diagnostics, not a historical rediscovery. It tests information contracts and isolates planner limits before empirical worlds rely on them.
 
 | Case | Tests | Paper | Engine |

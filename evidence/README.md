@@ -52,3 +52,13 @@ it does not count as coverage at the default cap. Retained 12-round traces and
 17-round action probes check equivalence across the physical-kernel refactor.
 Marginal sampling and stock probes test arithmetic, not institutional robustness.
 See `rediscovery/search-reduction.md` for findings and limits.
+
+## Coalition power
+
+`coalition-power.json` identifies clean source `d7fcd10`. Reproduce with
+`python -m tests.power_study` at that revision (about 7 minutes). It records the query
+definition, stock grid, designs, per-size force/prevent brackets, thresholds with
+exactness flags, symmetry checks, work counts, timings, behavioral trajectories with
+per-round power profiles, grand-coalition witnesses and 12-round unavoidability checks
+(null where the work cap was reached). No goal or planner parameter enters a power
+value. See `rediscovery/coalition-power.md`.

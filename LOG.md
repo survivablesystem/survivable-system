@@ -114,3 +114,38 @@ checking remote changes and CI. Fetched origin, fast-forwarded local main to
 `464aa59`, and pushed. Windows and Linux passed GitHub Actions run 35456833505;
 99 tests pass. This resolves the prior publication block. Source evidence remains
 at its recorded revisions. Next task remains T1.1; no new research task was claimed.
+
+## 2026-09-23  Claude: T1.5, goal-free coalition power
+
+Owner asked for a rethink of direction before continuing. Read: four sessions made the
+goal-driven planner exact on one toy world; every result still rests on authored goals,
+horizons and planner depth. INTENT's core question (who can force or block an
+irreversible outcome) needs none of those. Inserted T1.5 before T1.1, decision before code
+(`DECISIONS.md` 2026-09-23), hypotheses in `rediscovery/coalition-power.md` before runs.
+
+Changed: `engine/power.py` computes, for every coalition, the max-min probability of
+entering a terminal label within T rounds against a coordinated full-information
+adversary; alpha/beta stage orders bracket randomized play; prevention is the dual;
+thresholds carry exactness flags; witnesses give first-round actions. Optional
+`World.physical(state)` is only a memo key (commons: stock and collapse; tested against
+menus, kernel and terminal). CLI `--power T [--target labels]`. Spec v0.3 queries section.
+No planner change; goals never read (a toy world raises if they are).
+
+Learned: see the case file. Headline: in the paid baseline the irreversible step (S below
+S* = 27.64) was a unanimous all-high choice at round 13 that any one user could have
+blocked; the collapse label fires four rounds later. Paid sanctions are pure deterrence;
+unpaid sanctions give denial that agents do not use. H3 as stated was contradicted.
+The commons menu has no take below `lo`, so the group's best preventive play at low stock
+under unpaid sanctions is to defect and be confiscated: a wrong-world signal (T1.6).
+
+Evidence: `evidence/coalition-power.json`, clean `d7fcd10`, 6 min 45 s. An earlier run
+aborted when a 12-round check hit the work cap; the study now records null there. Writing
+the artifact inside the repo during the run would mark provenance dirty; write elsewhere,
+then copy. 124 tests pass locally. Pushed to `claude/lucid-gates-mepgtk`, not main: this
+session's harness restricts pushes to that branch, so main publication and CI on main
+await the owner.
+
+Next agent: T1.6 before T1.1. Exact power enumeration is exponential (menus^n per stage,
+reachable states per round); n <= 4, T <= 4 are comfortable, 8+ rounds at n=4 hit the cap.
+Symmetry by declared types (T8.1) is the scaling path for both queries. When you report
+a behavioral result, report the power profile beside it (T1.7).
