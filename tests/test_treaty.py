@@ -105,3 +105,18 @@ def test_scarce_beliefs_reproduce_observation_and_respect_the_budget():
         rival = treaty.RIVAL[agent.id]
         assert max(s["builds"][rival] for _, s in support) == 1  # 1 + 3 - 2k >= 1
         assert all(s["budget"][rival] >= 0 for _, s in support)
+
+
+@pytest.mark.parametrize("prior", [0.0, 0.5, 1.0])
+@pytest.mark.parametrize("reserve", [0, 3])
+def test_scarce_beliefs_are_a_distribution_at_every_round(prior, reserve):
+    w = world(budget="scarce", reserve=reserve, verification="none", prior_build=prior)
+    for t in range(0, 6):
+        state = {**w.initial_state(), "t": t}
+        for agent in w.agents:
+            support = w.beliefs(w.observe(state, agent), agent)
+            assert sum(p for p, _ in support) == pytest.approx(1)
+            if prior == 1.0 and t:
+                rival = treaty.RIVAL[agent.id]
+                assert support[0][1]["builds"][rival] == max(
+                    k for k in range(t + 1) if k == 0 or reserve + t - 2 * k >= 1)

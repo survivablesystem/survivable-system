@@ -110,14 +110,17 @@ class Treaty(World):
         q = self.params["prior_build"]
         reserve = self.params["reserve"] if self.scarce() else 0
         feasible = [k for k in range(rounds + 1)
-                    if not self.scarce() or reserve + rounds - FIXED["build_units"] * k >= FIXED["build_units"] - 1]
+                    if k == 0 or not self.scarce()
+                    or reserve + rounds - FIXED["build_units"] * k >= FIXED["build_units"] - 1]
         # Scarce budget: k builds fit in the last k free rounds iff the reserve plus income
         # covers them; strike timing is ignored (declared approximation). Prior renormalized.
         weights = {k: comb(rounds, k) * q ** k * (1 - q) ** (rounds - k) for k in feasible}
         total = sum(weights.values())
         support = []
-        for k in feasible:
-            probability = weights[k] / total if total else (1.0 if k == 0 else 0.0)
+        if not total:  # prior_build 1 but building every round is unaffordable: builds whenever it can
+            weights, total = {max(feasible): 1.0}, 1.0
+        for k in weights:
+            probability = weights[k] / total
             if probability:
                 support.append((probability, {
                     **base, "cap": {**observation["cap"], j: self.after_builds(j, k)},
