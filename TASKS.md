@@ -32,8 +32,8 @@ Research acceptance means testing the stated hypothesis and recording its bounda
 ## Stage 3 first: treaty and capability race
 
 Reordered ahead of stage 2 (2026-09-23): the goal-free lock-in query now exists, and this is the case where it answers the project's AI question directly: does verification (attestation, disclosure) add denial or only deterrence, and when can one side force an irreversible lead?
-- T3.0 Evidence review. [claimed: Claude, 2026-09-23] Acceptance: sourced hypotheses (BWC/Biopreparat, INF/START verification), rival mechanisms (commitment problems under shifting power; the transparency-security tradeoff; information increasing race risk), a disconfirming result, affected and excluded groups, and the power and behavior questions stated separately.
-- T3.1 World, then run as specified in the case file after T3.0. Power map first, behavior second, profile report for every run.
+- T3.0 Evidence review. [done: Claude, 2026-09-23] `rediscovery/treaty-no-verification.md`: four sources checked at bibliographic/abstract level (Leitenberg et al. 2012; Coe and Vaynman 2020; Powell 2006; Armstrong, Bostrom and Shulman 2016), the INF/START/NPT claim marked unsourced. Rivals: commitment under shifting power, transparency-security tradeoff, information sharpening the race. Key design point: the full-information power query cannot see verification, so the case needs information-restricted prevention (engine extension, decision first). Affected/excluded groups named; AI-specific scope stays ASK (T9.1).
+- T3.1 [claimed: Claude, 2026-09-23] Information-restricted power (decision record first), then the world, then run as specified in the case file after T3.0. Power map first, behavior second, profile report for every run.
 
 ## Stage 2: captured auditor
 
