@@ -56,7 +56,10 @@ Worlds declare candidate `RULES`: conduct each agent could follow, never enforce
 
 ```sh
 python -m engine worlds.audit --enforce 4 --rule independence --reach 2
+python -m engine worlds.audit --enforce 4 --rule independence --reach 2 --pay firm>a0   # with a bribe available
 ```
+
+Two modules apply to any world: side payments (`--pay PAYER>RECIPIENT`, `engine/transfers.py`) and public records (`engine/history.py`). They never change what can be forced, only which rules can hold. With both, the authority world has a rule that corrects a ruler by restitution instead of deposition; it holds only with public payments, records and decisive contests ([`rediscovery/standing-army.md`](rediscovery/standing-army.md)).
 
 `engine.power.sure` asks the information question: can a coalition guarantee an outcome using only what its members observe? It is how verification, disclosure or any channel can show up as denial rather than only as behavior (see [`rediscovery/treaty-no-verification.md`](rediscovery/treaty-no-verification.md)).
 

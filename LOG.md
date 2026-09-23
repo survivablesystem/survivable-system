@@ -373,3 +373,22 @@ Next agent: E6 (correction without strength) now has a tool: propose rules (pay 
 term limits, a court) and check them with `--enforce` against the authority grid. E8 only
 if a conclusion depends on transferable utility or mechanical credibility. Audit power
 queries and planner behavior are not yet studied.
+
+## 2026-09-23  Claude: E8 side payments, E9 public records, E6 restitution
+
+Checked E7 without the transferable-utility assumption (new `every_member` flag): audit
+capture needed a payment the world lacked. Added two modules over any world, decisions
+first: side payments (`engine/transfers.py`, `--pay`) and public records
+(`engine/history.py`, worlds opt in with `public(state)`). Neither can change goal-free
+power (tested); both change which rules hold. With a bribe, capture pays both members.
+
+E6: a restitution rule (repay, or be removed; rise only on a recorded warning) holds in the
+authority world only with public payments, records, citizens who see organizing, repayment
+at or above rent / discount and decisive contests; repayment never undoes strength bought
+by the breach; standing down fails under probabilistic contests. The rules check caught
+two rule errors on the way (any payment counted as repayment; wrappers hid world helpers).
+257 tests pass.
+
+Next agent: E6 remaining (council-controlled pay, term limits, a court) can now be written
+as rules over these modules. A2 now has two cases where the contest form flips a result.
+T9.1 (frontier AI) still needs the owner's scope (ASK).

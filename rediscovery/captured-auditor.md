@@ -111,6 +111,12 @@ transferable utility for the pair (side payments assumed possible; no bribe acti
 modeled), no auditor entry, credibility mechanical rather than learned by investors. No
 claim about real audit markets.
 
+Addendum (E8, same day): finding 1 used summed value. Reported without side payments,
+the capture departure pays the firm and leaves the auditor indifferent, so it needs a
+payment. With the side-payment module (`--pay firm>a0`), the firm pays its auditor 0.5 and
+the departure pays both (`tests/test_transfers.py`); capture as a pair's act no longer rests
+on the transferable-utility assumption.
+
 First surprise (test 6): finding 2, with 3 behind it: the remedy aimed at the auditor's
 incentive leaves the joint incentive untouched, and the reputation premium feeds it.
 

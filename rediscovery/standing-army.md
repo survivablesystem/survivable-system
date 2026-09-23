@@ -193,6 +193,50 @@ unwarranted organizing. Sweep: `tests/correction_study.py`.
   extracting and buying the army's inaction, at the citizens' expense, without anyone
   losing (no transferable-utility assumption). Contradiction: no such pact pays every member.
 
+### E6 results
+
+`evidence/correction.json`, clean `2ccdfa6`, 3.5 min on 4 processes. Grid: assembly x
+records {none, 2 rounds} x repayment {0.8, 1.0, 1.2, 1.5} x disclosure {parties, public} x
+commands x army {2, 4} x contest x gain {0, 1} (512 cells), rent 1, discount 0.9, depth 4,
+states within one round; pact grid: the full design plus ruler-to-commander payments of 0.5
+or 1.0 (32 cells), pairs checked.
+
+| Expectation | Result |
+|---|---|
+| R1 repayment below rent / discount leaves the first extraction profitable | holds: the ruler gains in 128/128 cells at 0.8 and 1.0, in 88/128 at 1.2 and 1.5 |
+| R2 records and assembly stop the commander's coup | holds in part: a commander gains in 112/128 cells with either missing, 64/128 with both |
+| R3 private payments break the rule | holds: 0/256 cells hold with parties-only disclosure |
+| R4 ruler and commander gain by a bought pact | contradicted in form: 8/32 cells have a pact where no member loses, and none uses a payment |
+
+1. **Correction without deposition can hold.** The rule holds in 18/512 cells, 12 of the
+   16 threshold cells with the full design (records, assembly, public payments, repayment
+   at or above rent / discount). There the ruler repays instead of being removed, the
+   first breach does not pay, continuing does not pay, and the record keeps the warning
+   clause from being a coup license. Every part is needed: take away public payments,
+   records or adequate repayment and it fails everywhere or nearly so.
+2. **Repayment returns the rent, not the strength it bought.** The 4 threshold failures
+   of the full design are all army 2 with gain 1: one extraction adds a unit of strength,
+   which makes the ruler unremovable by the small army, and no repayment of rent undoes
+   that. The conversion of office into coercion (E5 finding 4) is the part a fine cannot
+   reach.
+3. **Under probabilistic contests standing down does not hold.** All 16 ratio cells of the
+   full design fail: organized citizens and commanders prefer to rise anyway, because any
+   rise has some chance of winning office. Accountability by warning needs contests
+   decisive enough that an unwarranted rise surely fails (A2's case grows).
+4. **The pact that remains is not bought.** Where ruler and commander both weakly gain from
+   extraction, the commander gains by skipping the risky rise the rule asks of it, not by
+   payment; loyalty payments were available and never chosen. The failure is the rule's
+   demand on its enforcers, not the price of the army.
+5. **The rules check caught two rule errors first.** Any payment counted as repayment (the
+   ruler underpaid); fixed so only the declared amount counts. Recorded because a claim that
+   leaves "how much" unstated is a hole a real institution would also have.
+
+Scope: one-shot departures within 4 rounds, one round off the path, at most five agents,
+utility payments without budgets, records of public facts only. No claim about real
+constitutions: the case supports "in this model, correction by restitution holds only
+with public payments, records and decisive contests, and cannot undo coercion bought by
+the breach".
+
 ## Earlier brief (paper conjecture, 2026-09-15; unsourced, kept for history)
 
 **Known outcome.** When the ruler exits, the army or its commander decides who rules next. Written succession rules are ignored. Praetorian Guard, Mamluks, most coups.
