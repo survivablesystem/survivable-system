@@ -165,3 +165,25 @@ reach. Simplest step: search deeper exactly under a larger declared cap; no tail
   30 rounds (the archived horizon-12 planner did). Contradiction: collapse at 17 at
   depths 4 and 5.
 - D2: with restraint, deeper agents rest at low stock. Contradiction: no rest actions.
+
+### Depth findings
+
+Artifact `evidence/depth.json`, clean `7c1b92d`, 10 min; `python -m tests.depth_study`
+(study cap 2,000,000 entries; the world's default cap is unchanged).
+
+| Depth | Restraint | Seeds | Outcome |
+|---|---|---|---|
+| 1-3 | on or off | 0-2 | collapse 17 (T1.3, T1.6) |
+| 4 | on | 0, 1 | collapse 22; all four rest once (round 17), then resume the cycle |
+| 4 | off | 0, 1 | collapse 18 |
+| 5 | on | 0 | unresolved after round 1 (contested state exceeds 2,000,000) |
+| 5 | off | 0 | collapse 17 (401 s) |
+
+D1 contradicted at every completed depth; D2 holds only weakly (one rest round at depth
+4). Deeper exact search delays collapse by at most five rounds and not monotonically
+(depth 4 off: 18, depth 5 off: 17). The high / sanction / low cycle is profitable inside
+any window of 1-5 rounds; its cost lies further out. The archived horizon-12 planner's
+survival came from 12-round constant-action rollouts, not from anything exact search to
+depth 5 reproduces. Behavioral conclusions in this world are therefore conclusions about
+planners that look at most about five rounds ahead. Longer reach needs an explicit,
+swept continuation-value assumption; none is adopted here (A1).

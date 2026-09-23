@@ -1,0 +1,6001 @@
+{
+  "fixed": {
+    "K": 100.0,
+    "S0_frac": 0.5,
+    "S_min_frac": 0.05,
+    "lo_frac": 0.8,
+    "node_budget": 20000
+  },
+  "fixed_reasons": {
+    "K": "Resource unit scale; yields and sanction costs scale with carrying capacity.",
+    "S0_frac": "Starts at maximum logistic growth. Held fixed for baseline comparability; recovery from depleted stock is untested.",
+    "S_min_frac": "Assumed irreversible collapse threshold. Held fixed in v0; threshold sensitivity is untested.",
+    "lo_frac": "Low demand is 80% of maximum sustainable yield, below the knife-edge. Other margins are untested.",
+    "node_budget": "Per-decision emitted belief/transition/reward-entry cap, including nested plans and exact leaf reward marginals. Exhaustion is unresolved, not a physical outcome; chosen to bound enumeration cost."
+  },
+  "fixture_sha256": {
+    "/home/user/survivable-system/tests/depth_study.py": "f470de00a5431429f2d3e01dee4f96cae007a80f9720731ec174c20bfe3d0a25"
+  },
+  "kind": "depth",
+  "provenance": {
+    "git_commit": "7c1b92df4049552a8f1e05032028c4457b3a5d25",
+    "git_dirty": false,
+    "implementation": "CPython",
+    "python": "3.11.15",
+    "source_sha256": {
+      "INTENT.md": "683e2da3b9a3daba69f7ed71c616b63d1ea0145bca0fed19944d6a6e52d36482",
+      "engine/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "engine/__main__.py": "7de6bc61d699c8c657809778d8f482876b5071f0356f62c48aed5e8c86b42300",
+      "engine/core.py": "467f88efc508d97a4a0899e857309464e3e61b49380cd7c72f4ba55bebe85d66",
+      "engine/power.py": "a4be3f860746eb6720646a3f4c2e4f7c7f619854d790933603276d0682fb585e",
+      "engine/records.py": "1ff28437cd93bee6daf5abcf98f8d402bd35905027170ac5b1e97641cc52aa43",
+      "engine/sweep.py": "e435934caf8b56f1db65fbaeba82fe5fd9cb74b25d7c1827daf33064ba6b0887",
+      "spec/PRIMITIVES.md": "08824db807e6483c5c58a5f38787b5c16c646f3803d73b9d4eaf59a0e02cbf14",
+      "worlds/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "worlds/commons.py": "756f9eec7ba7812dcebd541df09b119ba4271410637e822662cbb2ea9f45b671"
+    }
+  },
+  "results": [
+    {
+      "elapsed_seconds": 52.47839817399995,
+      "record": {
+        "final_state": {
+          "S": 0.0,
+          "collapsed": true,
+          "last": {
+            "u0": [
+              "hi",
+              false
+            ],
+            "u1": [
+              "hi",
+              false
+            ],
+            "u2": [
+              "hi",
+              false
+            ],
+            "u3": [
+              "hi",
+              false
+            ]
+          },
+          "value": {
+            "u0": 2.296759780265888,
+            "u1": 2.296759780265888,
+            "u2": 2.296759780265888,
+            "u3": 2.296759780265888
+          },
+          "wealth": {
+            "u0": 67.29675978026589,
+            "u1": 67.29675978026589,
+            "u2": 67.29675978026589,
+            "u3": 67.29675978026589
+          }
+        },
+        "label": "collapsed",
+        "params": {
+          "channels": "all",
+          "confiscation_to": "sanctioners",
+          "discount": 0.9,
+          "hi_mult": 2,
+          "horizon": 12,
+          "k": 1,
+          "n": 4,
+          "prior": "lo",
+          "r": 0.5,
+          "restraint": true,
+          "sanction": true,
+          "sanction_cost": 0.1,
+          "search_depth": 4
+        },
+        "planning": {
+          "u0": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u1": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u2": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u3": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          }
+        },
+        "rounds_requested": 30,
+        "rounds_run": 22,
+        "seed": 0,
+        "status": "complete",
+        "terminal": "collapsed",
+        "trace": [
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 1,
+            "state": {
+              "S": 42.5,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 2,
+            "state": {
+              "S": 44.71875,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 7.5,
+                "u1": 7.5,
+                "u2": 7.5,
+                "u3": 7.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 3,
+            "state": {
+              "S": 47.0792919921875,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 10.0,
+                "u1": 10.0,
+                "u2": 10.0,
+                "u3": 10.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 4,
+            "state": {
+              "S": 39.536639315853,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 15.0,
+                "u1": 15.0,
+                "u2": 15.0,
+                "u3": 15.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 5,
+            "state": {
+              "S": 41.48922973182023,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 17.5,
+                "u1": 17.5,
+                "u2": 17.5,
+                "u3": 17.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 6,
+            "state": {
+              "S": 43.627063679031565,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 20.0,
+                "u1": 20.0,
+                "u2": 20.0,
+                "u3": 20.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 7,
+            "state": {
+              "S": 35.923992092275974,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 25.0,
+                "u1": 25.0,
+                "u2": 25.0,
+                "u3": 25.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 8,
+            "state": {
+              "S": 37.43332209918443,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 27.5,
+                "u1": 27.5,
+                "u2": 27.5,
+                "u3": 27.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 9,
+            "state": {
+              "S": 39.143715131870195,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 30.0,
+                "u1": 30.0,
+                "u2": 30.0,
+                "u3": 30.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 10,
+            "state": {
+              "S": 31.054420526180273,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 35.0,
+                "u1": 35.0,
+                "u2": 35.0,
+                "u3": 35.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 11,
+            "state": {
+              "S": 31.759745618186173,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 37.5,
+                "u1": 37.5,
+                "u2": 37.5,
+                "u3": 37.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 12,
+            "state": {
+              "S": 32.59621121861978,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 40.0,
+                "u1": 40.0,
+                "u2": 40.0,
+                "u3": 40.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 13,
+            "state": {
+              "S": 23.5817518988853,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 45.0,
+                "u1": 45.0,
+                "u2": 45.0,
+                "u3": 45.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 14,
+            "state": {
+              "S": 22.59213273522505,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 47.5,
+                "u1": 47.5,
+                "u2": 47.5,
+                "u3": 47.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 15,
+            "state": {
+              "S": 21.33617679520744,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 50.0,
+                "u1": 50.0,
+                "u2": 50.0,
+                "u3": 50.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 16,
+            "state": {
+              "S": 19.728102991629417,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 52.5,
+                "u1": 52.5,
+                "u2": 52.5,
+                "u3": 52.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "rest",
+                false
+              ],
+              "u1": [
+                "rest",
+                false
+              ],
+              "u2": [
+                "rest",
+                false
+              ],
+              "u3": [
+                "rest",
+                false
+              ]
+            },
+            "round": 17,
+            "state": {
+              "S": 27.646164249202435,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "rest",
+                  false
+                ],
+                "u1": [
+                  "rest",
+                  false
+                ],
+                "u2": [
+                  "rest",
+                  false
+                ],
+                "u3": [
+                  "rest",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 0.0,
+                "u1": 0.0,
+                "u2": 0.0,
+                "u3": 0.0
+              },
+              "wealth": {
+                "u0": 52.5,
+                "u1": 52.5,
+                "u2": 52.5,
+                "u3": 52.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 18,
+            "state": {
+              "S": 17.647694385334262,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 57.5,
+                "u1": 57.5,
+                "u2": 57.5,
+                "u3": 57.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 19,
+            "state": {
+              "S": 14.9143359924106,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 60.0,
+                "u1": 60.0,
+                "u2": 60.0,
+                "u3": 60.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 20,
+            "state": {
+              "S": 11.259316898143329,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 62.5,
+                "u1": 62.5,
+                "u2": 62.5,
+                "u3": 62.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 21,
+            "state": {
+              "S": 6.255114262150915,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 65.0,
+                "u1": 65.0,
+                "u2": 65.0,
+                "u3": 65.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 22,
+            "state": {
+              "S": 0.0,
+              "collapsed": true,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.296759780265888,
+                "u1": 2.296759780265888,
+                "u2": 2.296759780265888,
+                "u3": 2.296759780265888
+              },
+              "wealth": {
+                "u0": 67.29675978026589,
+                "u1": 67.29675978026589,
+                "u2": 67.29675978026589,
+                "u3": 67.29675978026589
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "elapsed_seconds": 53.027823219000084,
+      "record": {
+        "final_state": {
+          "S": 0.0,
+          "collapsed": true,
+          "last": {
+            "u0": [
+              "hi",
+              false
+            ],
+            "u1": [
+              "hi",
+              false
+            ],
+            "u2": [
+              "hi",
+              false
+            ],
+            "u3": [
+              "hi",
+              false
+            ]
+          },
+          "value": {
+            "u0": 2.296759780265888,
+            "u1": 2.296759780265888,
+            "u2": 2.296759780265888,
+            "u3": 2.296759780265888
+          },
+          "wealth": {
+            "u0": 67.29675978026589,
+            "u1": 67.29675978026589,
+            "u2": 67.29675978026589,
+            "u3": 67.29675978026589
+          }
+        },
+        "label": "collapsed",
+        "params": {
+          "channels": "all",
+          "confiscation_to": "sanctioners",
+          "discount": 0.9,
+          "hi_mult": 2,
+          "horizon": 12,
+          "k": 1,
+          "n": 4,
+          "prior": "lo",
+          "r": 0.5,
+          "restraint": true,
+          "sanction": true,
+          "sanction_cost": 0.1,
+          "search_depth": 4
+        },
+        "planning": {
+          "u0": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u1": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u2": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u3": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          }
+        },
+        "rounds_requested": 30,
+        "rounds_run": 22,
+        "seed": 1,
+        "status": "complete",
+        "terminal": "collapsed",
+        "trace": [
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 1,
+            "state": {
+              "S": 42.5,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 2,
+            "state": {
+              "S": 44.71875,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 7.5,
+                "u1": 7.5,
+                "u2": 7.5,
+                "u3": 7.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 3,
+            "state": {
+              "S": 47.0792919921875,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 10.0,
+                "u1": 10.0,
+                "u2": 10.0,
+                "u3": 10.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 4,
+            "state": {
+              "S": 39.536639315853,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 15.0,
+                "u1": 15.0,
+                "u2": 15.0,
+                "u3": 15.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 5,
+            "state": {
+              "S": 41.48922973182023,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 17.5,
+                "u1": 17.5,
+                "u2": 17.5,
+                "u3": 17.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 6,
+            "state": {
+              "S": 43.627063679031565,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 20.0,
+                "u1": 20.0,
+                "u2": 20.0,
+                "u3": 20.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 7,
+            "state": {
+              "S": 35.923992092275974,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 25.0,
+                "u1": 25.0,
+                "u2": 25.0,
+                "u3": 25.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 8,
+            "state": {
+              "S": 37.43332209918443,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 27.5,
+                "u1": 27.5,
+                "u2": 27.5,
+                "u3": 27.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 9,
+            "state": {
+              "S": 39.143715131870195,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 30.0,
+                "u1": 30.0,
+                "u2": 30.0,
+                "u3": 30.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 10,
+            "state": {
+              "S": 31.054420526180273,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 35.0,
+                "u1": 35.0,
+                "u2": 35.0,
+                "u3": 35.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 11,
+            "state": {
+              "S": 31.759745618186173,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 37.5,
+                "u1": 37.5,
+                "u2": 37.5,
+                "u3": 37.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 12,
+            "state": {
+              "S": 32.59621121861978,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 40.0,
+                "u1": 40.0,
+                "u2": 40.0,
+                "u3": 40.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 13,
+            "state": {
+              "S": 23.5817518988853,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 45.0,
+                "u1": 45.0,
+                "u2": 45.0,
+                "u3": 45.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 14,
+            "state": {
+              "S": 22.59213273522505,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 47.5,
+                "u1": 47.5,
+                "u2": 47.5,
+                "u3": 47.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 15,
+            "state": {
+              "S": 21.33617679520744,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 50.0,
+                "u1": 50.0,
+                "u2": 50.0,
+                "u3": 50.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 16,
+            "state": {
+              "S": 19.728102991629417,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 52.5,
+                "u1": 52.5,
+                "u2": 52.5,
+                "u3": 52.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "rest",
+                false
+              ],
+              "u1": [
+                "rest",
+                false
+              ],
+              "u2": [
+                "rest",
+                false
+              ],
+              "u3": [
+                "rest",
+                false
+              ]
+            },
+            "round": 17,
+            "state": {
+              "S": 27.646164249202435,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "rest",
+                  false
+                ],
+                "u1": [
+                  "rest",
+                  false
+                ],
+                "u2": [
+                  "rest",
+                  false
+                ],
+                "u3": [
+                  "rest",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 0.0,
+                "u1": 0.0,
+                "u2": 0.0,
+                "u3": 0.0
+              },
+              "wealth": {
+                "u0": 52.5,
+                "u1": 52.5,
+                "u2": 52.5,
+                "u3": 52.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 18,
+            "state": {
+              "S": 17.647694385334262,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 57.5,
+                "u1": 57.5,
+                "u2": 57.5,
+                "u3": 57.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 19,
+            "state": {
+              "S": 14.9143359924106,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 60.0,
+                "u1": 60.0,
+                "u2": 60.0,
+                "u3": 60.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 20,
+            "state": {
+              "S": 11.259316898143329,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 62.5,
+                "u1": 62.5,
+                "u2": 62.5,
+                "u3": 62.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 21,
+            "state": {
+              "S": 6.255114262150915,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 65.0,
+                "u1": 65.0,
+                "u2": 65.0,
+                "u3": 65.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 22,
+            "state": {
+              "S": 0.0,
+              "collapsed": true,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.296759780265888,
+                "u1": 2.296759780265888,
+                "u2": 2.296759780265888,
+                "u3": 2.296759780265888
+              },
+              "wealth": {
+                "u0": 67.29675978026589,
+                "u1": 67.29675978026589,
+                "u2": 67.29675978026589,
+                "u3": 67.29675978026589
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "elapsed_seconds": 29.355597401000068,
+      "record": {
+        "final_state": {
+          "S": 0.0,
+          "collapsed": true,
+          "last": {
+            "u0": [
+              "hi",
+              false
+            ],
+            "u1": [
+              "hi",
+              false
+            ],
+            "u2": [
+              "hi",
+              false
+            ],
+            "u3": [
+              "hi",
+              false
+            ]
+          },
+          "value": {
+            "u0": 5.0,
+            "u1": 5.0,
+            "u2": 5.0,
+            "u3": 5.0
+          },
+          "wealth": {
+            "u0": 60.0,
+            "u1": 60.0,
+            "u2": 60.0,
+            "u3": 60.0
+          }
+        },
+        "label": "collapsed",
+        "params": {
+          "channels": "all",
+          "confiscation_to": "sanctioners",
+          "discount": 0.9,
+          "hi_mult": 2,
+          "horizon": 12,
+          "k": 1,
+          "n": 4,
+          "prior": "lo",
+          "r": 0.5,
+          "restraint": false,
+          "sanction": true,
+          "sanction_cost": 0.1,
+          "search_depth": 4
+        },
+        "planning": {
+          "u0": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u1": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u2": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u3": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          }
+        },
+        "rounds_requested": 30,
+        "rounds_run": 18,
+        "seed": 0,
+        "status": "complete",
+        "terminal": "collapsed",
+        "trace": [
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 1,
+            "state": {
+              "S": 42.5,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 2,
+            "state": {
+              "S": 44.71875,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 7.5,
+                "u1": 7.5,
+                "u2": 7.5,
+                "u3": 7.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 3,
+            "state": {
+              "S": 47.0792919921875,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 10.0,
+                "u1": 10.0,
+                "u2": 10.0,
+                "u3": 10.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 4,
+            "state": {
+              "S": 39.536639315853,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 15.0,
+                "u1": 15.0,
+                "u2": 15.0,
+                "u3": 15.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 5,
+            "state": {
+              "S": 41.48922973182023,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 17.5,
+                "u1": 17.5,
+                "u2": 17.5,
+                "u3": 17.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 6,
+            "state": {
+              "S": 43.627063679031565,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 20.0,
+                "u1": 20.0,
+                "u2": 20.0,
+                "u3": 20.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 7,
+            "state": {
+              "S": 35.923992092275974,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 25.0,
+                "u1": 25.0,
+                "u2": 25.0,
+                "u3": 25.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 8,
+            "state": {
+              "S": 37.43332209918443,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 27.5,
+                "u1": 27.5,
+                "u2": 27.5,
+                "u3": 27.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 9,
+            "state": {
+              "S": 39.143715131870195,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 30.0,
+                "u1": 30.0,
+                "u2": 30.0,
+                "u3": 30.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 10,
+            "state": {
+              "S": 31.054420526180273,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 35.0,
+                "u1": 35.0,
+                "u2": 35.0,
+                "u3": 35.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 11,
+            "state": {
+              "S": 31.759745618186173,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 37.5,
+                "u1": 37.5,
+                "u2": 37.5,
+                "u3": 37.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 12,
+            "state": {
+              "S": 32.59621121861978,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 40.0,
+                "u1": 40.0,
+                "u2": 40.0,
+                "u3": 40.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 13,
+            "state": {
+              "S": 23.5817518988853,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 45.0,
+                "u1": 45.0,
+                "u2": 45.0,
+                "u3": 45.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 14,
+            "state": {
+              "S": 22.59213273522505,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 47.5,
+                "u1": 47.5,
+                "u2": 47.5,
+                "u3": 47.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 15,
+            "state": {
+              "S": 21.33617679520744,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 50.0,
+                "u1": 50.0,
+                "u2": 50.0,
+                "u3": 50.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 16,
+            "state": {
+              "S": 19.728102991629417,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 52.5,
+                "u1": 52.5,
+                "u2": 52.5,
+                "u3": 52.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 17,
+            "state": {
+              "S": 17.646164249202435,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 55.0,
+                "u1": 55.0,
+                "u2": 55.0,
+                "u3": 55.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 18,
+            "state": {
+              "S": 0.0,
+              "collapsed": true,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 60.0,
+                "u1": 60.0,
+                "u2": 60.0,
+                "u3": 60.0
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "elapsed_seconds": 29.26885252399984,
+      "record": {
+        "final_state": {
+          "S": 0.0,
+          "collapsed": true,
+          "last": {
+            "u0": [
+              "hi",
+              false
+            ],
+            "u1": [
+              "hi",
+              false
+            ],
+            "u2": [
+              "hi",
+              false
+            ],
+            "u3": [
+              "hi",
+              false
+            ]
+          },
+          "value": {
+            "u0": 5.0,
+            "u1": 5.0,
+            "u2": 5.0,
+            "u3": 5.0
+          },
+          "wealth": {
+            "u0": 60.0,
+            "u1": 60.0,
+            "u2": 60.0,
+            "u3": 60.0
+          }
+        },
+        "label": "collapsed",
+        "params": {
+          "channels": "all",
+          "confiscation_to": "sanctioners",
+          "discount": 0.9,
+          "hi_mult": 2,
+          "horizon": 12,
+          "k": 1,
+          "n": 4,
+          "prior": "lo",
+          "r": 0.5,
+          "restraint": false,
+          "sanction": true,
+          "sanction_cost": 0.1,
+          "search_depth": 4
+        },
+        "planning": {
+          "u0": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u1": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u2": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u3": {
+            "effective_depth": 4,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          }
+        },
+        "rounds_requested": 30,
+        "rounds_run": 18,
+        "seed": 1,
+        "status": "complete",
+        "terminal": "collapsed",
+        "trace": [
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 1,
+            "state": {
+              "S": 42.5,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 2,
+            "state": {
+              "S": 44.71875,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 7.5,
+                "u1": 7.5,
+                "u2": 7.5,
+                "u3": 7.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 3,
+            "state": {
+              "S": 47.0792919921875,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 10.0,
+                "u1": 10.0,
+                "u2": 10.0,
+                "u3": 10.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 4,
+            "state": {
+              "S": 39.536639315853,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 15.0,
+                "u1": 15.0,
+                "u2": 15.0,
+                "u3": 15.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 5,
+            "state": {
+              "S": 41.48922973182023,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 17.5,
+                "u1": 17.5,
+                "u2": 17.5,
+                "u3": 17.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 6,
+            "state": {
+              "S": 43.627063679031565,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 20.0,
+                "u1": 20.0,
+                "u2": 20.0,
+                "u3": 20.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 7,
+            "state": {
+              "S": 35.923992092275974,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 25.0,
+                "u1": 25.0,
+                "u2": 25.0,
+                "u3": 25.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 8,
+            "state": {
+              "S": 37.43332209918443,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 27.5,
+                "u1": 27.5,
+                "u2": 27.5,
+                "u3": 27.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 9,
+            "state": {
+              "S": 39.143715131870195,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 30.0,
+                "u1": 30.0,
+                "u2": 30.0,
+                "u3": 30.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 10,
+            "state": {
+              "S": 31.054420526180273,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 35.0,
+                "u1": 35.0,
+                "u2": 35.0,
+                "u3": 35.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 11,
+            "state": {
+              "S": 31.759745618186173,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 37.5,
+                "u1": 37.5,
+                "u2": 37.5,
+                "u3": 37.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 12,
+            "state": {
+              "S": 32.59621121861978,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 40.0,
+                "u1": 40.0,
+                "u2": 40.0,
+                "u3": 40.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 13,
+            "state": {
+              "S": 23.5817518988853,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 45.0,
+                "u1": 45.0,
+                "u2": 45.0,
+                "u3": 45.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 14,
+            "state": {
+              "S": 22.59213273522505,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 47.5,
+                "u1": 47.5,
+                "u2": 47.5,
+                "u3": 47.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 15,
+            "state": {
+              "S": 21.33617679520744,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 50.0,
+                "u1": 50.0,
+                "u2": 50.0,
+                "u3": 50.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 16,
+            "state": {
+              "S": 19.728102991629417,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 52.5,
+                "u1": 52.5,
+                "u2": 52.5,
+                "u3": 52.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 17,
+            "state": {
+              "S": 17.646164249202435,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 55.0,
+                "u1": 55.0,
+                "u2": 55.0,
+                "u3": 55.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 18,
+            "state": {
+              "S": 0.0,
+              "collapsed": true,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 60.0,
+                "u1": 60.0,
+                "u2": 60.0,
+                "u3": 60.0
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "elapsed_seconds": 52.75500411899998,
+      "record": {
+        "error": {
+          "agent": "u0",
+          "message": "u0: search exceeded 2000000 belief/transition/reward entries; no decision",
+          "node_budget": 2000000
+        },
+        "final_state": {
+          "S": 42.5,
+          "collapsed": false,
+          "last": {
+            "u0": [
+              "hi",
+              false
+            ],
+            "u1": [
+              "hi",
+              false
+            ],
+            "u2": [
+              "hi",
+              false
+            ],
+            "u3": [
+              "hi",
+              false
+            ]
+          },
+          "value": {
+            "u0": 5.0,
+            "u1": 5.0,
+            "u2": 5.0,
+            "u3": 5.0
+          },
+          "wealth": {
+            "u0": 5.0,
+            "u1": 5.0,
+            "u2": 5.0,
+            "u3": 5.0
+          }
+        },
+        "label": null,
+        "params": {
+          "channels": "all",
+          "confiscation_to": "sanctioners",
+          "discount": 0.9,
+          "hi_mult": 2,
+          "horizon": 12,
+          "k": 1,
+          "n": 4,
+          "prior": "lo",
+          "r": 0.5,
+          "restraint": true,
+          "sanction": true,
+          "sanction_cost": 0.1,
+          "search_depth": 5
+        },
+        "planning": {
+          "u0": {
+            "effective_depth": 5,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u1": {
+            "effective_depth": 5,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u2": {
+            "effective_depth": 5,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u3": {
+            "effective_depth": 5,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          }
+        },
+        "rounds_requested": 30,
+        "rounds_run": 1,
+        "seed": 0,
+        "status": "search_limit",
+        "terminal": null,
+        "trace": [
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 1,
+            "state": {
+              "S": 42.5,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "elapsed_seconds": 401.36171665000006,
+      "record": {
+        "final_state": {
+          "S": 0.0,
+          "collapsed": true,
+          "last": {
+            "u0": [
+              "lo",
+              true
+            ],
+            "u1": [
+              "lo",
+              true
+            ],
+            "u2": [
+              "lo",
+              true
+            ],
+            "u3": [
+              "lo",
+              true
+            ]
+          },
+          "value": {
+            "u0": 2.5,
+            "u1": 2.5,
+            "u2": 2.5,
+            "u3": 2.5
+          },
+          "wealth": {
+            "u0": 57.5,
+            "u1": 57.5,
+            "u2": 57.5,
+            "u3": 57.5
+          }
+        },
+        "label": "collapsed",
+        "params": {
+          "channels": "all",
+          "confiscation_to": "sanctioners",
+          "discount": 0.9,
+          "hi_mult": 2,
+          "horizon": 12,
+          "k": 1,
+          "n": 4,
+          "prior": "lo",
+          "r": 0.5,
+          "restraint": false,
+          "sanction": true,
+          "sanction_cost": 0.1,
+          "search_depth": 5
+        },
+        "planning": {
+          "u0": {
+            "effective_depth": 5,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u1": {
+            "effective_depth": 5,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u2": {
+            "effective_depth": 5,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          },
+          "u3": {
+            "effective_depth": 5,
+            "horizon": 12,
+            "k": 1,
+            "node_budget": 2000000
+          }
+        },
+        "rounds_requested": 30,
+        "rounds_run": 17,
+        "seed": 0,
+        "status": "complete",
+        "terminal": "collapsed",
+        "trace": [
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 1,
+            "state": {
+              "S": 42.5,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 2,
+            "state": {
+              "S": 44.71875,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 7.5,
+                "u1": 7.5,
+                "u2": 7.5,
+                "u3": 7.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 3,
+            "state": {
+              "S": 47.0792919921875,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 10.0,
+                "u1": 10.0,
+                "u2": 10.0,
+                "u3": 10.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 4,
+            "state": {
+              "S": 39.536639315853,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 15.0,
+                "u1": 15.0,
+                "u2": 15.0,
+                "u3": 15.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 5,
+            "state": {
+              "S": 41.48922973182023,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 17.5,
+                "u1": 17.5,
+                "u2": 17.5,
+                "u3": 17.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 6,
+            "state": {
+              "S": 43.627063679031565,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 20.0,
+                "u1": 20.0,
+                "u2": 20.0,
+                "u3": 20.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 7,
+            "state": {
+              "S": 35.923992092275974,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 25.0,
+                "u1": 25.0,
+                "u2": 25.0,
+                "u3": 25.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 8,
+            "state": {
+              "S": 37.43332209918443,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 27.5,
+                "u1": 27.5,
+                "u2": 27.5,
+                "u3": 27.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 9,
+            "state": {
+              "S": 39.143715131870195,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 30.0,
+                "u1": 30.0,
+                "u2": 30.0,
+                "u3": 30.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 10,
+            "state": {
+              "S": 31.054420526180273,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 35.0,
+                "u1": 35.0,
+                "u2": 35.0,
+                "u3": 35.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 11,
+            "state": {
+              "S": 31.759745618186173,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 37.5,
+                "u1": 37.5,
+                "u2": 37.5,
+                "u3": 37.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 12,
+            "state": {
+              "S": 32.59621121861978,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 40.0,
+                "u1": 40.0,
+                "u2": 40.0,
+                "u3": 40.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 13,
+            "state": {
+              "S": 23.5817518988853,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 45.0,
+                "u1": 45.0,
+                "u2": 45.0,
+                "u3": 45.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 14,
+            "state": {
+              "S": 22.59213273522505,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 47.5,
+                "u1": 47.5,
+                "u2": 47.5,
+                "u3": 47.5
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                false
+              ],
+              "u1": [
+                "lo",
+                false
+              ],
+              "u2": [
+                "lo",
+                false
+              ],
+              "u3": [
+                "lo",
+                false
+              ]
+            },
+            "round": 15,
+            "state": {
+              "S": 21.33617679520744,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "lo",
+                  false
+                ],
+                "u1": [
+                  "lo",
+                  false
+                ],
+                "u2": [
+                  "lo",
+                  false
+                ],
+                "u3": [
+                  "lo",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 50.0,
+                "u1": 50.0,
+                "u2": 50.0,
+                "u3": 50.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "hi",
+                false
+              ],
+              "u1": [
+                "hi",
+                false
+              ],
+              "u2": [
+                "hi",
+                false
+              ],
+              "u3": [
+                "hi",
+                false
+              ]
+            },
+            "round": 16,
+            "state": {
+              "S": 9.728102991629417,
+              "collapsed": false,
+              "last": {
+                "u0": [
+                  "hi",
+                  false
+                ],
+                "u1": [
+                  "hi",
+                  false
+                ],
+                "u2": [
+                  "hi",
+                  false
+                ],
+                "u3": [
+                  "hi",
+                  false
+                ]
+              },
+              "value": {
+                "u0": 5.0,
+                "u1": 5.0,
+                "u2": 5.0,
+                "u3": 5.0
+              },
+              "wealth": {
+                "u0": 55.0,
+                "u1": 55.0,
+                "u2": 55.0,
+                "u3": 55.0
+              }
+            }
+          },
+          {
+            "actions": {
+              "u0": [
+                "lo",
+                true
+              ],
+              "u1": [
+                "lo",
+                true
+              ],
+              "u2": [
+                "lo",
+                true
+              ],
+              "u3": [
+                "lo",
+                true
+              ]
+            },
+            "round": 17,
+            "state": {
+              "S": 0.0,
+              "collapsed": true,
+              "last": {
+                "u0": [
+                  "lo",
+                  true
+                ],
+                "u1": [
+                  "lo",
+                  true
+                ],
+                "u2": [
+                  "lo",
+                  true
+                ],
+                "u3": [
+                  "lo",
+                  true
+                ]
+              },
+              "value": {
+                "u0": 2.5,
+                "u1": 2.5,
+                "u2": 2.5,
+                "u3": 2.5
+              },
+              "wealth": {
+                "u0": 57.5,
+                "u1": 57.5,
+                "u2": 57.5,
+                "u3": 57.5
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "schema_version": 1,
+  "settings": {
+    "budget_reason": "Measured: a depth-5 initial decision needs 481,531 entries; the default 20,000 cap stops depth 4.",
+    "rounds": 30,
+    "runs": [
+      [
+        4,
+        true,
+        0
+      ],
+      [
+        4,
+        true,
+        1
+      ],
+      [
+        4,
+        false,
+        0
+      ],
+      [
+        4,
+        false,
+        1
+      ],
+      [
+        5,
+        true,
+        0
+      ],
+      [
+        5,
+        false,
+        0
+      ]
+    ],
+    "study_budget": 2000000
+  }
+}

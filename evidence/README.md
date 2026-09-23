@@ -76,3 +76,9 @@ outcomes, and T=3 power maps. See `rediscovery/open-commons.md`, restraint findi
 `power-profiles.json` identifies clean source `81bece6`. Reproduce with
 `python -m tests.profile_study` (about 2 minutes). Five commons runs with full traces
 and, per round, force/prevent thresholds within 3 rounds, fragile and sealed flags.
+
+## Depth
+
+`depth.json` identifies clean source `7c1b92d`. Reproduce with `python -m tests.depth_study`
+(about 10 minutes). Baseline runs at depths 4 and 5, restraint on and off, full traces,
+under a recorded study cap of 2,000,000 entries.

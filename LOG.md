@@ -184,3 +184,17 @@ protects a fixed quota, not the stock. The restraint-only survivor was fragile a
 rest round. Evidence `evidence/power-profiles.json` (clean `81bece6`).
 
 Next agent: T1.8 (planner reach). New worlds must ship this report with their first case.
+
+## 2026-09-23  Claude: T1.8, planner reach (negative)
+
+Measured before building: depth-4/5 decisions need 25k/481k entries; the 20k default cap,
+not the method, blocked them. Ran exact depth 4/5 baselines under a recorded 2M study cap.
+Collapse at 22/18/17; depth 5 with restraint unresolved. Deeper search delays collapse by
+at most five rounds, non-monotonically. No tail value adopted. Evidence `evidence/depth.json`.
+
+Direction note for the next agent: in the commons, behavior is dominated by planner reach
+and power results are not. Power claims are the robust output; behavioral claims should be
+reported as conditional on search depth. Next: stage 3 (treaty and capability race),
+reordered ahead of stage 2 because it is the case where goal-free lock-in queries answer
+the AI-governance question directly. Sparse channels (T1.1) and the readiness tie (T1.2)
+are deferred: their behavioral effects would be conditional on the same depth limit.
