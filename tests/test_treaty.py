@@ -71,3 +71,37 @@ def test_power_reads_no_goals():
         reference = reference or values
         assert values == reference
     assert sure(w, s, ["b"], 3, "b_disarmed", informed=True) in (True, False)
+
+
+def test_elasticity_one_is_the_t31_growth():
+    w = world(elasticity=1.0, returns=0.5)
+    assert [w.grow(c) for c in range(2, 8)] == [min(12, c + 1 + int(0.5 * c)) for c in range(2, 8)]
+    steep = world(elasticity=2.0, returns=0.5)
+    assert steep.grow(2) == w.grow(2) and steep.grow(6) > w.grow(6)
+
+
+def test_scarce_budget_limits_building_and_accrues_income():
+    w = world(budget="scarce", reserve=0)
+    s = w.initial_state()
+    a = w.by_id["a"]
+    assert treaty.BUILD not in w.actions(w.observe(s, a), a)
+    [(_, s)] = list(w.outcomes(s, {"a": treaty.HOLD, "b": treaty.HOLD}))
+    [(_, s)] = list(w.outcomes(s, {"a": treaty.HOLD, "b": treaty.HOLD}))
+    assert s["budget"] == {"a": 2, "b": 2} and treaty.BUILD in w.actions(w.observe(s, a), a)
+    [(_, s)] = list(w.outcomes(s, {"a": treaty.BUILD, "b": treaty.HOLD}))
+    assert s["budget"] == {"a": 1, "b": 3}
+    free = world()
+    assert treaty.BUILD in free.actions(free.observe(free.initial_state(), a), a)
+
+
+def test_scarce_beliefs_reproduce_observation_and_respect_the_budget():
+    w = world(budget="scarce", reserve=1, verification="none")
+    state = {**w.initial_state(), "t": 3}
+    for agent in w.agents:
+        observation = w.observe(state, agent)
+        support = w.beliefs(observation, agent)
+        assert sum(p for p, _ in support) == pytest.approx(1)
+        assert all(key(w.observe(s, agent)) == key(observation) for _, s in support)
+        rival = treaty.RIVAL[agent.id]
+        assert max(s["builds"][rival] for _, s in support) == 1  # 1 + 3 - 2k >= 1
+        assert all(s["budget"][rival] >= 0 for _, s in support)

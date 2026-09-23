@@ -65,12 +65,14 @@ def paired(params, seed):
 
 def behavior():
     rng = random.Random(SAMPLE_SEED)
-    space = {k: v for k, v in treaty.SPACE.items() if k != "verification"}
+    # T3.1 sampled the register before T3.2 added these keys; pinned so the study reproduces.
+    later = {"elasticity": 1.0, "budget": "free", "reserve": 2}
+    space = {k: v for k, v in treaty.SPACE.items() if k != "verification" and k not in later}
     rows = []
     for _ in range(SAMPLES):
         params = sample_params(space, rng)
         seed = rng.getrandbits(32)
-        rows.append({"params": params, "seed": seed, **paired(params, seed)})
+        rows.append({"params": params, "seed": seed, **paired({**params, **later}, seed)})
     return rows
 
 

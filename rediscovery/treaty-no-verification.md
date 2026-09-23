@@ -137,3 +137,20 @@ exact at the same parameters and seed, 12 rounds; defaults probed with action va
 Scope: two parties, depth 1-3, 12 rounds, ceiling 12, no noise, no third party, no
 inspector. No claim about real treaties: the case supports "in this model, verification
 changed behavior and not power, and its behavioral effect favored the leader".
+
+## Scarce responses and ratio-raising returns (T3.2), stated before building
+
+Two register additions; defaults reproduce the T3.1 world exactly.
+- `elasticity` in {1, 1.5, 2}: build gain `1 + floor(returns * c * (c / base) ** (elasticity - 1))`.
+  Above one, a larger party grows proportionally faster, so a lead can widen as a ratio.
+- `budget` in {free, scarce}: scarce means a build costs 2 units, each party earns 1 unit
+  per round, and starts with `reserve` units (0-3). Building is off the menu when
+  unaffordable. A party cannot build every round; it must choose when.
+
+- S1 (power, full information): with elasticity above one, the leader can force
+  disarmament from leads where it cannot at elasticity one, and force values start to
+  depend on T (the lead accumulates). Contradiction: no T or elasticity dependence.
+- S2 (power, information): with a scarce budget, some cells have verified sure prevention
+  but not blind; with a free budget, none (the T3.1 result). Contradiction: no such cell
+  under scarcity (information still buys no denial), or any under a free budget (a bug).
+- S3: no prediction on how many cells; the count and where they lie are the result.

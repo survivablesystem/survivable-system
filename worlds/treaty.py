@@ -28,17 +28,22 @@ SPACE = {
     "discount": (0.8, 0.99),
     "k": [0, 1],
     "opening": ["hold", "build"],     # last action each party saw the other take before round 1
+    "elasticity": [1.0, 1.5, 2.0],    # above one, larger parties grow proportionally faster
+    "budget": ["free", "scarce"],     # scarce: a build costs BUILD_UNITS, income one unit per round
+    "reserve": (0, 3, int),           # scarce budget: units held before round 1
 }
-FIXED = {"base": 2, "cap": 12, "node_budget": 20_000}
+FIXED = {"base": 2, "cap": 12, "node_budget": 20_000, "build_units": 2}
 FIXED_REASONS = {
     "base": "Trailing party's initial capability. Scale choice; the lead is swept.",
     "cap": "Capability ceiling keeping the state space finite. Runs that reach it are visible in their traces; behavior at the ceiling is an artifact.",
     "node_budget": "Per-decision work cap, as in the commons. Exhaustion is unresolved, not an outcome.",
+    "build_units": "Scarce budget: two rounds of income per build, so a party can build at most every other round on income alone. The simplest binding scarcity; other ratios untested.",
 }
 DEFAULTS = {"returns": 0.25, "contest": "threshold", "advantage": 2.0, "lead": 1,
             "verification": "exact", "security": 0.5, "build_cost": 0.3, "strike_cost": 0.1,
             "prize": 2.0, "prior_build": 0.5, "horizon": 6, "search_depth": 2,
-            "discount": 0.9, "k": 1, "opening": "hold"}
+            "discount": 0.9, "k": 1, "opening": "hold",
+            "elasticity": 1.0, "budget": "free", "reserve": 2}
 
 HOLD, BUILD, STRIKE = "hold", "build", "strike"
 RIVAL = {"a": "b", "b": "a"}
@@ -60,7 +65,11 @@ class Treaty(World):
         return FIXED["base"] + (self.params["lead"] if i == "a" else 0)
 
     def grow(self, c):
-        return min(FIXED["cap"], c + 1 + floor(self.params["returns"] * c))
+        scale = (c / FIXED["base"]) ** (self.params["elasticity"] - 1)
+        return min(FIXED["cap"], c + 1 + floor(self.params["returns"] * c * scale))
+
+    def scarce(self):
+        return self.params["budget"] == "scarce"
 
     def after_builds(self, i, k):
         c = self.start(i)
@@ -72,18 +81,20 @@ class Treaty(World):
         return {"t": 0, "cap": {i: self.start(i) for i in ("a", "b")},
                 "builds": {"a": 0, "b": 0}, "strikes": {"a": 0, "b": 0},
                 "last": {"a": self.params["opening"], "b": self.params["opening"]},
+                "budget": {i: self.params["reserve"] if self.scarce() else 0 for i in ("a", "b")},
                 "value": {"a": 0.0, "b": 0.0}, "end": None}
 
     def physical(self, state):
         # Menus are fixed; the kernel reads capabilities; terminal status is `end`.
-        return {"cap": state["cap"], "end": state["end"]}
+        return {"cap": state["cap"], "budget": state["budget"], "end": state["end"]}
 
     def observe(self, state, agent):
         i, j = agent.id, RIVAL[agent.id]
         seen = {"t": state["t"], "end": state["end"], "strikes": dict(state["strikes"]),
                 "cap": {i: state["cap"][i]}, "builds": {i: state["builds"][i]},
-                "last": {i: state["last"][i]}}
+                "last": {i: state["last"][i]}, "budget": {i: state["budget"][i]}}
         if agent.observes(j):
+            seen["budget"][j] = state["budget"][j]
             seen["cap"][j] = state["cap"][j]
             seen["builds"][j] = state["builds"][j]
             seen["last"][j] = state["last"][j]
@@ -97,17 +108,28 @@ class Treaty(World):
         # Unobserved rival: it built in each non-strike round with probability prior_build.
         rounds = observation["t"] - observation["strikes"][j]
         q = self.params["prior_build"]
+        reserve = self.params["reserve"] if self.scarce() else 0
+        feasible = [k for k in range(rounds + 1)
+                    if not self.scarce() or reserve + rounds - FIXED["build_units"] * k >= FIXED["build_units"] - 1]
+        # Scarce budget: k builds fit in the last k free rounds iff the reserve plus income
+        # covers them; strike timing is ignored (declared approximation). Prior renormalized.
+        weights = {k: comb(rounds, k) * q ** k * (1 - q) ** (rounds - k) for k in feasible}
+        total = sum(weights.values())
         support = []
-        for k in range(rounds + 1):
-            probability = comb(rounds, k) * q ** k * (1 - q) ** (rounds - k)
+        for k in feasible:
+            probability = weights[k] / total if total else (1.0 if k == 0 else 0.0)
             if probability:
                 support.append((probability, {
                     **base, "cap": {**observation["cap"], j: self.after_builds(j, k)},
                     "builds": {**observation["builds"], j: k},
+                    "budget": {**observation["budget"], j: reserve + observation["t"] - FIXED["build_units"] * k
+                               if self.scarce() else 0},
                     "last": {**observation["last"], j: self.prior_action(agent, self.by_id[j])}}))
         return support
 
     def actions(self, observation, agent):
+        if self.scarce() and observation["budget"][agent.id] < FIXED["build_units"]:
+            return [HOLD, STRIKE]
         return [HOLD, BUILD, STRIKE]
 
     def prior_action(self, agent, other):
@@ -158,6 +180,8 @@ class Treaty(World):
                 "builds": {i: state["builds"][i] + (joint[i] == BUILD) for i in ("a", "b")},
                 "strikes": {i: state["strikes"][i] + (joint[i] == STRIKE) for i in ("a", "b")},
                 "last": dict(joint), "value": value,
+                "budget": {i: state["budget"][i] + 1 - FIXED["build_units"] * (joint[i] == BUILD)
+                           if self.scarce() else 0 for i in ("a", "b")},
                 "end": None if loser is None else f"{loser}_disarmed"}
 
     def terminal(self, state):
