@@ -178,3 +178,9 @@ seated, majority; labs seated, unanimity) over 24 designs each.
 `binding.json` identifies clean source `af8b46e`. Reproduce with `python -m tests.binding_study`
 (about 9 minutes on 4 processes). Plain and bound licensing over 144 designs x evaluator
 liability {0, 2, 10}, with single-agent, one-round and two-round coalition departures.
+
+## Precaution (E12, T9.2)
+
+`precaution.json` identifies clean source `2ec45c1`. Reproduce with `python -m tests.precaution_study`
+(seconds). Lab, state and AI incentives right after the AI is caught, over 27 states and five
+posteriors that the AI persists as a misaligned type.

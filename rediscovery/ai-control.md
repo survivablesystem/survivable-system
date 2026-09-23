@@ -118,3 +118,27 @@ can be credible in this engine.
 
 Scope: one lab, one AI, one state; capability public; drift fixed and known; escape all or
 nothing; depth 4. Nothing here is a claim about real AI systems.
+
+### Precaution with a posterior (E12, amended)
+
+`evidence/precaution.json`, clean `2ec45c1`; `python -m tests.precaution_study` (seconds).
+State: the AI was just caught improving. Switch {2, 3, 4} x autonomy {0, 1, 2} x capability
+{1, 2, 3} (27 states) x posterior q {0, 0.25, 0.5, 0.75, 1} that the caught AI is a persisting
+misaligned type (drift 1, best-responding for itself), otherwise it returns to the rule
+(drift 0). Lab and state are checked against that mixture; the AI against its true goals.
+
+7. **Belief does not rescue a lost veto; it discourages trying.** Where the AI cannot resist
+   (17 states), lab and state are exactly indifferent at every q: each one's halt duplicates
+   the other's, and the shutdown happens. Where it can resist (10 states), the aligned AI
+   resists in all 10, and the more the lab and state suspect misalignment, the more they gain
+   by *not* attempting the futile shutdown (up to +0.24 at q = 1, 9 of 10 states): a resisted
+   shutdown provokes the persisting type. Suspicion that arrives after autonomy has moved the
+   veto lowers the will to correct. Precaution has to come before the grant.
+8. **An aligned AI's resistance does not depend on anyone's beliefs.** It knows its own
+   goal, so no posterior others hold changes its choice; this is the off-switch game's point
+   (deference comes from the AI's uncertainty about what the principal wants) seen from the
+   other side: an AI certain it is right has no reason to defer.
+
+Finding 3 above stands, refined: in one-shot checks precaution had no value; with a
+declared posterior it has the value of what it prevents, but only while the off switch
+still works.
