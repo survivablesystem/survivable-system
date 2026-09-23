@@ -7,6 +7,7 @@
     python -m engine worlds.commons --oat                 move one parameter at a time from DEFAULTS
     python -m engine worlds.commons --power 3             what each coalition can force within 3 rounds
     python -m engine worlds.commons --externalities 3 --state S=20   per declared harm: who can force, impose, prevent
+    python -m engine worlds.authority --externalities 2 --lock 3      ...and who can force it, then keep it 3 rounds
 """
 import argparse
 import importlib
@@ -14,7 +15,7 @@ import json
 import math
 import random
 
-from .power import BUDGET, externalization, joint_prevention, power_table, profile, threshold
+from .power import BUDGET, externalization, joint_prevention, lock_in, power_table, profile, threshold
 from .records import artifact, run_record
 from .sweep import one_at_a_time, report, report_oat, sample_params, sweep
 
@@ -77,6 +78,8 @@ def main():
     mode.add_argument("--externalities", type=positive_int, metavar="T",
                       help="goal-free, per declared harm: who can force it, impose it from outside, or prevent it within T rounds")
     p.add_argument("--state", nargs="*", help="key=value overrides of top-level initial-state fields for --power/--externalities")
+    p.add_argument("--lock", type=positive_int, metavar="K",
+                   help="with --externalities: smallest coalition that can force each harm and then keep it K rounds against everyone")
     p.add_argument("--profile", type=positive_int, metavar="T",
                    help="with --trace: smallest coalitions able to force/prevent the target within T rounds, each round")
     p.add_argument("--target", nargs="*", help="terminal labels for --power/--profile (default: any terminal)")
@@ -86,6 +89,8 @@ def main():
 
     if args.profile and not args.trace:
         p.error("--profile requires --trace")
+    if args.lock and not args.externalities:
+        p.error("--lock requires --externalities")
     mod = importlib.import_module(args.world)
     space = dict(mod.SPACE)
     try:
@@ -135,11 +140,13 @@ def main():
         start = start_state(world)
         report = externalization(world, mod, start, args.externalities)
         choices = [r for r in joint_prevention(world, mod, start, args.externalities) if r["forced_choice"]]
-        settings.update({"baseline": params, "power_rounds": args.externalities, "budget": BUDGET,
+        locks = lock_in(world, mod, start, args.externalities, args.lock) if args.lock else None
+        settings.update({"baseline": params, "power_rounds": args.externalities, "budget": BUDGET, "keep_rounds": args.lock,
                          "query": "Goal-free, per declared harm: force, force without affected agents, prevent, prevent by the affected; p=1."})
         if args.json:
-            emit("externalities", {"harms": report, "forced_choices": choices})
+            emit("externalities", {"harms": report, "forced_choices": choices, "locks": locks})
             return
+        locked = {r["harm"]: r["lock"] for r in locks or []}
         size = lambda m: "unresolved" if m is None else ("nobody" if m["size"] is None else
                                                         f"{m['size']} {m['witnesses'][:3]}") + ("" if m is None or m["exact"] else " (upper bound)")
         print(f"params: {params}\nwithin {args.externalities} rounds, with certainty (p=1):")
@@ -154,8 +161,12 @@ def main():
             print(f"  smallest coalition that can prevent it: {size(r['prevent'])}")
             verdict = lambda v: ("no agents" if v is None else "?" if v["alpha"] is None else
                                  f"{'yes' if v['alpha'] >= 1 - 1e-12 else 'no'} (probability {v['alpha']:.3f})")
+            if r["harm"] in locked:
+                print(f"  ... and then keep it {args.lock} rounds against everyone (lock): {size(locked[r['harm']])}")
             if r["realized_now"]:
                 print(f"  realized now; smallest coalition that can end it: {size(r['correct'])}")
+                print(f"  ... that can keep it against everyone: {size(r['keep'])}")
+                print(f"  without these agents nobody can end it (veto): {r['veto'] if r['veto'] is not None else 'unresolved'}")
                 print(f"  affected agents together can end it: {verdict(r['affected_correct'])}")
             else:
                 print(f"  affected agents together can prevent it: {verdict(own)}")

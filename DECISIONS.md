@@ -7,6 +7,45 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  E5: irreversibility computed as well as declared; correction and lock
+
+Proposed before implementation. Irreversibility is a flag a world declares on a harm (or
+a terminal label). A harm the kernel allows to be undone, but that nobody outside its
+beneficiaries can undo, is reported as reversible and correctable: the report has a
+hole exactly where INTENT's chain ends (concentration removes correction). No world
+models authority, so the chain appears nowhere.
+
+Change (`engine/power.py`, goal-free, over any world):
+- At a state where a harm holds, beside the existing `correct` (smallest coalition that
+  can end it within T): `keep`, the smallest coalition that can keep it for T rounds
+  against everyone else (the prevent column of the same table, no new game), and
+  `veto`, agents without whom nobody can end it (everyone but i cannot).
+- `lock`, per harm: the smallest coalition C that can force, within T, a state where the
+  harm holds and C can then keep it for T' more rounds against everyone. Nested: the
+  outer target is "harm holds and C surely keeps it", evaluated by an inner game
+  memoized by physical state. For a terminal harm lock equals force; so lock generalizes
+  the irreversible flag: a harm that someone can lock is irreversible for everyone else
+  within T', whatever its declaration.
+- Declared irreversible harms are checked: if one is realized and some coalition can end
+  it, the query raises. The declaration is then wrong.
+- Certainty is exact. For p = 1 the alpha value (and prevent alpha) equals the value
+  under randomized stage strategies: a mixture guarantees probability one only if every
+  action in its support does. `threshold` no longer marks p = 1 sizes as upper bounds
+  when brackets differ; p < 1 unchanged. Earlier artifacts printed such rows as "(upper
+  bound)" conservatively; their values are unchanged.
+
+Scope: inner keep is with certainty; T and T' are stated per report. Cost is the outer
+game times inner games per visited state, exponential as before.
+
+Alternatives rejected: an `entrenched` harm declared by each world (asserts the result);
+physical dominance predicates such as "holder stronger than all others" (misses purges
+and sequencing, and is world-specific); a separate correction primitive (the force/prevent
+game already expresses ending and keeping a harm).
+
+Intent tests: 1 reuses the power game, one nested target; 2 no behavior; 3 T' declared
+and reported; 4 lock equals force on terminal harms, toy references; 5 makes locked
+harms and veto players visible; 6 a harm declared reversible can be found locked.
+
 ## 2026-09-23  E2: exact symmetry reduction for power queries
 
 Proposed before implementation. Power queries enumerate every coalition (2^n) and every

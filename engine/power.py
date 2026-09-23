@@ -196,12 +196,15 @@ def power_table(world, state, rounds, target=None, budget=BUDGET):
 def threshold(rows, kind, p=1.0):
     """Smallest coalition size whose guaranteed (alpha) value reaches p.
 
-    `exact` is False when a smaller coalition is unresolved, or its bracket straddles p
-    (randomized play might reach it): the size is then only an upper bound. size None
+    `exact` is False when a smaller coalition is unresolved, or, for p < 1, its bracket
+    straddles p (randomized play might reach it): the size is then only an upper bound. size None
     means no coalition, including everyone, reaches p within T.
     """
-    if kind not in ("force", "prevent"):
-        raise ValueError("kind must be force or prevent")
+    if kind not in ("force", "prevent", "lock"):
+        raise ValueError("kind must be force, prevent or lock")
+    # At certainty the bracket cannot straddle: a randomized stage strategy guarantees
+    # probability one only if every action in its support does (decision 2026-09-23, E5).
+    certain = p >= 1 - TOLERANCE
     exact = True
     for size in sorted({len(r["coalition"]) for r in rows}):
         group = [r for r in rows if len(r["coalition"]) == size]
@@ -210,7 +213,7 @@ def threshold(rows, kind, p=1.0):
         if witnesses:
             return {"kind": kind, "p": p, "size": size, "witnesses": witnesses, "exact": exact}
         exact = exact and all(r[kind]["alpha"] is not None and r[kind]["beta"] is not None
-                              and r[kind]["beta"] < p - TOLERANCE for r in group)
+                              and (certain or r[kind]["beta"] < p - TOLERANCE) for r in group)
     return {"kind": kind, "p": p, "size": None, "witnesses": [], "exact": exact}
 
 
@@ -340,10 +343,14 @@ def externalization(world, module, state, rounds, p=1.0, budget=BUDGET):
                 outsiders.append({**r, "coalition": [i for i in ids if i in chosen]})
         own = row_for(world, rows, affected) if affected else None
         realized = harm in world.harmed(state)
-        correct = own_correct = None
+        correct = own_correct = keep = veto = None
         if realized:
             ended = power_table(world, state, rounds, lambda s, h=harm: h not in world.harmed(s), budget)
             correct = threshold(ended, "force", p)
+            if spec["irreversible"] and correct["size"] is not None:
+                raise ValueError(f"harm {harm} is declared irreversible but {correct['witnesses'][0]} can end it")
+            keep = threshold(ended, "prevent", p)
+            veto = vetoes(world, ended, p)
             own_correct = row_for(world, ended, affected)["force"] if affected else None
         report.append({
             "harm": harm, "irreversible": spec["irreversible"], "affects": spec["affects"],
@@ -353,7 +360,78 @@ def externalization(world, module, state, rounds, p=1.0, budget=BUDGET):
             "outsiders_force": threshold(outsiders, "force", p) if outsiders else None,
             "prevent": threshold(rows, "prevent", p),
             "affected_prevent": own["prevent"] if own else None,
-            "realized_now": realized, "correct": correct, "affected_correct": own_correct})
+            "realized_now": realized, "correct": correct, "keep": keep, "veto": veto,
+            "affected_correct": own_correct})
+    return report
+
+
+def vetoes(world, rows, p=1.0):
+    """Agents without whom no coalition reaches p in a force table: everyone but i cannot.
+    None when a needed row is unresolved."""
+    everyone = [a.id for a in world.agents]
+    out = []
+    for i in everyone:
+        v = row_for(world, rows, [j for j in everyone if j != i])["force"]["alpha"]
+        if v is None:
+            return None
+        if v < p - TOLERANCE:
+            out.append(i)
+    return out
+
+
+def keeps(world, coalition, harm, rounds, budget=BUDGET, level=1.0):
+    """Predicate: `harm` (a predicate on state) holds and `coalition` can keep it for `rounds`
+    more rounds against everyone else with probability at least `level` (prevent alpha of
+    its end; exact at level one, a pure-strategy lower bound below it). Memoized by
+    physical state; one inner game per coalition."""
+    rest = [a.id for a in world.agents if a.id not in coalition]
+    game = Game(world, rest, lambda s: not harm(s), "beta", budget)  # coalition commits first
+    cache = {}
+
+    def holds(state):
+        if not harm(state):
+            return False
+        k = key(world.physical(state))
+        if k not in cache:
+            cache[k] = game.value(state, rounds) <= 1.0 - level + TOLERANCE
+        return cache[k]
+    return holds
+
+
+def lock_table(world, state, harm, rounds, keep_rounds, budget=BUDGET, level=1.0):
+    """Per coalition (up to declared symmetry): the probability it can force, within
+    `rounds`, a state where `harm` holds and it can then keep it for `keep_rounds` against
+    everyone else (with probability `level`). Decision 2026-09-23 (E5). For a terminal harm
+    this equals force."""
+    rows = []
+    groups = world.types()
+    for coalition in coalitions(world):
+        values, work = {}, {}
+        for order in ORDERS:
+            game = Game(world, coalition, keeps(world, coalition, harm, keep_rounds, budget, level), order, budget)
+            try:
+                values[order] = game.value(state, rounds)
+            except PowerLimitExceeded:
+                values[order] = None
+            work[order] = game.work
+        c = counts(world, coalition)
+        rows.append({"coalition": coalition, "lock": values, "work": work,
+                     "stands_for": prod(comb(len(g), k) for g, k in zip(groups, c))})
+    return rows
+
+
+def lock_in(world, module, state, rounds, keep_rounds, p=1.0, budget=BUDGET):
+    """Per declared harm: smallest coalition that can force it (within `rounds`) and smallest
+    that can lock it (force it, then keep it `keep_rounds` against everyone). A harm some
+    coalition can lock is irreversible for everyone outside it within `keep_rounds`,
+    whatever its declaration."""
+    report = []
+    for harm, spec in module.HARMS.items():
+        target = harm_target(world, harm)
+        report.append({"harm": harm, "irreversible": spec["irreversible"],
+                       "force": threshold(power_table(world, state, rounds, target, budget), "force", p),
+                       "lock": threshold(lock_table(world, state, target, rounds, keep_rounds, budget), "lock", p),
+                       "rounds": rounds, "keep_rounds": keep_rounds})
     return report
 
 
