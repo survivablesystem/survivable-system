@@ -49,9 +49,10 @@ def power_grid():
 def summary(record):
     trace = record["trace"]
     return {"status": record["status"], "label": record["label"], "rounds_run": record["rounds_run"],
-            "builds": {i: sum(e["actions"][i] == treaty.BUILD for e in trace) for i in ("a", "b")},
-            "strikes": {i: sum(e["actions"][i] == treaty.STRIKE for e in trace) for i in ("a", "b")},
-            "first_build": next((e["round"] for e in trace if treaty.BUILD in e["actions"].values()), None)}
+            "builds": {i: sum(treaty.parse(e["actions"][i])[0] == treaty.BUILD for e in trace) for i in ("a", "b")},
+            "strikes": {i: sum(treaty.parse(e["actions"][i])[0] == treaty.STRIKE for e in trace) for i in ("a", "b")},
+            "first_build": next((e["round"] for e in trace
+                                 if any(treaty.parse(x)[0] == treaty.BUILD for x in e["actions"].values())), None)}
 
 
 def paired(params, seed):
