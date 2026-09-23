@@ -7,7 +7,7 @@ import random
 from time import perf_counter
 
 from engine.core import run
-from engine.power import force, power_table, threshold, witness
+from engine.power import PowerLimitExceeded, force, power_table, threshold, witness
 from engine.records import provenance
 from worlds import commons
 
@@ -21,6 +21,14 @@ STOCKS = [6.0, 8.0, 10.0, 15.0, 20.0, 25.0, 30.0, 40.0, 50.0, 75.0, 100.0]
 HI_MULTS = [2, 4]
 REGROWTH = [0.3, 0.5, 0.8]
 SEALED_ROUNDS = 12
+
+
+def unavoidable(world, state):
+    """Grand coalition cannot avoid the target within SEALED_ROUNDS; None if unresolved."""
+    try:
+        return force(world, state, [], SEALED_ROUNDS, TARGET)
+    except PowerLimitExceeded:
+        return None
 
 
 def world_for(**overrides):
@@ -96,7 +104,7 @@ def profiles():
                      **summary(world, before, MAP_ROUNDS)}
             if design != "unpaid" and before["S"] < no_return_stock() + 10:
                 start = perf_counter()
-                entry["unavoidable_within_12"] = force(world, before, [], SEALED_ROUNDS, TARGET)
+                entry["unavoidable_within_12"] = unavoidable(world, before)
                 entry["unavoidable_seconds"] = perf_counter() - start
             rounds.append(entry)
         out.append({"design": design, "params": {**commons.DEFAULTS, **overrides}, "seed": 0,
@@ -119,7 +127,7 @@ def best_prevention():
 def sealed_checks():
     world = world_for(**DESIGNS["paid"])
     return [{"S": S, "rounds": SEALED_ROUNDS,
-             "unavoidable": force(world, {**world.initial_state(), "S": S}, [], SEALED_ROUNDS, TARGET)}
+             "unavoidable": unavoidable(world, {**world.initial_state(), "S": S})}
             for S in (20.0, 23.6, 26.0, 27.5, 28.0)]
 
 
