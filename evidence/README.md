@@ -234,3 +234,10 @@ work cap, and replaced: restraint, race-commons, depth.
 lab honors a restore after a caught improvement, over 768 cells including the lab's horizon.
 At `2c6c352` the learning, leverage, precaution and control studies were re-run: results
 identical (control's recorded defaults and exclusions list the options added since).
+
+## Escrowed checkpoints (T9.5)
+
+`escrow.json` identifies clean source `aeff9c8`. Reproduce with `python -m tests.escrow_study`
+(under a minute). 1,152 cells: the lab's rollback against the state holding the checkpoint, over
+spillover, horizon and vigilance, with lab-state capture over two rounds. At `aeff9c8` the
+learning, leverage, precaution and rollback studies were re-run: results identical.

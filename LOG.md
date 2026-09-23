@@ -594,3 +594,25 @@ Next agent: the control case now has a chain worth composing: whether an externa
 state, or a regulator paid by liability as in the frontier case) can enforce rollback where
 the lab will not. Candidate task: compose control with frontier's evaluator, or give the state
 a restore order. Open: E6 remainder, A2, E3.
+
+## 2026-09-23  Claude: T9.5, escrowed checkpoints
+
+Owner: merge and continue. Main fast-forwarded to `6782b70` (CI green). Register options
+`escrow` (the state holds the checkpoint and may restore the AI, overriding a lab restart)
+and, after the first run, `vigilance` (the state's cost per round in which the AI could
+resist a shutdown); comparison rule `escrowed_rollback`. Expectations X1-X3 first; X4 added
+after the first run and marked so in the case file.
+
+Learned (`evidence/escrow.json`, clean `aeff9c8`, ai-control findings 19-21): X1-X3 all
+contradicted. A state whose payoff is a share of the same work less the same loss decides
+exactly as the lab (216 of 216), whatever the share; with no share it is indifferent. What
+rollback protects falls on the public, which has no agent, and was priced in no goal. With
+a mandate that prices the veto the state restores strictly wherever the veto is in view
+(144 of 144) and nowhere else. No capture within 8 rounds; the declared harms lie beyond.
+Other control evidence re-run at `aeff9c8`: identical. 330 tests pass.
+
+Next agent: the control case keeps showing one pattern: protection appears only where some
+agent's goal prices a harm that otherwise falls on people without agents. That is a general
+query worth building: per declared harm, which agents' goals price it at all (value changes
+when only the harm flag changes). A "priced by" column in `--externalities` would have
+flagged findings 17-20 in advance. Candidate task E13. Then E6 remainder, A2, E3.

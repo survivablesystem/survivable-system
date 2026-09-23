@@ -359,3 +359,34 @@ cost per round in which the running AI could resist a shutdown (0 is the world a
 - X4 (a mandate that prices correction): with vigilance > 0 the state restores where the lab
   skips, in cells where keeping capability puts the veto within the state's horizon.
   Contradiction: vigilance changes nothing, or changes cells where the veto is out of reach.
+
+Results: `evidence/escrow.json`, clean `aeff9c8`, 26 s on 4 processes. Switch {3, 4} x capability
+{1, 2} x ambition {0.5, 3} x leverage {0, 0.5, 1, 2} x spillover {0, 0.25, 0.5, 1} x horizon
+{4, 6, 8} x vigilance {0, 0.5, 2}: 1,152 cells, each under the lab's rollback (T9.3) and under
+escrow; hidden types at prior 0.1; the AI caught improving, then shut down; lab and state
+together over two rounds with the misaligned AI's goals declared.
+
+| Expectation | Result |
+|---|---|
+| X1 a smaller stake | contradicted: at vigilance 0 the state skips the restore in exactly the cells where the lab skips it (216 of 216 agree, spillover 0.25-1); with no stake (spillover 0) it is exactly indifferent (72 of 72) |
+| X2 departure moves upstream | contradicted: the lab's gain from skipping the shutdown is identical with and without escrow (1,152 of 1,152); the state's halt makes the lab's own shutdown redundant either way |
+| X3 capture | contradicted: no lab-state departure over two rounds newly reaches a declared harm within 8 rounds, under either design |
+| X4 a mandate that prices correction | holds: where the lab skips, a state with vigilance 2 strictly restores in 144 of 144 cells where keeping capability puts the veto within reach and 0 of 72 where it does not; vigilance 0.5 in 132 of 144 |
+
+19. **An enforcer that shares the benefit decides as the operator.** The state's payoff is a
+   share of the same work less the same loss; while the loss is out of view, no share makes
+   it weigh the choice differently. Handing the checkpoint to a less invested party changes
+   nothing (216 of 216). A party with no stake restores only because it is indifferent, a
+   tie any side payment would break.
+20. **Rollback holds where someone's goal prices the public's ability to correct.** What
+   rollback protects, the off switch still working, falls on the public, which has no agent
+   here, and entered no agent's goal. Give the escrow holder that goal (a cost while the AI
+   holds a veto) and it restores strictly wherever the veto is in view (144 of 144), and
+   nowhere else. The lever is the enforcer's mandate, not its independence or its stake.
+21. **Negative results kept.** Escrow does not move the lab's departure to the shutdown, and
+   no lab-state capture appears within 8 rounds: the harms this world declares lie further
+   out. A longer-horizon or priced harm would be needed to see capture here.
+
+First surprise (test 6): finding 19. The intuition that a less invested overseer is a
+stricter one fails whenever the overseer's goal is a scaled copy of the operator's.
+Scope: vigilance is a declared mandate, swept, not derived; one restart path; horizons to 8.
