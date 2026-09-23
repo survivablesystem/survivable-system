@@ -220,6 +220,20 @@ class Commons(World):
         return "collapsed" if state["collapsed"] else "survived"
 
 
+# Candidate rules (decision 2026-09-23, E7): declared conduct, tested, never enforced by the kernel.
+def quota(world, observation, agent):
+    """Everyone takes the low (sustainable) share and nobody sanctions."""
+    return (LO, False)
+
+
+def quota_and_sanction(world, observation, agent):
+    """Everyone takes the low share and stands ready to sanction anyone seen taking more."""
+    return (LO, bool(agent.can("sanction") and agent.channels))
+
+
+RULES = {"quota": quota, "quota and sanction": quota_and_sanction}
+
+
 def make(params, rng):
     return Commons(params, rng)
 

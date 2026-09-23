@@ -191,6 +191,33 @@ class Authority(World):
         return f"{role} {'extracting' if state['extracting'] else 'governing'}"
 
 
+# Candidate rules (decision 2026-09-23, E7): declared conduct, tested, never enforced by the kernel.
+def loyalty(world, observation, agent):
+    """The holder governs; everyone else defends the holder."""
+    if agent.id == observation["office"]:
+        return GOVERN
+    return DEFEND if observation["strength"][agent.id] > 0 else STAY
+
+
+def accountability(world, observation, agent):
+    """The holder governs and purges nobody. Everyone else organizes the round after the
+    holder extracts, rises once organized, defends a governing holder against anyone it
+    sees organizing, and otherwise stays."""
+    me = agent.id
+    if me == observation["office"]:
+        return GOVERN
+    if observation["strength"][me] == 0:
+        return STAY
+    if me in observation["organized"]:
+        return RISE
+    if observation["extracting"]:
+        return ORGANIZE
+    return DEFEND if any(i != me for i in observation["organized"]) else STAY
+
+
+RULES = {"loyalty": loyalty, "accountability": accountability}
+
+
 def make(params, rng):
     return Authority(params, rng)
 

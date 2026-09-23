@@ -7,6 +7,49 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  E7: rules as claims; self-enforcement and profitable deviation
+
+Proposed before implementation. Owner direction: build interesting systems and fill what
+is missing with general capabilities. Every institution so far lives in a kernel
+(sanction contests, verification channels, office) or nowhere. The spec says a rule is a
+claim, not a constraint, but nothing implements it. The tool can say what coalitions could
+force (power) and what heuristic agents do (planner), not whether a proposed rule holds:
+whether anyone gains by breaking it, and which groups gain by breaking it together while
+someone outside bears the cost. That is the test any protocol proposal must pass, and
+capture is its coalition form.
+
+Change (`engine/rules.py`, over any world):
+- A rule is declared conduct: a function (world, observation, agent) -> action, one for
+  every agent, reading only that agent's observation. Worlds publish candidate rules as
+  `RULES` (name -> function, with the claim in its docstring). The kernel is untouched:
+  following is a choice. A rule is a proposal under test, not a behavior script.
+- `follow_value`: everyone's expected discounted value within D rounds if all follow.
+- One-shot departures: depart now, then everyone follows for the rest of D rounds. A
+  multi-round best response truncated at D would always find end-game departures, an
+  artifact of the truncation, not of the rule. Checked at the start and at every state
+  reachable within `reach` rounds with at most one departure per round, so punishments the
+  rule prescribes off its path are checked too (the one-shot deviation test, bounded).
+  Value beyond D is not counted for following or punishing alike.
+- Unilateral: information-respecting; the agent picks one action for its observation,
+  valued over its own beliefs; gain over following under the same beliefs.
+- Coalition: full information and transferable utility (members' summed value, an upper
+  bound). Reports per-member gains, what non-members lose, and declared harms the
+  departure newly reaches, with the stakeholders outside the coalition they fall on.
+- Work caps mark unresolved checks, never "holds".
+
+Scope: finite depth D, no claim beyond it; one rule profile at a time; no belief learning.
+
+Alternatives rejected: rules as kernel constraints (assert compliance); scripting norm
+followers as a behavior type (hides the incentive question); a full equilibrium solver
+(unbounded, and answers a different question than "does this proposal hold"); checking only
+the root (misses incredible punishments); truncated multi-round best responses (end-game
+artifacts; tried first in this session and replaced before any test).
+
+Intent tests: 1 one interface, reused planner and kernel; 2 conduct is tested, not imposed;
+3 depth, information and TU assumptions stated per report; 4 a proposed rule can fail, and
+the witness shows how; 5 profitable departures that land on non-members are reported by
+name; 6 capture and incredible punishment become computable in any world.
+
 ## 2026-09-23  E5: irreversibility computed as well as declared; correction and lock
 
 Proposed before implementation. Irreversibility is a flag a world declares on a harm (or

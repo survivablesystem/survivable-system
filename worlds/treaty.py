@@ -260,6 +260,22 @@ class Treaty(World):
         return state["end"] or "no_disarm"
 
 
+# Candidate rules (decision 2026-09-23, E7): declared conduct, tested, never enforced by the kernel.
+def restraint(world, observation, agent):
+    """Neither party builds or strikes, whatever the other does."""
+    return HOLD
+
+
+def reciprocity(world, observation, agent):
+    """Hold; build in the first domain the round after the rival is seen building anywhere."""
+    seen = observation["last"].get(RIVAL[agent.id]) if agent.id in PARTIES else None
+    affordable = BUILD in world.actions(observation, agent)
+    return BUILD if seen is not None and parse(seen)[0] == BUILD and affordable else HOLD
+
+
+RULES = {"restraint": restraint, "reciprocity": reciprocity}
+
+
 def make(params, rng):
     return Treaty(params, rng)
 

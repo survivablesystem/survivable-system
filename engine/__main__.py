@@ -8,6 +8,7 @@
     python -m engine worlds.commons --power 3             what each coalition can force within 3 rounds
     python -m engine worlds.commons --externalities 3 --state S=20   per declared harm: who can force, impose, prevent
     python -m engine worlds.authority --externalities 2 --lock 3      ...and who can force it, then keep it 3 rounds
+    python -m engine worlds.treaty --enforce 4 --rule restraint       does a declared rule hold; who profits by breaking it
 """
 import argparse
 import importlib
@@ -17,6 +18,7 @@ import random
 
 from .power import BUDGET, externalization, joint_prevention, lock_in, power_table, profile, threshold
 from .records import artifact, run_record
+from .rules import enforcement
 from .sweep import one_at_a_time, report, report_oat, sample_params, sweep
 
 
@@ -77,6 +79,11 @@ def main():
                       help="goal-free: what each coalition can force or prevent within T rounds from the initial state")
     mode.add_argument("--externalities", type=positive_int, metavar="T",
                       help="goal-free, per declared harm: who can force it, impose it from outside, or prevent it within T rounds")
+    mode.add_argument("--enforce", type=positive_int, metavar="D",
+                      help="goal-based: does the world's rule --rule hold within D rounds (one-shot departures); who profits by breaking it")
+    p.add_argument("--rule", help="with --enforce: a name from the world's RULES")
+    p.add_argument("--reach", type=int, default=1, help="with --enforce: check states within this many rounds (default 1)")
+    p.add_argument("--size", type=positive_int, default=2, help="with --enforce: largest coalition checked (default 2)")
     p.add_argument("--state", nargs="*", help="key=value overrides of top-level initial-state fields for --power/--externalities")
     p.add_argument("--lock", type=positive_int, metavar="K",
                    help="with --externalities: smallest coalition that can force each harm and then keep it K rounds against everyone")
@@ -133,6 +140,42 @@ def main():
             node[leaf] = float(v) if isinstance(node[leaf], float) and isinstance(v, int) else v
         settings["state_overrides"] = overrides
         return state
+
+    if args.enforce:
+        rules = getattr(mod, "RULES", {})
+        if args.rule not in rules:
+            p.error(f"--enforce needs --rule, one of: {', '.join(rules) or '(world declares no RULES)'}")
+        params = baseline_params()
+        world = mod.make(dict(params), random.Random(args.seed))
+        report = enforcement(world, mod, rules[args.rule], start_state(world), args.enforce, args.reach, args.size)
+        settings.update({"baseline": params, "rule": args.rule, "rule_claim": (rules[args.rule].__doc__ or "").strip(),
+                         "depth": args.enforce, "reach": args.reach, "max_size": args.size,
+                         "query": "One-shot departures, then everyone follows the rule for the rest of D rounds; unilateral with own information, coalitions with full information and summed value (upper bound)."})
+        if args.json:
+            emit("enforce", report)
+            return
+        fmt = lambda v: "unresolved" if v is None else f"{v:+.3f}"
+        print(f"params: {params}\nrule: {args.rule}: {settings['rule_claim']}")
+        print(f"within {args.enforce} rounds; {report['states_checked']} states checked (reach {args.reach})")
+        print(f"holds against every one-shot unilateral departure: {report['holds_unilaterally']}")
+        for i, r in report["unilateral"].items():
+            where = "" if r["gain"] is None else (" at the start" if r["at_start"] else " off the start")
+            print(f"  {i:10s} best departure {fmt(r['gain'])}{where}" + (f" ({r['rule_action']} -> {r['action']})" if r.get("action") is not None and r["gain"] > 1e-9 else ""))
+        profitable = [r for r in report["coalitions"] if r["gain"] is None or r["gain"] > 1e-9]
+        print("coalitions that gain by departing together (upper bound):" + ("" if profitable else " none"))
+        for r in profitable:
+            print(f"  {','.join(r['coalition']):20s} {fmt(r['gain'])} {r.get('actions', '')}")
+        capture = [r for r in report["coalitions"] if (r.get("externalizing") or {}).get("gain", 0) > 1e-9]
+        print("coalitions that gain by departing onto others (a harm on outsiders):" + ("" if capture else " none"))
+        for r in capture:
+            e = r["externalizing"]
+            print(f"  {','.join(r['coalition']):20s} {fmt(e['gain'])} {e['actions']}"
+                  f"{' at the start' if e['at_start'] else ' off the start'}")
+            for h, names in e["falls_outside"].items():
+                print(f"      reaches {h}, falling on {', '.join(names)}")
+        print(f"harms reached if everyone follows: {', '.join(report['harms_under_rule']) or 'none'}")
+        print("Goals are read here: this is whether the rule pays, under the stated goals and depth.")
+        return
 
     if args.externalities:
         params = baseline_params()
