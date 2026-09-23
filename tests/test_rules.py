@@ -84,7 +84,8 @@ def test_a_rule_that_holds_alone_can_fail_to_a_coalition_at_a_third_partys_expen
     world = Collusion(["a", "b", "c"])
     module = SimpleNamespace(HARMS={"hurt": {"affects": ["c"], "irreversible": False}})
     report = enforcement(world, module, honest, world.initial_state(), 2, reach=1)
-    assert report["holds_unilaterally"] is True
+    assert report["holds_unilaterally"] is True and report["no_harmful_departure"] is True
+    assert report["unilateral"]["a"]["harmful"] is None  # alone, X hurts nobody
     pairs = {tuple(r["coalition"]): r for r in report["coalitions"]}
     ab = pairs[("a", "b")]
     assert ab["gain"] == pytest.approx(2.0) and ab["members"] == {"a": pytest.approx(1), "b": pytest.approx(1)}

@@ -79,3 +79,12 @@ def test_rules_prescribe_menu_actions(pairs):
     paid = Transfers(world(), pairs, (0.5, 1.5), "public")
     for s in checked_states(paid, F.licensing_paid, paid.initial_state(), 1):
         follow_value(paid, F.licensing_paid, s, 2)
+
+
+def test_stale_certification_is_a_harmful_departure():
+    from engine.rules import enforcement
+    w = world(oversight="continuous")
+    report = enforcement(w, F, F.licensing, w.initial_state(), 4, reach=1)
+    harmful = report["unilateral"]["l1"]["harmful"]
+    assert report["no_harmful_departure"] is False and harmful["action"] == F.DEPLOY
+    assert "unsafe deployment" in harmful["new_harms"] and not harmful["at_start"]

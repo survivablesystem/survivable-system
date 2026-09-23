@@ -68,6 +68,13 @@ halts also stop a deployed lab's scaling), and the harm "safe deployment blocked
 "safe progress blocked" (a halt that stopped a deployment or scaling that would have stayed
 within the margin). F1 is tested under both.
 
+Second addition (after the first study run, recorded before the second): with the
+evaluator's goal only payments, capture needed no payment at all (the evaluator is
+indifferent), so who pays could not matter. The register gained `evaluator_liability`
+(the evaluator's loss from a catastrophe by a lab it passed; 0 reproduces the first run),
+and the payment designs are swept against it. Rule reports now separate harmful departures
+(newly reaching a declared harm) from harmless ones (a lab securing more than required).
+
 ## Expectations stated before building
 
 - F1 (power, information): the state alone, from its own observations, cannot surely

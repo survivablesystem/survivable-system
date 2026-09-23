@@ -20,8 +20,11 @@ INFO = {"oversight": ("deployment", "continuous"), "margin": (0, 1, 2), "lead": 
         "capacity": (0.5, 1.0), "T": (2, 3)}
 RULE_GRID = {"oversight": ("deployment", "continuous"), "margin": (0, 1), "first": (0.0, 1.0, 3.0),
              "liability": (0.0, 5.0, 10.0), "capacity": (0.5, 1.0), "lead": (0, 1)}
+# evaluator_liability was added after the first run showed an evaluator with nothing at stake
+# is captured without payment (recorded in the case file).
 PAY_GRID = {"design": ("labs pay, private", "state pays, private channel", "state pays, public, halt payers"),
-            "oversight": ("deployment", "continuous"), "first": (0.0, 1.0, 3.0), "liability": (0.0, 5.0)}
+            "oversight": ("deployment", "continuous"), "first": (0.0, 3.0), "liability": (0.0, 5.0),
+            "evaluator_liability": (0.0, 2.0, 10.0)}
 D, REACH, AMOUNTS = 4, 1, (0.5, 1.5)
 
 
@@ -51,13 +54,16 @@ def info(cell):
 
 
 def compact(report):
-    uni = {i: {k: r.get(k) for k in ("gain", "action", "rule_action", "at_start")} for i, r in report["unilateral"].items()}
+    uni = {i: {**{k: r.get(k) for k in ("gain", "action", "rule_action", "at_start")},
+               "harmful": None if r.get("harmful") is None else {k: r["harmful"][k] for k in ("gain", "action", "new_harms", "at_start")}}
+           for i, r in report["unilateral"].items()}
     pairs = []
     for r in report["coalitions"]:
         keep = lambda e: None if e is None else {k: e[k] for k in ("gain", "members", "actions", "falls_outside", "at_start", "every_member")}
         pairs.append({"coalition": r["coalition"], "gain": r["gain"], "externalizing": keep(r.get("externalizing")),
                       "externalizing_every": keep(r.get("externalizing_every"))})
-    return {"holds_unilaterally": report["holds_unilaterally"], "unilateral": uni, "coalitions": pairs,
+    return {"holds_unilaterally": report["holds_unilaterally"], "no_harmful_departure": report["no_harmful_departure"],
+            "unilateral": uni, "coalitions": pairs,
             "harms_under_rule": report["harms_under_rule"]}
 
 

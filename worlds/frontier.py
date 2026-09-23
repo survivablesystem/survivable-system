@@ -28,6 +28,7 @@ SPACE = {
     "liability": (0.0, 10.0),         # a lab's loss from a catastrophe
     "benefit": (0.1, 0.5),            # the state's utility per round per unit of deployed capability
     "loss": (5.0, 50.0),              # the state's loss from a catastrophe
+    "evaluator_liability": (0.0, 10.0),  # the evaluator's loss from a catastrophe by a lab it passed
     "horizon": (1, 12, int),
     "search_depth": [1, 2, 3],
     "discount": (0.8, 0.99),
@@ -41,7 +42,7 @@ FIXED_REASONS = {
     "node_budget": "Per-decision work cap, as in the other worlds. Exhaustion is unresolved, not an outcome.",
 }
 DEFAULTS = {"returns": 0.25, "margin": 1, "risk": 0.2, "capacity": 1.0, "oversight": "deployment", "lead": 1, "revenue": 0.3,
-            "first": 1.0, "secure_cost": 0.3, "liability": 5.0, "benefit": 0.3, "loss": 20.0,
+            "first": 1.0, "secure_cost": 0.3, "liability": 5.0, "benefit": 0.3, "loss": 20.0, "evaluator_liability": 0.0,
             "horizon": 6, "search_depth": 2, "discount": 0.9, "k": 1, "others": "react"}
 
 STAKEHOLDERS = {
@@ -180,6 +181,8 @@ class Frontier(World):
                     v -= p["secure_cost"] * (joint.get(lab) == SECURE) + p["liability"] * (end is not None)
                     value[lab] = v
                 value["state"] = p["benefit"] * sum(cap[lab] for lab in LABS if deployed[lab]) - p["loss"] * (end is not None)
+                passed_unsafe = any(deployed[lab] and cap[lab] - safe[lab] > p["margin"] and report[lab] == "pass" for lab in LABS)
+                value["evaluator"] = -p["evaluator_liability"] * (end is not None and passed_unsafe)
                 yield q_halt * q_end, {"t": state["t"] + 1, "cap": cap, "safe": safe, "deployed": deployed,
                                        "report": report, "blocked": blocked, "end": end,
                                        "last": dict(joint), "value": value}

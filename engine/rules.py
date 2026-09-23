@@ -83,17 +83,21 @@ class Check:
         support = distribution(world.beliefs(observation, agent), self.visit)
         follow = math.fsum(p * self.follow(s, depth)[0][agent_id] for p, s in support)
         rule_action = self.rule(world, observation, agent)
-        top, choice = None, rule_action
+        follow_harms = set().union(*(self.follow(s, depth)[1] for _, s in support))
+        top, choice, harmful = None, rule_action, None
         for action in world.actions(observation, agent):
             if key(action) == key(rule_action):
                 continue  # gain is over the best alternative: negative means a margin
-            v = math.fsum(p * self.play(s, {**self.prescribed(s), agent_id: action}, depth)[0][agent_id]
-                          for p, s in support)
+            plays = [(p, self.play(s, {**self.prescribed(s), agent_id: action}, depth)) for p, s in support]
+            v = math.fsum(p * values[agent_id] for p, (values, _) in plays)
             if top is None or v > top + TOLERANCE:
                 top, choice = v, action
+            new = sorted(set().union(*(harms for _, (_, harms) in plays)) - follow_harms)
+            if new and (harmful is None or v - follow > harmful["gain"] + TOLERANCE):
+                harmful = {"gain": v - follow, "action": action, "new_harms": new}
         if top is None:  # nothing else on the menu
-            return {"gain": 0.0, "action": rule_action, "rule_action": rule_action}
-        return {"gain": top - follow, "action": choice, "rule_action": rule_action}
+            return {"gain": 0.0, "action": rule_action, "rule_action": rule_action, "harmful": None}
+        return {"gain": top - follow, "action": choice, "rule_action": rule_action, "harmful": harmful}
 
     def joint(self, state, coalition, depth, outside=lambda harms: {}):
         """Best one-shot joint departure of a coalition, full information, summed value; and
@@ -170,7 +174,8 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
 
     unilateral: per agent, the largest one-shot gain of its best alternative over following
     (its own information; negative is a margin) over the checked states, with the witness
-    state and action. coalitions: per coalition
+    state and action, and `harmful`, the most profitable departure that newly reaches a
+    declared harm (a rule can fail harmlessly: a lab that secures more than required). coalitions: per coalition
     up to `max_size`, the largest one-shot joint gain (full information, summed value, so
     an upper bound) over the same states, with per-member gains, what non-members lose and
     declared harms newly reached; and `externalizing`, the largest gain among departures
@@ -195,6 +200,15 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
         return out
 
     unilateral = {i: worst(lambda s, i=i: check.unilateral(s, i, depth)) for i in ids}
+    for i, r in unilateral.items():  # the most profitable departure that newly reaches a declared harm
+        if r["gain"] is None:
+            continue
+        best_harmful = None
+        for n, s in enumerate(states):
+            h = check.unilateral(s, i, depth)["harmful"]
+            if h is not None and (best_harmful is None or h["gain"] > best_harmful["gain"] + TOLERANCE):
+                best_harmful = {**h, "at_start": n == 0, "state": s}
+        r["harmful"] = best_harmful
     coalitions = []
     for size in range(2, max_size + 1):
         for coalition in combinations(ids, size):
@@ -212,7 +226,10 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
                     r[field] = ext
             coalitions.append({"coalition": list(coalition), **r})
     gains = [r["gain"] for r in unilateral.values()]
+    harmful = [(r.get("harmful") or {}).get("gain") for r in unilateral.values() if r["gain"] is not None]
     return {"holds_unilaterally": None if None in gains else all(g <= TOLERANCE for g in gains),
+            # weaker: no single agent gains by a departure that newly reaches a declared harm
+            "no_harmful_departure": None if None in gains else all(g is None or g <= TOLERANCE for g in harmful),
             "unilateral": unilateral, "coalitions": coalitions,
             "follow": check.follow(state, depth)[0], "harms_under_rule": sorted(check.follow(state, depth)[1]),
             "depth": depth, "reach": reach, "states_checked": len(states)}

@@ -171,10 +171,14 @@ def main():
         fmt = lambda v: "unresolved" if v is None else f"{v:+.3f}"
         print(f"params: {params}\nrule: {args.rule}: {settings['rule_claim']}")
         print(f"within {args.enforce} rounds; {report['states_checked']} states checked (reach {args.reach})")
-        print(f"holds against every one-shot unilateral departure: {report['holds_unilaterally']}")
+        print(f"holds against every one-shot unilateral departure: {report['holds_unilaterally']}; "
+              f"no single agent gains by a harmful one: {report['no_harmful_departure']}")
         for i, r in report["unilateral"].items():
             where = "" if r["gain"] is None else (" at the start" if r["at_start"] else " off the start")
             print(f"  {i:10s} best departure {fmt(r['gain'])}{where}" + (f" ({r['rule_action']} -> {r['action']})" if r.get("action") is not None and r["gain"] > 1e-9 else ""))
+            h = r.get("harmful")
+            if h is not None and h["gain"] > 1e-9:
+                print(f"             harmful departure {fmt(h['gain'])} ({h['action']}) reaches {', '.join(h['new_harms'])}")
         profitable = [r for r in report["coalitions"] if r["gain"] is None or r["gain"] > 1e-9]
         print("coalitions that gain by departing together (upper bound):" + ("" if profitable else " none"))
         for r in profitable:
