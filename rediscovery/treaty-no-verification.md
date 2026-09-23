@@ -207,3 +207,45 @@ reproduce at their recorded revisions only.
 - H2 (power, control): with one domain, blind equals verified in every cell, as in T3.2.
 - H3: the differing cells appear only at longer T (the concentrated lead takes rounds to
   build). No prediction on how many.
+
+### T3.3 findings
+
+Artifact `evidence/treaty-domains.json`, clean `b38af92`, 2 min;
+`python -m tests.treaty_domains_study`. Threshold contest power grid, one and two domains x
+budget free or scarce (reserve 2) x advantage x lead 0-2 x returns 0/0.25 x T in
+{1, 2, 4, 6, 8} (360 cells). Behavior: 120 samples with two domains (seed 3033), paired on
+verification. The one-domain world reproduces all 240 T3.1 run outcomes and the default
+traces. A summary bug (only first-domain builds counted) was fixed before the recorded run.
+
+| Expectation | Result |
+|---|---|
+| H1 two domains: verified but not blind prevention somewhere | holds: 10 of 90 free-budget cells; 0 of 90 scarce-budget cells |
+| H2 one domain: blind equals verified | holds: 0 of 180 |
+| H3 differences only at longer T | holds: all 10 at T >= 4 (six at advantage 1.5, lead 0; two at 2.0, lead 0; two at 3.0, lead 1) |
+
+9. **Verification buys denial when it reveals *what* the rival builds.** With two domains
+   a blind trailer must spread its builds while a leader concentrates on one domain;
+   given enough rounds, the leader reaches the threshold in that domain. A verified
+   trailer matches the leader's domain one round late and prevents it with certainty.
+   Informed and verified agree in every cell: seeing the rival's capability and last
+   action is all the information that matters here. Verifying *how much* is built (one
+   domain, T3.2) bought nothing. For AI governance this separates attestation of compute
+   quantity from disclosure of what capability is being developed; only the second can
+   carry a guarantee, and only when the defender can respond in the same domain.
+10. **Scarcity removes that denial in this grid.** Under the scarce budget the leader
+    cannot concentrate fast enough within 8 rounds either; no cell differs. Longer
+    horizons are untested.
+11. **Behaviorally, two domains tilt the other way: reassurance.** 4 of 120 outcomes
+    change; 3 are disarmaments verification prevented. In a probed case (lead 3, depth
+    2, level 0, prior_build 0.73) the leader, far ahead, values waiting slightly above
+    striking (4.65 against 4.60). Blind, its belief that the trailer may have built makes
+    the window look like it is closing, and it strikes in round 4. Verified, it sees no
+    growth and keeps waiting through round 12. Uncertainty about a rising rival, not
+    knowledge of it, triggered the strike: the Powell mechanism with verification
+    removing it. The margin is small and planner-dependent. Across both treaty samples,
+    verification's behavioral effect has both signs; which one depends on whether the
+    hidden fact is "the window is open" (verification enables the strike) or "the window
+    may be closing" (verification removes the urgency).
+
+Scope: the adversary in every power query is fully informed, so these cells measure the
+defender's information only. Two domains, threshold contest, 8 rounds, ceiling 12.

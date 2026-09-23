@@ -97,3 +97,10 @@ random samples with outcomes, build and strike counts. See
 `python -m tests.treaty_scarce_study` (about 20 seconds). 1,800-cell power grid with
 force values and blind/verified/informed sure prevention, and 120 verification-paired
 samples of the full register.
+
+## Treaty: capability domains
+
+`treaty-domains.json` identifies clean source `b38af92`. Reproduce with
+`python -m tests.treaty_domains_study` (about 2 minutes). 360-cell grid of blind, verified
+and informed sure prevention for one and two domains, and 120 two-domain samples paired
+on verification.

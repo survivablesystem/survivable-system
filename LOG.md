@@ -232,3 +232,21 @@ Evidence `evidence/treaty-scarce.json` (clean `684448e`, 22 s). 162 tests pass.
 
 Next agent: T3.3 (hidden choice: domains). The blind-versus-informed sure comparison is
 a general check any world can run: if equal, information has no denial value there.
+
+## 2026-09-23  Claude: T3.3, hidden choice
+
+Generalized the treaty world to per-domain capability (`domains` 1 or 2); actions
+`build`/`strike` for the first domain, `build:1`/`strike:1` for the second. One domain
+reproduces every T3.1 outcome and default trace; state representation changed, so older
+studies replay at their revisions. Fixed a study summary bug (second-domain builds not
+counted) before the recorded run.
+
+Learned: verification buys denial only when the defender's right move depends on the
+rival's hidden choice; two domains show it (10/90 cells), one domain and scarce budgets
+do not. Behavior shows a reassurance effect: blind leaders strike on the possibility of a
+closing window. Evidence `evidence/treaty-domains.json`. 164 tests pass.
+
+Next agent: stage 3 has answered its question within scope. Candidate next steps in the
+case file: the leader's own information (sure reach), longer horizons under scarcity, a
+third party (inspector with its own goals, T9.1 needs ASK). Or return to stage 2 (captured
+auditor), where the same power/information queries apply to evaluation of AI systems.
