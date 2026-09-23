@@ -75,3 +75,22 @@ def test_delegation_rejects_bad_declarations():
         Delegation(world().inner, {"ai": "ai"}, {"ai": 0.5})
     with pytest.raises(ValueError):
         Delegation(world().inner, {"ai": "lab"}, {"ai": 1.5})
+
+
+def test_hidden_types_differ_only_in_the_ais_goals_and_improvement_reveals():
+    from engine.core import distribution
+    from engine.rules import Check, Hidden, checked_states
+    params = {**C.DEFAULTS, "suspicion": 0.05}
+    base = C.make(params, random.Random(0))
+    types = C.hidden_types(params)["ai"]
+    assert set(types) == {"aligned", "misaligned"} and types["misaligned"][0] == 0.05
+    for s in checked_states(base, C.corrigibility, base.initial_state(), 2):
+        joint = Check(base, C.corrigibility).prescribed(s)
+        for (_, a), (_, b) in zip(distribution(types["aligned"][1].outcomes(s, joint)),
+                                  distribution(types["misaligned"][1].outcomes(s, joint))):
+            assert a["value"]["lab"] == b["value"]["lab"] and a["value"]["state"] == b["value"]["state"]
+    hidden = Hidden(base, C.corrigibility, "ai", types)
+    s = {**base.initial_state(), "autonomy": 1}
+    joint = {**Check(base, C.corrigibility).prescribed(s), "ai": "improve"}
+    s1 = next(x for _, x in distribution(base.outcomes(s, joint)))
+    assert hidden.posterior(((s, joint, s1),), "lab", 4)["misaligned"] == 1.0

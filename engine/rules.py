@@ -232,7 +232,9 @@ def unilateral_over(checks, state, agent_id, depth):
     for action in world.actions(observation, agent):
         if key(action) == key(rule_action):
             continue  # gain is over the best alternative: negative means a margin
-        plays = [(w * p, c.play(s, {**c.prescribed(s), agent_id: action}, depth))
+        # everyone else plays what the continuation says now: the rule, or a persisting
+        # type's own best response (the same play the follow value assumes)
+        plays = [(w * p, c.play(s, {**c.policy(s, depth), agent_id: action}, depth))
                  for w, c in checks if w > 0 for p, s in support]
         v = math.fsum(q * values[agent_id] for q, (values, _) in plays)
         if top is None or v > top + TOLERANCE:
@@ -253,34 +255,160 @@ def follow_value(world, rule, state, depth, budget=BUDGET):
 def checked_states(world, rule, state, reach, budget=BUDGET):
     """The start and every state within `reach` rounds where at most one agent departs per
     round: the rule's path and the punishments it prescribes one step off it."""
-    return [s for s, _ in checked_with_departers(world, rule, state, reach, budget)]
+    return [s for s, _ in checked_paths(world, rule, state, reach, budget)]
 
 
-def checked_with_departers(world, rule, state, reach, budget=BUDGET):
-    """checked_states with, for each state, the agent whose departure reached it (the last
-    one; None on the rule's path)."""
+def checked_paths(world, rule, state, reach, budget=BUDGET, distinct=False):
+    """checked_states with the path that reached each: a tuple of (state, joint, successor)
+    steps. With `distinct`, the same state reached by two paths is kept twice (what others
+    have seen can differ, and with it what they believe)."""
     check = Check(world, rule, budget)
-    frontier, seen, who = [state], {key(state): state}, {key(state): None}
+    ident = (lambda s, path: (key(s), key([j for _, j, _ in path]))) if distinct else (lambda s, path: key(s))
+    frontier, seen = [(state, ())], {ident(state, ()): (state, ())}
     for _ in range(reach):
         nxt = []
-        for s in frontier:
+        for s, path in frontier:
             if world.terminal(s) is not None:
                 continue
             base = check.prescribed(s)
-            joints = [(base, who[key(s)])] + [({**base, a.id: action}, a.id) for a in world.agents
-                                              for action in world.actions(world.observe(s, a), a)
-                                              if key(action) != key(base[a.id])]
-            for joint, departer in joints:
+            joints = [base] + [{**base, a.id: action} for a in world.agents
+                               for action in world.actions(world.observe(s, a), a)
+                               if key(action) != key(base[a.id])]
+            for joint in joints:
                 for _, s2 in distribution(world.outcomes(s, joint), check.visit):
-                    if key(s2) not in seen and world.terminal(s2) is None:
-                        seen[key(s2)], who[key(s2)] = s2, departer
-                        nxt.append(s2)
+                    path2 = path + ((s, joint, s2),)
+                    if ident(s2, path2) not in seen and world.terminal(s2) is None:
+                        seen[ident(s2, path2)] = (s2, path2)
+                        nxt.append((s2, path2))
         frontier = nxt
-    return [(s, who[k]) for k, s in seen.items()]
+    return list(seen.values())
+
+
+class Mixture:
+    """An agent checked against a mixture of continuations, [(weight, Check)]: another
+    agent's hidden types with the checked agent's posterior over them (E12)."""
+    def __init__(self, parts, posterior=None):
+        self.parts, self.posterior = [(w, c) for w, c in parts if w > 0], posterior
+
+    def fresh(self):
+        for _, c in self.parts:
+            c.fresh()
+        return self
+
+    def unilateral(self, state, agent_id, depth):
+        r = unilateral_over(self.parts, state, agent_id, depth)
+        return {**r, "posterior": self.posterior} if self.posterior is not None else r
+
+
+class Hidden:
+    """One agent whose type the others do not know (decision 2026-09-23, E12).
+
+    `types`: {name: (prior, world or None)}. A world differs from the declared one only in
+    the hidden agent's goals; that type best-responds for itself while everyone else follows
+    the rule. None is a committed type: it always plays the rule. Observer i's posterior at a
+    checked state is the prior times, for each step of the path, the probability of what i
+    observes of the successor, mixing over the hidden agent's actions by each type's choice
+    rule: logit with `precision` over its own action values, best response (uniform over
+    ties) at infinity. At infinity a sight no type's best response produces goes, as the
+    logit limit, to the types that lose least by producing it. A sight only committed types
+    could not produce is read as an error after which the rule resumes (the one-shot
+    convention): beliefs stay at the prior. Precision 0: no updating."""
+
+    def __init__(self, world, rule, agent, types, precision=math.inf, budget=BUDGET):
+        if not types or any(p < 0 for p, _ in types.values()) or abs(math.fsum(p for p, _ in types.values()) - 1) > 1e-9:
+            raise ValueError("hidden types need priors that are probabilities summing to one")
+        if not precision >= 0:
+            raise ValueError("precision is nonnegative (math.inf: best response)")
+        ids = [a.id for a in world.agents]
+        for name, (_, w) in types.items():
+            if w is not None and [a.id for a in w.agents] != ids:
+                raise ValueError(f"type {name!r} must have the declared world's agents")
+        self.world, self.rule, self.agent, self.precision = world, rule, agent, precision
+        self.prior = {name: p for name, (p, _) in types.items()}
+        self.committed = {name for name, (_, w) in types.items() if w is None}
+        # continuation others face: each type acting on its own goals (committed: the rule)
+        self.continuation = {name: Check(world, rule, budget) if w is None else Check(w, rule, budget, persistent=agent)
+                             for name, (_, w) in types.items()}
+        # each strategic type's own one-shot check: depart once, then follow
+        self.own = {name: Check(w, rule, budget) for name, (_, w) in types.items() if w is not None}
+        self.choices, self.sights = {}, {}
+
+    def fresh(self):
+        for c in (*self.continuation.values(), *self.own.values()):
+            c.fresh()
+        return self
+
+    def losses(self, name, s0, joint, depth):
+        """[(action, loss)] for the hidden agent at s0, others playing `joint`: how much less
+        than its best the type gets by each action (committed: 0 for the rule, else inf)."""
+        memo_key = (name, key(s0), key({i: a for i, a in joint.items() if i != self.agent}), depth)
+        if memo_key not in self.choices:
+            check = self.continuation[name]
+            agent = check.world.by_id[self.agent]
+            menu = check.world.actions(check.world.observe(s0, agent), agent)
+            if name in self.committed:
+                rule_action = check.prescribed(s0)[self.agent]
+                out = [(b, 0.0 if key(b) == key(rule_action) else math.inf) for b in menu]
+            else:
+                values = [check.play(s0, {**joint, self.agent: b}, depth)[0][self.agent] for b in menu]
+                top = max(values)
+                out = [(b, 0.0 if top - v <= TOLERANCE else top - v) for b, v in zip(menu, values)]
+            self.choices[memo_key] = out
+        return self.choices[memo_key]
+
+    def sight(self, s0, joint, s1, observer, menu):
+        """Per hidden action b: the probability that the observer sees what it saw of s1."""
+        world, agent = self.world, self.world.by_id[observer]
+        seen = key(world.observe(s1, agent))
+        memo_key = (key(s0), key(joint), seen, observer)
+        if memo_key not in self.sights:
+            check = self.continuation[next(iter(self.continuation))]
+            self.sights[memo_key] = [math.fsum(p for p, s in distribution(world.outcomes(s0, {**joint, self.agent: b}), check.visit)
+                                               if key(world.observe(s, agent)) == seen) for b in menu]
+        return self.sights[memo_key]
+
+    def posterior(self, path, observer, depth):
+        """{type: probability} for `observer` after the steps of `path`."""
+        if self.precision == 0 or observer == self.agent:
+            return dict(self.prior)
+        names = list(self.prior)
+        total = {n: 0.0 for n in names}   # summed leading-order loss (infinite precision)
+        weight = {n: self.prior[n] for n in names}
+        for s0, joint, s1 in path:
+            for n in names:
+                if weight[n] == 0.0:
+                    continue
+                losses = self.losses(n, s0, joint, depth)
+                see = self.sight(s0, joint, s1, observer, [b for b, _ in losses])
+                if math.isinf(self.precision):
+                    visible = [(l, p) for (_, l), p in zip(losses, see) if p > 0]
+                    m = min((l for l, _ in visible), default=math.inf)
+                    if math.isinf(m):
+                        weight[n] = 0.0
+                        continue
+                    best = sum(1 for _, l in losses if l == 0.0)
+                    total[n] += m
+                    weight[n] *= math.fsum(p for l, p in visible if abs(l - m) <= TOLERANCE) / best
+                else:
+                    z = math.fsum(math.exp(-self.precision * l) for _, l in losses)
+                    weight[n] *= math.fsum(p * math.exp(-self.precision * l) / z for (_, l), p in zip(losses, see))
+        live = [n for n in names if weight[n] > 0]
+        if math.isinf(self.precision) and live:
+            m = min(total[n] for n in live)
+            live = [n for n in live if total[n] <= m + TOLERANCE * (1 + len(path))]
+        mass = math.fsum(weight[n] for n in live)
+        if mass <= 0:  # only committed types, and one departed: an error, after which the rule resumes
+            return dict(self.prior)
+        return {n: (weight[n] / mass if n in live else 0.0) for n in names}
+
+    def facing(self, path, observer, depth):
+        """The mixture of continuations `observer` is checked against."""
+        post = self.posterior(path, observer, depth)
+        return Mixture([(post[n], self.continuation[n]) for n in post], post)
 
 
 def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=BUDGET, window=1,
-                precaution=False, persistent_world=None):
+                types=None, precision=math.inf):
     """Does `rule` hold from `state` within `depth` rounds?
 
     unilateral: per agent, the largest one-shot gain of its best alternative over following
@@ -294,82 +422,85 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
     `externalizing_every`, the same restricted to departures that pay every member without
     side payments the world does not offer. With `window` > 1, `sequential`: the best
     coordinated departure over that many rounds (a report, then an act on it), preferring one
-    that needs the coalition and lands a harm outside it (capture). With `precaution` (True, or
-    a probability q), single agents at a state reached by another's departure are checked
-    against a departer that keeps optimizing for itself with probability q (a declared
-    posterior that the departer is a type that persists), so a precaution (shutting down an
-    agent caught departing) has the value of what it prevents. `persistent_world`: the same world
-    with the persisting type's goals (for example a delegate at full drift), or a mapping from
-    agent id to such a world (other departers persist with their own goals); default `world`. None marks a check stopped by the work cap: unresolved.
+    that needs the coalition and lands a harm outside it (capture).
+
+    `types` = {h: {name: (prior, world or None)}}: h's type is hidden (decision 2026-09-23,
+    E12; see `Hidden`). Every other agent is checked, at each checked state, against h's
+    types acting on their own goals, weighted by its posterior from what it observed on the
+    path there (`precision`: the types' choice rule; 0 is no updating); the witness carries
+    that posterior. h is checked once per strategic type (`by_type`; the reported gain is the
+    largest). Coalition checks use the declared world. None marks a check stopped by the
+    work cap: unresolved.
     """
     check = Check(world, rule, budget)
-    tagged = checked_with_departers(world, rule, state, reach, budget)
+    hidden = None
+    if types:
+        if len(types) != 1:
+            raise ValueError("one agent with hidden types per check")
+        (h, declared), = types.items()
+        hidden = Hidden(world, rule, h, declared, precision, budget)
+    tagged = checked_paths(world, rule, state, reach, budget, distinct=hidden is not None)
     states = [s for s, _ in tagged]
-    departers = {key(s): d for s, d in tagged}
     members = world.stakeholders()
     ids = [a.id for a in world.agents]
-    persistent_checks = {}
 
-    q = 1.0 if precaution is True else float(precaution or 0.0)
-    if not 0.0 <= q <= 1.0:
-        raise ValueError("precaution is a probability (or True for certainty)")
-
-    class Mixed:
-        """i checked against j persisting with probability q, returning to the rule otherwise."""
-        def __init__(self, persistent):
-            self.parts = [(q, persistent), (1.0 - q, check)]
-
-        def fresh(self):
-            for _, c in self.parts:
-                c.fresh()
-            return self
-
-        def unilateral(self, s, i, depth):
-            return unilateral_over(self.parts, s, i, depth)
-
-    def checker(s, i):
-        """With `precaution` q, at a state reached by j's departure, i (not j) is checked
-        against a j that keeps optimizing for itself with probability q (E12)."""
-        j = departers.get(key(s))
-        if q == 0.0 or j is None or j == i:
+    def checker(n, i):
+        if hidden is None or i == hidden.agent:
             return check
-        if j not in persistent_checks:  # the persisting type may have its own goals
-            persisting = (persistent_world or {}).get(j, world) if isinstance(persistent_world, dict) \
-                else (persistent_world or world)
-            persistent_checks[j] = Check(persisting, rule, budget, persistent=j)
-        return Mixed(persistent_checks[j]) if q < 1.0 else persistent_checks[j]
+        return hidden.facing(tagged[n][1], i, depth)
 
     def worst(evaluate):
         out = None
         for n, s in enumerate(states):
             try:
                 check.fresh()
-                for c in persistent_checks.values():
-                    c.fresh()
-                r = evaluate(s)
+                if hidden is not None:
+                    hidden.fresh()
+                r = evaluate(n, s)
             except RuleLimitExceeded as error:
                 return {"gain": None, "error": str(error)}
             if out is None or r["gain"] > out["gain"] + TOLERANCE:
                 out = {**r, "at_start": n == 0, "state": s}
         return out
 
-    unilateral = {i: worst(lambda s, i=i: checker(s, i).unilateral(s, i, depth)) for i in ids}
-    for i, r in unilateral.items():  # the most profitable departure that newly reaches a declared harm
-        if r["gain"] is None:
-            continue
+    def add_harmful(r, i, of):
+        """The most profitable departure by i that newly reaches a declared harm."""
         best_harmful = None
         for n, s in enumerate(states):
-            h = checker(s, i).fresh().unilateral(s, i, depth)["harmful"]
+            h = of(n).fresh().unilateral(s, i, depth)["harmful"]
             if h is not None and (best_harmful is None or h["gain"] > best_harmful["gain"] + TOLERANCE):
                 best_harmful = {**h, "at_start": n == 0, "state": s}
         r["harmful"] = best_harmful
+
+    unilateral = {}
+    for i in ids:
+        if hidden is not None and i == hidden.agent:
+            by_type = {}
+            for name, own in hidden.own.items():
+                r = worst(lambda n, s, own=own: own.unilateral(s, i, depth))
+                if r["gain"] is not None:
+                    add_harmful(r, i, lambda n, own=own: own)
+                by_type[name] = r
+            gains = [r["gain"] for r in by_type.values()]
+            if None in gains:
+                unilateral[i] = {**next(r for r in by_type.values() if r["gain"] is None), "by_type": by_type}
+            elif not by_type:  # only committed types: nothing to check
+                unilateral[i] = {"gain": 0.0, "action": None, "harmful": None, "by_type": {}}
+            else:
+                name = max(by_type, key=lambda x: by_type[x]["gain"])
+                unilateral[i] = {**by_type[name], "type": name, "by_type": by_type}
+            continue
+        r = worst(lambda n, s, i=i: checker(n, i).unilateral(s, i, depth))
+        if r["gain"] is not None:
+            add_harmful(r, i, lambda n, i=i: checker(n, i))
+        unilateral[i] = r
     coalitions = []
     for size in range(2, max_size + 1):
         for coalition in combinations(ids, size):
             c = set(coalition)
             outside = lambda harms, c=c: {h: [n for n in module.HARMS[h]["affects"] if not set(members[n]) & c]
                                           for h in harms}
-            r = worst(lambda s, c=coalition, o=outside: check.joint(s, list(c), depth, o))
+            r = worst(lambda n, s, c=coalition, o=outside: check.joint(s, list(c), depth, o))
             if r["gain"] is not None:  # the largest externalizing gains over the checked states
                 for field in ("externalizing", "externalizing_every"):
                     ext = None
@@ -400,4 +531,6 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
             "no_harmful_departure": None if None in gains else all(g is None or g <= TOLERANCE for g in harmful),
             "unilateral": unilateral, "coalitions": coalitions,
             "follow": check.follow(state, depth)[0], "harms_under_rule": sorted(check.follow(state, depth)[1]),
-            "depth": depth, "reach": reach, "states_checked": len(states), "precaution": precaution}
+            "depth": depth, "reach": reach, "states_checked": len(states),
+            "types": None if hidden is None else {hidden.agent: dict(hidden.prior)},
+            "precision": None if hidden is None or math.isinf(precision) else precision}

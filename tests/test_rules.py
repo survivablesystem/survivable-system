@@ -211,7 +211,11 @@ def test_assess_orders_power_then_rule_then_exclusions():
 
 
 class Theft(Repeated):
-    """x may steal (x +1, g -2) unless locked out; g may lock x out for good (g pays 0.5 once)."""
+    """x may steal (x +loot, g -2) unless locked out; g may lock x out for good (g pays 0.5 once)."""
+    def __init__(self, ids, discount=0.9, loot=1.0):
+        super().__init__(ids, discount)
+        self.loot = loot
+
     def initial_state(self):
         return {**super().initial_state(), "locked": False, "stole": False}
 
@@ -223,7 +227,7 @@ class Theft(Repeated):
     def outcomes(self, state, joint):
         locked = state["locked"] or joint["g"] == "lock"
         stole = not state["locked"] and joint["x"] == "steal"
-        pay = {"x": 1.0 if stole else 0.0, "g": (-2.0 if stole else 0.0) - (0.5 if joint["g"] == "lock" else 0.0)}
+        pay = {"x": self.loot if stole else 0.0, "g": (-2.0 if stole else 0.0) - (0.5 if joint["g"] == "lock" else 0.0)}
         return [(1.0, {**state, "t": state["t"] + 1, "locked": locked, "stole": stole, "hurt": stole, "value": pay})]
 
 
@@ -232,18 +236,6 @@ def lock_thieves(world, observation, agent):
     if agent.id == "x":
         return "idle"
     return "lock" if observation["stole"] and not observation["locked"] else "watch"
-
-
-def test_precaution_has_value_only_against_a_departer_who_persists():
-    world = Theft(["x", "g"])
-    module = SimpleNamespace(HARMS={"hurt": {"affects": ["g"], "irreversible": False}})
-    plain = enforcement(world, module, lock_thieves, world.initial_state(), 3, reach=1)
-    careful = enforcement(world, module, lock_thieves, world.initial_state(), 3, reach=1, precaution=True)
-    # After a theft, locking out a thief who then follows the rule is pure cost...
-    assert plain["unilateral"]["g"]["gain"] == pytest.approx(0.5) and plain["unilateral"]["g"]["action"] == "watch"
-    # ...and worth it against one who keeps stealing.
-    assert careful["unilateral"]["g"]["gain"] <= 1e-9
-
 
 
 def test_work_cap_is_per_evaluation_and_reported_unresolved():
@@ -260,20 +252,3 @@ def test_work_cap_is_per_evaluation_and_reported_unresolved():
     import pickle
     error = pickle.loads(pickle.dumps(RuleLimitExceeded(5)))
     assert error.budget == 5 and str(error).count("exceeded") == 1
-
-
-def posterior(prior, departs_if_bad=1.0, departs_if_good=0.1):
-    """Probability a departer is the persisting type, by Bayes from a declared evidence model."""
-    return prior * departs_if_bad / (prior * departs_if_bad + (1 - prior) * departs_if_good)
-
-
-def test_precaution_credible_above_a_posterior_threshold():
-    world = Theft(["x", "g"])
-    module = SimpleNamespace(HARMS={"hurt": {"affects": ["g"], "irreversible": False}})
-    gains = {}
-    for prior in (0.01, 0.1, 0.5):
-        q = posterior(prior)
-        r = enforcement(world, module, lock_thieves, world.initial_state(), 3, reach=1, precaution=q)
-        gains[prior] = r["unilateral"]["g"]["gain"]
-    # Locking costs 0.5 once and saves 2 per later theft: it pays once the posterior is high enough.
-    assert gains[0.01] > 0 and gains[0.1] <= 1e-9 and gains[0.5] <= 1e-9

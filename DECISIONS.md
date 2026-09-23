@@ -7,6 +7,59 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  E12: hidden types, beliefs derived by Bayes from what each agent observes
+
+Proposed before implementation. The reduced form (below) declares the posterior q that a
+revealed departer persists, and a "returning" type that follows the rule by assumption.
+Both are authored where the intent asks for computed: whether a departure is evidence
+depends on which types would make it, and a type that "returns to the rule" is scripted
+(T9.2 finding 2: the aligned AI does not return; it resists).
+
+Change (`engine/rules.py`, `enforcement(..., types=, precision=)`):
+- `types = {h: {name: (prior, world or None)}}`: one agent h whose type others do not know.
+  Each type is a world that differs only in h's goals (e.g. a delegate at drift 0 or 1);
+  it best-responds for itself (backward induction, full information) while everyone else
+  follows the rule. `None` is a committed type that always plays the rule.
+- Likelihood of what observer i sees: at each step of the path to a checked state, the
+  probability that i's observation of the successor arises, mixing over h's actions by the
+  type's choice rule: logit with precision `precision` over the type's own action values
+  (lambda = 0: no learning, posterior = prior; default infinity: best response, uniform over
+  ties). At infinity a sight no type's best response produces is attributed, as the limit of
+  logit, to the types that lose least by producing it. Hidden conduct teaches nothing: an
+  action i cannot tell from the rule's has likelihood equal across types.
+- i (not h) is checked against the posterior mixture of h's types at every checked state,
+  the start included; h is checked once per type against its own goals. Paths are kept
+  distinct when types are declared (the same state reached two ways can carry different
+  posteriors).
+- A sight only committed types could not produce (a departure by a population declared
+  never to depart) is read as an error after which the rule resumes, the one-shot
+  convention: beliefs stay at the prior.
+- Removed: `precaution` and `persistent_world` on `enforcement` (superseded; their toys
+  migrate to types). `Check(persistent=)` and `unilateral_over` stay as the parts both use.
+- Bug found while building, in the reduced form: `unilateral_over` valued departures with
+  the persisting agent playing the rule in the checked round, but the follow value with it
+  best-responding, so gains compared two different agents. Fixed (everyone else plays the
+  continuation's policy in both); only persisting checks change. Precaution evidence re-run.
+
+Scope and what it assumes: one hidden-typed agent; others observe h's past conduct only
+through their own observations, conditioned on the true earlier states (i's uncertainty
+about those states is not propagated); the types' best responses assume others follow the
+rule (one-shot deviation principle), so this is a check of the rule as a Bayesian
+equilibrium's claim, not an equilibrium search; coalition checks use the declared world.
+Precision is a swept assumption: it sets how much a departure a type would not choose
+still says.
+
+Alternatives rejected: declared evidence models per case (what the reduced form did: the
+answer lives in the declaration); tremble probabilities (need an arbitrary epsilon and an
+arbitrary split across actions; the logit limit is one parameter and orders sights by
+cost); full belief propagation over hidden states along the path (no case needs it yet).
+
+Intent tests: 1 one option replacing a declared posterior; 2 types act on goals, none
+scripted to follow; 3 prior and precision declared and swept; 4 a toy where the trigger is
+credible only with updating, and one where the same departure teaches nothing because
+every type would make it; 5 whose goals a public must guess at becomes a question with
+an answer; 6 which conduct is evidence of misalignment, computed rather than assumed.
+
 ## 2026-09-23  E2 step 3: exact reward integration inside the tree, by declared continuation
 
 Proposed before implementation. Measured (fishery under the race, sanctions on, one decision

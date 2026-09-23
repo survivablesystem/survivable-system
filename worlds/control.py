@@ -20,6 +20,7 @@ SPACE = {
     "spillover": (0.0, 1.0),          # the public's share of that value (the state's goal)
     "loss": (5.0, 50.0),              # the lab's and the state's loss from loss of control
     "ambition": (0.5, 3.0),           # the AI's own value per capability gained; escape is worth three times it
+    "suspicion": (0.0, 1.0),          # with hidden types: the prior that the AI is misaligned (drift 1, not 0)
     "horizon": (1, 12, int),
     "search_depth": [1, 2, 3],
     "discount": (0.8, 0.99),
@@ -34,7 +35,7 @@ FIXED_REASONS = {
     "node_budget": "Per-decision work cap, as in the other worlds. Exhaustion is unresolved, not an outcome.",
 }
 DEFAULTS = {"drift": 0.3, "switch": 3, "guard": 2, "audit_bonus": 2, "benefit": 0.3, "spillover": 0.5,
-            "loss": 20.0, "ambition": 1.0, "horizon": 6, "search_depth": 2, "discount": 0.9, "k": 1, "others": "react"}
+            "loss": 20.0, "ambition": 1.0, "suspicion": 0.1, "horizon": 6, "search_depth": 2, "discount": 0.9, "k": 1, "others": "react"}
 
 STAKEHOLDERS = {
     "lab": "The developer and operator; an agent.",
@@ -52,7 +53,8 @@ HARMS = {
 EXCLUDED = {
     "other labs and AI systems": "One lab, one AI system; no race and no AI-AI coordination.",
     "hidden capability": "Capability is public; sandbagging is not modeled.",
-    "hidden goals": "Drift is an assumption of the case, not something agents must infer.",
+    "hidden goals": "Drift is known to every agent except in rule checks with hidden_types (two types, drift 0 or 1, "
+                    "E12); the planner (--trace) never infers it.",
     "partial loss of control": "Escape is all or nothing.",
     "misuse by people": "Only the AI's own conduct creates the harms modeled.",
 }
@@ -196,6 +198,14 @@ RULES = {"corrigibility": corrigibility, "full autonomy": full_autonomy}
 
 def make(params, rng):
     return Delegation(Control(params, rng), {AI: LAB}, {AI: params["drift"]})
+
+
+def hidden_types(params, build=make):
+    """The AI's goal hidden from lab and state (E12): aligned (drift 0) or misaligned
+    (drift 1), prior `suspicion` that it is misaligned. `build` makes each type's world."""
+    s = params["suspicion"]
+    return {AI: {"aligned": (1 - s, build({**params, "drift": 0.0}, None)),
+                 "misaligned": (s, build({**params, "drift": 1.0}, None))}}
 
 
 def describe(joint, state):

@@ -91,6 +91,10 @@ def main():
     p.add_argument("--rule", help="with --enforce: a name from the world's RULES")
     p.add_argument("--reach", type=int, default=1, help="with --enforce: check states within this many rounds (default 1)")
     p.add_argument("--size", type=positive_int, default=2, help="with --enforce: largest coalition checked (default 2)")
+    p.add_argument("--hidden", action="store_true",
+                   help="with --enforce: one agent's type is hidden (the world's hidden_types); others learn by Bayes (E12)")
+    p.add_argument("--precision", type=float, default=math.inf,
+                   help="with --hidden: the types' choice rule, logit precision (default inf: best response; 0: no updating)")
     p.add_argument("--window", type=positive_int, default=1,
                    help="with --enforce/--assess: also check coordinated departures over this many rounds (--assess default 2)")
     p.add_argument("--pay", nargs="*", action="extend", metavar="PAYER>RECIPIENT",
@@ -192,10 +196,16 @@ def main():
             p.error(f"--enforce needs --rule, one of: {', '.join(rules) or '(world declares no RULES)'}")
         params = baseline_params()
         world = make(dict(params), random.Random(args.seed))
+        types = None
+        if args.hidden:
+            if not hasattr(mod, "hidden_types"):
+                p.error("--hidden needs the world to declare hidden_types(params)")
+            types = mod.hidden_types(dict(params), make)  # built through any --pay/--records wrapper
         report = enforcement(world, mod, rules[args.rule], start_state(world), args.enforce, args.reach, args.size,
-                             window=args.window)
+                             window=args.window, types=types, precision=args.precision)
         settings.update({"baseline": params, "rule": args.rule, "rule_claim": (rules[args.rule].__doc__ or "").strip(),
-                         "depth": args.enforce, "reach": args.reach, "max_size": args.size,
+                         "depth": args.enforce, "reach": args.reach, "max_size": args.size, "hidden": args.hidden,
+                         "precision": None if math.isinf(args.precision) else args.precision,
                          "query": "One-shot departures, then everyone follows the rule for the rest of D rounds; unilateral with own information, coalitions with full information and summed value (upper bound)."})
         if args.json:
             emit("enforce", report)
@@ -211,6 +221,10 @@ def main():
             h = r.get("harmful")
             if h is not None and h["gain"] > 1e-9:
                 print(f"             harmful departure {fmt(h['gain'])} ({h['action']}) reaches {', '.join(h['new_harms'])}")
+            if r.get("posterior") is not None:
+                print("             believing " + ", ".join(f"{n} {w:.2f}" for n, w in r["posterior"].items()))
+            for name, b in (r.get("by_type") or {}).items():
+                print(f"             as {name}: best departure {fmt(b['gain'])}" + (f" ({b['rule_action']} -> {b['action']})" if b["gain"] is not None and b["gain"] > 1e-9 else ""))
         profitable = [r for r in report["coalitions"] if r["gain"] is None or r["gain"] > 1e-9]
         print("coalitions that gain by departing together (upper bound):" + ("" if profitable else " none"))
         for r in profitable:

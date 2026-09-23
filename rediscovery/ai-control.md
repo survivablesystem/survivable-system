@@ -142,3 +142,26 @@ misaligned type (drift 1, best-responding for itself), otherwise it returns to t
 Finding 3 above stands, refined: in one-shot checks precaution had no value; with a
 declared posterior it has the value of what it prevents, but only while the off switch
 still works.
+
+### Learning about hidden goals (E12, derived posteriors)
+
+Decision `DECISIONS.md` E12 (hidden types). The AI's drift is hidden: aligned (drift 0) or
+misaligned (drift 1), prior p that it is misaligned. Each type acts on its own goals; lab
+and state hold a posterior derived by Bayes from what they observe (capability, audits,
+resisted shutdowns), with each type's choice rule (best response, or logit with precision
+lambda). No declared q.
+
+Expectations stated before running (`python -m tests.learning_study`):
+
+- L1 (what is evidence): improvement reveals misalignment (posterior 1 at best response)
+  wherever the aligned type would not improve. Contradiction: an aligned type that improves.
+- L2 (resistance is not evidence): where the aligned type also resists a shutdown
+  (finding 2), a resisted shutdown leaves the posterior where it was. Contradiction:
+  resistance raises the posterior in most states where it succeeds.
+- L3 (credibility): with derived beliefs at a low prior (0.05), shutdown on evidence of
+  improvement is as credible for lab and state as under a declared q = 1 where the AI cannot
+  resist; where it can, not attempting still pays (finding 7). Contradiction: learning
+  restores the attempt where the AI can resist, or credibility needs a high prior.
+- L4 (no waiting): the misaligned type departs as soon as improving is on its menu, because a
+  restart keeps capability: shutdown costs it time, not what it gained. Contradiction: it
+  follows the rule for some rounds and departs later (a turn), or never departs.
