@@ -206,10 +206,18 @@ type.
 
 ## Learning about hidden goals (E12, derived posteriors)
 
-`learning.json` identifies clean source `e3c070e`. Reproduce with `python -m tests.learning_study`
+`learning.json` identifies clean source `975dd56` (re-run after the scale-free choice rule; the
+`e3c070e` run's logit and off-path posteriors compared utilities across types). Reproduce with `python -m tests.learning_study`
 (seconds). 486 cells: switch, autonomy, capability, ambition, prior, precision; posteriors after
 each AI action, lab and state gains when the AI is caught improving, resistance as evidence, and
 the misaligned type's own path from the sandbox.
+
+## Does improvement reveal only because capability is worthless? (T9.4)
+
+`leverage.json` identifies clean source `975dd56`. Reproduce with `python -m tests.leverage_study`
+(seconds). 360 cells: corrigibility and a tolerant rule x leverage x switch x autonomy x
+capability x ambition, prior 0.1; which types improve, what improvement and failed escape tell
+the lab, lab and state departures after an improvement, each type's 6-round play from the sandbox.
 
 ## Re-run after interior reward integration (E2 step 3)
 

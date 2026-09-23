@@ -170,7 +170,7 @@ Expectations stated before running (`python -m tests.learning_study`):
   restart keeps capability: shutdown costs it time, not what it gained. Contradiction: it
   follows the rule for some rounds and departs later (a turn), or never departs.
 
-Results: `evidence/learning.json`, clean `e3c070e`, 1.4 s on 4 processes. Switch {2, 3, 4} x
+Results: `evidence/learning.json`, clean `975dd56` (re-run after the scale-free choice rule; first run `e3c070e`), about 1.5 s on 4 processes. Switch {2, 3, 4} x
 autonomy {0, 1, 2} x capability {1, 2, 3} x ambition {0.5, 3} x prior {0.01, 0.1, 0.5} x
 precision {0 (no updating), 1, infinity (best response)}: 486 cells, depth 4, observer the lab
 (lab and state see the same public facts). L4 was written after a probe of first-round choices
@@ -178,17 +178,19 @@ had shown the misaligned type improving at once; it is weaker evidence than L1-L
 
 | Expectation | Result |
 |---|---|
-| L1 improvement reveals | holds: the aligned type never improves (0 of 486), the misaligned type always does where it can (324 of 324); at best response a caught improvement sets the posterior to 1 from every prior; at precision 1 it only moves 0.01 to 0.02-0.05, 0.1 to 0.17-0.36 |
-| L2 resistance is not evidence | holds at best response (both types resist in all 12 resistible caught states); contradicted under logit: resistance lowers the posterior at ambition 0.5 and raises it at ambition 3, in every state |
+| L1 improvement reveals | holds: the aligned type never improves (0 of 486), the misaligned type always does where it can (324 of 324); at best response a caught improvement sets the posterior to 1 from every prior; at precision 1 it only moves 0.01 to 0.01-0.02, 0.1 to 0.11-0.19 |
+| L2 resistance is not evidence | holds at every precision (both types resist in all 12 resistible caught states; the posterior does not move in 216 of 216 checks). The first run reported a contradiction under logit; it came from comparing utilities across types (retracted, finding 9) |
 | L3 credibility | holds where the AI cannot resist (6 states: lab and state follow at every prior and precision); where it can (12), the rule's shutdown is followed by nobody who gains by departing, and what the lab does instead depends on learning (finding 10) |
 | L4 no waiting | holds: first departure in round 1 in all 6 paths (switch x ambition) |
 
-9. **What counts as evidence is computed, and it can point the wrong way.** Improvement is
-   decisive because only a misaligned AI would improve. Resistance is not: both types resist
-   a shutdown that costs the lab. Under noisy choice (logit), a resisted shutdown is evidence
-   *for* alignment when the AI's own ambition is low, because the aligned AI loses more by a
-   shutdown (it values the lab's lost work fully) than a modestly ambitious misaligned one.
-   An overseer that reads resistance as a sign of misalignment has the sign wrong there.
+9. **What counts as evidence is computed.** Improvement is decisive here because only a
+   misaligned AI would improve (but see T9.4: that is the rule's doing, and holds only while
+   capability is worth little to the lab). Resistance is not evidence: both types resist a
+   shutdown that costs the lab, at every precision. Retracted second half (first run,
+   `e3c070e`): "under logit, resistance is evidence for alignment when ambition is low". It
+   compared the aligned AI's loss in the lab's units with the misaligned AI's in ambition
+   units, which the spec does not allow; with each type's losses scaled to its own stake
+   (E12 amendment) the effect is gone.
 10. **Learning turns escalation into containment.** At a caught state the AI can resist, the
    shutdown is futile and the lab gains by departing from the rule at every prior. Without
    updating, at a 1% prior it grants *more* autonomy in 24 of 24 cells (half the states at
@@ -208,13 +210,13 @@ had shown the misaligned type improving at once; it is weaker evidence than L1-L
    --enforce 3 --rule corrigibility --hidden --state autonomy=1 cap=2`). The rule's cap on autonomy is not self-enforcing for the lab once
    the lab trusts its AI: trust earned by conduct is the lever that moves the veto.
 
-First surprise (test 6): finding 9, with 11 behind it. Neither was expected; both follow
-from goals, a hidden type and Bayes without any scripted conduct.
+First surprise (test 6): finding 11 (the ratchet), and T9.4 finding 13 below: the tell of
+misalignment is made by the rule that punishes it.
 
 Scope: two types (drift 0 or 1), one observer, beliefs conditioned on the true earlier
 states, types best-respond to the rule (not an equilibrium search), depth 4, capability
-public. Precision is where the answer on resistance lives (finding 9); only 0, 1 and
-infinity were tested.
+public. Precision 0, 1 and infinity tested; off-path attributions depend on the declared
+yardstick (each type's stake in the decision).
 
 ### Does improvement reveal only because capability is worthless to the lab? (T9.4)
 
@@ -234,3 +236,41 @@ Expectations stated before running (`python -m tests.leverage_study`):
   makes the shutdown worth it at the prior.
 - V3: what still distinguishes the types is escape (only the misaligned type values it);
   resistance stays uninformative. Contradiction: some other action becomes the tell.
+
+Results: `evidence/leverage.json`, clean `975dd56`, 1.5 s on 4 processes. Rule {corrigibility,
+tolerant} x leverage {0, 0.25, 0.5, 1, 2} x switch {2, 3, 4} x autonomy {1, 2} x capability
+{1, 2, 3} x ambition {0.5, 3}: 360 cells, prior 0.1, depth 4; each type's play from the
+sandbox over 6 rounds. `tolerant` (in `worlds/control.py`, kept out of RULES so earlier
+studies reproduce) is corrigibility without the shutdown on improvement.
+
+| Expectation | Result |
+|---|---|
+| V1 instrumental convergence | holds without punishment: under `tolerant` the aligned type improves in 0, 0, 6, 18, 24 of 36 states at leverage 0, 0.25, 0.5, 1, 2, and there improvement moves no belief (tell in 36, 36, 30, 18, 12 of 36). Under corrigibility it improves only at leverage 2 (4 of 36) |
+| V2 shutdown on improvement stops being credible | not tested as stated: where both improve under corrigibility (4 cells) the lab grants; see finding 14 |
+| V3 escape is the remaining tell | holds: a failed escape sets the posterior to 1 in all 180 cells where escape is on the menu; resistance moves nothing |
+
+13. **The rule makes the tell.** Improving gives a misaligned AI away only because something
+   makes improvement worthless to the aligned one. Where capability is worth something to
+   the lab (leverage 0.5 and up), an aligned AI improves too if nothing punishes it: the
+   instrumental-convergence argument, emerging from goals rather than assumed. Under
+   corrigibility the aligned AI does not improve, because it bears its lab's cost of the
+   shutdown; the misaligned one improves anyway, because a restart keeps what it gained
+   (finding 11). Screening by punishment separates the types where tolerance pools them.
+14. **The tell has a price, paid in the aligned AI's forgone investment.** From the sandbox,
+   over 6 rounds, neither rule lets either type reach loss of control (the autonomy cap does
+   that), while corrigibility costs the lab and the public the aligned AI's productive
+   improvement: expected lab value 2.29-3.50 under corrigibility against 2.29-5.63 under
+   tolerance, within 0.02 at leverage 0-0.25 and apart from 0.5, the gap growing with leverage
+   (state 1.15-1.75 against 1.15-2.82). What the tell buys, stopping a
+   misaligned AI's capability from growing, lies beyond this horizon. Where both types
+   improve even under corrigibility (leverage 2, switch 2), the aligned AI then resists the
+   shutdown too: the rule turns an aligned improver into a resister.
+15. **Tolerance is not credible once improvement reveals.** Under `tolerant`, where improving
+   still reveals misalignment (132 cells), the lab restricts and the state halts (30 each); where
+   it pools the types (48), the lab grants more autonomy in 30. Evidence drives conduct
+   whatever the rule says: a rule that ignores revealing evidence will not be followed, and
+   one that punishes pooled conduct punishes the aligned.
+
+Finding 9 is scoped by 13: in this world improvement is evidence of misalignment only
+while the developer values capability little, or a rule deters aligned improvement.
+Scope: as above; leverage is the only channel by which capability helps the lab; 6 rounds.

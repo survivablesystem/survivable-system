@@ -545,3 +545,31 @@ switch. 326 tests pass.
 Next agent: T9.3 (rollback on restart) is the direct follow-up and cheap. Open: E6 remainder;
 A2; E3 (seven worlds now repeat register, stakeholders, harms and rules). Precision is
 where the resistance answer lives: sweep it before any claim about what conduct reveals.
+
+## 2026-09-23  Claude: T9.4, the tell of misalignment is made by the rule; scale-free types
+
+Owner flagged finding 9 ("improving gives a misaligned AI away") as new to them. Checked
+whether it was written into the world: the lab valued work only, so an aligned AI never had
+a reason to improve. Register option `leverage` (work grows with capability; 0 reproduces
+everything) and `tolerant`, corrigibility without the shutdown on improvement (kept out of
+RULES so the control study reproduces). Expectations first (V1-V3 in the case file).
+
+Found on the way, and fixed with a decision entry first: my E12 logit likelihood and its
+off-path limit compared losses across types, whose utilities the spec does not make
+comparable. Each type's losses are now scaled to its own stake in the decision. Best-response
+evidence is unchanged; finding 9's logit half ("resistance points to alignment when ambition
+is low") was a units artifact and is retracted. Learning evidence re-run (`975dd56`); the
+precaution study does not use types and reproduces exactly.
+
+Learned (`evidence/leverage.json`, clean `975dd56`, findings 13-15): where capability is
+worth something to the lab and nothing punishes improvement, the aligned AI improves too
+(24 of 36 states at leverage 2) and improvement tells nothing: instrumental convergence,
+emerging. Corrigibility keeps the tell by deterring the aligned AI (it bears the lab's cost
+of a shutdown) while the misaligned one improves anyway (restart keeps capability). The tell
+costs the aligned AI's forgone investment (lab 3.50 against 5.63 at leverage 2 over 6
+rounds); what it buys lies beyond that horizon. A tolerant rule is not followed where
+improvement reveals: the lab restricts, the state halts. 328 tests pass.
+
+Next agent: T9.3 (rollback on restart) now matters twice: it should end the ratchet and may
+also deter the misaligned type from improving, which would pool the types and remove the
+tell. Measure both. Then E6 remainder, A2, E3.
