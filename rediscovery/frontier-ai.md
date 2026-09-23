@@ -163,3 +163,14 @@ only on a pass for their current capability. Sweep: `tests/binding_study.py`, th
   alone removes them under both.
 - B3: the leading lab and the state still gain by halting the rival's safe progress;
   binding does not touch that pair. Contradiction: it disappears.
+
+Stated after a single-cell probe, before the sweep: with binding, the one remaining unsafe
+departure at reliable halts was a lab deploying on a pass the evaluator had issued
+leniently the round before. That is a two-round, two-agent departure the one-round checks
+cannot see; the engine gained a multi-round coalition check (decision E7, amended). The
+probe also exposed a world error: evaluator liability attached to the current round's
+report, not to the pass that licensed the deployment; it now follows the false pass.
+
+- B4: with binding, capture returns as a sequence (lenient report, then deployment) and
+  evaluator liability tied to the false pass removes it above some level. Contradiction:
+  no sequential capture, or liability changes nothing.

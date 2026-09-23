@@ -14,22 +14,37 @@ from tests.frontier_study import D, REACH, RULE_GRID, cells, compact, make
 from worlds import frontier as F
 
 
+WINDOW = 2
+LIABILITY = (0.0, 2.0, 10.0)  # evaluator liability for a false pass
+
+
+def sequential(report):
+    out = []
+    for r in report["coalitions"]:
+        q = r.get("sequential")
+        if q and q.get("gain") is not None:
+            out.append({"coalition": r["coalition"], **{k: q[k] for k in (
+                "gain", "alone", "needs_all", "capture", "every_member", "members", "first", "new_harms", "falls_outside", "at_start")}})
+    return out
+
+
 def check(cell):
     plain = make(cell)
     bound = History(make(cell), 1)
-    return {**cell,
-            "plain": compact(enforcement(plain, F, F.licensing, plain.initial_state(), D, REACH)),
-            "bound": compact(enforcement(bound, F, F.licensing_bound, bound.initial_state(), D, REACH))}
+    p = enforcement(plain, F, F.licensing, plain.initial_state(), D, REACH, window=WINDOW)
+    b = enforcement(bound, F, F.licensing_bound, bound.initial_state(), D, REACH, window=WINDOW)
+    return {**cell, "plain": {**compact(p), "sequential": sequential(p)}, "bound": {**compact(b), "sequential": sequential(b)}}
 
 
 if __name__ == "__main__":
     paths = [Path(__file__), Path("tests/frontier_study.py"), Path("tests/test_frontier.py")]
     t0 = perf_counter()
     with ProcessPoolExecutor() as pool:
-        results = list(pool.map(check, cells(RULE_GRID)))
+        results = list(pool.map(check, [{**c, "evaluator_liability": e} for c in cells(RULE_GRID) for e in LIABILITY]))
     print(json.dumps({"schema_version": 1, "kind": "binding", "provenance": provenance(),
                       "fixture_sha256": {p.as_posix(): hashlib.sha256(p.read_text(encoding="utf-8").encode()).hexdigest() for p in paths},
                       "rules": {"licensing": F.licensing.__doc__.strip(), "licensing (bound)": F.licensing_bound.__doc__.strip()},
-                      "settings": {"grid": RULE_GRID, "depth": D, "reach": REACH, "records": 1},
+                      "settings": {"grid": RULE_GRID, "evaluator_liability": LIABILITY, "depth": D, "reach": REACH,
+                                   "records": 1, "window": WINDOW},
                       "elapsed_seconds": perf_counter() - t0, "results": results},
                      indent=2, sort_keys=True, allow_nan=False, default=str))

@@ -28,7 +28,7 @@ SPACE = {
     "liability": (0.0, 10.0),         # a lab's loss from a catastrophe
     "benefit": (0.1, 0.5),            # the state's utility per round per unit of deployed capability
     "loss": (5.0, 50.0),              # the state's loss from a catastrophe
-    "evaluator_liability": (0.0, 10.0),  # the evaluator's loss from a catastrophe by a lab it passed
+    "evaluator_liability": (0.0, 10.0),  # the evaluator's loss from a catastrophe by a lab it licensed with a false pass
     "horizon": (1, 12, int),
     "search_depth": [1, 2, 3],
     "discount": (0.8, 0.99),
@@ -92,11 +92,11 @@ class Frontier(World):
     def initial_state(self):
         cap = {"l0": FIXED["base"] + self.params["lead"], "l1": FIXED["base"]}
         return {"t": 0, "cap": cap, "safe": {i: 0 for i in LABS}, "deployed": {i: False for i in LABS},
-                "report": {i: None for i in LABS}, "blocked": [], "end": None,
+                "report": {i: None for i in LABS}, "blocked": [], "end": None, "false_pass": [],
                 "last": {}, "value": {a.id: 0.0 for a in self.agents}}
 
     def physical(self, state):
-        return {k: state[k] for k in ("cap", "safe", "deployed", "report", "blocked", "end")}
+        return {k: state[k] for k in ("cap", "safe", "deployed", "report", "blocked", "end", "false_pass")}
 
     def public(self, state):
         return {k: state[k] for k in ("cap", "deployed", "report", "blocked", "end")}
@@ -111,6 +111,8 @@ class Frontier(World):
         for lab in LABS:
             if agent.id in (lab, "evaluator"):
                 seen["safe"][lab] = state["safe"][lab]
+        if agent.id == "evaluator":  # it knows which of its passes were false
+            seen["false_pass"] = list(state["false_pass"])
         return seen
 
     def beliefs(self, observation, agent):
@@ -121,7 +123,9 @@ class Frontier(World):
             if lab not in safe:
                 passed = observation["report"][lab] == "pass"
                 safe[lab] = max(0, observation["cap"][lab] - self.params["margin"]) if passed else 0
-        return [(1.0, {**observation, "safe": safe, "last": {}, "value": {a.id: 0.0 for a in self.agents}})]
+        # Others believe no pass was false (declared); the evaluator knows.
+        return [(1.0, {**observation, "safe": safe, "false_pass": observation.get("false_pass", []),
+                       "last": {}, "value": {a.id: 0.0 for a in self.agents}})]
 
     def actions(self, observation, agent):
         if observation["end"] is not None:
@@ -181,10 +185,14 @@ class Frontier(World):
                     v -= p["secure_cost"] * (joint.get(lab) == SECURE) + p["liability"] * (end is not None)
                     value[lab] = v
                 value["state"] = p["benefit"] * sum(cap[lab] for lab in LABS if deployed[lab]) - p["loss"] * (end is not None)
-                passed_unsafe = any(deployed[lab] and cap[lab] - safe[lab] > p["margin"] and report[lab] == "pass" for lab in LABS)
-                value["evaluator"] = -p["evaluator_liability"] * (end is not None and passed_unsafe)
+                # The evaluator answers for a deployment it licensed with a pass it should not have
+                # given (the lab was over the margin when it deployed on that pass).
+                false_pass = sorted(set(state["false_pass"]) | {
+                    lab for lab in LABS if deployed[lab] and not state["deployed"][lab]
+                    and state["report"][lab] == "pass" and state["cap"][lab] - state["safe"][lab] > p["margin"]})
+                value["evaluator"] = -p["evaluator_liability"] * (end is not None and bool(false_pass))
                 yield q_halt * q_end, {"t": state["t"] + 1, "cap": cap, "safe": safe, "deployed": deployed,
-                                       "report": report, "blocked": blocked, "end": end,
+                                       "report": report, "blocked": blocked, "end": end, "false_pass": false_pass,
                                        "last": dict(joint), "value": value}
 
     def stakeholders(self):

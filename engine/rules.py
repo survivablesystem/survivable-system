@@ -153,6 +153,58 @@ class Check:
         return {**describe(top), "externalizing": describe(ext), "externalizing_every": describe(every), "alone": alone}
 
 
+    def sequence(self, state, free, score, depth, window, memo):
+        """Best departure over the next `window` rounds by the members in `free` (each may
+        also follow in any round), then everyone follows; chosen round by round to maximize
+        the summed value of `score` (full information). Returns (values, harms, first joint)."""
+        world = self.world
+        if window == 0 or world.terminal(state) is not None:
+            values, harms = self.follow(state, depth)
+            return values, harms, None
+        memo_key = (key(state), depth, window, tuple(free))
+        if memo_key in memo:
+            return memo[memo_key]
+        base = self.prescribed(state)
+        best_entry = None
+        for choice in product(*self.menus(state, free)):
+            joint = {**base, **dict(zip(free, choice))}
+            values = {a.id: 0.0 for a in world.agents}
+            harms = set()
+            for p, successor in distribution(world.outcomes(state, joint), self.visit):
+                harms |= set(world.harmed(successor))
+                later = {a.id: 0.0 for a in world.agents}
+                if depth > 1 and world.terminal(successor) is None:
+                    later, later_harms, _ = self.sequence(successor, free, score, depth - 1, window - 1, memo)
+                    harms |= later_harms
+                for a in world.agents:
+                    values[a.id] += p * (world.value(successor, a) + a.discount * later[a.id])
+            total = math.fsum(values[i] for i in score)
+            if best_entry is None or total > best_entry[0] + TOLERANCE:
+                best_entry = (total, values, harms, dict(zip(free, choice)))
+        memo[memo_key] = (best_entry[1], best_entry[2], best_entry[3])
+        return memo[memo_key]
+
+    def sequential(self, state, coalition, depth, window, outside=lambda harms: {}):
+        """Best coordinated departure of a coalition over `window` rounds (a report, then an
+        act on it; a payment, then a favor), with what one member could get it alone over the
+        same window. Capture if it needs the coalition and newly reaches a harm outside it."""
+        follow, follow_harms = self.follow(state, depth)
+        base = math.fsum(follow[i] for i in coalition)
+        memo = {}
+        values, harms, first = self.sequence(state, list(coalition), list(coalition), depth, window, memo)
+        alone = max(math.fsum(self.sequence(state, [i], list(coalition), depth, window, memo)[0][j]
+                              for j in coalition) - base for i in coalition)
+        gain = math.fsum(values[i] for i in coalition) - base
+        members = {i: values[i] - follow[i] for i in coalition}
+        new = sorted(harms - follow_harms)
+        falls = {h: names for h, names in outside(new).items() if names}
+        return {"gain": gain, "alone": alone, "needs_all": gain > alone + TOLERANCE, "members": members,
+                "every_member": all(g >= -TOLERANCE for g in members.values()) and any(g > TOLERANCE for g in members.values()),
+                "others": {i: values[i] - follow[i] for i in follow if i not in coalition},
+                "first": first, "new_harms": new, "falls_outside": falls,
+                "capture": gain > alone + TOLERANCE and bool(falls)}
+
+
 def follow_value(world, rule, state, depth, budget=BUDGET):
     """Everyone's expected discounted value within `depth` rounds if all follow the rule."""
     return Check(world, rule, budget).follow(state, depth)[0]
@@ -181,7 +233,7 @@ def checked_states(world, rule, state, reach, budget=BUDGET):
     return list(seen.values())
 
 
-def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=BUDGET):
+def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=BUDGET, window=1):
     """Does `rule` hold from `state` within `depth` rounds?
 
     unilateral: per agent, the largest one-shot gain of its best alternative over following
@@ -193,7 +245,10 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
     declared harms newly reached; and `externalizing`, the largest gain among departures
     that newly reach a harm falling on stakeholders outside the coalition (capture), and
     `externalizing_every`, the same restricted to departures that pay every member without
-    side payments the world does not offer. None marks a check stopped by the work cap: unresolved.
+    side payments the world does not offer. With `window` > 1, `sequential`: the best
+    coordinated departure over that many rounds (a report, then an act on it), preferring one
+    that needs the coalition and lands a harm outside it (capture). None marks a check stopped
+    by the work cap: unresolved.
     """
     check = Check(world, rule, budget)
     states = checked_states(world, rule, state, reach, budget)
@@ -236,6 +291,17 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
                         if e is not None and (ext is None or e["gain"] > ext["gain"] + TOLERANCE):
                             ext = {**e, "at_start": n == 0, "state": s}
                     r[field] = ext
+            if window > 1 and r["gain"] is not None:  # coordinated departures over several rounds
+                seq = None
+                try:
+                    for n, s in enumerate(states):
+                        q = check.sequential(s, list(coalition), depth, window, outside)
+                        rank = (q["capture"], q["gain"])
+                        if seq is None or rank > (seq["capture"], seq["gain"] + TOLERANCE):
+                            seq = {**q, "at_start": n == 0, "state": s}
+                except RuleLimitExceeded as error:
+                    seq = {"gain": None, "error": str(error)}
+                r["sequential"] = seq
             coalitions.append({"coalition": list(coalition), **r})
     gains = [r["gain"] for r in unilateral.values()]
     harmful = [(r.get("harmful") or {}).get("gain") for r in unilateral.values() if r["gain"] is not None]

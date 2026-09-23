@@ -105,3 +105,13 @@ def test_cli_records_mode_runs_record_rules():
     done = subprocess.run([sys.executable, "-m", "engine", "worlds.frontier", "--enforce", "2", "--records", "1",
                            "--rule", "licensing (bound)", "--json"], capture_output=True, text=True)
     assert done.returncode == 0, done.stderr
+
+
+@pytest.mark.parametrize("liability, capture", [(0.0, True), (10.0, False)])
+def test_liability_for_a_false_pass_ends_sequential_capture(liability, capture):
+    from engine.history import History
+    from engine.rules import enforcement
+    w = History(world(margin=0, first=0.0, liability=0.0, evaluator_liability=liability), 1)
+    report = enforcement(w, F, F.licensing_bound, w.initial_state(), 4, reach=1, window=2)
+    seq = next(r for r in report["coalitions"] if r["coalition"] == ["l0", "evaluator"])["sequential"]
+    assert seq["capture"] is capture

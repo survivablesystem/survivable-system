@@ -107,6 +107,13 @@ Change (`engine/rules.py`, over any world):
   must need the coalition: its summed gain must beat what any one member achieves by
   departing alone (exact for pairs; larger coalitions are compared with single members
   only).
+- Amended again (T9.1, binding certification): one-round coalition checks cannot see
+  coordinated departures spread over rounds (an evaluator's lenient report, then a lab's
+  deployment on it). `window` > 1 adds `sequential`: the coalition's best coordinated
+  departure over that many rounds, chosen round by round by summed value with full
+  information, then everyone follows; capture if it beats what any one member achieves
+  alone over the same window and newly lands a harm outside. Default window 1 keeps every
+  earlier result.
 - Work caps mark unresolved checks, never "holds".
 
 Scope: finite depth D, no claim beyond it; one rule profile at a time; no belief learning.

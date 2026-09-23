@@ -163,3 +163,36 @@ def test_cli_enforce_json_matches_library():
     expected = enforcement(world, commons, commons.RULES["quota and sanction"], world.initial_state(), 2)
     assert data["mode"] == "enforce" and data["results"] == json.loads(json.dumps(expected))
     assert cli("--enforce", "2", "--rule", "nonexistent").returncode != 0
+
+
+
+class Relay(Repeated):
+    """r reports ("true" or "false"); d acts on the report it saw last round ("act" pays d 2
+    and hurts c only after a false report). Alone, a false report earns r nothing and d
+    cannot act on a true one; in sequence they gain."""
+    def initial_state(self):
+        return {**super().initial_state(), "said": "true"}
+
+    def actions(self, observation, agent):
+        return {"r": ["true", "false"], "d": ["wait", "act"], "c": ["none"]}[agent.id]
+
+    def outcomes(self, state, joint):
+        act = joint["d"] == "act" and state["said"] == "false"
+        return [(1.0, {**state, "t": state["t"] + 1, "said": joint["r"], "hurt": act, "last": None,
+                       "value": {"r": 0.0, "d": 2.0 if act else 0.0, "c": -3.0 if act else 0.0}})]
+
+
+def honest_relay(world, observation, agent):
+    return {"r": "true", "d": "wait", "c": "none"}[agent.id]
+
+
+def test_sequential_capture_needs_the_window():
+    world = Relay(["r", "d", "c"])
+    module = SimpleNamespace(HARMS={"hurt": {"affects": ["c"], "irreversible": False}})
+    one = enforcement(world, module, honest_relay, world.initial_state(), 3, reach=0, window=1)
+    pair = next(r for r in one["coalitions"] if r["coalition"] == ["r", "d"])
+    assert pair["externalizing"] is None  # in one round the pair cannot do it
+    two = enforcement(world, module, honest_relay, world.initial_state(), 3, reach=0, window=2)
+    seq = next(r for r in two["coalitions"] if r["coalition"] == ["r", "d"])["sequential"]
+    assert seq["capture"] and seq["alone"] == 0.0 and seq["falls_outside"] == {"hurt": ["c"]}
+    assert seq["first"] == {"r": "false", "d": "wait"}  # the report first, the act next round
