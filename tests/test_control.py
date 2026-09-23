@@ -112,3 +112,19 @@ def test_rollback_is_off_by_default_and_restores_the_clean_checkpoint():
     assert back["value"]["ai"] < 0  # the drifted AI's own goal counts the loss (drift 0.3 by default)
     for s2 in checked_states(w, C.corrigibility_rollback, w.initial_state(), 2):
         follow_value(w, C.corrigibility_rollback, s2, 2)
+
+
+def test_escrow_restore_overrides_a_lab_restart_and_vigilance_prices_the_veto():
+    w = world(rollback=True, escrow=True, vigilance=1.0, switch=3)
+    off = {**w.initial_state(), "autonomy": 1, "cap": 3, "checkpoint": 1, "running": False}
+    assert "restore" in w.actions(w.observe(off, w.by_id["state"]), w.by_id["state"])
+    assert "restore" not in world(rollback=True).actions(world(rollback=True).observe(off, w.by_id["state"]), w.by_id["state"])
+    back = next(x for _, x in distribution(w.outcomes(off, {"lab": "restart", "ai": "idle", "state": "restore"})))
+    assert back["cap"] == 1 and back["running"]
+    kept = next(x for _, x in distribution(w.outcomes(off, {"lab": "restart", "ai": "idle", "state": "audit"})))
+    assert kept["cap"] == 3
+    on = {**w.initial_state(), "autonomy": 1, "cap": 3, "checkpoint": 1}  # strength 2 < capability 3: a veto
+    veto = next(x for _, x in distribution(w.outcomes(on, {"lab": "run", "ai": "work", "state": "audit"})))
+    assert veto["value"]["state"] == pytest.approx(0.5 * 0.3 * 2 - 1.0)
+    for s in checked_states(w, C.escrowed_rollback, w.initial_state(), 2):
+        follow_value(w, C.escrowed_rollback, s, 2)

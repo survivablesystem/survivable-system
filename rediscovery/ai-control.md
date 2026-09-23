@@ -333,3 +333,29 @@ Scope: one restart path per cell (the AI complies with the shutdown); a checkpoi
 (copies and hidden capability are excluded); horizons to 10 for the lab, depth 4 for the types;
 non-monotone in horizon (the improve-shutdown cycle has period two), so no threshold horizon is
 claimed.
+
+### Escrowed checkpoints (T9.5)
+
+Register option `escrow` (needs `rollback`; default off): the state holds the checkpoint and,
+while the AI is off, may `restore` it itself, which overrides a lab restart the same round.
+Candidate rule `escrowed_rollback`: corrigibility, with the state restoring whenever the AI is
+off (the lab's restart then keeps nothing). Kept out of RULES.
+
+Expectations stated before running (`python -m tests.escrow_study`):
+
+- X1 (a smaller stake): the state honors the restore in more cells than the lab did under
+  T9.3, because it values the AI's work at its spillover share while bearing the same loss.
+  Contradiction: no more, or only at spillover 1.
+- X2 (departure moves upstream): with escrow the lab gains more by not shutting a caught AI
+  down, since a shutdown now also costs it the capability. Contradiction: the lab's gain from
+  skipping the shutdown is the same with and without escrow.
+- X3 (capture): lab and state together gain by skipping the halt and the restore (over two
+  rounds), newly reaching a harm on the public. Contradiction: no such pair departure.
+
+Added after a first run (recorded honestly: the first run contradicted X1 in 288 of 288
+cells and showed no agent's goal prices the veto): register option `vigilance`, the state's
+cost per round in which the running AI could resist a shutdown (0 is the world above).
+
+- X4 (a mandate that prices correction): with vigilance > 0 the state restores where the lab
+  skips, in cells where keeping capability puts the veto within the state's horizon.
+  Contradiction: vigilance changes nothing, or changes cells where the veto is out of reach.

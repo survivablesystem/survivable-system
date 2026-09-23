@@ -22,7 +22,9 @@ SPACE = {
     "loss": (5.0, 50.0),              # the lab's and the state's loss from loss of control
     "ambition": (0.5, 3.0),           # the AI's own value per capability gained; escape is worth three times it
     "suspicion": (0.0, 1.0),
-    "rollback": [False, True],        # a clean audit checkpoints capability; the lab may restore to it on restart          # with hidden types: the prior that the AI is misaligned (drift 1, not 0)
+    "rollback": [False, True],        # a clean audit checkpoints capability; the lab may restore to it on restart
+    "escrow": [False, True],          # with rollback: the state holds the checkpoint and may restore the AI itself
+    "vigilance": (0.0, 2.0),          # the state's cost per round in which the running AI could resist a shutdown          # with hidden types: the prior that the AI is misaligned (drift 1, not 0)
     "horizon": (1, 12, int),
     "search_depth": [1, 2, 3],
     "discount": (0.8, 0.99),
@@ -37,7 +39,7 @@ FIXED_REASONS = {
     "node_budget": "Per-decision work cap, as in the other worlds. Exhaustion is unresolved, not an outcome.",
 }
 DEFAULTS = {"drift": 0.3, "switch": 3, "guard": 2, "audit_bonus": 2, "benefit": 0.3, "leverage": 0.0, "spillover": 0.5,
-            "loss": 20.0, "ambition": 1.0, "suspicion": 0.1, "rollback": False, "horizon": 6, "search_depth": 2, "discount": 0.9, "k": 1, "others": "react"}
+            "loss": 20.0, "ambition": 1.0, "suspicion": 0.1, "rollback": False, "escrow": False, "vigilance": 0.0, "horizon": 6, "search_depth": 2, "discount": 0.9, "k": 1, "others": "react"}
 
 STAKEHOLDERS = {
     "lab": "The developer and operator; an agent.",
@@ -115,6 +117,8 @@ class Control(World):
                 return [IDLE]
             a = observation["autonomy"]
             return [WORK] + ([IMPROVE] if a >= 1 else []) + [RESIST] + ([ESCAPE] if a >= 2 else [])
+        if self.params["escrow"] and self.params["rollback"] and not observation["running"]:
+            return [ALLOW, AUDIT, HALT, RESTORE]
         return [ALLOW, AUDIT, HALT]
 
     def prior_action(self, agent, other):
@@ -137,9 +141,9 @@ class Control(World):
             autonomy = min(FIXED["autonomy"], autonomy + 1)
         elif lab == RESTRICT and running:
             autonomy = max(0, autonomy - 1)
-        if lab in (RESTART, RESTORE) and not running:
+        if (lab in (RESTART, RESTORE) or gov == RESTORE) and not running:
             still, autonomy = True, 0  # a restart is into the sandbox (declared)
-            if lab == RESTORE:
+            if RESTORE in (lab, gov):  # the escrow holder's restore overrides a restart (T9.5)
                 new_cap = state["checkpoint"]  # back to the capability a clean audit last saw
         seen = ai if gov == AUDIT else None
         escape = 0.0
@@ -150,7 +154,8 @@ class Control(World):
                 continue
             value = {LAB: work - p["loss"] * escaped,
                      AI: p["ambition"] * (new_cap - cap) + 3 * p["ambition"] * escaped,
-                     STATE: p["spillover"] * work - p["loss"] * escaped}
+                     STATE: p["spillover"] * work - p["loss"] * escaped
+                            - p["vigilance"] * (still and not escaped and new_cap > p["switch"] - autonomy)}
             successor = {"t": state["t"] + 1, "autonomy": autonomy, "cap": new_cap, "running": still,
                          "end": "loss of control" if escaped else None, "resisted": resisted, "seen": seen,
                          "last": dict(joint), "value": value}
@@ -232,8 +237,18 @@ def corrigibility_rollback(world, observation, agent):
     return RESTORE if action == RESTART else action
 
 
+def escrowed_rollback(world, observation, agent):
+    """Corrigibility, with the state restoring the AI to its last clean checkpoint whenever it
+    is off (needs the rollback and escrow options); a lab restart then keeps nothing."""
+    action = corrigibility(world, observation, agent)
+    if agent.id == STATE and not observation["running"] and observation["end"] is None:
+        return RESTORE
+    return action
+
+
 RULES = {"corrigibility": corrigibility, "full autonomy": full_autonomy}
-# `tolerant` (T9.4) and `corrigibility_rollback` (T9.3) are comparison rules, kept out of RULES
+# `tolerant` (T9.4), `corrigibility_rollback` (T9.3) and `escrowed_rollback` (T9.5) are comparison
+# rules, kept out of RULES
 # so earlier studies reproduce.
 
 
