@@ -130,6 +130,14 @@ class World:
         """
         return state
 
+    def stakeholders(self):
+        """Stakeholder name -> agent ids (possibly none). Declared with STAKEHOLDERS."""
+        raise NotImplementedError("world must declare stakeholders (decision 2026-09-23, E1)")
+
+    def harmed(self, state):
+        """Names of HARMS realized in this state; a function of physical(state)."""
+        raise NotImplementedError("world must declare harms (decision 2026-09-23, E1)")
+
     def prior_action(self, agent, other):
         raise NotImplementedError
 

@@ -50,6 +50,25 @@ DEFAULTS = {"returns": 0.25, "contest": "threshold", "advantage": 2.0, "lead": 1
             "elasticity": 1.0, "budget": "free", "reserve": 2, "domains": 1,
             "others": "react"}
 
+# Who the modeled outcomes fall on (decision 2026-09-23, E1). Agents or not.
+STAKEHOLDERS = {
+    "party a": "The leading party's government; an agent.",
+    "party b": "The trailing party's government; an agent.",
+    "population of a": "People governed by a, who bear its disarmament. No agent.",
+    "population of b": "People governed by b, who bear its disarmament. No agent.",
+}
+HARMS = {
+    "a disarmed": {"affects": ["party a", "population of a"], "irreversible": True,
+                   "description": "a loses all capability to b's strike."},
+    "b disarmed": {"affects": ["party b", "population of b"], "irreversible": True,
+                   "description": "b loses all capability to a's strike."},
+}
+EXCLUDED = {
+    "third states": "No spillover of strikes or races to others is modeled.",
+    "harm from use": "Only disarmament is modeled, not damage caused by strikes or by the capability itself.",
+    "future generations": "Beyond the horizon; no stakeholder declared.",
+}
+
 HOLD, BUILD, STRIKE = "hold", "build", "strike"
 RIVAL = {"a": "b", "b": "a"}
 PARTIES = ("a", "b")
@@ -219,6 +238,13 @@ class Treaty(World):
                 "budget": {i: state["budget"][i] + 1 - FIXED["build_units"] * (built[i] is not None)
                            if self.scarce() else 0 for i in PARTIES},
                 "end": end}
+
+    def stakeholders(self):
+        return {"party a": ["a"], "party b": ["b"], "population of a": [], "population of b": []}
+
+    def harmed(self, state):
+        return {name for name, loser in (("a disarmed", "a"), ("b disarmed", "b"))
+                if state["end"] in (f"{loser}_disarmed", "both_disarmed")}
 
     def terminal(self, state):
         return state["end"]

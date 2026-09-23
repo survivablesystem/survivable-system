@@ -4,6 +4,14 @@ Ordered. Claim with `[claimed: name, date]`, finish with `[done: name, date]`. E
 
 Research acceptance means testing the stated hypothesis and recording its boundary or counterexample. A contrary result is not a failed implementation. Do not tune a world or add primitives just to obtain an expected sign. Separate code regressions from empirical claims.
 
+## Owner direction (2026-09-23): a simple, powerful tool for any system
+
+"A simple yet powerful tool that can analyse any such system on many dimensions, eventually also on civilizational scale, without the current need for over-simplification or leaving holes that create externalization." These tasks come before the remaining stages; they change how every world is built and read.
+
+- E1 Harms, stakeholders and the externalization query. [claimed: Claude, 2026-09-23] Forced by: affected groups live only in case-file prose, so a world can omit a harmed group and nothing notices. Every world declares stakeholders (agents and non-agents such as future users or populations) and harms (predicates on physical state, with the stakeholders they fall on). One engine query reports, per harm: smallest coalitions that can force or prevent it, whether any affected stakeholder is in a minimal preventing coalition, and which affected stakeholders have no agent at all. Acceptance: both worlds declare harms; the report runs on any world through the CLI; tests on a toy where a harm falls only on a non-agent; a world without declarations fails loudly rather than reporting nothing.
+- E2 Scale by types (T8.1 pulled forward). Forced by: exact enumeration is exponential in agents; civilizational questions need populations. Agents of one type with identical menus, channels and roles are exchangeable; power and planning over counts instead of identities. Acceptance: exact agreement with individual enumeration where both run; a commons power map at populations beyond the current n <= 4; what symmetry assumes and loses stated.
+- E3 A declarative world description, only if E1-E2 show three worlds repeating structure (DECISIONS 2026-09-15 said revisit then).
+
 ## Stage 0: skeleton  [done: Fable, 2026-09-15]
 
 - Engine v0: World interface, level-k planner, run loop, random sweep, one-at-a-time sweep, CLI.

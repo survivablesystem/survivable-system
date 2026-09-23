@@ -6,6 +6,7 @@
     python -m engine worlds.commons --trace --profile 3   ...beside what coalitions could force each round
     python -m engine worlds.commons --oat                 move one parameter at a time from DEFAULTS
     python -m engine worlds.commons --power 3             what each coalition can force within 3 rounds
+    python -m engine worlds.commons --externalities 3 --state S=20   per declared harm: who can force, impose, prevent
 """
 import argparse
 import importlib
@@ -13,7 +14,7 @@ import json
 import math
 import random
 
-from .power import BUDGET, power_table, profile, threshold
+from .power import BUDGET, externalization, power_table, profile, threshold
 from .records import artifact, run_record
 from .sweep import one_at_a_time, report, report_oat, sample_params, sweep
 
@@ -73,6 +74,9 @@ def main():
     mode.add_argument("--oat", action="store_true", help="vary unfixed parameters from DEFAULTS plus --fix")
     mode.add_argument("--power", type=positive_int, metavar="T",
                       help="goal-free: what each coalition can force or prevent within T rounds from the initial state")
+    mode.add_argument("--externalities", type=positive_int, metavar="T",
+                      help="goal-free, per declared harm: who can force it, impose it from outside, or prevent it within T rounds")
+    p.add_argument("--state", nargs="*", help="key=value overrides of top-level initial-state fields for --power/--externalities")
     p.add_argument("--profile", type=positive_int, metavar="T",
                    help="with --trace: smallest coalitions able to force/prevent the target within T rounds, each round")
     p.add_argument("--target", nargs="*", help="terminal labels for --power/--profile (default: any terminal)")
@@ -104,11 +108,58 @@ def main():
                 params[k] = sample_params({k: space[k]}, rng)[k]
         return params
 
+    def start_state(world):
+        state = world.initial_state()
+        try:
+            overrides = parse_fix(args.state)
+        except ValueError as error:
+            p.error(str(error))
+        for k, v in overrides.items():
+            if k not in state:
+                p.error(f"unknown state field {k!r}; choose from {', '.join(state)}")
+            state[k] = float(v) if isinstance(state[k], float) and isinstance(v, int) else v
+        settings["state_overrides"] = overrides
+        return state
+
+    if args.externalities:
+        params = baseline_params()
+        world = mod.make(dict(params), random.Random(args.seed))
+        report = externalization(world, mod, start_state(world), args.externalities)
+        settings.update({"baseline": params, "power_rounds": args.externalities, "budget": BUDGET,
+                         "query": "Goal-free, per declared harm: force, force without affected agents, prevent, prevent by the affected; p=1."})
+        if args.json:
+            emit("externalities", report)
+            return
+        size = lambda m: "unresolved" if m is None else ("nobody" if m["size"] is None else
+                                                        f"{m['size']} {m['witnesses'][:3]}") + ("" if m is None or m["exact"] else " (upper bound)")
+        print(f"params: {params}\nwithin {args.externalities} rounds, with certainty (p=1):")
+        for r in report:
+            own = r["affected_prevent"]
+            print(f"\nharm: {r['harm']}{' (irreversible)' if r['irreversible'] else ''}{'  [realized now]' if r['realized_now'] else ''}")
+            print(f"  falls on: {', '.join(r['affects'])}")
+            if r["unrepresented"]:
+                print(f"  no agent in the model: {', '.join(r['unrepresented'])}")
+            print(f"  smallest coalition that can force it: {size(r['force'])}")
+            print(f"  ... without any affected agent: {size(r['outsiders_force'])}")
+            print(f"  smallest coalition that can prevent it: {size(r['prevent'])}")
+            verdict = lambda v: ("no agents" if v is None else "?" if v["alpha"] is None else
+                                 f"{'yes' if v['alpha'] >= 1 - 1e-12 else 'no'} (probability {v['alpha']:.3f})")
+            if r["realized_now"]:
+                print(f"  realized now; smallest coalition that can end it: {size(r['correct'])}")
+                print(f"  affected agents together can end it: {verdict(r['affected_correct'])}")
+            else:
+                print(f"  affected agents together can prevent it: {verdict(own)}")
+        print("\nExcluded from the model:")
+        for name, reason in mod.EXCLUDED.items():
+            print(f"  {name}: {reason}")
+        print("Power ignores goals: this is what could be forced or prevented, not what will happen.")
+        return
+
     if args.power:
         params = baseline_params()
         world = mod.make(dict(params), random.Random(args.seed))
         target = args.target or None
-        rows = power_table(world, world.initial_state(), args.power, target)
+        rows = power_table(world, start_state(world), args.power, target)
         marks = [threshold(rows, kind, level) for kind in ("force", "prevent") for level in (1.0, 0.5)]
         settings.update({"baseline": params, "power_rounds": args.power, "target": target, "budget": BUDGET,
                          "query": "Goal-free finite-horizon reachability from the initial state; coordinated full-information adversary; alpha/beta stage orders bracket randomized play."})

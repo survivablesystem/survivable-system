@@ -35,7 +35,11 @@ class Game:
         if order not in ORDERS:
             raise ValueError(f"order must be one of {ORDERS}")
         self.world, self.order, self.budget = world, order, budget
-        self.target = None if target is None else frozenset([target] if isinstance(target, str) else target)
+        if callable(target):
+            self.predicate, self.target = target, None
+        else:
+            self.predicate = None
+            self.target = None if target is None else frozenset([target] if isinstance(target, str) else target)
         self.inside = [i for i in ids if i in coalition]
         self.outside = [i for i in ids if i not in coalition]
         self.memo, self.work = {}, 0
@@ -45,12 +49,15 @@ class Game:
         if self.work > self.budget:
             raise PowerLimitExceeded(self.budget)
 
-    def hit(self, label):
+    def hit(self, state, label):
+        """Target reached: a predicate on the (physical) state, or a terminal label."""
+        if self.predicate is not None:
+            return bool(self.predicate(state))
         return label is not None and (self.target is None or label in self.target)
 
     def value(self, state, rounds):
         label = self.world.terminal(state)
-        if self.hit(label):
+        if self.hit(state, label):
             return 1.0
         if rounds == 0 or label is not None:
             return 0.0
@@ -96,7 +103,8 @@ class Game:
 
 
 def force(world, state, coalition, rounds, target=None, order="alpha", budget=BUDGET):
-    """Max-min probability that `coalition` enters `target` (label or labels; None: any terminal)."""
+    """Max-min probability that `coalition` reaches `target`: terminal label(s), None for any
+    terminal, or a predicate on the physical state (for example a declared harm)."""
     if type(rounds) is not int or rounds < 0:
         raise ValueError("rounds must be a nonnegative integer")
     return Game(world, coalition, target, order, budget).value(state, rounds)
@@ -215,16 +223,17 @@ def sure(world, state, coalition, rounds, target=None, goal="avoid", informed=Fa
 
     def win(states, t):
         labels = [world.terminal(s) for s in states]
+        hits = [game.hit(s, label) for s, label in zip(states, labels)]
         if goal == "avoid":
-            if any(game.hit(label) for label in labels):
+            if any(hits):
                 return False
             states = [s for s, label in zip(states, labels) if label is None]
             if not states or t == 0:
                 return True
         else:
-            if any(label is not None and not game.hit(label) for label in labels):
+            if any(label is not None and not hit for label, hit in zip(labels, hits)):
                 return False
-            states = [s for s, label in zip(states, labels) if label is None]
+            states = [s for s, label, hit in zip(states, labels, hits) if label is None and not hit]
             if not states:
                 return True
             if t == 0:
@@ -254,3 +263,46 @@ def sure(world, state, coalition, rounds, target=None, goal="avoid", informed=Fa
         return result
 
     return all(win(g, rounds) for g in groups([state]))
+
+
+def harm_target(world, harm):
+    return lambda state: harm in world.harmed(state)
+
+
+def externalization(world, module, state, rounds, p=1.0, budget=BUDGET):
+    """Per declared harm: who can force it, who can impose it from outside, who can prevent
+    it, whether those it falls on can prevent it, and who it falls on without any agent.
+    For a harm already realized: who can end it within the horizon (correction).
+
+    Goal-free (decision 2026-09-23, E1). `module` supplies HARMS and STAKEHOLDERS.
+    """
+    members = world.stakeholders()
+    declared = set(module.STAKEHOLDERS)
+    if set(members) != declared:
+        raise ValueError("stakeholders() must cover exactly the declared STAKEHOLDERS")
+    ids = [a.id for a in world.agents]
+    report = []
+    for harm, spec in module.HARMS.items():
+        unknown = set(spec["affects"]) - declared
+        if unknown:
+            raise ValueError(f"harm {harm} affects undeclared stakeholders {sorted(unknown)}")
+        affected = sorted({i for name in spec["affects"] for i in members[name]}, key=ids.index)
+        rows = power_table(world, state, rounds, harm_target(world, harm), budget)
+        outsiders = [r for r in rows if not set(r["coalition"]) & set(affected)]
+        own = next(r for r in rows if set(r["coalition"]) == set(affected)) if affected else None
+        realized = harm in world.harmed(state)
+        correct = own_correct = None
+        if realized:
+            ended = power_table(world, state, rounds, lambda s, h=harm: h not in world.harmed(s), budget)
+            correct = threshold(ended, "force", p)
+            own_correct = next(r for r in ended if set(r["coalition"]) == set(affected))["force"] if affected else None
+        report.append({
+            "harm": harm, "irreversible": spec["irreversible"], "affects": spec["affects"],
+            "affected_agents": affected,
+            "unrepresented": [name for name in spec["affects"] if not members[name]],
+            "force": threshold(rows, "force", p),
+            "outsiders_force": threshold(outsiders, "force", p) if outsiders else None,
+            "prevent": threshold(rows, "prevent", p),
+            "affected_prevent": own["prevent"] if own else None,
+            "realized_now": realized, "correct": correct, "affected_correct": own_correct})
+    return report

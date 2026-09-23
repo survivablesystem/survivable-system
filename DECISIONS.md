@@ -7,6 +7,41 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  E1: harms and stakeholders are declared; externalization is a query
+
+Proposed before implementation. Owner direction: analyse any system on many dimensions
+without holes that create externalization. Affected groups have lived in case-file prose;
+the engine could not see them, so a world could leave out the people a harm falls on and
+every report would still look complete. Terminal labels were the only harm the power
+query knew.
+
+Change: every world module declares `STAKEHOLDERS` (name -> description, agents or not),
+`HARMS` (name -> affected stakeholders, irreversible or not, description) and `EXCLUDED`
+(name -> reason). World methods `stakeholders()` (stakeholder -> agent ids, possibly
+none) and `harmed(state)` (set of harm names now realized; a function of `physical`
+state). The defaults raise, so a world that declares nothing cannot produce a report.
+Power targets may be a predicate as well as terminal labels. New query
+`externalization(world, state, rounds)` reports per harm: smallest coalition that can
+force it; smallest coalition that can force it *without any affected agent* (the harm
+can be imposed from outside); smallest coalition that can prevent it; whether the
+affected agents together can prevent it; affected stakeholders with no agent at all
+(unrepresented: by construction they can neither prevent nor consent). CLI
+`--externalities T`; artifacts record stakeholders, harms and exclusions.
+
+Scope: power only, so goal-free; a harm list is an authored assumption like any other,
+and the report makes it visible and contestable rather than true. Exponential in agents
+until E2.
+
+Alternatives rejected: a welfare aggregate (hides who bears the cost, INTENT test 5);
+harms as terminal labels only (misses reversible and partial harms, and harms to
+non-agents); scoring "externalization" as one number (a report per harm keeps the
+dimensions apart).
+
+Intent tests: 1 one declaration format and one query built on the existing one; 2 no
+behavior; 3 stakeholders, harms and exclusions are declared data in every artifact; 4
+toy references where the answer is known; 5 this is test 5 made executable; 6 shows
+which harms fall on parties who cannot prevent them, which prose never checked.
+
 ## 2026-09-23  A1: the level-1 opponent model becomes a swept assumption
 
 Proposed before implementation. Level 1 currently treats others as level-0 planners

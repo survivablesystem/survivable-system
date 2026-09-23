@@ -72,6 +72,9 @@ def provenance():
 
 
 def artifact(module, mode, settings, results):
+    missing = [name for name in ("STAKEHOLDERS", "HARMS", "EXCLUDED") if not hasattr(module, name)]
+    if missing:
+        raise ValueError(f"world must declare {', '.join(missing)} (decision 2026-09-23, E1)")
     reasons = module.FIXED_REASONS
     if set(reasons) != set(module.FIXED) or not all(reasons.values()):
         raise ValueError("FIXED_REASONS must provide a nonempty reason for every FIXED value")
@@ -80,6 +83,7 @@ def artifact(module, mode, settings, results):
         "provenance": provenance(), "settings": settings,
         "register": register(module.SPACE), "defaults": module.DEFAULTS,
         "fixed": {k: {"value": v, "reason": reasons[k]} for k, v in module.FIXED.items()},
+        "stakeholders": module.STAKEHOLDERS, "harms": module.HARMS, "excluded": module.EXCLUDED,
         "limitations": [
             "Shares describe sampled assumptions, not probabilities of the world.",
             "Nonterminal outcomes only describe survival through the recorded duration.",

@@ -33,13 +33,31 @@ SPACE = {
 }
 # Only K is a scale choice. The dimensionless fractions are substantive assumptions.
 FIXED = {"K": 100.0, "S0_frac": 0.5, "S_min_frac": 0.05, "lo_frac": 0.8,
-         "node_budget": 20_000}
+         "node_budget": 20_000, "depleted_frac": 0.25}
 FIXED_REASONS = {
     "node_budget": "Per-decision emitted belief/transition/reward-entry cap, including nested plans and exact leaf reward marginals. Exhaustion is unresolved, not a physical outcome; chosen to bound enumeration cost.",
     "K": "Resource unit scale; yields and sanction costs scale with carrying capacity.",
     "S0_frac": "Starts at maximum logistic growth. Held fixed for baseline comparability; recovery from depleted stock is untested.",
     "S_min_frac": "Assumed irreversible collapse threshold. Held fixed in v0; threshold sensitivity is untested.",
     "lo_frac": "Low demand is 80% of maximum sustainable yield, below the knife-edge. Other margins are untested.",
+    "depleted_frac": "Reversible harm threshold: half the stock of maximum growth. A reporting line, not a dynamic; other lines untested.",
+}
+# Who the modeled outcomes fall on (decision 2026-09-23, E1). Agents or not.
+STAKEHOLDERS = {
+    "users": "The n harvesters; the only agents.",
+    "future users": "People who would harvest after the modeled horizon. No agent.",
+    "stock-dependent others": "Nonhuman life and non-harvesting people that depend on the stock. No agent.",
+}
+HARMS = {
+    "collapse": {"affects": ["users", "future users", "stock-dependent others"], "irreversible": True,
+                 "description": "Stock below S_min: absorbing, no further yield or regrowth."},
+    "depleted": {"affects": ["future users", "stock-dependent others"], "irreversible": False,
+                 "description": "Stock below depleted_frac * K: regrowth and standing stock reduced while it lasts."},
+}
+EXCLUDED = {
+    "entry and exit of users": "Population is fixed; newcomers and leavers are not modeled.",
+    "users' dependents": "Harm to households of users is folded into users' yield.",
+    "distribution within the future": "Future users are one stakeholder; who among them bears the loss is not modeled.",
 }
 # Used by --trace when a swept param is not fixed on the command line.
 DEFAULTS = {"n": 4, "horizon": 12, "discount": 0.9, "channels": "all", "sanction": True,
@@ -180,6 +198,14 @@ class Commons(World):
                 wealth[i] += value[i]
             yield probability, {"S": 0.0 if collapsed else S2, "collapsed": collapsed,
                                 "last": dict(joint), "value": value, "wealth": wealth}
+
+    def stakeholders(self):
+        return {"users": [a.id for a in self.agents], "future users": [], "stock-dependent others": []}
+
+    def harmed(self, state):
+        if state["collapsed"]:
+            return {"collapse", "depleted"}
+        return {"depleted"} if state["S"] < FIXED["depleted_frac"] * self.K else set()
 
     def terminal(self, state):
         return "collapsed" if state["collapsed"] else None
