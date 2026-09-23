@@ -573,3 +573,24 @@ improvement reveals: the lab restricts, the state halts. 328 tests pass.
 Next agent: T9.3 (rollback on restart) now matters twice: it should end the ratchet and may
 also deter the misaligned type from improving, which would pool the types and remove the
 tell. Measure both. Then E6 remainder, A2, E3.
+
+## 2026-09-23  Claude: T9.3, rollback on restart
+
+Register option `rollback` (default off; states without it unchanged): a clean audit
+checkpoints capability, the lab may `restore` instead of `restart`, and the AI's goal counts
+the loss. Comparison rule `corrigibility_rollback`, out of RULES. Expectations R1-R3 first.
+
+Learned (`evidence/rollback.json`, clean `2c6c352`, ai-control findings 16-18): rollback
+ends the ratchet where a shutdown can still succeed, not by catching the misaligned AI but by
+deterring it: it never improves, so the tell of T9.4 is gone too (R2 contradicted). Where one
+improvement passes the switch, rollback never gets a chance. Rollback is not self-enforcing
+once capability pays: at a 4-round horizon the lab restarts keeping capability in every cell
+with leverage > 0, even certain of misalignment; longer horizons restore it only where the
+veto comes into view, less so with a stronger switch (safeguards substitute in the operator's
+calculation). Learning helps (restores 30 -> 54 of 128 per prior). Re-ran learning, leverage,
+precaution and control at `2c6c352`: results identical. 329 tests pass.
+
+Next agent: the control case now has a chain worth composing: whether an external party (the
+state, or a regulator paid by liability as in the frontier case) can enforce rollback where
+the lab will not. Candidate task: compose control with frontier's evaluator, or give the state
+a restore order. Open: E6 remainder, A2, E3.

@@ -226,3 +226,11 @@ counts and register entries added since: opponent models, precaution, power prof
 treaty, treaty domains, treaty scarce, correction, amendment, control, binding, rules,
 authority, frontier (those files are kept). Changed only where runs used to stop at the
 work cap, and replaced: restraint, race-commons, depth.
+
+## Rollback on restart (T9.3)
+
+`rollback.json` identifies clean source `2c6c352`. Reproduce with `python -m tests.rollback_study`
+(seconds). Each type's 10-round path under corrigibility with and without rollback; whether the
+lab honors a restore after a caught improvement, over 768 cells including the lab's horizon.
+At `2c6c352` the learning, leverage, precaution and control studies were re-run: results
+identical (control's recorded defaults and exclusions list the options added since).

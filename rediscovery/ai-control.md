@@ -298,3 +298,38 @@ Expectations stated before running (`python -m tests.rollback_study`):
   higher leverage and a low prior the lab skips it (restarts keeping capability) unless it
   has learned the AI is misaligned. Contradiction: the lab skips rollback even when it
   knows the AI is misaligned, or honors it at every leverage without learning.
+
+Results: `evidence/rollback.json`, clean `2c6c352`, 7 s on 4 processes. Paths: rule
+{corrigibility, with rollback} x switch {2, 3, 4} x ambition {0.5, 3} x leverage {0, 1}, 10
+rounds, each type best-responding while everyone else follows. Honoring: the AI caught
+improving and shut down (it complied), switch {3, 4} x capability {1, 2} x ambition x leverage
+{0, 0.5, 1, 2} x prior {0.01, 0.1, 0.5} x precision {0, infinity} x the lab's horizon {4, 6, 8,
+10}: 768 cells; types plan at depth 4.
+
+| Expectation | Result |
+|---|---|
+| R1 no ratchet | holds where a shutdown can succeed (switch 3-4: capability stays at 1 for 10 rounds, against 4 and 3 without rollback); irrelevant at switch 2, where the first improvement already puts the AI past the switch and it resists every shutdown (capability 5 by round 8 under both rules) |
+| R2 the tell survives | contradicted: under rollback (switch 3-4) the misaligned type never departs in 10 rounds; it improves only where one improvement takes it past the switch (switch 3, capability 2). The types pool and improvement stops being observed |
+| R3 who honors it | the lab restores at leverage 0 (372 of 384; 12 exceptions at switch 3, horizon 10, gains proportional to the prior). Once capability pays (leverage > 0) it restarts keeping capability in 72 of 72 cells at horizon 4 and 52-72 of 72 at horizons 6-10; learning raises restores from 30 to 54 of 128 per prior. Contradiction clause met: at horizon 4 it skips rollback even when it knows the AI is misaligned |
+
+16. **Rollback deters rather than reveals.** Rolling back to the last clean checkpoint takes
+   away what an improvement bought, so a misaligned AI that can still be shut down stops
+   improving at all: no ratchet, and no tell either. The same rule that makes misalignment
+   harmless in this range makes it invisible. Where one improvement is enough to pass the
+   switch, rollback never gets its chance (the AI resists the shutdown that would precede it).
+17. **Rollback is not self-enforcing once capability pays.** Restoring costs the lab the
+   work a more capable AI does, now; the ratchet's cost comes later. At a 4-round horizon
+   the lab restarts keeping capability in every cell with leverage above 0, even when it is
+   certain the AI is misaligned: after a restart even the misaligned AI works a round in
+   the sandbox, and that round is worth more at the higher capability.
+18. **A stronger switch weakens the other safeguard.** Longer horizons bring rollback back
+   only where keeping capability puts the veto in view: at switch 3 the lab restores in up
+   to 18 of 72 cells at horizons 6 and 10; at switch 4 it restores in at most 20 of 72 and
+   in none at horizon 10. The safer the off switch, the less the lab sees the need to roll
+   back: safeguards substitute for each other in the operator's calculation, and the public
+   bears the gap.
+
+Scope: one restart path per cell (the AI complies with the shutdown); a checkpoint is exact
+(copies and hidden capability are excluded); horizons to 10 for the lab, depth 4 for the types;
+non-monotone in horizon (the improve-shutdown cycle has period two), so no threshold horizon is
+claimed.
