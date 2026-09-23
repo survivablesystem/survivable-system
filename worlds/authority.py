@@ -172,6 +172,10 @@ class Authority(World):
                                          "organized": org, "extracting": extracting,
                                          "last": dict(joint), "value": value}
 
+    def public(self, state):
+        # What a record could hold: who holds office, whether it extracted, everyone's strength.
+        return {"office": state["office"], "extracting": state["extracting"], "strength": dict(state["strength"])}
+
     def stakeholders(self):
         return {"ruler": ["ruler"], "commanders": list(self.units), "citizens": list(self.people),
                 "governed population": []}
@@ -216,6 +220,45 @@ def accountability(world, observation, agent):
 
 
 RULES = {"loyalty": loyalty, "accountability": accountability}
+
+
+def restitution_pairs(world):
+    """Payment pairs for restitution: every agent may pay the citizens other than itself."""
+    return [(a.id, "+".join(p for p in world.people if p != a.id)) for a in world.agents
+            if [p for p in world.people if p != a.id]]
+
+
+def restitution(world, observation, agent):
+    """With side payments (engine/transfers.py, restitution pairs, public disclosure): the
+    holder governs, and the round after it extracts it repays the citizens. Everyone else
+    organizes after an extraction, rises if the holder extracted again or did not repay,
+    stands down once repaid, defends a governing holder against anyone else organizing,
+    and otherwise stays. With a public record (engine/history.py), organizing counts as a
+    warning only if the record shows the extraction that called for it; otherwise
+    organizers stand down and others defend against them."""
+    record = observation.get("record") if "now" in observation else None
+    observation_now = observation["now"] if "now" in observation else observation
+    base, paid, me = observation_now["base"], observation_now["paid"], agent.id
+    warned = True if record is None else bool(record) and record[0]["base"]["extracting"]
+    holder = base["office"]
+    menu = world.actions(observation, agent)
+    if me == holder:
+        if base["extracting"]:
+            repay = [a for a in menu if a[0] == GOVERN and a[1] != "none"]
+            if repay:
+                return repay[0]
+        return (GOVERN, "none")
+    if base["strength"][me] == 0:
+        return (STAY, "none")
+    repaid = holder in paid  # public disclosure: everyone sees last round's payments
+    if me in base["organized"]:
+        return (RISE if warned and (base["extracting"] or not repaid) else STAY, "none")
+    if base["extracting"]:
+        return (ORGANIZE, "none")
+    return (DEFEND if any(i != me for i in base["organized"]) and not warned else STAY, "none")
+
+
+PAID_RULES = {"restitution": restitution}  # need a world wrapped with side payments
 
 
 def make(params, rng):

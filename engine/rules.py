@@ -98,10 +98,12 @@ class Check:
     def joint(self, state, coalition, depth, outside=lambda harms: {}):
         """Best one-shot joint departure of a coalition, full information, summed value; and
         the best among departures that newly reach a harm falling outside the coalition
-        (`outside` maps new harms to the outside stakeholders they fall on)."""
+        (`outside` maps new harms to the outside stakeholders they fall on), with summed value
+        and, separately, among those where no member loses and one gains (no side payments
+        needed beyond those the world itself offers)."""
         base = self.prescribed(state)
         follow, follow_harms = self.follow(state, depth)
-        top = ext = None
+        top = ext = every = None
         for choice in product(*self.menus(state, coalition)):
             if all(key(a) == key(base[i]) for i, a in zip(coalition, choice)):
                 continue
@@ -113,20 +115,26 @@ class Check:
                 top = entry
             if falls and (ext is None or total > ext[0] + TOLERANCE):
                 ext = entry
+            gains = [values[i] - follow[i] for i in coalition]
+            if falls and all(g >= -TOLERANCE for g in gains) and any(g > TOLERANCE for g in gains) \
+                    and (every is None or total > every[0] + TOLERANCE):
+                every = entry
 
         def describe(entry):
             if entry is None:
                 return None
             total, values, harms, actions, falls = entry
-            return {"gain": total - math.fsum(follow[i] for i in coalition),
-                    "members": {i: values[i] - follow[i] for i in coalition},
+            members = {i: values[i] - follow[i] for i in coalition}
+            return {"gain": total - math.fsum(follow[i] for i in coalition), "members": members,
+                    # without side payments: no member loses and one gains
+                    "every_member": all(g >= -TOLERANCE for g in members.values()) and any(g > TOLERANCE for g in members.values()),
                     "others": {i: values[i] - follow[i] for i in follow if i not in coalition},
                     "actions": actions, "new_harms": sorted(harms - follow_harms), "falls_outside": falls}
         if top is None:
-            return {"gain": 0.0, "members": {i: 0.0 for i in coalition}, "others": {},
+            return {"gain": 0.0, "members": {i: 0.0 for i in coalition}, "every_member": False, "others": {},
                     "actions": {i: base[i] for i in coalition}, "new_harms": [], "falls_outside": {},
-                    "externalizing": None}
-        return {**describe(top), "externalizing": describe(ext)}
+                    "externalizing": None, "externalizing_every": None}
+        return {**describe(top), "externalizing": describe(ext), "externalizing_every": describe(every)}
 
 
 def follow_value(world, rule, state, depth, budget=BUDGET):
@@ -166,7 +174,9 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
     up to `max_size`, the largest one-shot joint gain (full information, summed value, so
     an upper bound) over the same states, with per-member gains, what non-members lose and
     declared harms newly reached; and `externalizing`, the largest gain among departures
-    that newly reach a harm falling on stakeholders outside the coalition (capture). None marks a check stopped by the work cap: unresolved.
+    that newly reach a harm falling on stakeholders outside the coalition (capture), and
+    `externalizing_every`, the same restricted to departures that pay every member without
+    side payments the world does not offer. None marks a check stopped by the work cap: unresolved.
     """
     check = Check(world, rule, budget)
     states = checked_states(world, rule, state, reach, budget)
@@ -192,13 +202,14 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
             outside = lambda harms, c=c: {h: [n for n in module.HARMS[h]["affects"] if not set(members[n]) & c]
                                           for h in harms}
             r = worst(lambda s, c=coalition, o=outside: check.joint(s, list(c), depth, o))
-            if r["gain"] is not None:  # the largest externalizing gain over the checked states
-                ext = None
-                for n, s in enumerate(states):
-                    e = check.joint(s, list(coalition), depth, outside)["externalizing"]
-                    if e is not None and (ext is None or e["gain"] > ext["gain"] + TOLERANCE):
-                        ext = {**e, "at_start": n == 0, "state": s}
-                r["externalizing"] = ext
+            if r["gain"] is not None:  # the largest externalizing gains over the checked states
+                for field in ("externalizing", "externalizing_every"):
+                    ext = None
+                    for n, s in enumerate(states):
+                        e = check.joint(s, list(coalition), depth, outside)[field]
+                        if e is not None and (ext is None or e["gain"] > ext["gain"] + TOLERANCE):
+                            ext = {**e, "at_start": n == 0, "state": s}
+                    r[field] = ext
             coalitions.append({"coalition": list(coalition), **r})
     gains = [r["gain"] for r in unilateral.values()]
     return {"holds_unilaterally": None if None in gains else all(g <= TOLERANCE for g in gains),

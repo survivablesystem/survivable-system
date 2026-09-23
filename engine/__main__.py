@@ -9,6 +9,7 @@
     python -m engine worlds.commons --externalities 3 --state S=20   per declared harm: who can force, impose, prevent
     python -m engine worlds.authority --externalities 2 --lock 3      ...and who can force it, then keep it 3 rounds
     python -m engine worlds.treaty --enforce 4 --rule restraint       does a declared rule hold; who profits by breaking it
+    python -m engine worlds.audit --enforce 4 --rule independence --pay firm>a0   ...when the firm can pay its auditor
 """
 import argparse
 import importlib
@@ -19,6 +20,7 @@ import random
 from .power import BUDGET, externalization, joint_prevention, lock_in, power_table, profile, threshold
 from .records import artifact, run_record
 from .rules import enforcement
+from .transfers import Transfers, lift
 from .sweep import one_at_a_time, report, report_oat, sample_params, sweep
 
 
@@ -84,6 +86,10 @@ def main():
     p.add_argument("--rule", help="with --enforce: a name from the world's RULES")
     p.add_argument("--reach", type=int, default=1, help="with --enforce: check states within this many rounds (default 1)")
     p.add_argument("--size", type=positive_int, default=2, help="with --enforce: largest coalition checked (default 2)")
+    p.add_argument("--pay", nargs="*", metavar="PAYER>RECIPIENT",
+                   help="any mode: wrap the world so these agents may pay each other (side payments, engine/transfers.py)")
+    p.add_argument("--amounts", nargs="*", type=float, default=[0.5, 1.0], help="with --pay: payment sizes (utility)")
+    p.add_argument("--disclosure", choices=["parties", "public"], default="parties", help="with --pay: who sees payments")
     p.add_argument("--state", nargs="*", help="key=value overrides of top-level initial-state fields for --power/--externalities")
     p.add_argument("--lock", type=positive_int, metavar="K",
                    help="with --externalities: smallest coalition that can force each harm and then keep it K rounds against everyone")
@@ -107,6 +113,15 @@ def main():
         p.error(str(error))
     space.update(fixed)
     settings = {"seed": args.seed, "rounds": args.rounds, "overrides": fixed}
+    make, rules = mod.make, dict(getattr(mod, "RULES", {}))
+    if args.pay:
+        pairs = [tuple(x.split(">", 1)) for x in args.pay]
+        if any(len(pair) != 2 for pair in pairs):
+            p.error("--pay expects PAYER>RECIPIENT")
+        make = lambda params, rng: Transfers(mod.make(params, rng), pairs, args.amounts, args.disclosure)
+        rules = {name: lift(rule) for name, rule in rules.items()}
+        rules.update(getattr(mod, "PAID_RULES", {}))  # rules that use payments themselves
+        settings["transfers"] = {"pairs": pairs, "amounts": args.amounts, "disclosure": args.disclosure}
 
     def emit(mode_name, results):
         print(json.dumps(artifact(mod, mode_name, settings, results), indent=2,
@@ -142,11 +157,10 @@ def main():
         return state
 
     if args.enforce:
-        rules = getattr(mod, "RULES", {})
         if args.rule not in rules:
             p.error(f"--enforce needs --rule, one of: {', '.join(rules) or '(world declares no RULES)'}")
         params = baseline_params()
-        world = mod.make(dict(params), random.Random(args.seed))
+        world = make(dict(params), random.Random(args.seed))
         report = enforcement(world, mod, rules[args.rule], start_state(world), args.enforce, args.reach, args.size)
         settings.update({"baseline": params, "rule": args.rule, "rule_claim": (rules[args.rule].__doc__ or "").strip(),
                          "depth": args.enforce, "reach": args.reach, "max_size": args.size,
@@ -170,16 +184,20 @@ def main():
         for r in capture:
             e = r["externalizing"]
             print(f"  {','.join(r['coalition']):20s} {fmt(e['gain'])} {e['actions']}"
-                  f"{' at the start' if e['at_start'] else ' off the start'}")
+                  f"{' at the start' if e['at_start'] else ' off the start'}"
+                  f"{'' if e['every_member'] else ' (needs side payments: a member loses or gains nothing)'}")
             for h, names in e["falls_outside"].items():
                 print(f"      reaches {h}, falling on {', '.join(names)}")
+            n = r.get("externalizing_every")
+            if n is not None and not e["every_member"]:
+                print(f"      paying every member: {fmt(n['gain'])} {n['actions']}")
         print(f"harms reached if everyone follows: {', '.join(report['harms_under_rule']) or 'none'}")
         print("Goals are read here: this is whether the rule pays, under the stated goals and depth.")
         return
 
     if args.externalities:
         params = baseline_params()
-        world = mod.make(dict(params), random.Random(args.seed))
+        world = make(dict(params), random.Random(args.seed))
         start = start_state(world)
         report = externalization(world, mod, start, args.externalities)
         choices = [r for r in joint_prevention(world, mod, start, args.externalities) if r["forced_choice"]]
@@ -224,7 +242,7 @@ def main():
 
     if args.power:
         params = baseline_params()
-        world = mod.make(dict(params), random.Random(args.seed))
+        world = make(dict(params), random.Random(args.seed))
         target = args.target or None
         rows = power_table(world, start_state(world), args.power, target)
         marks = [threshold(rows, kind, level) for kind in ("force", "prevent") for level in (1.0, 0.5)]
@@ -248,10 +266,10 @@ def main():
 
     if args.trace:
         params = baseline_params()
-        result = run_record(mod.make, params, args.rounds, args.seed, include_trace=True)
+        result = run_record(make, params, args.rounds, args.seed, include_trace=True)
         settings["baseline"] = params
         if args.profile:
-            world = mod.make(dict(params), random.Random(args.seed))
+            world = make(dict(params), random.Random(args.seed))
             result["power_profile"] = profile(world, result["trace"], args.profile, args.target or None)
             settings["query"] = "Per round: goal-free finite-horizon power from the state the round started in."
         if args.json:
@@ -283,7 +301,7 @@ def main():
         baseline = {**getattr(mod, "DEFAULTS", {}), **fixed}
         settings.update({"baseline": baseline, "seeds_per_point": args.seeds,
                          "sampling": "Unfixed categorical values or numeric endpoints; matched integer seeds at every point."})
-        rows = one_at_a_time(mod.make, space, baseline, args.seeds, args.rounds, args.seed)
+        rows = one_at_a_time(make, space, baseline, args.seeds, args.rounds, args.seed)
         if args.json:
             emit("oat", rows)
         else:
@@ -294,7 +312,7 @@ def main():
 
     settings.update({"samples": args.samples,
                      "sampling": "Independent uniform parameter draws; each run gets a recorded 64-bit integer seed."})
-    rows = sweep(mod.make, space, args.samples, args.rounds, args.seed)
+    rows = sweep(make, space, args.samples, args.rounds, args.seed)
     if args.json:
         emit("sweep", rows)
     else:

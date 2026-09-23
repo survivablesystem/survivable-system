@@ -169,6 +169,30 @@ depth 4.
   cells where a coup pays under this rule. Information channels decide which rules can
   hold, not what can be forced.
 
+## E6: correction without a contest of strength (expectations before the sweep)
+
+E7 showed `accountability` fails for two reasons: punishment is the same whether the
+ruler stops or continues (no marginal deterrence), and a commander can use the rule's own
+"rise once organized" clause. Two general modules address what the world lacked: side
+payments (E8) let a rule ask for restitution instead of deposition; public records (E9)
+let a rule tell a warning from a coup. `restitution` (in `worlds/authority.py`): the
+holder repays the citizens the round after it extracts; everyone else organizes after an
+extraction, rises only if the record shows the extraction and the holder extracted again
+or did not repay, stands down once repaid, and defends a governing holder against
+unwarranted organizing. Sweep: `tests/correction_study.py`.
+
+- R1: repayment below rent / discount leaves the first extraction profitable; at or above
+  it, the ruler's first breach is deterred. Contradiction: the ruler's gain does not
+  depend on the amount.
+- R2: without records, the commander's coup pays; with records and citizens who see each
+  other organize, it does not. Contradiction: records do not change the commander's gain.
+- R3: with payments seen only by the parties, commanders cannot see repayment and rise
+  against a repaying ruler, so repaying stops paying and the rule fails. Contradiction:
+  the rule holds with private payments.
+- R4: when the ruler may also pay a commander, the ruler and commander together gain by
+  extracting and buying the army's inaction, at the citizens' expense, without anyone
+  losing (no transferable-utility assumption). Contradiction: no such pact pays every member.
+
 ## Earlier brief (paper conjecture, 2026-09-15; unsourced, kept for history)
 
 **Known outcome.** When the ruler exits, the army or its commander decides who rules next. Written succession rules are ignored. Praetorian Guard, Mamluks, most coups.

@@ -7,6 +7,63 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  E9: public records as a module over any world
+
+Proposed before implementation. Rules can condition only on the current observation. In
+the authority world an accountability rule cannot tell citizens organizing after an
+extraction (a warning) from a commander organizing for himself (a coup), because nothing
+remembers why anyone organized: the commander uses the rule's own clause. Real
+institutions keep records: court files, audit histories, election results. The engine
+says worlds must model memory themselves; each world would grow its own history fields.
+
+Change (`engine/history.py`): `History(world, length)` wraps any world (including a wrapped
+one). Worlds declare `public(state)`, the facts anyone could record (default: none, so a
+world must opt in). The wrapper keeps the last `length` public records in the state; every
+observation gains them. Beliefs lift the inner world's with the record known exactly.
+Physical state, kernel, harms and labels are untouched: goal-free power cannot change
+(tested). Rules for a wrapped world read `observation["now"]` and `observation["record"]`.
+
+Scope: public records only (no private memory, no learning over hidden types); bounded
+length; no forgery or deletion of records (a later module could make records contestable).
+
+Alternatives rejected: history fields added per world (a patch each time); private
+per-agent memories (hidden states of others' memories multiply beliefs; no case needs it).
+
+Intent tests: 1 one wrapper; 2 no behavior; 3 length and what is public declared; 4 a rule
+that fails without records can be checked with them, and may still fail; 5 records are
+how externalized harm becomes attributable; 6 whether an institution's memory is what
+makes it hold becomes a question the tool can answer.
+
+## 2026-09-23  E8: side payments as a module over any world
+
+Proposed before implementation. E7's coalition results assume transferable utility, but no
+world has a way to pay anyone. The new `every_member` flag shows the audit capture needs
+side payments (the auditor gains nothing from leniency itself), so "capture is a pair's
+act" rested on an assumption, not on the model. Real capture has a payment (consulting fees,
+higher fees); loyalty is bought (the ruler pays the army); treaties trade concessions.
+
+Change (`engine/transfers.py`): `Transfers(world, pairs, amounts, disclosure)` wraps any
+world. Each agent's action becomes (world action, transfer), the transfer "none" or a
+payment of a declared amount to a declared recipient. Payments are utility, move with
+the round, are unconditional within the round (no contracts), and are not limited by
+wealth (declared). The base kernel, physical state, harms, stakeholders and terminal
+labels are untouched, so goal-free power is unchanged by construction (tested).
+`disclosure` sets who sees a payment: the two parties, or everyone. Beliefs lift the base
+world's; unseen payments are believed absent (point prior, declared). Rules lift with
+"pay nothing". A module in the spec's sense: an intervention any world can take.
+
+Scope: one payment per agent per round, declared pairs and amounts only; no enforcement
+of promised payments; no budgets.
+
+Alternatives rejected: a bribe action inside the audit world (a patch for one case);
+assuming transferable utility in reports (what E7 did; now it is flagged instead);
+contracts or escrow (no case needs them yet).
+
+Intent tests: 1 one wrapper over the existing interface; 2 who pays whom is chosen, not
+scripted; 3 amounts, pairs and disclosure declared; 4 the audit capture can now be checked
+without the assumption, and may fail; 5 side payments are how harms are bought, and
+disclosure decides who can see them; 6 bought loyalty and bought leniency in one mechanism.
+
 ## 2026-09-23  E7: rules as claims; self-enforcement and profitable deviation
 
 Proposed before implementation. Owner direction: build interesting systems and fill what

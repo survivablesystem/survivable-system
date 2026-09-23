@@ -136,6 +136,11 @@ class World:
         physical states, menus and harms unchanged. Default: no symmetry claimed."""
         return [[a.id] for a in self.agents]
 
+    def public(self, state):
+        """Facts anyone could record this round (engine/history.py, decision 2026-09-23 E9).
+        JSON-compatible; a function of the state. Worlds opt in by declaring it."""
+        raise NotImplementedError("world must declare public(state) to keep records")
+
     def stakeholders(self):
         """Stakeholder name -> agent ids (possibly none). Declared with STAKEHOLDERS."""
         raise NotImplementedError("world must declare stakeholders (decision 2026-09-23, E1)")
