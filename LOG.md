@@ -416,3 +416,24 @@ with the state against the rival's safe progress (72/144). 267 tests pass.
 Next agent: within the owner's scope, a licensing rule that binds the certified capability
 (re-evaluate before deployment; halt any lab whose capability grew since its pass) is the
 direct test of finding 2. AI systems as agents would be a new case (ask first).
+
+## 2026-09-23  Claude: binding certification, multi-round capture, rule-making, AI as agents, assessment
+
+Owner: continue; treat whatever is useful or needed toward intent as approved.
+Frontier: `licensing_bound` (records) removes the stale-certification departure where halts
+are reliable; what remained was capture spread over two rounds (lenient report, then
+deployment), invisible to one-round checks: rule checks gained a multi-round coalition
+window (E7 amendment). The probe also caught a world error (evaluator liability attached to
+the wrong report). Rule-making (E10, `engine/constitution.py`): labs seated in rule-making by
+majority amend licensing into a race only when they bear no liability and no first-mover
+bonus splits them; state-alone rule-making and unanimity prevent it.
+T9.2 (`engine/delegation.py` E11, `worlds/control.py`): autonomy moves the veto on shutdown
+to the AI long before anyone can force escape; an AI aligned to its lab resists a shutdown
+that costs the lab (drift 0); precaution has no value in one-shot checks, so E12 reduced form
+(`precaution`: a revealed departer persists) with a toy reference; the Bayesian version is open.
+A3: `--assess` one-screen report. Worktrees keep long studies clean while work continues.
+291 tests pass.
+
+Next agent: frontier payments and binding re-runs with the window are in progress at
+`af8b46e` (write-up pending in `rediscovery/frontier-ai.md`); E12 Bayesian learning; the
+control case's precaution question needs hidden drift (types), not only persistence.
