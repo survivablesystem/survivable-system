@@ -268,3 +268,17 @@ Next agent: every behavioral claim should now be reported under both `others` va
 and the depth cap; power claims need neither. Candidates: stage 2 captured auditor (the
 evaluator-paid-by-the-evaluated problem, directly relevant to AI evaluation), or the
 leader-information question in the treaty case.
+
+## 2026-09-23  Claude: E1, externalization made executable
+
+Owner direction: a simple, powerful tool for any system, many dimensions, eventually
+civilizational scale, no holes that create externalization; later note: the whole system
+is what matters. Added the E1-E4 block to TASKS ahead of the stages.
+
+E1: worlds declare STAKEHOLDERS, HARMS, EXCLUDED; `externalization` query and CLI;
+power targets accept predicates; correction for realized harms. Commons gained a
+reversible harm (`depleted`, FIXED `depleted_frac` with reason). Found: the commons'
+harms fall mostly on stakeholders with no agent; a treaty leader imposes disarmament on a
+population that has none. 180 tests pass. Evidence `evidence/externalization.json`.
+
+Next agent: E4 composition (claimed), then E2 scale.

@@ -36,6 +36,8 @@ python -m engine worlds.commons --power 3 --fix confiscation_to=stock --target c
 python -m engine worlds.treaty --trace --rounds 12 --profile 3
 ```
 
+`--externalities T` runs the same query per declared harm: who can force it, who can impose it without bearing it, who can prevent or end it, and whom it falls on without any agent in the model. Every world must declare its stakeholders, harms and exclusions ([`rediscovery/externalization.md`](rediscovery/externalization.md)).
+
 `engine.power.sure` asks the information question: can a coalition guarantee an outcome using only what its members observe? It is how verification, disclosure or any channel can show up as denial rather than only as behavior (see [`rediscovery/treaty-no-verification.md`](rediscovery/treaty-no-verification.md)).
 
 A good outcome that the planner produces but that one agent could still force away rests on goals: it is deterrence, not denial. Power claims do not depend on goals, horizons, beliefs or planner depth, and say nothing beyond T. Exact enumeration is exponential; a work cap marks unresolved entries. See [`rediscovery/coalition-power.md`](rediscovery/coalition-power.md).

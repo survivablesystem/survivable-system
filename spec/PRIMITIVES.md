@@ -56,6 +56,9 @@ delegation:      an agent may create a sub-agent, granting capability and settin
                  The set goal drifts from the intended one by a swept amount.
 irreversibility: flagged transitions that cannot be undone. A case declares catastrophic
                  harms, affected groups and exclusions; majority utility is not a definition.
+harms:           declared per world (STAKEHOLDERS, HARMS, EXCLUDED; decision 2026-09-23, E1):
+                 predicates on physical state, irreversible or not, each naming the
+                 stakeholders it falls on, agents or not. Every artifact carries them.
 error:           beliefs can be wrong. A correction moves the world back after an error. It
                  needs a detector with a channel, an actor with capability, and an erring agent
                  that cannot win the contest to block it.
@@ -80,7 +83,8 @@ For a composed world, under a sweep over the assumptions register:
 
 - **lock-in threshold**: smallest coalition that can force an irreversible transition regardless of others. Want high.
 - **prevention threshold**: smallest coalition that can keep an irreversible transition from happening regardless of others. Want low.
-- **correction threshold**: smallest coalition that can reverse a detected error regardless of others. Want low.
+- **correction threshold**: smallest coalition that can reverse a detected error regardless of others. Want low. Bounded form implemented for realized reversible harms (E1).
+- **externalization**: per declared harm, the thresholds above plus the smallest coalition that can force it without any affected agent, whether the affected can prevent it, and which affected stakeholders have no agent (`engine.power.externalization`).
 
 Power is goal-free (`engine/power.py`, bounded form implemented). Within T rounds, a coalition maximizes the probability of entering a flagged terminal label; the complement minimizes it as one coordinated adversary; both see the full state; chance follows `outcomes`. Stage orders bracket the value: alpha (coalition commits first) is its guarantee, beta an upper bound; randomized play lies between. Prevention is the dual. Goals, horizons, beliefs and planner limits do not enter, so a power claim does not depend on them. What agents do (planner) and what coalitions could force (power) are separate reports; protection that rests on the gap between them is deterrence, not denial. Worlds may declare `physical(state)`, the part fixing menus, kernel and terminal status, as a memo key; the default is the whole state. Thresholds with an unresolved or straddling smaller coalition are upper bounds. Exact enumeration is exponential in agents and T; no claim extends beyond T.
 - **finite outcomes**: labels and terminal status at a stated duration, plus shares over the sampled assumptions. Survival to the time limit is not an attractor or a probability of real-world survival. Attractor detection is not implemented.

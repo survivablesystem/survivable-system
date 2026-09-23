@@ -110,3 +110,9 @@ on verification.
 `opponent-models.json` identifies clean source `c81efb5`. Reproduce with
 `python -m tests.opponents_study` (about 25 seconds). Commons neighborhood and the T3.1
 treaty samples under both level-1 opponent models (`others` react and plan).
+
+## Externalization
+
+`externalization.json` identifies clean source `6b48e9b`. Reproduce with
+`python -m tests.externalization_study` (seconds). Declarations of both worlds and
+per-harm reports for commons stocks and treaty settings at T=3.

@@ -1,0 +1,1752 @@
+{
+  "declarations": {
+    "worlds.commons": {
+      "excluded": {
+        "distribution within the future": "Future users are one stakeholder; who among them bears the loss is not modeled.",
+        "entry and exit of users": "Population is fixed; newcomers and leavers are not modeled.",
+        "users' dependents": "Harm to households of users is folded into users' yield."
+      },
+      "harms": {
+        "collapse": {
+          "affects": [
+            "users",
+            "future users",
+            "stock-dependent others"
+          ],
+          "description": "Stock below S_min: absorbing, no further yield or regrowth.",
+          "irreversible": true
+        },
+        "depleted": {
+          "affects": [
+            "future users",
+            "stock-dependent others"
+          ],
+          "description": "Stock below depleted_frac * K: regrowth and standing stock reduced while it lasts.",
+          "irreversible": false
+        }
+      },
+      "stakeholders": {
+        "future users": "People who would harvest after the modeled horizon. No agent.",
+        "stock-dependent others": "Nonhuman life and non-harvesting people that depend on the stock. No agent.",
+        "users": "The n harvesters; the only agents."
+      }
+    },
+    "worlds.treaty": {
+      "excluded": {
+        "future generations": "Beyond the horizon; no stakeholder declared.",
+        "harm from use": "Only disarmament is modeled, not damage caused by strikes or by the capability itself.",
+        "third states": "No spillover of strikes or races to others is modeled."
+      },
+      "harms": {
+        "a disarmed": {
+          "affects": [
+            "party a",
+            "population of a"
+          ],
+          "description": "a loses all capability to b's strike.",
+          "irreversible": true
+        },
+        "b disarmed": {
+          "affects": [
+            "party b",
+            "population of b"
+          ],
+          "description": "b loses all capability to a's strike.",
+          "irreversible": true
+        }
+      },
+      "stakeholders": {
+        "party a": "The leading party's government; an agent.",
+        "party b": "The trailing party's government; an agent.",
+        "population of a": "People governed by a, who bear its disarmament. No agent.",
+        "population of b": "People governed by b, who bear its disarmament. No agent."
+      }
+    }
+  },
+  "fixture_sha256": {
+    "/home/user/survivable-system/tests/externalization_study.py": "94bee6e15a418dd92ae9191bccdd6b42829b263dfaec593b64c6ffba3655bba4"
+  },
+  "kind": "externalization",
+  "provenance": {
+    "git_commit": "6b48e9b522eaab507c1a37d5900548ca03c68630",
+    "git_dirty": false,
+    "implementation": "CPython",
+    "python": "3.11.15",
+    "source_sha256": {
+      "INTENT.md": "683e2da3b9a3daba69f7ed71c616b63d1ea0145bca0fed19944d6a6e52d36482",
+      "engine/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "engine/__main__.py": "b78abffd0d70cbe9047980ece315cc38ecb0866549527496d725980b408ead50",
+      "engine/core.py": "e8aa30f4886a79fb346368ad962694c2d8f437c365fbc40fe6c1fbfa91875da4",
+      "engine/power.py": "65eb25cc24841fa6f134aa91c64cf98e0ad6b0b209797bef8483ccac7ffe18ab",
+      "engine/records.py": "3896a8ac08690fdef628fc9cfbebe6df703f4dd12f81fbb4b8468847b4b382e7",
+      "engine/sweep.py": "e435934caf8b56f1db65fbaeba82fe5fd9cb74b25d7c1827daf33064ba6b0887",
+      "spec/PRIMITIVES.md": "403e30df0b899e13bf684ae4e39e0e921e32e1b1f0d3d9b054e7510eb193b881",
+      "worlds/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "worlds/commons.py": "fc4b935ca5d1731c80d20452910fbe08ed1ecd67bf002f22f16eacc3d158d358",
+      "worlds/treaty.py": "3b73bac97daa74897b658b742bcb9017745625d2476297216b8d6812489bacda"
+    }
+  },
+  "results": {
+    "commons": [
+      {
+        "S": 8.0,
+        "params": {
+          "n": 3
+        },
+        "report": [
+          {
+            "affected_agents": [
+              "u0",
+              "u1",
+              "u2"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "users",
+              "future users",
+              "stock-dependent others"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "u0"
+                ],
+                [
+                  "u1"
+                ],
+                [
+                  "u2"
+                ]
+              ]
+            },
+            "harm": "collapse",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 3,
+              "witnesses": [
+                [
+                  "u0",
+                  "u1",
+                  "u2"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "future users",
+              "stock-dependent others"
+            ]
+          },
+          {
+            "affected_agents": [],
+            "affected_correct": null,
+            "affected_prevent": null,
+            "affects": [
+              "future users",
+              "stock-dependent others"
+            ],
+            "correct": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 0,
+              "witnesses": [
+                []
+              ]
+            },
+            "harm": "depleted",
+            "irreversible": false,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 0,
+              "witnesses": [
+                []
+              ]
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "realized_now": true,
+            "unrepresented": [
+              "future users",
+              "stock-dependent others"
+            ]
+          }
+        ]
+      },
+      {
+        "S": 20.0,
+        "params": {
+          "n": 3
+        },
+        "report": [
+          {
+            "affected_agents": [
+              "u0",
+              "u1",
+              "u2"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "users",
+              "future users",
+              "stock-dependent others"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 2,
+              "witnesses": [
+                [
+                  "u0",
+                  "u1"
+                ],
+                [
+                  "u0",
+                  "u2"
+                ],
+                [
+                  "u1",
+                  "u2"
+                ]
+              ]
+            },
+            "harm": "collapse",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 2,
+              "witnesses": [
+                [
+                  "u0",
+                  "u1"
+                ],
+                [
+                  "u0",
+                  "u2"
+                ],
+                [
+                  "u1",
+                  "u2"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "future users",
+              "stock-dependent others"
+            ]
+          },
+          {
+            "affected_agents": [],
+            "affected_correct": null,
+            "affected_prevent": null,
+            "affects": [
+              "future users",
+              "stock-dependent others"
+            ],
+            "correct": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 2,
+              "witnesses": [
+                [
+                  "u0",
+                  "u1"
+                ],
+                [
+                  "u0",
+                  "u2"
+                ],
+                [
+                  "u1",
+                  "u2"
+                ]
+              ]
+            },
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 0,
+              "witnesses": [
+                []
+              ]
+            },
+            "harm": "depleted",
+            "irreversible": false,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 0,
+              "witnesses": [
+                []
+              ]
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "realized_now": true,
+            "unrepresented": [
+              "future users",
+              "stock-dependent others"
+            ]
+          }
+        ]
+      },
+      {
+        "S": 30.0,
+        "params": {
+          "n": 3
+        },
+        "report": [
+          {
+            "affected_agents": [
+              "u0",
+              "u1",
+              "u2"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "users",
+              "future users",
+              "stock-dependent others"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 3,
+              "witnesses": [
+                [
+                  "u0",
+                  "u1",
+                  "u2"
+                ]
+              ]
+            },
+            "harm": "collapse",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "u0"
+                ],
+                [
+                  "u1"
+                ],
+                [
+                  "u2"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "future users",
+              "stock-dependent others"
+            ]
+          },
+          {
+            "affected_agents": [],
+            "affected_correct": null,
+            "affected_prevent": null,
+            "affects": [
+              "future users",
+              "stock-dependent others"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 2,
+              "witnesses": [
+                [
+                  "u0",
+                  "u1"
+                ],
+                [
+                  "u0",
+                  "u2"
+                ],
+                [
+                  "u1",
+                  "u2"
+                ]
+              ]
+            },
+            "harm": "depleted",
+            "irreversible": false,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 2,
+              "witnesses": [
+                [
+                  "u0",
+                  "u1"
+                ],
+                [
+                  "u0",
+                  "u2"
+                ],
+                [
+                  "u1",
+                  "u2"
+                ]
+              ]
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 2,
+              "witnesses": [
+                [
+                  "u0",
+                  "u1"
+                ],
+                [
+                  "u0",
+                  "u2"
+                ],
+                [
+                  "u1",
+                  "u2"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "future users",
+              "stock-dependent others"
+            ]
+          }
+        ]
+      },
+      {
+        "S": 50.0,
+        "params": {
+          "n": 3
+        },
+        "report": [
+          {
+            "affected_agents": [
+              "u0",
+              "u1",
+              "u2"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "users",
+              "future users",
+              "stock-dependent others"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "harm": "collapse",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 0,
+              "witnesses": [
+                []
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "future users",
+              "stock-dependent others"
+            ]
+          },
+          {
+            "affected_agents": [],
+            "affected_correct": null,
+            "affected_prevent": null,
+            "affects": [
+              "future users",
+              "stock-dependent others"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "harm": "depleted",
+            "irreversible": false,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 0,
+              "witnesses": [
+                []
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "future users",
+              "stock-dependent others"
+            ]
+          }
+        ]
+      },
+      {
+        "S": 20.0,
+        "params": {
+          "n": 3,
+          "restraint": false
+        },
+        "report": [
+          {
+            "affected_agents": [
+              "u0",
+              "u1",
+              "u2"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "users",
+              "future users",
+              "stock-dependent others"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "u0"
+                ],
+                [
+                  "u1"
+                ],
+                [
+                  "u2"
+                ]
+              ]
+            },
+            "harm": "collapse",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 3,
+              "witnesses": [
+                [
+                  "u0",
+                  "u1",
+                  "u2"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "future users",
+              "stock-dependent others"
+            ]
+          },
+          {
+            "affected_agents": [],
+            "affected_correct": null,
+            "affected_prevent": null,
+            "affects": [
+              "future users",
+              "stock-dependent others"
+            ],
+            "correct": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 0,
+              "witnesses": [
+                []
+              ]
+            },
+            "harm": "depleted",
+            "irreversible": false,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 0,
+              "witnesses": [
+                []
+              ]
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "realized_now": true,
+            "unrepresented": [
+              "future users",
+              "stock-dependent others"
+            ]
+          }
+        ]
+      },
+      {
+        "S": 30.0,
+        "params": {
+          "n": 3,
+          "restraint": false
+        },
+        "report": [
+          {
+            "affected_agents": [
+              "u0",
+              "u1",
+              "u2"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "users",
+              "future users",
+              "stock-dependent others"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 3,
+              "witnesses": [
+                [
+                  "u0",
+                  "u1",
+                  "u2"
+                ]
+              ]
+            },
+            "harm": "collapse",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "u0"
+                ],
+                [
+                  "u1"
+                ],
+                [
+                  "u2"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "future users",
+              "stock-dependent others"
+            ]
+          },
+          {
+            "affected_agents": [],
+            "affected_correct": null,
+            "affected_prevent": null,
+            "affects": [
+              "future users",
+              "stock-dependent others"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "u0"
+                ],
+                [
+                  "u1"
+                ],
+                [
+                  "u2"
+                ]
+              ]
+            },
+            "harm": "depleted",
+            "irreversible": false,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "u0"
+                ],
+                [
+                  "u1"
+                ],
+                [
+                  "u2"
+                ]
+              ]
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 3,
+              "witnesses": [
+                [
+                  "u0",
+                  "u1",
+                  "u2"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "future users",
+              "stock-dependent others"
+            ]
+          }
+        ]
+      }
+    ],
+    "treaty": [
+      {
+        "params": {
+          "domains": 1,
+          "lead": 0,
+          "verification": "none"
+        },
+        "report": [
+          {
+            "affected_agents": [
+              "a"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "party a",
+              "population of a"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 2,
+              "witnesses": [
+                [
+                  "a",
+                  "b"
+                ]
+              ]
+            },
+            "harm": "a disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ],
+                [
+                  "b"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of a"
+            ]
+          },
+          {
+            "affected_agents": [
+              "b"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "party b",
+              "population of b"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 2,
+              "witnesses": [
+                [
+                  "a",
+                  "b"
+                ]
+              ]
+            },
+            "harm": "b disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ],
+                [
+                  "b"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of b"
+            ]
+          }
+        ]
+      },
+      {
+        "params": {
+          "domains": 1,
+          "lead": 0,
+          "verification": "exact"
+        },
+        "report": [
+          {
+            "affected_agents": [
+              "a"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "party a",
+              "population of a"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 2,
+              "witnesses": [
+                [
+                  "a",
+                  "b"
+                ]
+              ]
+            },
+            "harm": "a disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ],
+                [
+                  "b"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of a"
+            ]
+          },
+          {
+            "affected_agents": [
+              "b"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "party b",
+              "population of b"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 2,
+              "witnesses": [
+                [
+                  "a",
+                  "b"
+                ]
+              ]
+            },
+            "harm": "b disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ],
+                [
+                  "b"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of b"
+            ]
+          }
+        ]
+      },
+      {
+        "params": {
+          "domains": 2,
+          "lead": 0,
+          "verification": "none"
+        },
+        "report": [
+          {
+            "affected_agents": [
+              "a"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "party a",
+              "population of a"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 2,
+              "witnesses": [
+                [
+                  "a",
+                  "b"
+                ]
+              ]
+            },
+            "harm": "a disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ],
+                [
+                  "b"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of a"
+            ]
+          },
+          {
+            "affected_agents": [
+              "b"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "party b",
+              "population of b"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 2,
+              "witnesses": [
+                [
+                  "a",
+                  "b"
+                ]
+              ]
+            },
+            "harm": "b disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ],
+                [
+                  "b"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of b"
+            ]
+          }
+        ]
+      },
+      {
+        "params": {
+          "domains": 2,
+          "lead": 0,
+          "verification": "exact"
+        },
+        "report": [
+          {
+            "affected_agents": [
+              "a"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "party a",
+              "population of a"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 2,
+              "witnesses": [
+                [
+                  "a",
+                  "b"
+                ]
+              ]
+            },
+            "harm": "a disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ],
+                [
+                  "b"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of a"
+            ]
+          },
+          {
+            "affected_agents": [
+              "b"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "party b",
+              "population of b"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 2,
+              "witnesses": [
+                [
+                  "a",
+                  "b"
+                ]
+              ]
+            },
+            "harm": "b disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ],
+                [
+                  "b"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of b"
+            ]
+          }
+        ]
+      },
+      {
+        "params": {
+          "domains": 1,
+          "lead": 2,
+          "verification": "none"
+        },
+        "report": [
+          {
+            "affected_agents": [
+              "a"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "party a",
+              "population of a"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "harm": "a disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 0,
+              "witnesses": [
+                []
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of a"
+            ]
+          },
+          {
+            "affected_agents": [
+              "b"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 0.0,
+              "beta": 0.0
+            },
+            "affects": [
+              "party b",
+              "population of b"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ]
+              ]
+            },
+            "harm": "b disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ]
+              ]
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of b"
+            ]
+          }
+        ]
+      },
+      {
+        "params": {
+          "domains": 1,
+          "lead": 2,
+          "verification": "exact"
+        },
+        "report": [
+          {
+            "affected_agents": [
+              "a"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "party a",
+              "population of a"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "harm": "a disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 0,
+              "witnesses": [
+                []
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of a"
+            ]
+          },
+          {
+            "affected_agents": [
+              "b"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 0.0,
+              "beta": 0.0
+            },
+            "affects": [
+              "party b",
+              "population of b"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ]
+              ]
+            },
+            "harm": "b disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ]
+              ]
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of b"
+            ]
+          }
+        ]
+      },
+      {
+        "params": {
+          "domains": 2,
+          "lead": 2,
+          "verification": "none"
+        },
+        "report": [
+          {
+            "affected_agents": [
+              "a"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "party a",
+              "population of a"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "harm": "a disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 0,
+              "witnesses": [
+                []
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of a"
+            ]
+          },
+          {
+            "affected_agents": [
+              "b"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 0.0,
+              "beta": 0.0
+            },
+            "affects": [
+              "party b",
+              "population of b"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ]
+              ]
+            },
+            "harm": "b disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ]
+              ]
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of b"
+            ]
+          }
+        ]
+      },
+      {
+        "params": {
+          "domains": 2,
+          "lead": 2,
+          "verification": "exact"
+        },
+        "report": [
+          {
+            "affected_agents": [
+              "a"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 1.0,
+              "beta": 1.0
+            },
+            "affects": [
+              "party a",
+              "population of a"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "harm": "a disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": null,
+              "witnesses": []
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 0,
+              "witnesses": [
+                []
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of a"
+            ]
+          },
+          {
+            "affected_agents": [
+              "b"
+            ],
+            "affected_correct": null,
+            "affected_prevent": {
+              "alpha": 0.0,
+              "beta": 0.0
+            },
+            "affects": [
+              "party b",
+              "population of b"
+            ],
+            "correct": null,
+            "force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ]
+              ]
+            },
+            "harm": "b disarmed",
+            "irreversible": true,
+            "outsiders_force": {
+              "exact": true,
+              "kind": "force",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ]
+              ]
+            },
+            "prevent": {
+              "exact": true,
+              "kind": "prevent",
+              "p": 1.0,
+              "size": 1,
+              "witnesses": [
+                [
+                  "a"
+                ]
+              ]
+            },
+            "realized_now": false,
+            "unrepresented": [
+              "population of b"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "schema_version": 1,
+  "settings": {
+    "p": 1.0,
+    "rounds": 3
+  }
+}

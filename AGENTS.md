@@ -33,7 +33,7 @@ The implementation and current model are replaceable. When a limitation matters,
 
 ## Adding a world
 
-- One file in `worlds/`, exposing `SPACE` (this world's assumptions register, all swept), `FIXED`, `FIXED_REASONS` (a reason per fixed value), `DEFAULTS` (a declared baseline for `--oat` and tests), `make(params, rng)` and `describe(joint, state)`. States, observations, actions and parameters must be finite JSON-compatible data with string dictionary keys.
+- One file in `worlds/`, exposing `SPACE` (this world's assumptions register, all swept), `FIXED`, `FIXED_REASONS` (a reason per fixed value), `DEFAULTS` (a declared baseline for `--oat` and tests), `STAKEHOLDERS`, `HARMS`, `EXCLUDED` (who outcomes fall on, agents or not; what harms; what is left out and why), `make(params, rng)` and `describe(joint, state)`. Implement `stakeholders()` and `harmed(state)`. Name the people a harm falls on even when they have no agent: the report shows them as unrepresented, which is the point. States, observations, actions and parameters must be finite JSON-compatible data with string dictionary keys.
 - Implement `observe`, finite `beliefs` and `outcomes` explicitly; the engine samples `step` from that kernel. Menus use observations. Keep private facts in state; test that indistinguishable truths give equal action values and future choices cannot distinguish hidden branches. Nested beliefs must not recover truth through attributes. Use `engine.core.action_values` for probes. Declare history/learning, depth caps and work limits; unresolved search is neither survival nor collapse.
 - The paper case in `rediscovery/` comes first, with expected outcomes and interventions.
 - Separate implementation regressions from research hypotheses. Existing outcome tests describe their tested configurations, not historical laws. Use several seeds and parameter settings, preserve counterexamples, and record why any expected outcome changes. Random seeds alone do not vary assumptions.
@@ -66,4 +66,5 @@ python -m engine worlds.commons --samples 100         random sweep of the regist
 python -m engine worlds.commons --trace --fix n=4     one world, round by round
 python -m engine worlds.commons --power 3             goal-free: what each coalition can force or prevent
 python -m engine worlds.commons --trace --profile 3   a run, with who could force or prevent collapse each round
+python -m engine worlds.commons --externalities 3 --state S=20   per declared harm: force, impose, prevent, end
 ```
