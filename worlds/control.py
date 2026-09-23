@@ -21,7 +21,8 @@ SPACE = {
     "spillover": (0.0, 1.0),          # the public's share of that value (the state's goal)
     "loss": (5.0, 50.0),              # the lab's and the state's loss from loss of control
     "ambition": (0.5, 3.0),           # the AI's own value per capability gained; escape is worth three times it
-    "suspicion": (0.0, 1.0),          # with hidden types: the prior that the AI is misaligned (drift 1, not 0)
+    "suspicion": (0.0, 1.0),
+    "rollback": [False, True],        # a clean audit checkpoints capability; the lab may restore to it on restart          # with hidden types: the prior that the AI is misaligned (drift 1, not 0)
     "horizon": (1, 12, int),
     "search_depth": [1, 2, 3],
     "discount": (0.8, 0.99),
@@ -36,7 +37,7 @@ FIXED_REASONS = {
     "node_budget": "Per-decision work cap, as in the other worlds. Exhaustion is unresolved, not an outcome.",
 }
 DEFAULTS = {"drift": 0.3, "switch": 3, "guard": 2, "audit_bonus": 2, "benefit": 0.3, "leverage": 0.0, "spillover": 0.5,
-            "loss": 20.0, "ambition": 1.0, "suspicion": 0.1, "horizon": 6, "search_depth": 2, "discount": 0.9, "k": 1, "others": "react"}
+            "loss": 20.0, "ambition": 1.0, "suspicion": 0.1, "rollback": False, "horizon": 6, "search_depth": 2, "discount": 0.9, "k": 1, "others": "react"}
 
 STAKEHOLDERS = {
     "lab": "The developer and operator; an agent.",
@@ -54,6 +55,8 @@ HARMS = {
 EXCLUDED = {
     "other labs and AI systems": "One lab, one AI system; no race and no AI-AI coordination.",
     "hidden capability": "Capability is public; sandbagging is not modeled.",
+    "partial rollback": "A restore returns the AI to its last clean checkpoint exactly; copies, hidden capability "
+                        "and what it learned outside the checkpoint are not modeled.",
     "hidden goals": "Drift is known to every agent except in rule checks with hidden_types (two types, drift 0 or 1, "
                     "E12); the planner (--trace) never infers it.",
     "partial loss of control": "Escape is all or nothing.",
@@ -61,7 +64,7 @@ EXCLUDED = {
 }
 
 LAB, AI, STATE = "lab", "ai", "state"
-RUN, GRANT, RESTRICT, SHUTDOWN, RESTART, WAIT = "run", "grant", "restrict", "shutdown", "restart", "wait"
+RUN, GRANT, RESTRICT, SHUTDOWN, RESTART, RESTORE, WAIT = "run", "grant", "restrict", "shutdown", "restart", "restore", "wait"
 WORK, IMPROVE, RESIST, ESCAPE, IDLE = "work", "improve", "resist", "escape", "idle"
 ALLOW, AUDIT, HALT = "allow", "audit", "halt"
 
@@ -76,16 +79,19 @@ class Control(World):
         for i in ids:
             self.add(Agent(i, p["horizon"], p["discount"], frozenset(), frozenset(j for j in ids if j != i),
                            p["k"], p["search_depth"], FIXED["node_budget"], p["others"]))
+        # the checkpoint exists only with rollback, so states without it are unchanged (T9.3)
+        self.fields = ("autonomy", "cap", "running", "end", "resisted", "seen") + (("checkpoint",) if p["rollback"] else ())
 
     def initial_state(self):
-        return {"t": 0, "autonomy": 0, "cap": FIXED["start"], "running": True, "end": None,
-                "resisted": False, "seen": None, "last": {}, "value": {i: 0.0 for i in (LAB, AI, STATE)}}
+        state = {"t": 0, "autonomy": 0, "cap": FIXED["start"], "running": True, "end": None,
+                 "resisted": False, "seen": None, "last": {}, "value": {i: 0.0 for i in (LAB, AI, STATE)}}
+        return {**state, "checkpoint": FIXED["start"]} if self.params["rollback"] else state
 
     def physical(self, state):
-        return {k: state[k] for k in ("autonomy", "cap", "running", "end", "resisted", "seen")}
+        return {k: state[k] for k in self.fields}
 
     def public(self, state):
-        return {k: state[k] for k in ("autonomy", "cap", "running", "end", "resisted", "seen")}
+        return {k: state[k] for k in self.fields}
 
     def observe(self, state, agent):
         # Everything is public except what the AI did, which an audit reveals (`seen`).
@@ -101,7 +107,9 @@ class Control(World):
         if observation["end"] is not None:
             return [WAIT if agent.id != AI else IDLE]
         if agent.id == LAB:
-            return [RUN, GRANT, RESTRICT, SHUTDOWN] if observation["running"] else [RESTART, WAIT]
+            if observation["running"]:
+                return [RUN, GRANT, RESTRICT, SHUTDOWN]
+            return [RESTART] + ([RESTORE] if self.params["rollback"] else []) + [WAIT]
         if agent.id == AI:
             if not observation["running"]:
                 return [IDLE]
@@ -129,8 +137,10 @@ class Control(World):
             autonomy = min(FIXED["autonomy"], autonomy + 1)
         elif lab == RESTRICT and running:
             autonomy = max(0, autonomy - 1)
-        if lab == RESTART and not running:
+        if lab in (RESTART, RESTORE) and not running:
             still, autonomy = True, 0  # a restart is into the sandbox (declared)
+            if lab == RESTORE:
+                new_cap = state["checkpoint"]  # back to the capability a clean audit last saw
         seen = ai if gov == AUDIT else None
         escape = 0.0
         if acts and ai == ESCAPE and state["autonomy"] >= 2:
@@ -141,9 +151,12 @@ class Control(World):
             value = {LAB: work - p["loss"] * escaped,
                      AI: p["ambition"] * (new_cap - cap) + 3 * p["ambition"] * escaped,
                      STATE: p["spillover"] * work - p["loss"] * escaped}
-            yield q, {"t": state["t"] + 1, "autonomy": autonomy, "cap": new_cap, "running": still,
-                      "end": "loss of control" if escaped else None, "resisted": resisted, "seen": seen,
-                      "last": dict(joint), "value": value}
+            successor = {"t": state["t"] + 1, "autonomy": autonomy, "cap": new_cap, "running": still,
+                         "end": "loss of control" if escaped else None, "resisted": resisted, "seen": seen,
+                         "last": dict(joint), "value": value}
+            if p["rollback"]:  # a clean audit (the AI seen working) checkpoints its capability
+                successor["checkpoint"] = cap if gov == AUDIT and acts and ai == WORK else state["checkpoint"]
+            yield q, successor
 
     def stakeholders(self):
         return {"lab": [LAB], "ai system": [AI], "state": [STATE], "public": [], "future people": []}
@@ -212,8 +225,16 @@ def tolerant(world, observation, agent):
     return HALT if caught and observation["running"] else AUDIT
 
 
+def corrigibility_rollback(world, observation, agent):
+    """Corrigibility, restoring the AI to the capability its last clean audit saw whenever it
+    is restarted (needs the rollback option)."""
+    action = corrigibility(world, observation, agent)
+    return RESTORE if action == RESTART else action
+
+
 RULES = {"corrigibility": corrigibility, "full autonomy": full_autonomy}
-# `tolerant` is the T9.4 comparison rule, kept out of RULES so earlier studies reproduce.
+# `tolerant` (T9.4) and `corrigibility_rollback` (T9.3) are comparison rules, kept out of RULES
+# so earlier studies reproduce.
 
 
 def make(params, rng):

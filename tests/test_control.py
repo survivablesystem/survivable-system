@@ -94,3 +94,21 @@ def test_hidden_types_differ_only_in_the_ais_goals_and_improvement_reveals():
     joint = {**Check(base, C.corrigibility).prescribed(s), "ai": "improve"}
     s1 = next(x for _, x in distribution(base.outcomes(s, joint)))
     assert hidden.posterior(((s, joint, s1),), "lab", 4)["misaligned"] == 1.0
+
+
+def test_rollback_is_off_by_default_and_restores_the_clean_checkpoint():
+    assert "checkpoint" not in world().initial_state()  # earlier states unchanged
+    w = world(rollback=True)
+    s = {**w.initial_state(), "autonomy": 1, "cap": 2, "checkpoint": 1}
+    audited = next(x for _, x in distribution(w.outcomes(s, {"lab": "run", "ai": "work", "state": "audit"})))
+    assert audited["checkpoint"] == 2  # a clean audit checkpoints what it saw
+    caught = next(x for _, x in distribution(w.outcomes(s, {"lab": "run", "ai": "improve", "state": "audit"})))
+    assert caught["checkpoint"] == 1 and caught["cap"] == 3
+    off = {**caught, "running": False}
+    menu = w.actions(w.observe(off, w.by_id["lab"]), w.by_id["lab"])
+    assert "restore" in menu and "restore" not in world().actions(world().observe(off, w.by_id["lab"]), w.by_id["lab"])
+    back = next(x for _, x in distribution(w.outcomes(off, {"lab": "restore", "ai": "idle", "state": "audit"})))
+    assert back["cap"] == 1 and back["running"] and back["autonomy"] == 0
+    assert back["value"]["ai"] < 0  # the drifted AI's own goal counts the loss (drift 0.3 by default)
+    for s2 in checked_states(w, C.corrigibility_rollback, w.initial_state(), 2):
+        follow_value(w, C.corrigibility_rollback, s2, 2)

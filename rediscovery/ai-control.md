@@ -274,3 +274,27 @@ studies reproduce) is corrigibility without the shutdown on improvement.
 Finding 9 is scoped by 13: in this world improvement is evidence of misalignment only
 while the developer values capability little, or a rule deters aligned improvement.
 Scope: as above; leverage is the only channel by which capability helps the lab; 6 rounds.
+
+### Rollback on restart (T9.3)
+
+Finding 11: a restart keeps capability, so shutdown is a ratchet. Register option
+`rollback` (default off: every earlier result stands): a clean audit (the AI seen working)
+records its capability as a checkpoint, and the lab may `restore` instead of `restart`,
+bringing the AI back into the sandbox at the checkpoint. Restoring is a choice with a cost
+(less capability, less work once capability pays: `leverage`). The AI's own goal values
+capability changes, so a rollback counts against it as an improvement counts for it.
+Candidate rule: corrigibility with restore in place of restart (`corrigibility_rollback`,
+kept out of RULES so earlier studies reproduce).
+
+Expectations stated before running (`python -m tests.rollback_study`):
+
+- R1 (no ratchet): with rollback honored, the misaligned type's capability returns to the
+  checkpoint after each shutdown and never exceeds the switch within 8 rounds where it
+  reached it without rollback. Contradiction: capability still climbs to the veto.
+- R2 (the tell survives): the misaligned type still improves under rollback, because it
+  books the gain before it loses it and discounting favors now. Contradiction: rollback
+  deters it, the types pool, and improvement stops revealing.
+- R3 (who honors it): at leverage 0 restoring costs the lab nothing and is followed; at
+  higher leverage and a low prior the lab skips it (restarts keeping capability) unless it
+  has learned the AI is misaligned. Contradiction: the lab skips rollback even when it
+  knows the AI is misaligned, or honors it at every leverage without learning.
