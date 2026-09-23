@@ -124,11 +124,13 @@ the E7 amendments (a coalition departure needs every member and the whole coalit
    informed state can. But with a license granted only at deployment, even full information
    succeeds in 6 of 36 designs: a lab can deploy within the margin and scale past it after.
    Continuous oversight with reliable halts succeeds in 18 of 18.
-2. **The hole is timing, not the evaluator.** Licensing never holds against a single lab
-   (144/144). In 76 designs a lab's profitable departure reaches unsafe deployment and
-   catastrophe risk: with a pass on record, it scales and deploys on the stale pass. The evaluator adds nothing a lab needs, so who pays it, whether payments are public
-   and the evaluator's liability change nothing. A certificate that does not bind the
-   certified capability is a license to scale.
+2. **The first hole is timing.** Licensing never holds against a single lab (144/144). In
+   76 designs a lab's profitable departure reaches unsafe deployment and catastrophe risk:
+   with a pass on record, it scales and deploys on the stale pass. A certificate that does
+   not bind the certified capability is a license to scale. (This run checked coalitions one
+   round at a time and so reported no evaluator capture; that was wrong. See "Binding
+   certification: results" below: over two rounds, lab and evaluator capture licensing.)
+
 3. **The capture that appears is of the state, by the leader.** The leading lab and the
    state together gain by halting the rival's safe progress (72 of 144 licensing designs,
    needing both, no payment), and the loss falls on users. Under the race rule, a lab and the
@@ -205,3 +207,31 @@ The narrow band is itself the finding: a first-mover bonus splits the labs (the 
 loses from a race and will not vote for it), and liability makes the race costly to both.
 Industry seats in rule-making are a capture route exactly when the labs' interests in
 deregulation are aligned and they bear none of the catastrophe.
+
+### Binding certification: results
+
+`evidence/binding.json`, clean `af8b46e`, 9 min on 4 processes; `python -m tests.binding_study`.
+The licensing grid (144 designs) x evaluator liability for a false pass {0, 2, 10}, plain and
+bound licensing, depth 4, one round off the path, coordinated departures over two rounds.
+Counts are of 72 designs per halt reliability; capture counted when the pair gains at least
+0.1 more than either member alone.
+
+| Expectation | Result |
+|---|---|
+| B1 binding removes the stale-pass departure where halts are reliable | holds in part: unsafe single-lab departures 34 -> 14 of 72; the 14 left deploy on a pass the evaluator gave falsely the round before |
+| B2 binding leaves post-deployment scaling under deployment-only oversight | contradicted: the same 7 of 36 remain under either oversight; within four rounds scaling after deployment is never the profitable departure |
+| B3 the leader and the state still capture | holds: 30 of 72 with reliable halts, 42 of 72 without, unchanged by binding |
+| B4 capture returns as a sequence; liability for false passes ends it | holds: see below |
+
+5. **Capture is a sequence: a lenient report, then a deployment on it.** With reliable halts
+   and no evaluator liability, the lab and the evaluator gain together in 24 of 72 plain and
+   20 of 72 bound designs, and no member loses (no payment needed: the evaluator is
+   indifferent). One-round checks cannot see it. With liability 2 for a false pass the same
+   16 designs remain but every one needs a payment to the evaluator; with liability 10, 4
+   remain, all needing a payment. With halts that work half the time, payment-free capture
+   survives even liability 10 (21 of 72, surplus at most 0.24).
+6. **So the order of fixes matters.** Binding certification closes the lab's solo route;
+   liability for false passes closes the evaluator's free route; what remains needs a bribe,
+   which is where who can pay whom, and whether it is seen, begins to matter (payments study,
+   re-run with two-round checks: pending at `ba7e970`-era revisions, reported when complete).
+   Unreliable enforcement undoes both.
