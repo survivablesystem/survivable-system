@@ -101,7 +101,9 @@ labs beyond the evaluator channel.
 
 ## Engine findings (T9.1, 2026-09-23)
 
-`evidence/frontier.json`, clean `893d2cf`, 200 s on 4 processes; `python -m tests.frontier_study`.
+`evidence/frontier.json`, first run clean `893d2cf`; re-run clean `67cf935` (40 min on 4 processes)
+with two-round coalition checks in the payment designs and the per-evaluation work cap: every
+number in findings 1-4 is identical in both. `python -m tests.frontier_study`.
 Information: oversight x margin {0, 1, 2} x lead {0, 1, 2} x capacity {0.5, 1} x T {2, 3}
 (72 designs), sure prevention of "unsafe deployment or safe progress blocked" by the state,
 state with evaluator, state with either lab, and a fully informed state. Rules: licensing
@@ -116,7 +118,7 @@ the E7 amendments (a coalition departure needs every member and the whole coalit
 |---|---|
 | F1 the state alone cannot avoid both harms; with the evaluator it can | holds: with the evaluator the state succeeds exactly where a fully informed state does, in all 72 designs; alone in 8 |
 | F2 lab-evaluator pairs capture licensing | first reported contradicted (one-round checks); corrected: holds as a two-round sequence (finding 5) |
-| F3 who pays and payment visibility decide capture | one-round result: no effect; re-run with two-round checks pending (finding 6) |
+| F3 who pays and payment visibility decide capture | contradicted with two-round checks too: no payment design changes anything; evaluator liability does (finding 6) |
 | F4 a larger first-mover bonus breaks licensing | holds: no harmful departure in 18/48 designs without a bonus, 10/48 with one |
 
 1. **The evaluator is exactly the state's missing information, and not enough.** In every
@@ -230,8 +232,11 @@ Counts are of 72 designs per halt reliability; capture counted when the pair gai
    16 designs remain but every one needs a payment to the evaluator; with liability 10, 4
    remain, all needing a payment. With halts that work half the time, payment-free capture
    survives even liability 10 (21 of 72, surplus at most 0.24).
-6. **So the order of fixes matters.** Binding certification closes the lab's solo route;
-   liability for false passes closes the evaluator's free route; what remains needs a bribe,
-   which is where who can pay whom, and whether it is seen, begins to matter (payments study,
-   re-run with two-round checks: pending at `ba7e970`-era revisions, reported when complete).
-   Unreliable enforcement undoes both.
+6. **The lever is the evaluator's stake, not its paymaster.** The payment designs, re-run
+   with two-round checks (`evidence/frontier.json`, clean `67cf935`, 40 min: labs pay
+   privately; state pays with a private lab channel; state pays, payments public, payers
+   halted; each against evaluator liability {0, 2, 10}), give identical results: lab and
+   evaluator capture licensing in 4 of 8 designs per payment design without liability, and in
+   none with liability 2 or 10, even though bribes of 0.5 and 1.5 were available and seen or
+   unseen. Binding certification closes the lab's solo route; liability for false passes
+   closes the evaluator's; unreliable enforcement undoes both (binding results above).

@@ -154,8 +154,8 @@ checked over 512 designs (records, assembly, repayment, disclosure, army, contes
 
 ## Frontier AI (T9.1)
 
-`frontier.json` identifies clean source `893d2cf`. Reproduce with `python -m tests.frontier_study`
-(about 3.5 minutes on 4 processes). Information-restricted sure prevention of unsafe
+`frontier.json` identifies clean source `67cf935` (re-run; the first run was `893d2cf`). Reproduce with
+`python -m tests.frontier_study` (about 40 minutes on 4 processes; the payment designs use two-round checks). Information-restricted sure prevention of unsafe
 deployment and of blocked safe progress for four coalitions over 72 designs; licensing and
 race rules over 144 designs with harmful-departure witnesses and pair captures; three payment
 designs against evaluator liability; per-harm power at the defaults under both oversight modes.

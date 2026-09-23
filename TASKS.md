@@ -100,7 +100,7 @@ Forces: claims as a candidate primitive (a decision record and discriminating ca
 
 ## Stage 9: first real scenario
 
-- T9.1 Frontier AI. [done (first scope): Claude, 2026-09-23; scope answered by the owner: labs, a lab-paid evaluator, a state that licenses or halts, AI as capability stock; `worlds/frontier.py`, findings in `rediscovery/frontier-ai.md`, `evidence/frontier.json` (clean `893d2cf`). Next within scope: a licensing rule that binds the certified capability (re-evaluation before deployment), then AI systems as agents (delegation with drift) as a separate case] Labs, regulator, state, AI systems as a type whose capability grows per round. Modules: disclosure channel, compute attestation. Question: which coalitions can force lock-in, and does either module change that.
+- T9.1 Frontier AI. [done (first scope): Claude, 2026-09-23; scope answered by the owner: labs, a lab-paid evaluator, a state that licenses or halts, AI as capability stock; `worlds/frontier.py`, findings in `rediscovery/frontier-ai.md`, `evidence/frontier.json` (clean `893d2cf`). Binding certification, two-round capture, evaluator liability and rule-making done the same day (findings 5-6, rule-making section; `evidence/binding.json`, `evidence/amendment.json`). AI systems as agents: T9.2] Labs, regulator, state, AI systems as a type whose capability grows per round. Modules: disclosure channel, compute attestation. Question: which coalitions can force lock-in, and does either module change that.
 
 ## Anytime
 
