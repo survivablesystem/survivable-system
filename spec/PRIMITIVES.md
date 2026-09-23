@@ -50,6 +50,10 @@ rules:           nested levels. L0 operational: which actions are allowed. L1 co
                  constraint. Violating it is an action; it succeeds or fails in a contest against
                  whoever chooses to enforce, and the enforcing coalition depends on agents'
                  beliefs about each other. (Forced by rediscovery/standing-army.)
+                 Levels are a module (decision 2026-09-23, E10): `engine/constitution.py` makes
+                 the regime in force a public fact that declared voters can amend by a threshold;
+                 the conduct checked is "follow the regime in force". Who votes and the threshold
+                 are the L1 rule; L2 is the module nested.
                  Implemented as declared conduct (decision 2026-09-23, E7): a world's RULES map
                  each agent's observation to an action; the kernel never enforces them. Queries
                  ask whether following pays (one-shot departures, on and off the path) and which
@@ -100,7 +104,8 @@ For a composed world, under a sweep over the assumptions register:
 - **externalization**: per declared harm, the thresholds above plus the smallest coalition that can force it without any affected agent, whether the affected can prevent it, and which affected stakeholders have no agent (`engine.power.externalization`).
 
 Power is goal-free (`engine/power.py`, bounded form implemented). Within T rounds, a coalition maximizes the probability of entering a flagged terminal label; the complement minimizes it as one coordinated adversary; both see the full state; chance follows `outcomes`. Stage orders bracket the value: alpha (coalition commits first) is its guarantee, beta an upper bound; randomized play lies between. Prevention is the dual. Goals, horizons, beliefs and planner limits do not enter, so a power claim does not depend on them. What agents do (planner) and what coalitions could force (power) are separate reports; protection that rests on the gap between them is deterrence, not denial. Worlds may declare `physical(state)`, the part fixing menus, kernel and terminal status, as a memo key; the default is the whole state. Thresholds with an unresolved or straddling smaller coalition are upper bounds. Exact enumeration is exponential in agents and T; no claim extends beyond T.
-- **enforcement** (goal-based, `engine.rules.enforcement`, CLI `--enforce D --rule NAME`): does a declared rule hold within D rounds? Per agent, the best one-shot departure (its own information) at the start and at every state within `reach` rounds with at most one departure per round, so punishments off the path are checked; per coalition, the best one-shot joint departure (full information, summed value: an upper bound, side payments assumed), and separately the best departure that newly reaches a declared harm on stakeholders outside it (capture). Value beyond D is not counted. What coalitions could force (power) ignores goals; whether a rule holds depends on them.
+- **assessment** (`engine/assess.py`, `--assess T`): one screen for any world and proposed rule, robust results first (power over declared harms), then goal-dependent ones (does the rule hold, harmful departures, capture over one or two rounds), then exclusions.
+- **enforcement** (goal-based, `engine.rules.enforcement`, CLI `--enforce D --rule NAME`): does a declared rule hold within D rounds? Per agent, the best one-shot departure (its own information) at the start and at every state within `reach` rounds with at most one departure per round, so punishments off the path are checked; per coalition, the best one-shot joint departure (full information, summed value: an upper bound, side payments assumed), and separately the best departure that newly reaches a declared harm on stakeholders outside it (capture). With a window of W rounds, also coordinated departures spread over rounds (a report, then an act on it), counted as capture only if they beat what any one member achieves alone. Value beyond D is not counted. What coalitions could force (power) ignores goals; whether a rule holds depends on them.
 - **finite outcomes**: labels and terminal status at a stated duration, plus shares over the sampled assumptions. Survival to the time limit is not an attractor or a probability of real-world survival. Attractor detection is not implemented.
 - **coalition power**: can coalition C force outcome X. Answered per sample, reported as a fraction across samples.
 - **diff**: any of the above for world A minus world B, or one world under two scenarios.
@@ -123,7 +128,7 @@ Individual psychology beyond goals and horizon. Physical detail of the world bey
 | beliefs, level 0 and 1 | implemented | level 2 or learned: A1 |
 | contests, ratio form | implemented in the commons | second form: A2 |
 | resources with conversion | per-world only; utility transfers as a module (E8) | T2.2 |
-| rules as claims | declared conduct, tested (E7) | nested levels (amendment rules) |
+| rules as claims | declared conduct, tested (E7); amendment by declared voters (E10) | L2 nesting when a case needs it |
 | delegation with drift | not yet | standing army |
 | irreversibility | declared (terminal labels, harm flags) and computed (lock, E5) | |
 | error and correction | bounded: end, keep, veto and lock of declared harms (E5) | errors in beliefs |
@@ -135,7 +140,7 @@ Individual psychology beyond goals and horizon. Physical detail of the world bey
 | queries: goal-free force/prevent thresholds over terminal labels, bounded T | implemented | |
 | queries: lock-in and correction over declared harms, including authority (`worlds/authority.py`) | implemented, bounded T and T' | |
 | rules as claims: self-enforcement, coalition and externalizing departures | implemented, one-shot, bounded depth | learned beliefs |
-| side payments, public records (modules over any world) | implemented (E8, E9) | budgets, contracts, private memory |
+| side payments, public records, amendment (modules over any world) | implemented (E8, E9, E10) | budgets, contracts, private memory |
 | first real scenario (frontier AI, owner's scope) | `worlds/frontier.py` | AI systems as agents |
 | queries: diff | not yet | T7.2 |
 
