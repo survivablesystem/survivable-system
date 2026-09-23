@@ -108,7 +108,9 @@ FIXED_CAP = A.FIXED["cap"]
 def behavior():
     """P4 and traces: the same sampled parameters and seed with assembly none and all."""
     rng = random.Random(BEHAVIOR_SEED)
-    space = {k: v for k, v in A.SPACE.items() if k != "assembly"}
+    # the register as it was for E5: A2's additions are kept out so the sample reproduces
+    space = {k: (["threshold", "ratio"] if k == "contest" else v) for k, v in A.SPACE.items()
+             if k not in ("assembly", "decisiveness")}
     samples = []
     for i in range(BEHAVIOR_SAMPLES):
         params = sample_params(space, rng)

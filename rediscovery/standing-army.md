@@ -287,3 +287,20 @@ Lock-in threshold at the ruler's exit: one agent, the commander.
 | Written succession rule alone | No change. A claim with no enforcer |
 
 The third row is the one careful designers get wrong. It is the first test of intent test 6.
+
+## Contest family (A2)
+
+Finding 3 left open whether coup-proofing entrenches (finding 2) or protects correction
+depending on how decisive contests are. Register option `contest = tullock`: an attack wins
+with probability a^m / (a^m + (advantage x d)^m); m = 1 with advantage 1 is the ratio
+contest (tested), large m decides at level one half as the threshold contest does (tested).
+All forms are read at level p = 0.5, where the deterministic threshold contest decides as it
+does at certainty, so the comparison does not change level with form.
+
+Expectations stated before running (`python -m tests.contest_study`):
+
+- A1 (a switch in decisiveness): over the cells of findings 2-3, the cells where splitting
+  gives the ruler a veto on correction rise with m, and those where it removes one fall,
+  crossing at some m between ratio and threshold. Contradiction: no monotone change in m.
+- A2 (advantage): with the defender's advantage 1.5 the switch comes at a lower m than with
+  advantage 1. Contradiction: advantage does not move it, or moves it the other way.

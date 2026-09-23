@@ -120,3 +120,14 @@ def test_lock_equals_force_for_the_declared_irreversible_harm():
         if A.HARMS[row["harm"]]["irreversible"]:
             assert row["lock"]["size"] == row["force"]["size"]
             assert row["lock"]["witnesses"] == row["force"]["witnesses"]
+
+
+def test_tullock_family_joins_ratio_and_threshold():
+    ratio, tullock1 = world(contest="ratio"), world(contest="tullock", decisiveness=1.0, advantage=1.0)
+    sharp, threshold = world(contest="tullock", decisiveness=64.0), world(contest="threshold")
+    for a in range(0, 7):
+        for d in range(0, 7):
+            assert tullock1.contest(a, d) == pytest.approx(ratio.contest(a, d))
+            # at level one half, a very decisive contest decides as the threshold contest does
+            assert (sharp.contest(a, d) >= 0.5) == (threshold.contest(a, d) >= 0.5)
+    assert 0.5 < world(contest="tullock", decisiveness=4.0, advantage=1.0).contest(3, 2) < 1.0

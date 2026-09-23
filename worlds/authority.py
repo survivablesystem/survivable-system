@@ -18,8 +18,9 @@ SPACE = {
     "citizens": [1, 2, 3],            # citizens, strength one each
     "guard": (0, 3, int),             # the ruler's own strength at the start
     "gain": [0, 1, 2],                # strength the holder gains per round of extraction
-    "contest": ["threshold", "ratio"],
+    "contest": ["threshold", "ratio", "tullock"],
     "advantage": (1.0, 2.0),          # threshold: attack succeeds iff >= advantage * defense
+    "decisiveness": (1.0, 64.0),      # tullock: a^m / (a^m + (advantage * d)^m); m = 1, advantage 1 is ratio
     "surveillance": ["none", "army", "all"],  # whose organizing the holder sees (and can purge)
     "assembly": ["none", "all"],      # whether non-holders see each other organize
     "prize": (0.0, 2.0),              # utility per round in office
@@ -38,7 +39,7 @@ FIXED_REASONS = {
     "node_budget": "Per-decision work cap, as in the other worlds. Exhaustion is unresolved, not an outcome.",
 }
 DEFAULTS = {"commands": 1, "army": 3, "citizens": 2, "guard": 1, "gain": 1, "contest": "threshold",
-            "advantage": 1.5, "surveillance": "all", "assembly": "none", "prize": 1.0, "rent": 1.0,
+            "advantage": 1.5, "decisiveness": 4.0, "surveillance": "all", "assembly": "none", "prize": 1.0, "rent": 1.0,
             "burden": 1.0, "horizon": 6, "search_depth": 2, "discount": 0.9, "k": 1, "others": "react"}
 
 # Who the modeled outcomes fall on (decision 2026-09-23, E1). Agents or not.
@@ -127,6 +128,11 @@ class Authority(World):
     def contest(self, attack, defense):
         if self.params["contest"] == "threshold":
             return 1.0 if attack > 0 and attack >= self.params["advantage"] * defense else 0.0
+        if self.params["contest"] == "tullock":  # A2: between ratio (m = 1) and threshold (m large)
+            if attack <= 0:
+                return 0.0
+            m, d = self.params["decisiveness"], self.params["advantage"] * defense
+            return 1.0 / (1.0 + (d / attack) ** m)
         return attack / (attack + defense) if attack + defense else 0.0
 
     def outcomes(self, state, joint):
