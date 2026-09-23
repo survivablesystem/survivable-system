@@ -91,7 +91,7 @@ def test_a_rule_that_holds_alone_can_fail_to_a_coalition_at_a_third_partys_expen
     assert ab["gain"] == pytest.approx(2.0) and ab["members"] == {"a": pytest.approx(1), "b": pytest.approx(1)}
     assert ab["actions"] == {"a": "X", "b": "X"} and ab["others"]["c"] == pytest.approx(-6)
     assert ab["new_harms"] == ["hurt"] and ab["falls_outside"] == {"hurt": ["c"]} and ab["every_member"]
-    assert pairs[("a", "c")]["gain"] == pytest.approx(-1.0)  # a alone earns 0 instead of 1
+    assert pairs[("a", "c")]["gain"] == 0.0 and pairs[("a", "c")]["externalizing"] is None  # c has nothing to depart to
 
 
 class Entry(Repeated):

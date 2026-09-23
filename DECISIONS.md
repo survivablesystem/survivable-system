@@ -100,6 +100,10 @@ Change (`engine/rules.py`, over any world):
 - Coalition: full information and transferable utility (members' summed value, an upper
   bound). Reports per-member gains, what non-members lose, and declared harms the
   departure newly reaches, with the stakeholders outside the coalition they fall on.
+  Amended the same day (T9.1): every member must depart; a "pair" where one member only
+  receives a payment repeated the other's unilateral departure. Reports also separate
+  departures paying every member without side payments (E8) and, for single agents,
+  departures that newly reach a harm from harmless ones.
 - Work caps mark unresolved checks, never "holds".
 
 Scope: finite depth D, no claim beyond it; one rule profile at a time; no belief learning.

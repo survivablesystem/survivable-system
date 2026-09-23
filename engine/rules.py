@@ -100,7 +100,8 @@ class Check:
         return {"gain": top - follow, "action": choice, "rule_action": rule_action, "harmful": harmful}
 
     def joint(self, state, coalition, depth, outside=lambda harms: {}):
-        """Best one-shot joint departure of a coalition, full information, summed value; and
+        """Best one-shot joint departure of a coalition (every member departs), full
+        information, summed value; and
         the best among departures that newly reach a harm falling outside the coalition
         (`outside` maps new harms to the outside stakeholders they fall on), with summed value
         and, separately, among those where no member loses and one gains (no side payments
@@ -109,8 +110,8 @@ class Check:
         follow, follow_harms = self.follow(state, depth)
         top = ext = every = None
         for choice in product(*self.menus(state, coalition)):
-            if all(key(a) == key(base[i]) for i, a in zip(coalition, choice)):
-                continue
+            if any(key(a) == key(base[i]) for i, a in zip(coalition, choice)):
+                continue  # every member departs; departures by fewer are checked as smaller coalitions
             values, harms = self.play(state, {**base, **dict(zip(coalition, choice))}, depth)
             total = math.fsum(values[i] for i in coalition)
             falls = {h: names for h, names in outside(sorted(harms - follow_harms)).items() if names}
