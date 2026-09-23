@@ -187,3 +187,23 @@ with tests before the recorded run.
    keeps parity, while the blind trailer holds and is disarmed in round 2. T3.1's "none
    toward compliance" was a property of its sample, not a law. Across both samples,
    verification reduced runs where nobody builds (threshold: 45 to 34, then 47 to 40).
+
+## Hidden choice (T3.3), stated before building
+
+Register `domains` in {1, 2}. Capability becomes one number per domain; build and strike
+name a domain (`build`, `strike` for the first; `build:1`, `strike:1` for the second).
+A strike is decided by the two parties' capability in its domain. Strikes in different
+domains in the same round are separate contests; if both succeed, both are disarmed
+(`both_disarmed`). The lead applies in every domain; the security term sums domains.
+Unverified beliefs put each unobserved build in a uniformly chosen domain (declared).
+State now stores capability per domain even for one domain, so T3.1/T3.2 studies
+reproduce at their recorded revisions only.
+
+- H1 (power): with two domains, some cells have verified but not blind sure prevention.
+  Mechanism: a blind trailer must split its builds, a leader can concentrate, and in one
+  domain the ratio can reach the threshold. Contradiction: blind equals verified in every
+  two-domain cell (then the hidden-choice account of T3.2 finding 6 is wrong or
+  incomplete).
+- H2 (power, control): with one domain, blind equals verified in every cell, as in T3.2.
+- H3: the differing cells appear only at longer T (the concentrated lead takes rounds to
+  build). No prediction on how many.

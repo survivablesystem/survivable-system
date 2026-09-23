@@ -22,7 +22,7 @@ def test_kernel_is_a_distribution_for_every_joint(contest):
     w = world(contest=contest)
     for ca in range(0, 7):
         for cb in range(0, 7):
-            state = {**w.initial_state(), "cap": {"a": ca, "b": cb}}
+            state = {**w.initial_state(), "cap": {"a": [ca], "b": [cb]}}
             for ja in treaty.HOLD, treaty.BUILD, treaty.STRIKE:
                 for jb in treaty.HOLD, treaty.BUILD, treaty.STRIKE:
                     support = distribution(w.outcomes(state, {"a": ja, "b": jb}))
@@ -33,7 +33,7 @@ def test_hidden_rival_capability_does_not_change_values():
     w = world(verification="none")
     a = w.by_id["a"]
     base = {**w.initial_state(), "t": 2}
-    variants = [{**base, "cap": {"a": 3, "b": c}, "builds": {"a": 0, "b": k}} for c, k in ((2, 0), (3, 1), (4, 2))]
+    variants = [{**base, "cap": {"a": [3], "b": [c]}, "builds": {"a": [0], "b": [k]}} for c, k in ((2, 0), (3, 1), (4, 2))]
     observations = {key(w.observe(s, a)) for s in variants}
     assert len(observations) == 1
     values = [action_values(w, s, a) for s in variants]
@@ -54,12 +54,12 @@ def test_beliefs_reproduce_the_observation():
 
 def test_threshold_strike_disarms_only_with_the_advantage():
     w = world(contest="threshold", advantage=2.0)
-    state = {**w.initial_state(), "cap": {"a": 4, "b": 2}}
+    state = {**w.initial_state(), "cap": {"a": [4], "b": [2]}}
     [(p, after)] = list(w.outcomes(state, {"a": treaty.STRIKE, "b": treaty.BUILD}))
     assert p == 1.0 and after["end"] == "b_disarmed" and after["value"]["a"] > 0 > after["value"]["b"]
-    state = {**w.initial_state(), "cap": {"a": 3, "b": 2}}
+    state = {**w.initial_state(), "cap": {"a": [3], "b": [2]}}
     [(p, after)] = list(w.outcomes(state, {"a": treaty.STRIKE, "b": treaty.BUILD}))
-    assert after["end"] is None and after["cap"] == {"a": 3, "b": 3}
+    assert after["end"] is None and after["cap"] == {"a": [3], "b": [3]}
 
 
 def test_power_reads_no_goals():
@@ -103,7 +103,7 @@ def test_scarce_beliefs_reproduce_observation_and_respect_the_budget():
         assert sum(p for p, _ in support) == pytest.approx(1)
         assert all(key(w.observe(s, agent)) == key(observation) for _, s in support)
         rival = treaty.RIVAL[agent.id]
-        assert max(s["builds"][rival] for _, s in support) == 1  # 1 + 3 - 2k >= 1
+        assert max(sum(s["builds"][rival]) for _, s in support) == 1  # 1 + 3 - 2k >= 1
         assert all(s["budget"][rival] >= 0 for _, s in support)
 
 
@@ -118,5 +118,30 @@ def test_scarce_beliefs_are_a_distribution_at_every_round(prior, reserve):
             assert sum(p for p, _ in support) == pytest.approx(1)
             if prior == 1.0 and t:
                 rival = treaty.RIVAL[agent.id]
-                assert support[0][1]["builds"][rival] == max(
+                assert sum(support[0][1]["builds"][rival]) == max(
                     k for k in range(t + 1) if k == 0 or reserve + t - 2 * k >= 1)
+
+
+def test_two_domains_menus_contests_and_mutual_disarmament():
+    w = world(domains=2, contest="threshold", advantage=2.0)
+    a = w.by_id["a"]
+    assert w.actions(w.observe(w.initial_state(), a), a) == ["hold", "build", "build:1", "strike", "strike:1"]
+    state = {**w.initial_state(), "cap": {"a": [4, 2], "b": [2, 4]}}
+    [(p, after)] = list(w.outcomes(state, {"a": "strike", "b": "strike:1"}))
+    assert after["end"] == "both_disarmed" and after["value"]["a"] == pytest.approx(after["value"]["b"])
+    [(p, after)] = list(w.outcomes(state, {"a": "build:1", "b": "strike"}))
+    assert after["end"] is None and after["cap"]["a"] == [4, 3]
+    ratio = world(domains=2, contest="ratio")
+    support = distribution(ratio.outcomes({**state, "cap": {"a": [3, 1], "b": [1, 3]}}, {"a": "strike", "b": "strike:1"}))
+    assert len(support) == 4 and sum(p for p, s in support if s["end"] == "both_disarmed") == pytest.approx(9 / 16)
+
+
+def test_two_domain_beliefs_split_unobserved_builds():
+    w = world(domains=2, verification="none", prior_build=0.5)
+    state = {**w.initial_state(), "t": 2}
+    agent = w.by_id["a"]
+    support = w.beliefs(w.observe(state, agent), agent)
+    assert sum(p for p, _ in support) == pytest.approx(1) and len(support) == 6
+    by = {tuple(s["builds"]["b"]): p for p, s in support}
+    assert by[(0, 0)] == pytest.approx(0.25) and by[(1, 1)] == pytest.approx(0.125)
+    assert all(key(w.observe(s, agent)) == key(w.observe(state, agent)) for _, s in support)
