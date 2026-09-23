@@ -65,7 +65,8 @@ value. See `rediscovery/coalition-power.md`.
 
 ## Restraint
 
-`restraint.json` identifies clean source `4175ae0`. Reproduce with
+`restraint.json` identifies clean source `98cafb1` (re-run of the `4175ae0` study after interior
+reward integration; neighborhood behavior identical, five unresolved random runs now resolve). Reproduce with
 `python -m tests.restraint_study` at that revision (about 3 minutes). Paired runs with
 restraint off and on (same parameters and seed; menus differ, so random draws are not
 guaranteed to align), full traces for the one-at-a-time neighborhood, random-sample
@@ -119,7 +120,8 @@ per-harm reports for commons stocks and treaty settings at T=3.
 
 ## Race on a shared fishery (composition)
 
-`race-commons.json` identifies clean source `2d220b6`. Reproduce with
+`race-commons.json` identifies clean source `98cafb1` (re-run after interior reward integration;
+power rows unchanged from `2d220b6`, previously unresolved `plan` runs now resolve). Reproduce with
 `python -m tests.race_commons_study` (about 5 minutes). Declarations and coverage,
 fishery harms alone versus in the whole by draw and stock, forced choices over draw,
 stock and treaty settings, and planner runs under both opponent models.
@@ -136,6 +138,13 @@ per-size rows, `stands_for` counts, thresholds, work and timing.
 (about 27 minutes on 4 processes). Race-on-a-fishery power tables for depletion and collapse
 with 1 to 10 exchangeable fishers over stock and draw, with per-coalition rows, `stands_for`,
 thresholds, work and timing.
+
+## Size (E2 step 3)
+
+`size.json` identifies clean source `0221c21`. Reproduce with `python -m tests.size_study`
+(about 13 minutes on 4 processes). Commons runs over sanctions, prior, regrowth, high take,
+n from 2 to 24 and two seeds, 30 rounds, per-round choice counts and stock; plus the
+sanction-cost discriminating check.
 
 ## Authority and correction
 

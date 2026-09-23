@@ -15,7 +15,7 @@ treaty's "third states"; tested).
 With a positive draw, fishery harms become forceable by the racers, and a party may face
 a forced choice between its own safety and the fishery. Contradiction: no row changes.
 
-## Findings (`evidence/race-commons.json`, clean `2d220b6`, 5 min; T=2, p=1)
+## Findings (`evidence/race-commons.json`, clean `2d220b6`, re-run `98cafb1`, 6 min; T=2, p=1)
 
 1. **The whole shows harms the parts do not.** 8 of 18 fishery harm rows differ between
    the fishery alone and the whole; all differences are at positive draws, none at draw 0.
@@ -34,7 +34,11 @@ a forced choice between its own safety and the fishery. Contradiction: no row ch
    "survives" 30 rounds, as does the whole at draw 0, but both are on a depletion cycle
    (stock 8.9 at round 30). One build at draw 0.5 moves collapse to round 29; at draw 2,
    to 25. The finite label hides a trajectory the power profile would flag. Under
-   `others = plan` the composite exceeds the work cap by round 5: unresolved.
+   `others = plan` the composite exceeded the work cap by round 5; since interior reward
+   integration (E2 step 3; re-run `evidence/race-commons.json`, clean `98cafb1`) it resolves:
+   survived at draw 0, collapse at 30, 24 and 16 at draw 0.5, 1 and 2. Every run resolved
+   before is identical, and the new runs repeat the old actions up to where they stopped.
+   The race brings collapse forward further when every actor expects the others to plan.
 
 Limits: three actors, T=2 exact; the coupling is one authored flow. Exponential in actors
 and menus (the composite's menus are products). Nothing here is about real fisheries or

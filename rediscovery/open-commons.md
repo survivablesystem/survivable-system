@@ -122,7 +122,7 @@ baseline; old results stay reproducible at `restraint=False` and at their revisi
 
 ### Restraint findings
 
-Artifact: `evidence/restraint.json`, clean source `4175ae0`, 3 min. Reproduce with
+Artifact: `evidence/restraint.json`, clean source `4175ae0` (re-run `98cafb1`, current fixture), 3 min. Reproduce with
 `python -m tests.restraint_study` at that revision. 17 one-at-a-time variants x seeds 0-2,
 and 60 random register samples (seed 616), each run with restraint off and on at the same
 parameters and seed; power maps at T=3 for paid and unpaid designs.
@@ -132,7 +132,7 @@ parameters and seed; power maps at T=3 for paid and unpaid designs.
 | R1 whole group can always prevent | holds: with rest, prevent(everyone) = 1 at every tested stock; no stock is sealed |
 | R2 rest only helps prevention | holds at every state and coalition; paid S=20: one user could force collapse, now three are needed; paid S=30: one user prevents |
 | R3 baseline agents do not rest | holds: 48 of 51 neighborhood runs have identical traces and no rest; only n=2 rests (twice, at the brink) and collapses one round later |
-| R4 restraint anywhere | 1 of 60 random samples survives only with restraint; 1 becomes unresolved (larger menu, same work cap); 53 collapse either way, 4 unresolved either way, 1 survives either way |
+| R4 restraint anywhere | 1 of 60 random samples survives only with restraint; 1 becomes unresolved (larger menu, same work cap); 53 collapse either way, 4 unresolved either way, 1 survives either way. Re-run at `98cafb1` (interior reward integration): 55 collapse either way, 2 unresolved only with restraint, 1 either way; every newly resolved run collapses, the survivor is unchanged |
 
 1. **Collapse is now a choice, not a physical necessity.** With restraint the commons has
    no sealed state short of S_min, and small minorities can prevent collapse over wide
@@ -227,3 +227,50 @@ and cost both scale as 1/n.
 - S3. The paid baseline's depletion cycle (all high together, then low with sanctions)
   is not a lone defection and is unaffected by n from 4 up. Contradiction: survival at
   some n.
+
+### Size findings (`evidence/size.json`, clean `0221c21`, 13 min on 4 processes; `python -m tests.size_study`)
+
+384 runs: sanctions {none, paid, unpaid} x prior {lo, ready} x r {0.3, 0.5} x high take
+{2, 3} x n {2, 3, 4, 6, 8, 12, 16, 24} x seeds {0, 1}, 30 rounds, depth 2, react. All
+resolved (largest 71 s at n=24); both seeds identical everywhere.
+
+| sanctions, prior, r, high | n=2 | 3 | 4 | 6 | 8 | 12 | 16 | 24 |
+|---|---|---|---|---|---|---|---|---|
+| paid, lo, 0.3, 2 | C10 | S | S | S | S | S | S | S |
+| paid, lo, 0.5, 2 (baseline) | C8 | C17 | C17 | C17 | C17 | C17 | C17 | C17 |
+| paid, lo, 0.5, 3 | C6 | C8 | C7 | C7 | C7 | C7 | C7 | C7 |
+| unpaid, lo, 0.3, 2 | C10 | C10 | C10 | C10 | C10 | C8 | C8 | C8 |
+| unpaid, lo, 0.3, 3 | C5 | C8 | C4 | C4 | C4 | C4 | C4 | C4 |
+| none, lo, 0.3, 2 | C10 | C8 | C8 | C8 | C8 | C8 | C8 | C8 |
+
+(C: collapsed at round; S: survived 30.) Full grid in the artifact.
+
+7. **S1 holds from three users.** Without sanctions, trajectories are identical from n=3 to
+   24 in all eight settings; n=2 differs in three (a user who is half the harvest weighs its
+   own impact differently).
+8. **S2 and S3 hold, with one exception.** With paid sanctions, two users always collapse
+   first (one sanctioner wins at even odds); from three to twenty-four the outcome is the
+   same in six of eight settings, and in the two with triple takes at r=0.5 collapse comes
+   one round earlier from four or six users. The paid baseline collapses at 17 at every n
+   from 3; at r=0.3 with double takes the commons survives 30 rounds at every n from 3.
+   The retired planner's finding 3 (no size effect) holds under exact search, for paid
+   sanctions and full observation.
+9. **Unpaid sanctioning loses its brake with size.** In three unpaid settings larger groups
+   collapse sooner (10 to 8 and 7 to 5 from twelve users; 8 to 4 from four). At the brink
+   smaller groups all switch to the low take with sanctions, which slows the decline for two
+   rounds; larger groups keep taking high. Each user values sanctioning against others it
+   expects to keep taking high: n-1 targets at a cost of `sanction_cost` times its own low
+   take each, for a stock gain it keeps a 1/n share of. On the path everyone switches
+   together and nobody pays anything. Discriminating check (same artifact): halving the
+   cost moves the switch from 8-12 users to 16-24; doubling it removes the brake from four
+   users; `others = plan` gives the same switch as react.
+
+First finding a careful person would miss (test 6): finding 9. The brake costs nothing when
+everyone applies it, but each user decides on what it would cost to apply it alone against
+everyone, and that cost grows with the group. The size effect sits in the unit of the
+sanction cost (per target, per sanctioner) and in expecting others to persist, not in
+observability; T1.1's sparse channels are not needed to produce one.
+
+Limits: depth 2; the brake delays collapse by two rounds and never prevents it; every
+setting without paid sanctions collapses. Sanction cost is a fixed fraction of the
+individual low take, so it shrinks with n; a cost fixed in stock units would move the switch.
