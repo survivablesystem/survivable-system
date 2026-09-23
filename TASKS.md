@@ -97,7 +97,7 @@ Forces: claims as a candidate primitive (a decision record and discriminating ca
 
 ## Stage 9: first real scenario
 
-- T9.1 Frontier AI. Labs, regulator, state, AI systems as a type whose capability grows per round. Modules: disclosure channel, compute attestation. Question: which coalitions can force lock-in, and does either module change that. ASK on the scenario's boundary before building.
+- T9.1 Frontier AI. [claimed: Claude, 2026-09-23; scope answered by the owner: labs, a lab-paid evaluator, a state that licenses or halts, AI as capability stock; review in `rediscovery/frontier-ai.md`] Labs, regulator, state, AI systems as a type whose capability grows per round. Modules: disclosure channel, compute attestation. Question: which coalitions can force lock-in, and does either module change that.
 
 ## Anytime
 

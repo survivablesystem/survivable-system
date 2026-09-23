@@ -7,6 +7,14 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  T9.1 scope (owner, ASK answered)
+
+The owner chose the first frontier-AI scenario's boundary: two labs racing, a third-party
+evaluator paid by the labs, a state that can license or halt; AI systems as a capability
+stock, not agents. Recorded in `rediscovery/frontier-ai.md`. AI systems as agents
+(delegation with drift) and an international compute race were the alternatives offered;
+they remain future cases.
+
 ## 2026-09-23  E9: public records as a module over any world
 
 Proposed before implementation. Rules can condition only on the current observation. In
