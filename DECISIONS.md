@@ -103,7 +103,10 @@ Change (`engine/rules.py`, over any world):
   Amended the same day (T9.1): every member must depart; a "pair" where one member only
   receives a payment repeated the other's unilateral departure. Reports also separate
   departures paying every member without side payments (E8) and, for single agents,
-  departures that newly reach a harm from harmless ones.
+  departures that newly reach a harm from harmless ones. Externalizing (capture) departures
+  must need the coalition: its summed gain must beat what any one member achieves by
+  departing alone (exact for pairs; larger coalitions are compared with single members
+  only).
 - Work caps mark unresolved checks, never "holds".
 
 Scope: finite depth D, no claim beyond it; one rule profile at a time; no belief learning.

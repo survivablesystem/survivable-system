@@ -101,15 +101,25 @@ class Check:
 
     def joint(self, state, coalition, depth, outside=lambda harms: {}):
         """Best one-shot joint departure of a coalition (every member departs), full
-        information, summed value; and
+        information, summed value. Externalizing departures must also need the coalition:
+        its summed gain beats what any one member gets it by departing alone. And
         the best among departures that newly reach a harm falling outside the coalition
         (`outside` maps new harms to the outside stakeholders they fall on), with summed value
         and, separately, among those where no member loses and one gains (no side payments
         needed beyond those the world itself offers)."""
         base = self.prescribed(state)
         follow, follow_harms = self.follow(state, depth)
+        menus = self.menus(state, coalition)
+        # What the coalition's summed value gains when one member departs alone: a joint
+        # departure counts as needing the coalition only if it beats all of these.
+        alone = 0.0
+        for i, menu in zip(coalition, menus):
+            for a in menu:
+                if key(a) != key(base[i]):
+                    values, _ = self.play(state, {**base, i: a}, depth)
+                    alone = max(alone, math.fsum(values[j] - follow[j] for j in coalition))
         top = ext = every = None
-        for choice in product(*self.menus(state, coalition)):
+        for choice in product(*menus):
             if any(key(a) == key(base[i]) for i, a in zip(coalition, choice)):
                 continue  # every member departs; departures by fewer are checked as smaller coalitions
             values, harms = self.play(state, {**base, **dict(zip(coalition, choice))}, depth)
@@ -118,10 +128,11 @@ class Check:
             entry = (total, values, harms, dict(zip(coalition, choice)), falls)
             if top is None or total > top[0] + TOLERANCE:
                 top = entry
-            if falls and (ext is None or total > ext[0] + TOLERANCE):
+            needs_all = total - math.fsum(follow[i] for i in coalition) > alone + TOLERANCE
+            if falls and needs_all and (ext is None or total > ext[0] + TOLERANCE):
                 ext = entry
             gains = [values[i] - follow[i] for i in coalition]
-            if falls and all(g >= -TOLERANCE for g in gains) and any(g > TOLERANCE for g in gains) \
+            if falls and needs_all and all(g >= -TOLERANCE for g in gains) and any(g > TOLERANCE for g in gains) \
                     and (every is None or total > every[0] + TOLERANCE):
                 every = entry
 
@@ -138,8 +149,8 @@ class Check:
         if top is None:
             return {"gain": 0.0, "members": {i: 0.0 for i in coalition}, "every_member": False, "others": {},
                     "actions": {i: base[i] for i in coalition}, "new_harms": [], "falls_outside": {},
-                    "externalizing": None, "externalizing_every": None}
-        return {**describe(top), "externalizing": describe(ext), "externalizing_every": describe(every)}
+                    "externalizing": None, "externalizing_every": None, "alone": alone}
+        return {**describe(top), "externalizing": describe(ext), "externalizing_every": describe(every), "alone": alone}
 
 
 def follow_value(world, rule, state, depth, budget=BUDGET):
