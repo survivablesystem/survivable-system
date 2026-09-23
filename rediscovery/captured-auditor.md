@@ -69,7 +69,10 @@ firm's workers and creditors (folded into investors).
 
 ## Engine findings (E7, 2026-09-23)
 
-Artifact `evidence/rules.json`, clean `a40ea9d`, 140 s; `python -m tests.rules_study`.
+Artifact `evidence/rules.json`, first run clean `a40ea9d`; re-run clean `893d2cf` after the
+E7 amendments (coalition departures need every member and the whole coalition): every
+number below is unchanged except that non-positive pair margins now show their sign.
+`python -m tests.rules_study`.
 Grid: exposure {0, 0.2, 0.5, 1} x regulator {none, revokes} x assignment {firm, fixed} x
 premium {0, 1, 2} x auditors {1, 2} (48 cells per rule), depth 4, states within 2 rounds
 checked (one departure per round), coalitions up to 2. Margins at a round with weak books

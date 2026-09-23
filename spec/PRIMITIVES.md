@@ -136,6 +136,7 @@ Individual psychology beyond goals and horizon. Physical detail of the world bey
 | queries: lock-in and correction over declared harms, including authority (`worlds/authority.py`) | implemented, bounded T and T' | |
 | rules as claims: self-enforcement, coalition and externalizing departures | implemented, one-shot, bounded depth | learned beliefs |
 | side payments, public records (modules over any world) | implemented (E8, E9) | budgets, contracts, private memory |
+| first real scenario (frontier AI, owner's scope) | `worlds/frontier.py` | AI systems as agents |
 | queries: diff | not yet | T7.2 |
 
 The static linter that preceded this model was removed on adoption; `DECISIONS.md` records where each of its checks went.

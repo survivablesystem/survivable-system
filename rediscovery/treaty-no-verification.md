@@ -274,7 +274,8 @@ models and both verification settings.
 
 ## Rules as claims (E7, 2026-09-23)
 
-`evidence/rules.json` (clean `a40ea9d`), `python -m tests.rules_study`; one-shot departures,
+`evidence/rules.json` (clean `a40ea9d`; re-run `893d2cf` with the amended coalition definition, unilateral
+results identical), `python -m tests.rules_study`; one-shot departures,
 states within 2 rounds, coalitions up to 2, transferable utility for coalitions.
 Grid: verification {none, exact} x lead {0, 1, 2} x contest x prize {0.5, 2, 5}, depth 4.
 

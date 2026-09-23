@@ -197,7 +197,8 @@ under plan, and r=0.3 survives under both; timing moves (baseline 17 to 21, dept
 
 ## Rules as claims (E7, 2026-09-23)
 
-`evidence/rules.json` (clean `a40ea9d`), `python -m tests.rules_study`; one-shot departures,
+`evidence/rules.json` (clean `a40ea9d`; re-run `893d2cf` with the amended coalition definition, unilateral
+results identical), `python -m tests.rules_study`; one-shot departures,
 states within 2 rounds, coalitions up to 2, transferable utility for coalitions.
 Grid: n=3, confiscation {stock, sanctioners} x sanction cost {0.1, 0.5} x high take
 {2, 4} x discount {0.8, 0.95}, depth 3.

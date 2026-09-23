@@ -151,13 +151,16 @@ it entrenches the ruler depends on how decisive contests are".
 
 ## Rules as claims (E7, 2026-09-23)
 
-`evidence/rules.json` (clean `a40ea9d`), `python -m tests.rules_study`; one-shot departures,
+`evidence/rules.json` (clean `a40ea9d`; re-run `893d2cf` with the amended coalition definition, unilateral
+results identical), `python -m tests.rules_study`; one-shot departures,
 states within 2 rounds, coalitions up to 2, transferable utility for coalitions.
 Grid: assembly x surveillance x commands {1, 2} x army {2, 4} x gain {0, 1} x rent {0.5, 1.5},
 depth 4.
 
 - `loyalty` (the army defends whoever holds office) fails in 64/64 at the start: the
-  ruler extracts, since defense is unconditional.
+  ruler extracts, since defense is unconditional. The ruler needs nobody for it: after the
+  amendment requiring the pair, no coalition's departure under loyalty needs its members;
+  under `accountability`, the ruler and a commander who does not punish do (64/64).
 - `accountability` (organize after extraction, rise once organized, defend a governing
   holder against organizers) holds for the ruler at the start in every cell, then fails
   off the start in 64/64: once organizing has begun, punishment is the same whether the
@@ -195,7 +198,8 @@ unwarranted organizing. Sweep: `tests/correction_study.py`.
 
 ### E6 results
 
-`evidence/correction.json`, clean `2ccdfa6`, 3.5 min on 4 processes. Grid: assembly x
+`evidence/correction.json`, clean `2ccdfa6`; re-run clean `893d2cf` after the E7 amendments
+(every holds/fails result identical), 3.5 min on 4 processes. Grid: assembly x
 records {none, 2 rounds} x repayment {0.8, 1.0, 1.2, 1.5} x disclosure {parties, public} x
 commands x army {2, 4} x contest x gain {0, 1} (512 cells), rent 1, discount 0.9, depth 4,
 states within one round; pact grid: the full design plus ruler-to-commander payments of 0.5
@@ -206,7 +210,7 @@ or 1.0 (32 cells), pairs checked.
 | R1 repayment below rent / discount leaves the first extraction profitable | holds: the ruler gains in 128/128 cells at 0.8 and 1.0, in 88/128 at 1.2 and 1.5 |
 | R2 records and assembly stop the commander's coup | holds in part: a commander gains in 112/128 cells with either missing, 64/128 with both |
 | R3 private payments break the rule | holds: 0/256 cells hold with parties-only disclosure |
-| R4 ruler and commander gain by a bought pact | contradicted in form: 8/32 cells have a pact where no member loses, and none uses a payment |
+| R4 ruler and commander gain by a bought pact | contradicted: 2/32 cells have a pact that needs both and where no member loses (8/32 before requiring the pair; six were the ruler's own extraction), and none uses a payment |
 
 1. **Correction without deposition can hold.** The rule holds in 18/512 cells, 12 of the
    16 threshold cells with the full design (records, assembly, public payments, repayment
@@ -223,8 +227,8 @@ or 1.0 (32 cells), pairs checked.
    full design fail: organized citizens and commanders prefer to rise anyway, because any
    rise has some chance of winning office. Accountability by warning needs contests
    decisive enough that an unwarranted rise surely fails (A2's case grows).
-4. **The pact that remains is not bought.** Where ruler and commander both weakly gain from
-   extraction, the commander gains by skipping the risky rise the rule asks of it, not by
+4. **The pact that remains is not bought.** In the 2 cells where ruler and commander need
+   each other, the commander gains by skipping the risky rise the rule asks of it, not by
    payment; loyalty payments were available and never chosen. The failure is the rule's
    demand on its enforcers, not the price of the army.
 5. **The rules check caught two rule errors first.** Any payment counted as repayment (the

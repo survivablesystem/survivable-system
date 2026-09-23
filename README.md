@@ -2,7 +2,7 @@
 
 A research prototype for comparing institutions under explicit assumptions, with the long-term aim of reducing civilizational risk. Agents choose actions from goals and beliefs. The tool asks who bears costs, who can force irreversible outcomes, and who can correct errors.
 
-Implemented: four worlds (a commons, a treaty and capability race, authority and coercion, an auditor paid by the audited) and a composite of two, a limited planner, finite simulations, parameter sweeps and goal-free coalition power queries: force, prevent, externalization, correction and lock (who can make a harm permanent for everyone else), and goal-based checks of declared rules: does a rule hold, and which coalitions gain by breaking it onto others (capture). Nested institutions, amendment rules and a civilizational protocol are not implemented or validated. The historical briefs are hypotheses awaiting source and counterexample review.
+Implemented: five worlds (a commons, a treaty and capability race, authority and coercion, an auditor paid by the audited, frontier AI labs with an evaluator and a state) and a composite of two, a limited planner, finite simulations, parameter sweeps and goal-free coalition power queries: force, prevent, externalization, correction and lock (who can make a harm permanent for everyone else), and goal-based checks of declared rules: does a rule hold, and which coalitions gain by breaking it onto others (capture). Nested institutions, amendment rules and a civilizational protocol are not implemented or validated. The historical briefs are hypotheses awaiting source and counterexample review.
 
 Read [`INTENT.md`](INTENT.md) first. It is the measure for every change.
 
@@ -60,6 +60,14 @@ python -m engine worlds.audit --enforce 4 --rule independence --reach 2 --pay fi
 ```
 
 Two modules apply to any world: side payments (`--pay PAYER>RECIPIENT`, `engine/transfers.py`) and public records (`engine/history.py`). They never change what can be forced, only which rules can hold. With both, the authority world has a rule that corrects a ruler by restitution instead of deposition; it holds only with public payments, records and decisive contests ([`rediscovery/standing-army.md`](rediscovery/standing-army.md)).
+
+## First real scenario: frontier AI
+
+`worlds/frontier.py` (scope chosen by the owner): two labs, an evaluator, a state that can halt. The evaluator gives the state exactly the information it lacks, yet licensing at deployment cannot avoid a forced choice between unsafe deployment and blocking safe progress; the rule breaks on stale certification (scale after the pass, deploy on it), not on who pays the evaluator; and the capture that appears is the leading lab with the state against the rival ([`rediscovery/frontier-ai.md`](rediscovery/frontier-ai.md)).
+
+```sh
+python -m engine worlds.frontier --enforce 4 --rule licensing --fix oversight=continuous
+```
 
 `engine.power.sure` asks the information question: can a coalition guarantee an outcome using only what its members observe? It is how verification, disclosure or any channel can show up as denial rather than only as behavior (see [`rediscovery/treaty-no-verification.md`](rediscovery/treaty-no-verification.md)).
 

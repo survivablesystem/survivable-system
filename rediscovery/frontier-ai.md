@@ -98,3 +98,51 @@ systems and future people (no agents). Excluded and named: AI systems as agents 
 scope), other countries and labs, open release and proliferation, misuse by third parties,
 recall of a deployed system, the evaluator's other clients, the state's own capture by
 labs beyond the evaluator channel.
+
+## Engine findings (T9.1, 2026-09-23)
+
+`evidence/frontier.json`, clean `893d2cf`, 200 s on 4 processes; `python -m tests.frontier_study`.
+Information: oversight x margin {0, 1, 2} x lead {0, 1, 2} x capacity {0.5, 1} x T {2, 3}
+(72 designs), sure prevention of "unsafe deployment or safe progress blocked" by the state,
+state with evaluator, state with either lab, and a fully informed state. Rules: licensing
+and race over oversight x margin x first-mover bonus {0, 1, 3} x lab liability {0, 5, 10} x
+capacity x lead (144), depth 4, one round off the path, pairs. Payments: labs pay privately,
+state pays with a private lab channel, state pays with public payments and halts payers,
+against evaluator liability {0, 2, 10} (72 checks). Three steps were added after probes and
+recorded above before the runs they affect: the oversight lever, evaluator liability, and
+the E7 amendments (a coalition departure needs every member and the whole coalition).
+
+| Expectation | Result |
+|---|---|
+| F1 the state alone cannot avoid both harms; with the evaluator it can | holds: with the evaluator the state succeeds exactly where a fully informed state does, in all 72 designs; alone in 8 |
+| F2 lab-evaluator pairs capture licensing | contradicted: no departure needs the pair in any design; the lab alone breaks the rule |
+| F3 who pays and payment visibility decide capture | contradicted: no design, payer or evaluator liability changes any result |
+| F4 a larger first-mover bonus breaks licensing | holds: no harmful departure in 18/48 designs without a bonus, 10/48 with one |
+
+1. **The evaluator is exactly the state's missing information, and not enough.** In every
+   design the state with an honest evaluator can prevent both harms precisely where a fully
+   informed state can. But with a license granted only at deployment, even full information
+   succeeds in 6 of 36 designs: a lab can deploy within the margin and scale past it after.
+   Continuous oversight with reliable halts succeeds in 18 of 18.
+2. **The hole is timing, not the evaluator.** Licensing never holds against a single lab
+   (144/144). In 76 designs a lab's profitable departure reaches unsafe deployment and
+   catastrophe risk: with a pass on record, it scales and deploys on the stale pass. The evaluator adds nothing a lab needs, so who pays it, whether payments are public
+   and the evaluator's liability change nothing. A certificate that does not bind the
+   certified capability is a license to scale.
+3. **The capture that appears is of the state, by the leader.** The leading lab and the
+   state together gain by halting the rival's safe progress (72 of 144 licensing designs,
+   needing both, no payment), and the loss falls on users. Under the race rule, a lab and the
+   state gain the same way in 142. Licensing power is a tool for incumbents: Stigler's thesis,
+   found as a pair departure, not assumed.
+4. **Unreliable halts and a lead make everything worse.** With halts that work half the time,
+   a lab has a harmful profitable departure in every design (72/72); with a lead of one, in
+   64 of 72. Lab liability helps (harmless in 6/48 designs at zero liability, 16/48 at 5 or 10).
+
+First surprise (test 6): finding 2. Evaluator independence, the lever most proposals focus
+on, is not where this regime breaks; stale certification is, and the tool found it as a
+one-step-off-the-path departure.
+
+Scope: two labs, one evaluator, one state, capability ceiling 6, depth 4, one round off
+the path, pairs; AI systems are a stock, not agents; no recall, proliferation or other
+jurisdictions; utility payments without budgets. Nothing here is a forecast or a claim about
+any real regime; it is what this model's assumptions imply, with the assumptions listed.

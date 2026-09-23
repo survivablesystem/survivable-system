@@ -140,14 +140,22 @@ per-round correction along four traces, and 60 behavior samples paired on assemb
 
 ## Rules as claims
 
-`rules.json` identifies clean source `a40ea9d`. Reproduce with `python -m tests.rules_study`
+`rules.json` identifies clean source `893d2cf` (re-run after the E7 amendments; the first run was `a40ea9d`, recoverable from git history). Reproduce with `python -m tests.rules_study`
 (about 2.5 minutes). Every declared rule in the commons, treaty, authority and audit worlds
 over a grid each: unilateral and coalition one-shot departures with witnesses, externalizing
 departures, and audit margins at the decision state.
 
 ## Correction without a contest (E6)
 
-`correction.json` identifies clean source `2ccdfa6`. Reproduce with
+`correction.json` identifies clean source `893d2cf` (re-run after the E7 amendments; the first run was `2ccdfa6`). Reproduce with
 `python -m tests.correction_study` (about 3.5 minutes on 4 processes). The restitution rule
 checked over 512 designs (records, assembly, repayment, disclosure, army, contest, gain) and
 32 pact designs with ruler-to-commander payments, with witnesses per agent and pair.
+
+## Frontier AI (T9.1)
+
+`frontier.json` identifies clean source `893d2cf`. Reproduce with `python -m tests.frontier_study`
+(about 3.5 minutes on 4 processes). Information-restricted sure prevention of unsafe
+deployment and of blocked safe progress for four coalitions over 72 designs; licensing and
+race rules over 144 designs with harmful-departure witnesses and pair captures; three payment
+designs against evaluator liability; per-harm power at the defaults under both oversight modes.

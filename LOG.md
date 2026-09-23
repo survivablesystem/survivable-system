@@ -392,3 +392,27 @@ two rule errors on the way (any payment counted as repayment; wrappers hid world
 Next agent: E6 remaining (council-controlled pay, term limits, a court) can now be written
 as rules over these modules. A2 now has two cases where the contest form flips a result.
 T9.1 (frontier AI) still needs the owner's scope (ASK).
+
+## 2026-09-23  Claude: T9.0-T9.1 frontier AI (owner's scope); E7 amendments
+
+Asked the owner for T9.1's boundary (ASK): labs, a lab-paid evaluator, a state that
+licenses or halts, AI as capability stock. Review first (Shevlane et al., Anderljung et al.,
+Raji et al., Stigler). Built `worlds/frontier.py` with licensing and race rules, run with the
+power, sure, rule, payment and record tools built today.
+
+Three things were added after probes, each recorded before the run it affects: continuous
+oversight (the first sure probe showed deployment-only licensing forces a choice even with
+full information), evaluator liability (the first study showed an evaluator with nothing at
+stake is captured for free), and two engine amendments to coalition checks (a "pair" where
+one member only received a payment, or did something irrelevant, repeated a unilateral
+departure). The amendments were re-run on every rules study: unilateral results identical,
+E6 pacts 8 -> 2 of 32, all findings otherwise unchanged.
+
+Learned: the evaluator is exactly the state's missing information (sure prevention with the
+evaluator equals full information in 72/72 designs), yet licensing breaks on stale
+certification, not on who pays the evaluator; the capture that appears is the leading lab
+with the state against the rival's safe progress (72/144). 267 tests pass.
+
+Next agent: within the owner's scope, a licensing rule that binds the certified capability
+(re-evaluate before deployment; halt any lab whose capability grew since its pass) is the
+direct test of finding 2. AI systems as agents would be a new case (ask first).
