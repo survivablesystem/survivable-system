@@ -209,3 +209,21 @@ Grid: n=3, confiscation {stock, sanctioners} x sanction cost {0.1, 0.5} x high t
   Sanction cost and where confiscations go never matter on the path, because nobody
   defects there. Where it fails, any two users gain by taking high together and the
   depletion falls on future users and stock-dependent others (no agents).
+
+## Population size under exact search (E2 step 3, 2026-09-23), stated before runs
+
+Interior reward integration (`DECISIONS.md` E2 step 3) makes depth-2 behavior exact at
+n=10 and beyond at the default cap; T1.3's n=10 runs were unresolved. Finding 3 (no size
+effect, ten survive as four) came from the retired planner. Every take scales as 1/n, so
+a size effect can only come from absolute numbers: a contest won with probability m/(m+1)
+by m sanctioners, and a confiscation split m ways. A lone defector facing n-1 sanctioners
+keeps an expected hi/n of its take, a share that falls with n; each sanctioner's receipt
+and cost both scale as 1/n.
+
+- S1. Without sanctions, trajectories are the same at every n (scaled copies of one
+  decision). Contradiction: collapse timing moves with n.
+- S2. With paid sanctions, larger groups deter a lone defector more, so the norm holds at
+  least as long as at small n. Contradiction: earlier or more frequent collapse at larger n.
+- S3. The paid baseline's depletion cycle (all high together, then low with sanctions)
+  is not a lone defection and is unaffected by n from 4 up. Contradiction: survival at
+  some n.

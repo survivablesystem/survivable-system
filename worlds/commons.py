@@ -16,7 +16,7 @@ from engine.core import Agent, World
 
 # Assumptions register for this world. Everything here is swept.
 SPACE = {
-    "n": (2, 12, int),
+    "n": (2, 24, int),                 # exact at depth 2 to 24 since E2 step 3
     "horizon": (1, 20, int),
     "search_depth": [1, 2, 3],       # explicit computational cap; no tail estimate
     "discount": (0.8, 0.99),
