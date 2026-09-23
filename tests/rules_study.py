@@ -11,7 +11,7 @@ import random
 from time import perf_counter
 
 from engine.records import provenance
-from engine.rules import enforcement
+from engine.rules import Check, enforcement
 from worlds import audit, authority, commons, treaty
 
 D, REACH = 4, 2
@@ -56,10 +56,27 @@ def run(name):
     return out
 
 
+def audit_margins():
+    """Per audit cell and rule, each agent's one-shot gain at a round with weak books: the
+    decision state. The whole-grid maximum hides negative margins behind start-state ties."""
+    out = []
+    grid = GRIDS["audit"]
+    for values in product(*grid.values()):
+        cell = dict(zip(grid, values))
+        world = audit.make({**audit.DEFAULTS, **cell}, random.Random(0))
+        state = {**world.initial_state(), "weak": True}
+        for rule in audit.RULES:
+            check = Check(world, audit.RULES[rule])
+            out.append({**cell, "rule": rule, "gains": {a.id: check.unilateral(state, a.id, D)["gain"] for a in world.agents},
+                        "pair": check.joint(state, ["firm", "a0"], D)["gain"]})
+    return out
+
+
 if __name__ == "__main__":
     paths = [Path(__file__), Path("tests/test_rules.py"), Path("tests/test_audit.py")]
     t0 = perf_counter()
     results = {name: run(name) for name in MODULES}
+    results["audit_margins"] = audit_margins()
     print(json.dumps({"schema_version": 1, "kind": "rules", "provenance": provenance(),
                       "fixture_sha256": {p.as_posix(): hashlib.sha256(p.read_text(encoding="utf-8").encode()).hexdigest() for p in paths},
                       "rules": {n: {r: (f.__doc__ or "").strip() for r, f in m.RULES.items()} for n, m in MODULES.items()},
