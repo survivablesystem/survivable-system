@@ -456,3 +456,26 @@ records; the control case's precaution question needs hidden drift); E2 planner 
 types in composites; E6 remainder (council-controlled pay, term limits, courts); A2 contest
 family (E5 finding 3 is its case); E3 declarative worlds (six worlds now repeat structure:
 register, stakeholders, harms, rules; worth a decision entry).
+
+## 2026-09-23  Claude: E2 step 2, symmetry inside composites; fishers
+
+Composites claimed no symmetry, so the one whole stopped at a single fisher and the
+question "can a population of bystanders protect what a few draw on" could not be asked.
+Decision first. `Composite.types()` derives groups from the parts; `couple_reads` names
+the actors a coupling reads by identity (a coupling that names none claims no symmetry).
+`engine.power.symmetry_violations` checks any world's `types()` by sampled swaps; it
+catches a false pairing of the treaty parties. `worlds/race_commons.py` gains `fishers`;
+a build still removes a fixed absolute amount of stock. CLI: a repeated `--fix` used to
+replace the earlier one silently; list flags now accumulate.
+
+Learned (`evidence/fishers.json`, clean `c0d3226`, `rediscovery/race-commons.md` 4-8): my
+expectation that a racer's unilateral power survives any population was wrong where the
+build alone is not enough: its own take shrinks as 1/n, so one more fisher strips it of
+forcing depletion alone and of preventing collapse alone. Dilution stops at pairs: at
+S=30, draw 2-3, two actors force depletion at every size to twelve harvesters while the
+preventing coalition grows to five including both racers. The fishers alone protect only
+where the racers' takes have shrunk, never against the builds. 302 tests pass.
+
+Next agent: E2 remaining is the planner (behavior with many fishers is unstudied); E12
+Bayesian updating; E6 remainder; A2; E3. Every size effect here traces to the declared 1/n
+scaling of takes: a world where individual demand does not shrink with n would differ.

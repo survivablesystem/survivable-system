@@ -130,6 +130,13 @@ stock and treaty settings, and planner runs under both opponent models.
 (about 4 minutes). Exact commons power tables for n up to 20 using declared symmetry, with
 per-size rows, `stands_for` counts, thresholds, work and timing.
 
+## Fishers (E2 step 2)
+
+`fishers.json` identifies clean source `c0d3226`. Reproduce with `python -m tests.fishers_study`
+(about 27 minutes on 4 processes). Race-on-a-fishery power tables for depletion and collapse
+with 1 to 10 exchangeable fishers over stock and draw, with per-coalition rows, `stands_for`,
+thresholds, work and timing.
+
 ## Authority and correction
 
 `authority.json` identifies clean source `67b7fcb`. Reproduce with

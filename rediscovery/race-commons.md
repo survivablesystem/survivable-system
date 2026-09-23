@@ -58,3 +58,51 @@ three-harvester fishery, an absolute amount.
   coordinate to stop it widens with n.
 Contradiction: a single racer's forcing power disappears as fishers are added (dilution
 protects the stock), or the preventing coalition stays at the two racers at every size.
+
+### Findings (`evidence/fishers.json`, clean `c0d3226`, 27 min on 4 processes; `python -m tests.fishers_study`)
+
+Fishers exchangeable (checked by `symmetry_violations`; reduced equals full enumeration at
+two fishers). T=2, p=1, sanctions off, restraint on, treaty defaults. 76 settings, all exact.
+Smallest coalitions by number of fishers (1, 2, 3, 4, 6, 8, 10), of 2 + fishers actors:
+
+| harm, S, draw | force | prevent |
+|---|---|---|
+| depleted, 30, 0 | 2, 3, 4, 4, 6, 7, 8 | 2, 2, 2, 3, 3, 4, 5 |
+| depleted, 30, 2 | 1, 2, 2, 2, 2, 2, 2 | 2, 2, 2, 3, 3, 4, 5 (always both racers) |
+| depleted, 30, 3 | 1, 1, 1, 1, 2, 2, 2 | 2, 2, 2, 3, 3, 4, 5 (always both racers) |
+| collapse, 30, 1 | 3, 3, 4, 5, 6, 8, 9 | 1, 1, 1, 1, 1, 1, 2 |
+| collapse, 30, 3 | 2 at every size | 2 at every size |
+
+4. **E-a holds.** Without a draw, thresholds move with the population as shares, and the
+   fishers alone can prevent depletion from two fishers on.
+5. **E-b is contradicted where the build is not enough by itself.** A racer's power to
+   force depletion alone is lost at two fishers (draw 2) or six (draw 3); collapse at S=20,
+   draw 3, at three. The racer's lever is the build (absolute) plus its own high take,
+   which shrinks as 1/n; at S=30, draw 2 the take is what tips the stock below the line
+   (hand-checked: 23.8 against 27.4 after two rounds). Dilution protects, but only down to
+   pairs: the forcing coalition stays at two actors (a racer and any one fisher, or both
+   racers) at every size to twelve harvesters for depletion at S=30 with draw 2 or 3, and
+   for collapse at S=30, draw 3.
+6. **One more fisher removes unilateral power in both directions.** At S=30, draw 2 the
+   second fisher strips a racer of forcing depletion alone and of preventing collapse
+   alone (tested). As the population grows the stock's safety passes from either racer to
+   the pair: preventing collapse at S=30, draw 2 needs both racers from six fishers on.
+7. **E-c holds at S=30, not at S=40.** At S=30 with draw 2 or 3, preventing depletion needs
+   both racers plus 0, 0, 0, 1, 1, 2, 3 fishers; at ten fishers 2 actors can force the harm
+   and 5 must coordinate to stop it, against 8 and 5 without the race. At S=40 the
+   preventing coalition stays at two. The race inverts the asymmetry: without
+   it harming the fishery takes most of the harvesters, with it two actors.
+8. **Fishers alone protect only by the racers' dilution, never against the builds.** All
+   fishers together never prevent depletion at S=30 with draw 2 or 3, nor collapse at S=20
+   (draw 2, 3) or S=30 (draw 3), up to ten fishers. Where they can (collapse at S=30, draw
+   2 from three fishers; depletion at S=40, draw 2 from six), resting only works because
+   the racers' own takes have shrunk: their combined lever is capped by their share of a
+   fixed yield, the builds are not.
+
+First finding a careful person would miss (test 6): finding 6. Adding a bystander, with no
+power of its own to protect the stock, takes away each racer's unilateral power to protect
+it: the fishery's protection moves from any one racer to their agreement.
+
+Limits: two rounds, sanctions off, one treaty setting, the declared 1/n scaling of takes
+(coalition-power finding 9 names it as the source of size effects). The planner does not
+use the symmetry, so behavior with many fishers is not studied (E2 remaining).

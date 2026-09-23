@@ -152,3 +152,18 @@ def at_stock(world, S):
     state = world.initial_state()
     state["parts"]["commons"] = {**state["parts"]["commons"], "S": S}
     return state
+
+
+def test_one_more_fisher_strips_a_racer_of_unilateral_force_and_protection():
+    """Race-commons findings 5 and 6 (evidence/fishers.json): S=30, draw 2, T=2."""
+    from engine.power import force
+    values = {}
+    for fishers in (1, 2):
+        whole = rc.make({**rc.DEFAULTS, "fishers": fishers, "draw": 2.0}, random.Random(0))
+        state = at_stock(whole, 30.0)
+        depleted = lambda s, w=whole: "commons: depleted" in w.harmed(s)
+        collapse = lambda s, w=whole: "commons: collapse" in w.harmed(s)
+        others = [a.id for a in whole.agents if a.id != "east"]
+        values[fishers] = (force(whole, state, ["east"], 2, depleted),
+                           1.0 - force(whole, state, others, 2, collapse, order="beta"))
+    assert values == {1: (1.0, 1.0), 2: (0.0, 0.0)}
