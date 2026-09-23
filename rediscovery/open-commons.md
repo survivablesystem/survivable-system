@@ -154,3 +154,14 @@ it had a wrong menu (findings 1 and 5 of `coalition-power.md`). The baseline tra
 unchanged; `restraint=False` remains in the register and reproduces the earlier world, and
 `tests/power_study.py` pins it so T1.5 evidence still reproduces (33 of 33 map entries
 rechecked). Resting sanctioners remain untested.
+
+## Deeper exact search (T1.8, 2026-09-23), stated before the depth-4/5 runs finished
+
+Measured first: at the initial state a depth-4 decision needs 25,370 work entries (cap
+20,000), depth 5 needs 481,531 (7 s). The cap, not the method, kept depths 4-5 out of
+reach. Simplest step: search deeper exactly under a larger declared cap; no tail value.
+
+- D1: deeper agents break the high/sanction/low depletion cycle and the baseline survives
+  30 rounds (the archived horizon-12 planner did). Contradiction: collapse at 17 at
+  depths 4 and 5.
+- D2: with restraint, deeper agents rest at low stock. Contradiction: no rest actions.
