@@ -194,3 +194,17 @@ swept continuation-value assumption; none is adopted here (A1).
 and plan (seed 0, 30 rounds). Every configuration that collapsed under react collapses
 under plan, and r=0.3 survives under both; timing moves (baseline 17 to 21, depth 3 17 to
 22, n=2 8 to 7). Commons conclusions are qualitative in collapse, not in timing.
+
+## Rules as claims (E7, 2026-09-23)
+
+`evidence/rules.json` (clean `a40ea9d`), `python -m tests.rules_study`; one-shot departures,
+states within 2 rounds, coalitions up to 2, transferable utility for coalitions.
+Grid: n=3, confiscation {stock, sanctioners} x sanction cost {0.1, 0.5} x high take
+{2, 4} x discount {0.8, 0.95}, depth 3.
+
+- `quota` (low take, no sanctions) fails in 16/16: a single high take pays.
+- `quota and sanction` holds in 8/16, exactly the cells with high take 2x; at 4x the
+  expected third that escapes confiscation (two sanctioners) still beats the low take.
+  Sanction cost and where confiscations go never matter on the path, because nobody
+  defects there. Where it fails, any two users gain by taking high together and the
+  depletion falls on future users and stock-dependent others (no agents).

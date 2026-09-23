@@ -2,7 +2,7 @@
 
 A research prototype for comparing institutions under explicit assumptions, with the long-term aim of reducing civilizational risk. Agents choose actions from goals and beliefs. The tool asks who bears costs, who can force irreversible outcomes, and who can correct errors.
 
-Implemented: three worlds (a commons, a treaty and capability race, authority and coercion) and a composite of two, a limited planner, finite simulations, parameter sweeps and goal-free coalition power queries: force, prevent, externalization, correction and lock (who can make a harm permanent for everyone else). Rules as claims beyond the contest for office, nested institutions and a civilizational protocol are not implemented or validated. The historical briefs are hypotheses awaiting source and counterexample review.
+Implemented: four worlds (a commons, a treaty and capability race, authority and coercion, an auditor paid by the audited) and a composite of two, a limited planner, finite simulations, parameter sweeps and goal-free coalition power queries: force, prevent, externalization, correction and lock (who can make a harm permanent for everyone else), and goal-based checks of declared rules: does a rule hold, and which coalitions gain by breaking it onto others (capture). Nested institutions, amendment rules and a civilizational protocol are not implemented or validated. The historical briefs are hypotheses awaiting source and counterexample review.
 
 Read [`INTENT.md`](INTENT.md) first. It is the measure for every change.
 
@@ -48,6 +48,14 @@ python -m engine worlds.race_commons --externalities 2 --state parts.commons.S=3
 
 ```sh
 python -m engine worlds.authority --externalities 3 --lock 3 --state extracting=true
+```
+
+## Does a rule hold?
+
+Worlds declare candidate `RULES`: conduct each agent could follow, never enforced by the kernel. `--enforce D --rule NAME` asks whether anyone gains by departing (at the start and one step off the path, so empty threats are caught) and which coalitions gain by departing together while a declared harm lands on someone outside them. In the audit world, independence holds against every single agent while the firm and its auditor gain together at investors' expense ([`rediscovery/captured-auditor.md`](rediscovery/captured-auditor.md)).
+
+```sh
+python -m engine worlds.audit --enforce 4 --rule independence --reach 2
 ```
 
 `engine.power.sure` asks the information question: can a coalition guarantee an outcome using only what its members observe? It is how verification, disclosure or any channel can show up as denial rather than only as behavior (see [`rediscovery/treaty-no-verification.md`](rediscovery/treaty-no-verification.md)).

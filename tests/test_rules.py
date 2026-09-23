@@ -148,3 +148,17 @@ def test_world_rules_prescribe_menu_actions(module_name):
         assert rule.__doc__, f"{module_name} rule {name} must state its claim"
         for s in checked_states(world, rule, world.initial_state(), 1):
             follow_value(world, rule, s, 2)
+
+
+def test_cli_enforce_json_matches_library():
+    import json
+    import random
+    from tests.test_records import cli
+    from worlds import commons
+    completed = cli("--enforce", "2", "--rule", "quota and sanction", "--json", "--fix", "n=2")
+    assert completed.returncode == 0, completed.stderr
+    data = json.loads(completed.stdout)
+    world = commons.make({**commons.DEFAULTS, "n": 2}, random.Random(0))
+    expected = enforcement(world, commons, commons.RULES["quota and sanction"], world.initial_state(), 2)
+    assert data["mode"] == "enforce" and data["results"] == json.loads(json.dumps(expected))
+    assert cli("--enforce", "2", "--rule", "nonexistent").returncode != 0

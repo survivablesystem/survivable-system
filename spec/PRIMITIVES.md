@@ -50,6 +50,10 @@ rules:           nested levels. L0 operational: which actions are allowed. L1 co
                  constraint. Violating it is an action; it succeeds or fails in a contest against
                  whoever chooses to enforce, and the enforcing coalition depends on agents'
                  beliefs about each other. (Forced by rediscovery/standing-army.)
+                 Implemented as declared conduct (decision 2026-09-23, E7): a world's RULES map
+                 each agent's observation to an action; the kernel never enforces them. Queries
+                 ask whether following pays (one-shot departures, on and off the path) and which
+                 coalitions gain by departing together, naming harms that land outside them.
                  Hypothesis, untested: rules, money and legitimacy are one primitive, the
                  claim, worth what others are believed to honor. rediscovery/money-issuance.
 delegation:      an agent may create a sub-agent, granting capability and setting its goal.
@@ -94,6 +98,7 @@ For a composed world, under a sweep over the assumptions register:
 - **externalization**: per declared harm, the thresholds above plus the smallest coalition that can force it without any affected agent, whether the affected can prevent it, and which affected stakeholders have no agent (`engine.power.externalization`).
 
 Power is goal-free (`engine/power.py`, bounded form implemented). Within T rounds, a coalition maximizes the probability of entering a flagged terminal label; the complement minimizes it as one coordinated adversary; both see the full state; chance follows `outcomes`. Stage orders bracket the value: alpha (coalition commits first) is its guarantee, beta an upper bound; randomized play lies between. Prevention is the dual. Goals, horizons, beliefs and planner limits do not enter, so a power claim does not depend on them. What agents do (planner) and what coalitions could force (power) are separate reports; protection that rests on the gap between them is deterrence, not denial. Worlds may declare `physical(state)`, the part fixing menus, kernel and terminal status, as a memo key; the default is the whole state. Thresholds with an unresolved or straddling smaller coalition are upper bounds. Exact enumeration is exponential in agents and T; no claim extends beyond T.
+- **enforcement** (goal-based, `engine.rules.enforcement`, CLI `--enforce D --rule NAME`): does a declared rule hold within D rounds? Per agent, the best one-shot departure (its own information) at the start and at every state within `reach` rounds with at most one departure per round, so punishments off the path are checked; per coalition, the best one-shot joint departure (full information, summed value: an upper bound, side payments assumed), and separately the best departure that newly reaches a declared harm on stakeholders outside it (capture). Value beyond D is not counted. What coalitions could force (power) ignores goals; whether a rule holds depends on them.
 - **finite outcomes**: labels and terminal status at a stated duration, plus shares over the sampled assumptions. Survival to the time limit is not an attractor or a probability of real-world survival. Attractor detection is not implemented.
 - **coalition power**: can coalition C force outcome X. Answered per sample, reported as a fraction across samples.
 - **diff**: any of the above for world A minus world B, or one world under two scenarios.
@@ -116,7 +121,7 @@ Individual psychology beyond goals and horizon. Physical detail of the world bey
 | beliefs, level 0 and 1 | implemented | level 2 or learned: A1 |
 | contests, ratio form | implemented in the commons | second form: A2 |
 | resources with conversion | per-world only | captured auditor, T2.2 |
-| rules as claims, nested levels | not yet | standing army, T4.1 |
+| rules as claims | declared conduct, tested (E7) | nested levels (amendment rules) |
 | delegation with drift | not yet | standing army |
 | irreversibility | declared (terminal labels, harm flags) and computed (lock, E5) | |
 | error and correction | bounded: end, keep, veto and lock of declared harms (E5) | errors in beliefs |
@@ -127,6 +132,7 @@ Individual psychology beyond goals and horizon. Physical detail of the world bey
 | queries: attractor detection | not yet | evidence of convergence on a case |
 | queries: goal-free force/prevent thresholds over terminal labels, bounded T | implemented | |
 | queries: lock-in and correction over declared harms, including authority (`worlds/authority.py`) | implemented, bounded T and T' | |
+| rules as claims: self-enforcement, coalition and externalizing departures | implemented, one-shot, bounded depth | learned beliefs, side-payment mechanisms |
 | queries: diff | not yet | T7.2 |
 
 The static linter that preceded this model was removed on adoption; `DECISIONS.md` records where each of its checks went.

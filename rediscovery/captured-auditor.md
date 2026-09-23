@@ -67,6 +67,53 @@ Modeled: firm, auditors, regulator (agents); investors (no agent) bear misleadin
 and named: auditor entry, investor behavior, litigation, auditors' other clients, the
 firm's workers and creditors (folded into investors).
 
+## Engine findings (E7, 2026-09-23)
+
+Artifact `evidence/rules.json`, clean `a40ea9d`, 140 s; `python -m tests.rules_study`.
+Grid: exposure {0, 0.2, 0.5, 1} x regulator {none, revokes} x assignment {firm, fixed} x
+premium {0, 1, 2} x auditors {1, 2} (48 cells per rule), depth 4, states within 2 rounds
+checked (one departure per round), coalitions up to 2. Margins at a round with weak books
+(the decision state) recorded separately, because the start (sound books) ties.
+
+| Expectation | Result |
+|---|---|
+| Q1 under capture, strict loses when the firm can switch | holds only with two auditors and firm choice (margin -1.54; -1.54 to 0 with revocation); with fixed assignment or one auditor the auditor is indifferent, and with revocation strict pays |
+| Q2 independence holds unilaterally | holds in 96/96 checks, but every individual margin is zero: nobody has a reason to depart and nobody has a reason to stay |
+| Q3 the pair's gain falls with exposure and revocation | holds; it also rises with the credibility premium |
+| Q4 fixed assignment leaves the pair's gain | holds exactly: identical in every cell |
+
+1. **Capture is a pair's act, and nothing individual prevents it.** Under independence no
+   single agent gains by departing, yet the firm and its hired auditor gain together by
+   misstating and passing in 80 of 96 decision-state cells, and the cost lands only on
+   investors, who have no agent. Independence holds for individuals by indifference: the
+   auditor's pay does not depend on its stance, so honesty is not paid for, only unpunished.
+2. **The brief's remedy fixes the wrong thing.** Taking the choice of auditor from the firm
+   removes the punishment for strictness under capture (C2 holds in that sense) but changes
+   the pair's collusive gain in no cell. Switching is how the firm disciplines a lone
+   auditor; collusion needs no discipline.
+3. **Reputation's value is what the pair sells.** The credibility premium, the rival-R
+   mechanism that should discipline auditors, raises the pair's gain (1.2, 2.1, 3.0 at
+   premium 0, 1, 2 with exposure 0.2 and no regulator): a clean opinion from a credible
+   auditor is worth more exactly when the books are weak. The pair's gain is gone only
+   with exposure of at least 0.5 and either revocation or no premium (16 of 96 cells).
+4. **Revocation disciplines through exit, not through the firm.** Under capture with fixed
+   assignment, revocation makes strictness pay for the auditor (0.3 to 1.3 as exposure
+   rises); with two auditors and firm choice, the firm's switching threat still outweighs it.
+   With one auditor, revocation also changes the pair's gain in both directions, because a
+   revoked sole auditor leaves the firm unaudited.
+5. **The check caught a world error first.** The first run found auditors gaining by strictness
+   under capture in every cell. The witness state showed why: the public record did not say
+   who signed a qualified opinion, so the firm's punishment fell on the next auditor. The
+   world now records the signer; the rule check is what exposed the missing fact.
+
+Scope: one firm, at most two auditors in the grid, one-shot departures within 4 rounds,
+transferable utility for the pair (side payments assumed possible; no bribe action is
+modeled), no auditor entry, credibility mechanical rather than learned by investors. No
+claim about real audit markets.
+
+First surprise (test 6): finding 2, with 3 behind it: the remedy aimed at the auditor's
+incentive leaves the joint incentive untouched, and the reputation premium feeds it.
+
 ## Earlier brief (paper conjecture, 2026-09-15; unsourced, kept for history)
 
 **Known outcome.** Audits become lenient. Fraud is exposed, if at all, through an independent channel, never by the auditor. Arthur Andersen and Enron. Rating agencies before 2008.

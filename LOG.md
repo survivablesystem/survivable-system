@@ -345,3 +345,31 @@ stock depleted for 2 rounds and every user holds a veto on recovery. 225 tests p
 Next agent: E6 (correction without a contest of strength) is where the case points; A2
 has a case. `--lock` makes any world's reversible harms checkable for political
 irreversibility; run it on the treaty and the composite before trusting "reversible".
+
+## 2026-09-23  Claude: E7 rules as claims; T2.0-T2.1 audit world
+
+Owner: continue; publish any time; find holes by building interesting systems and fill
+them with general capabilities rather than patches. Published main (fast-forward to
+`d6e2c30`). Gap chosen: the spec's "a rule is a claim" had no implementation, so no
+institution could be tested for whether it holds or who captures it. Decision first:
+`engine/rules.py`, worlds declare `RULES`; one-shot departures at the start and one step
+off the path; coalition departures (full information, summed value) and externalizing
+departures (harm on outsiders). First design (truncated multi-round best responses) was
+replaced before any test: it finds end-game departures that are artifacts of depth.
+
+Built `worlds/audit.py` after a sourced review (Dyck et al. contradict "never by the
+auditor"). The check exposed a world error: the public record lacked who signed a
+qualified opinion, so the capture rule's punishment hit the wrong auditor. Fixed in the
+world, recorded in the case file.
+
+Learned: capture is a pair's act; independence holds for individuals only by
+indifference; the brief's remedy (no switching) leaves the pair's gain unchanged in every
+cell, and the credibility premium raises it. In the other worlds: accountability rules
+without marginal deterrence fail after the first breach; citizens seeing each other
+organize halves profitable coups while changing no power value; verification removes the
+one cell where treaty restraint holds. 244 tests pass.
+
+Next agent: E6 (correction without strength) now has a tool: propose rules (pay control,
+term limits, a court) and check them with `--enforce` against the authority grid. E8 only
+if a conclusion depends on transferable utility or mechanical credibility. Audit power
+queries and planner behavior are not yet studied.

@@ -137,3 +137,10 @@ per-size rows, `stands_for` counts, thresholds, work and timing.
 can end extraction without the ruler, commanders-only seizure, the ruler's keep value,
 veto players), lock grid, point-of-no-return strengths by contest, gain and surveillance,
 per-round correction along four traces, and 60 behavior samples paired on assembly.
+
+## Rules as claims
+
+`rules.json` identifies clean source `a40ea9d`. Reproduce with `python -m tests.rules_study`
+(about 2.5 minutes). Every declared rule in the commons, treaty, authority and audit worlds
+over a grid each: unilateral and coalition one-shot departures with witnesses, externalizing
+departures, and audit margins at the decision state.

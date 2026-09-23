@@ -271,3 +271,21 @@ models and both verification settings.
     nothing (38 vs 37). The defaults' first strike (finding 3) happens under plan in all
     four opening/verification cases. What survives both models: verification's effect on
     outcomes is small and of both signs. All power findings are independent of the model.
+
+## Rules as claims (E7, 2026-09-23)
+
+`evidence/rules.json` (clean `a40ea9d`), `python -m tests.rules_study`; one-shot departures,
+states within 2 rounds, coalitions up to 2, transferable utility for coalitions.
+Grid: verification {none, exact} x lead {0, 1, 2} x contest x prize {0.5, 2, 5}, depth 4.
+
+- `restraint` (never build or strike) and `reciprocity` (build after seeing a rival build)
+  each hold in 1 of 36 cells (no verification, parity, threshold contest, prize 0.5).
+  Nearly every failure is off the start: after one build, striking pays. Neither rule is
+  a stable treaty in this world; its "holding" in play is not self-enforcement.
+- Verification removes the one holding cell: with exact verification both rules fail in
+  18/18. Seeing a revealed advantage is what makes the strike pay, the same direction as
+  T3.1 finding 3.
+- Under `reciprocity` with verification, the two governments together gain (1.96, summed,
+  with side payments) by one striking the other in 15 cells: the race costs more than the
+  disarmament does to the pair, and the disarmed side's population, which has no agent,
+  bears it. A transferable-utility result; no side-payment mechanism exists in the world.

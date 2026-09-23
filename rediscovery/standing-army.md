@@ -149,6 +149,26 @@ without a contest of strength. No claim about real regimes: the case supports "i
 model, coup-proofing trades protection from seizure for loss of correction, and whether
 it entrenches the ruler depends on how decisive contests are".
 
+## Rules as claims (E7, 2026-09-23)
+
+`evidence/rules.json` (clean `a40ea9d`), `python -m tests.rules_study`; one-shot departures,
+states within 2 rounds, coalitions up to 2, transferable utility for coalitions.
+Grid: assembly x surveillance x commands {1, 2} x army {2, 4} x gain {0, 1} x rent {0.5, 1.5},
+depth 4.
+
+- `loyalty` (the army defends whoever holds office) fails in 64/64 at the start: the
+  ruler extracts, since defense is unconditional.
+- `accountability` (organize after extraction, rise once organized, defend a governing
+  holder against organizers) holds for the ruler at the start in every cell, then fails
+  off the start in 64/64: once organizing has begun, punishment is the same whether the
+  ruler stops or not, so extracting again is free. A rule without marginal deterrence
+  deters the first breach and none after it.
+- Commanders profit from the rule's own "rise once organized" clause (organize, then rise
+  as prescribed) in 44 of 64 cells: 28/32 without assembly, 16/32 with it. Whether
+  citizens see each other organize changes no power value (finding P4) but halves the
+  cells where a coup pays under this rule. Information channels decide which rules can
+  hold, not what can be forced.
+
 ## Earlier brief (paper conjecture, 2026-09-15; unsourced, kept for history)
 
 **Known outcome.** When the ruler exits, the army or its commander decides who rules next. Written succession rules are ignored. Praetorian Guard, Mamluks, most coups.

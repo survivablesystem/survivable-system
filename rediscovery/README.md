@@ -16,7 +16,7 @@ Each case file has: setup, sources/evidence status, hypothesis, competing explan
 |---|---|---|---|
 | open-commons.md | beliefs, incentives, observability | conjecture, revised by engine | `worlds/commons.py`; collapse or finite survival under tested assumptions |
 | standing-army.md | contests over office, conversion, surveillance, correction, computed lock-in | evidence reviewed (T4.0); rivals: moral hazard, coordination | `worlds/authority.py`; see findings |
-| captured-auditor.md | channels, selection, horizon | emerges | not yet |
+| captured-auditor.md | rules as claims, capture as coalition departure, exposure, revocation | evidence reviewed (T2.0); "never by the auditor" contradicted | `worlds/audit.py`; capture is a pair's act; fixed assignment leaves it untouched |
 | treaty-no-verification.md | relative goals, verification as information, capability race, lock-in | evidence reviewed (T3.0); rivals: commitment, transparency, information | `worlds/treaty.py`; verification changes behavior, not power; its effect favored the leader |
 | kinship-trust.md | goals over others' outcomes, trust radius, group selection | brief only | not yet |
 | money-issuance.md | money as a claim, issuance capability, acceptance as belief | brief only | not yet |
