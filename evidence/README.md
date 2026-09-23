@@ -80,7 +80,8 @@ and, per round, force/prevent thresholds within 3 rounds, fragile and sealed fla
 
 ## Depth
 
-`depth.json` identifies clean source `7c1b92d`. Reproduce with `python -m tests.depth_study`
+`depth.json` identifies clean source `98cafb1` (re-run of the `7c1b92d` study after interior reward
+integration; completed rows identical, depth 5 with restraint now resolves). Reproduce with `python -m tests.depth_study`
 (about 10 minutes). Baseline runs at depths 4 and 5, restraint on and off, full traces,
 under a recorded study cap of 2,000,000 entries.
 
@@ -200,3 +201,11 @@ liability {0, 2, 10}, with single-agent, one-round and two-round coalition depar
 `precaution.json` identifies clean source `2ec45c1`. Reproduce with `python -m tests.precaution_study`
 (seconds). Lab, state and AI incentives right after the AI is caught, over 27 states and five
 posteriors that the AI persists as a misaligned type.
+
+## Re-run after interior reward integration (E2 step 3)
+
+Every planner-using study was re-run from clean `98cafb1`. Identical apart from timing, work
+counts and register entries added since: opponent models, precaution, power profiles,
+treaty, treaty domains, treaty scarce, correction, amendment, control, binding, rules,
+authority, frontier (those files are kept). Changed only where runs used to stop at the
+work cap, and replaced: restraint, race-commons, depth.

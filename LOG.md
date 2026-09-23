@@ -479,3 +479,35 @@ where the racers' takes have shrunk, never against the builds. 302 tests pass.
 Next agent: E2 remaining is the planner (behavior with many fishers is unstudied); E12
 Bayesian updating; E6 remainder; A2; E3. Every size effect here traces to the declared 1/n
 scaling of takes: a world where individual demand does not shrink with n would differ.
+
+## 2026-09-23  Claude: E2 step 3, interior reward integration; population size in the commons
+
+Owner: merge to main and continue. Main fast-forwarded to `cef4bf1`, CI green.
+Measured before building: behavior in the fishery composite was unresolved from four
+fishers. The cost was the commons' independent sanction contests (2^targets successors per
+node; 8.9M entries for one decision at six fishers), not level-1 responses, so planner
+symmetry would not have helped. The successors differ only in payoffs and wealth, which
+nothing reads. Decision first: `World.continuation` and `planning_outcomes` extend T1.4's
+leaf integration to every depth, exact for additive expected utility; commons computes its
+classes without enumerating hit patterns; composites combine their parts'.
+`engine.core.continuation_violations` checks any world's declaration; the T1.4 full-kernel
+references now disable both reductions. Commons `n` register widened to 24.
+
+Re-ran every planner-using study from a clean worktree at `98cafb1`: completed results
+identical everywhere; what changed is only runs that used to stop at the work cap
+(restraint 5 random runs, composite under `others = plan`, depth 5 with restraint), all
+evidence files and case rows updated. Newly resolved: the race brings the fishery's
+collapse forward to 24/16 under plan (react 29/25); depth 5 with restraint collapses at 17
+without resting.
+
+Learned (`evidence/size.json`, clean `0221c21`, open-commons findings 7-9): commons outcomes
+are size-free from three users without sanctions and nearly so with paid sanctions (retired
+finding 3 survives exact search). Unpaid sanctioning loses its brink brake with size: each
+user weighs sanctioning n-1 others alone at a per-target cost, though on the path all brake
+together and nobody pays. The switch moves with the cost (0.05: 16-24 users; 0.2: from
+four), same under both opponent models. A size effect without sparse channels. 320 tests.
+
+Next agent: E2's remaining item (a calibrated approximation) has no demonstrating case yet.
+Open: E12 Bayesian updating over hidden types; E6 remainder; A2; E3. The sanction-cost unit
+(fraction of the individual take) is now a known source of size effects: sweep it before
+any claim about group size.
