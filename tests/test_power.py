@@ -213,3 +213,25 @@ def test_cli_power_json_matches_library():
     assert data["mode"] == "power" and data["settings"]["target"] == ["collapsed"]
     world = commons.make({**commons.DEFAULTS, "n": 2}, random.Random(0))
     assert data["results"]["rows"] == power_table(world, world.initial_state(), 1, ["collapsed"])
+
+
+def test_restraint_off_is_the_previous_world():
+    for S in (10.0, 30.0):
+        old = small_commons(confiscation_to="stock")
+        explicit = small_commons(confiscation_to="stock", restraint=False)
+        assert (power_table(old, at_stock(old, S), 2, "collapsed")
+                == power_table(explicit, at_stock(explicit, S), 2, "collapsed"))
+
+
+@pytest.mark.parametrize("destination", ["stock", "sanctioners"])
+@pytest.mark.parametrize("S", [6.0, 12.0, 20.0, 40.0])
+def test_restraint_helps_only_prevention(destination, S):
+    without = small_commons(confiscation_to=destination)
+    with_rest = small_commons(confiscation_to=destination, restraint=True)
+    a = power_table(without, at_stock(without, S), 2, "collapsed")
+    b = power_table(with_rest, at_stock(with_rest, S), 2, "collapsed")
+    for x, y in zip(a, b):
+        assert y["force"]["alpha"] <= x["force"]["alpha"] + 1e-12
+        assert y["prevent"]["alpha"] >= x["prevent"]["alpha"] - 1e-12
+    everyone = [r for r in b if len(r["coalition"]) == 3][0]
+    assert everyone["prevent"]["alpha"] == 1.0  # regrowth is positive on (0, K)

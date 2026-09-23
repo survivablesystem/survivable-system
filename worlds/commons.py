@@ -1,7 +1,8 @@
 """Open-access commons. Paper case: rediscovery/open-commons.md.
 
 n users draw from one regenerating stock. Each round a user takes a low (sustainable
-share) or high amount, and, if it has the capability and a channel, may sanction. A
+share) or high amount and, if it has the capability and a channel, may sanction. If the
+register allows restraint, a user may instead rest: take nothing, sanction no one. A
 sanctioner acts against every visible user whose take exceeds its own, paying a cost per
 target. Each target faces a contest (its sanctioners' combined capability against its
 own); on success its take that round is confiscated and goes either back to the stock
@@ -27,6 +28,7 @@ SPACE = {
     "hi_mult": (2, 4, int),           # high take as a multiple of the sustainable take
     "k": [0, 1],                      # belief level, see engine/core.py
     "confiscation_to": ["stock", "sanctioners"],  # where a confiscated take goes: a design choice
+    "restraint": [False, True],       # whether a user may rest (take nothing); resting users cannot sanction
 }
 # Only K is a scale choice. The dimensionless fractions are substantive assumptions.
 FIXED = {"K": 100.0, "S0_frac": 0.5, "S_min_frac": 0.05, "lo_frac": 0.8,
@@ -41,9 +43,9 @@ FIXED_REASONS = {
 # Used by --trace when a swept param is not fixed on the command line.
 DEFAULTS = {"n": 4, "horizon": 12, "discount": 0.9, "channels": "all", "sanction": True,
             "sanction_cost": 0.1, "prior": "lo", "r": 0.5, "hi_mult": 2, "k": 1,
-            "confiscation_to": "sanctioners", "search_depth": 2}
+            "confiscation_to": "sanctioners", "search_depth": 2, "restraint": False}
 
-LO, HI = "lo", "hi"
+REST, LO, HI = "rest", "lo", "hi"
 
 
 class Commons(World):
@@ -93,6 +95,8 @@ class Commons(World):
 
     def actions(self, state, agent):
         acts = [(LO, False), (HI, False)]
+        if self.params["restraint"]:
+            acts.append((REST, False))
         if agent.can("sanction") and agent.channels:
             acts += [(LO, True), (HI, True)]
         return acts
@@ -101,7 +105,7 @@ class Commons(World):
         return self.prior_last()
 
     def amount(self, level):
-        return self.lo if level == LO else self.hi
+        return {REST: 0.0, LO: self.lo, HI: self.hi}[level]
 
     def round_inputs(self, state, joint):
         """Shared deterministic preparation for physical and leaf reward kernels."""

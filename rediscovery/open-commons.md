@@ -89,3 +89,33 @@ The old claim that tie alternation does not change outcomes was not a general re
 ## Power findings (2026-09-23, T1.5)
 
 `coalition-power.md`. Goal-free: the real point of no return is S* = 0.276K (fixed by `lo_frac` and the absence of any take below `lo`), not S_min. In the paid baseline all four users took the step below S* at round 13, when any one of them could have blocked it; collapse became unavoidable then and was labeled at 17. Paid sanctions change no power value: the norm they sustain is deterrence only. Unpaid sanctions give denial the agents do not use. The menu lacks a restraint action (T1.6).
+
+## Restraint semantics (T1.6, 2026-09-23), stated before building
+
+Problem: the menu has no take below `lo`, so collapse is sealed at S* = 0.276K and the
+only way to harvest less is to be confiscated (`coalition-power.md`, findings 1 and 5).
+Real users can stop taking. The absence looks like a wrong world, not an assumption
+anyone chose.
+
+Simplest change: register option `restraint: [False, True]`. True adds one action,
+`(rest, no sanction)`, taking nothing. A resting user cannot sanction: the existing rule
+targets takes above the sanctioner's own, and letting a non-taker police every taker
+would change who is sanctionable, a second semantic change. That alternative stays
+untested and declared. `restraint=False` is the previous world exactly.
+
+Expected, before runs:
+- R1 (power, consistency): with rest, the whole group prevents collapse from any
+  non-collapsed stock (regrowth is positive on (0, K)). The point of no return moves to
+  S_min. Follows from the kernel.
+- R2 (power): rest only helps the side avoiding collapse, so every force value can only
+  fall and every prevent value only rise. Expected to matter below S*: prevention by a
+  minority becomes possible where the paid design had none. Contradiction: any force value
+  rises (an implementation error), or no value changes anywhere below S*.
+- R3 (behavior): depth-2 agents do not rest in the baseline; resting costs yield now and
+  pays beyond the search depth. Expect collapse still at round 17 with the same trace.
+  Contradiction: rest chosen, or survival through 30 rounds.
+- R4 (behavior, the question that matters): does restraint appear anywhere in the
+  one-at-a-time neighborhood (depth 3, low stock, unpaid)? No prediction; record it.
+
+Default: decide after runs. If R1 holds, the world with restraint is the more faithful
+baseline; old results stay reproducible at `restraint=False` and at their revisions.
