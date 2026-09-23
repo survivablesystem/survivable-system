@@ -162,6 +162,16 @@ class Composite(World):
         return {f"{p}: {h}" for p, w in self.parts.items() for h in w.harmed(state["parts"][p])}
 
 
+def lift_rules(part_rules):
+    """The whole's rule: each actor follows each part's rule in the parts it acts in, from its
+    view of that part (decision 2026-09-23, E4 amendment)."""
+    def rule(world, observation, agent):
+        return {p: part_rules[p](world.parts[p], observation[p], world.local[agent.id][p])
+                for p in world.local[agent.id]}
+    rule.__doc__ = " ".join(f"{p}: {(r.__doc__ or '').strip()}" for p, r in part_rules.items())
+    return rule
+
+
 def part_harms(modules, stakeholder_map):
     """HARMS of the whole: each part harm, prefixed, with stakeholders renamed globally."""
     rename = {(part, local): name for name, sources in stakeholder_map.items() for part, local in sources}

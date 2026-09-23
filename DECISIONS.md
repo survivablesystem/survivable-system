@@ -7,6 +7,19 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  E4 amendment: rules of the parts hold in the whole
+
+Proposed before implementation. Composites had no rules, so no rule check ran on a whole:
+T9.6 needs licensing (frontier) and corrigibility (control) checked together. Change:
+`engine.compose.lift_rules({part: rule})`, the composite rule in which each actor follows
+each part's rule in the parts it acts in, reading only its view of that part. Composition
+of rules is their union, as for modules; interactions come from the shared actors and the
+coupling, not from the rule. Nothing else changes.
+
+Intent tests: 1 one function; 2 conduct is still declared per part, choices computed; 3, 4
+unchanged; 5 capture across parts (a pair gaining in one part at the expense of people in
+the other) becomes checkable; 6 the first such check is T9.6.
+
 ## 2026-09-23  E12 amendment: a scale-free choice rule for hidden types
 
 Proposed before implementation. Found in T9.4: the logit likelihood and its limit (a sight
