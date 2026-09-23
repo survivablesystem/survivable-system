@@ -15,7 +15,7 @@ Each case file has: setup, sources/evidence status, hypothesis, competing explan
 | open-commons.md | beliefs, incentives, observability | conjecture, revised by engine | `worlds/commons.py`; collapse or finite survival under tested assumptions |
 | standing-army.md | rules as claims, contests, delegation drift, lock-in | emerges | not yet |
 | captured-auditor.md | channels, selection, horizon | emerges | not yet |
-| treaty-no-verification.md | relative goals, verification as information, capability race, lock-in | evidence reviewed (T3.0); rivals: commitment, transparency, information | not yet |
+| treaty-no-verification.md | relative goals, verification as information, capability race, lock-in | evidence reviewed (T3.0); rivals: commitment, transparency, information | `worlds/treaty.py`; verification changes behavior, not power; its effect favored the leader |
 | kinship-trust.md | goals over others' outcomes, trust radius, group selection | brief only | not yet |
 | money-issuance.md | money as a claim, issuance capability, acceptance as belief | brief only | not yet |
 

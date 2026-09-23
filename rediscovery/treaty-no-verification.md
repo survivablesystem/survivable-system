@@ -93,3 +93,47 @@ kernel: it is a pattern of play whose enforcement is the rival's response.
   in few tested states. The count is the result.
 - E3 (behavior): no prediction between V1 (verification brings compliance) and rival C
   (verification triggers preventive strikes). The runs discriminate; both outcomes are kept.
+
+## Engine findings (T3.1, 2026-09-23)
+
+Artifact `evidence/treaty.json`, clean `a2d4c64`, 6 s; `python -m tests.treaty_study`.
+Power grid: 2 contests x 3 advantages x 3 returns x 4 leads x T in {2, 4, 6} (216 cells).
+Behavior: 120 random register samples (seed 3031), each run with verification none and
+exact at the same parameters and seed, 12 rounds; defaults probed with action values.
+
+| Expectation | Result |
+|---|---|
+| E1 returns lower the lock-in threshold | contradicted: no force value depends on returns or T in any cell |
+| E2 verification buys no denial where building suffices | holds in the strongest form: blind, verified and fully informed sure prevention agree in all 216 cells |
+| E3 V1 (compliance) versus rival C/T/I (provocation) | 6 of 120 outcomes change with verification, all toward the leader disarming the trailer; none toward compliance |
+
+1. **Lock-in here is now-or-never.** The leader can force disarmament only if it holds the
+   required advantage at the start (threshold) or takes its immediate odds (ratio). A
+   trailing party that keeps building is never forced later. Growth proportional to
+   capability preserves the ratio and the +1 term erodes it, so "increasing returns" in
+   this form never creates an irreversible lead. The brief's V2 needs returns that raise
+   the *ratio* (gain elasticity above one); that is untested, and it is a different
+   empirical claim about AI progress than compounding growth.
+2. **Verification is not denial.** The trailing party's prevention (keep building) needs
+   no information, so seeing the rival adds nothing it can guarantee. Information would
+   buy denial only where responses are scarce and must be timed (for example, a budget
+   that limits building); the world has no such constraint. Proposed follow-up.
+3. **Verified leaders strike; verified trailers arm.** Threshold contest, 58 pairs:
+   disarmaments 21 without verification, 25 with; runs where nobody ever builds (the
+   treaty kept) 45 without, 34 with. Visibility makes the trailer build in response and
+   lets a leader see its window. Under the defaults with `opening=hold`, verification
+   turns a 12-round standoff into disarmament in round 2; the power profile marks round 2
+   fragile (one party can force it). This matches rivals T and I, not V1.
+4. **The first-strike result depends on anticipation.** With `opening=build` the trailer
+   expects the leader to build, builds in round 1 and both hold at parity for 12 rounds.
+   The planner's root opponent model (rivals repeat their last action) is doing the work
+   in finding 3's default case. A consequential limitation of the level-1 model, recorded
+   for A1; the random sweep samples `opening` and finding 3's counts include both.
+5. **The ratio contest is strike-prone regardless of information.** 59 of 62 ratio runs
+   end with a round-1 strike under either verification. Any capability gives a chance at
+   the prize, and the swept prize (0.5-5) outweighs strike costs. This is a statement
+   about the prize goal and the contest form (A2), not about verification.
+
+Scope: two parties, depth 1-3, 12 rounds, ceiling 12, no noise, no third party, no
+inspector. No claim about real treaties: the case supports "in this model, verification
+changed behavior and not power, and its behavioral effect favored the leader".

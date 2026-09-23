@@ -2,7 +2,7 @@
 
 A research prototype for comparing institutions under explicit assumptions, with the long-term aim of reducing civilizational risk. Agents choose actions from goals and beliefs. The tool asks who bears costs, who can force irreversible outcomes, and who can correct errors.
 
-Implemented: one commons world, a limited planner, finite simulations, parameter sweeps and a goal-free coalition power query. Rule/authority lock-in, correction of error states, nested institutions and a civilizational protocol are not implemented or validated. The historical briefs are hypotheses awaiting source and counterexample review.
+Implemented: two worlds (a commons, a treaty and capability race), a limited planner, finite simulations, parameter sweeps and a goal-free coalition power query. Rule/authority lock-in, correction of error states, nested institutions and a civilizational protocol are not implemented or validated. The historical briefs are hypotheses awaiting source and counterexample review.
 
 Read [`INTENT.md`](INTENT.md) first. It is the measure for every change.
 
@@ -33,7 +33,10 @@ The planner answers the first under authored goals. `--power T` answers the seco
 
 ```sh
 python -m engine worlds.commons --power 3 --fix confiscation_to=stock --target collapsed
+python -m engine worlds.treaty --trace --rounds 12 --profile 3
 ```
+
+`engine.power.sure` asks the information question: can a coalition guarantee an outcome using only what its members observe? It is how verification, disclosure or any channel can show up as denial rather than only as behavior (see [`rediscovery/treaty-no-verification.md`](rediscovery/treaty-no-verification.md)).
 
 A good outcome that the planner produces but that one agent could still force away rests on goals: it is deterrence, not denial. Power claims do not depend on goals, horizons, beliefs or planner depth, and say nothing beyond T. Exact enumeration is exponential; a work cap marks unresolved entries. See [`rediscovery/coalition-power.md`](rediscovery/coalition-power.md).
 

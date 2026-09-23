@@ -198,3 +198,21 @@ reported as conditional on search depth. Next: stage 3 (treaty and capability ra
 reordered ahead of stage 2 because it is the case where goal-free lock-in queries answer
 the AI-governance question directly. Sparse channels (T1.1) and the readiness tie (T1.2)
 are deferred: their behavioral effects would be conditional on the same depth limit.
+
+## 2026-09-23  Claude: T3.0-T3.1, treaty and capability race
+
+Reordered stage 3 ahead of stage 2 (reason in TASKS). T3.0: sources checked at
+bibliographic/abstract level; rivals from Powell (commitment), Coe and Vaynman
+(transparency-security) and Armstrong, Bostrom and Shulman (information). Design point:
+the full-information power query cannot see verification, so added `engine.power.sure`
+(knowledge-set construction, decision record first; tests include a hidden-bit toy).
+
+T3.1: `worlds/treaty.py` (hold/build/strike, ratio or threshold contest, verification
+none/exact, relative-capability goals, `opening` assumption added after the first probe).
+Kernel bug found by tests: two zero-capability strikers both "won" under threshold; fixed.
+Findings in the case file: verification changes behavior, not power; its behavioral effect
+favored the leader; lock-in is now-or-never; the first-strike default depends on the root
+opponent model. Evidence `evidence/treaty.json` (clean `a2d4c64`, 6 s). 153 tests pass.
+
+Next agent: T3.2 (scarce responses; ratio-raising returns). The treaty world is cheap, so
+larger sweeps and depth 3 are affordable. A1 now has a recorded case.

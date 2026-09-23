@@ -82,3 +82,11 @@ and, per round, force/prevent thresholds within 3 rounds, fragile and sealed fla
 `depth.json` identifies clean source `7c1b92d`. Reproduce with `python -m tests.depth_study`
 (about 10 minutes). Baseline runs at depths 4 and 5, restraint on and off, full traces,
 under a recorded study cap of 2,000,000 entries.
+
+## Treaty
+
+`treaty.json` identifies clean source `a2d4c64`. Reproduce with `python -m tests.treaty_study`
+(seconds). Power grid with full-information force values and sure prevention blind,
+verified and informed; default runs with round-1 action values; 120 verification-paired
+random samples with outcomes, build and strike counts. See
+`rediscovery/treaty-no-verification.md`.
