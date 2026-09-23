@@ -2,7 +2,7 @@
 
 A research prototype for comparing institutions under explicit assumptions, with the long-term aim of reducing civilizational risk. Agents choose actions from goals and beliefs. The tool asks who bears costs, who can force irreversible outcomes, and who can correct errors.
 
-Implemented: one commons world, a limited planner, finite simulations and parameter sweeps. Coalition queries, nested institutions and a civilizational protocol are not implemented or validated. The historical briefs are hypotheses awaiting source and counterexample review.
+Implemented: one commons world, a limited planner, finite simulations, parameter sweeps and a goal-free coalition power query. Rule/authority lock-in, correction of error states, nested institutions and a civilizational protocol are not implemented or validated. The historical briefs are hypotheses awaiting source and counterexample review.
 
 Read [`INTENT.md`](INTENT.md) first. It is the measure for every change.
 
@@ -26,6 +26,16 @@ python -m engine worlds.commons --trace --rounds 30 --seed 7 --json > trace.json
 ```
 
 The full one-at-a-time run can take several minutes. It starts from the declared baseline and varies categorical values or numeric endpoints. `--fix` holds a parameter fixed throughout every mode. Overrides must belong to the register; unknown names and invalid values fail early. `--trace` and `--oat` are mutually exclusive. Commons searches depth 2 by default; `--fix search_depth=3` investigates the next depth. Desired horizon and effective search depth are different assumptions, both recorded. There is no estimate of utility beyond the cap.
+
+## Two questions: what agents do, what coalitions could force
+
+The planner answers the first under authored goals. `--power T` answers the second without any goals: for every coalition, the probability it can force a flagged terminal label (for example collapse) within T rounds against everyone else acting together, and the probability it can prevent it. Alpha/beta columns bracket the value by who commits first each round.
+
+```sh
+python -m engine worlds.commons --power 3 --fix confiscation_to=stock --target collapsed
+```
+
+A good outcome that the planner produces but that one agent could still force away rests on goals: it is deterrence, not denial. Power claims do not depend on goals, horizons, beliefs or planner depth, and say nothing beyond T. Exact enumeration is exponential; a work cap marks unresolved entries. See [`rediscovery/coalition-power.md`](rediscovery/coalition-power.md).
 
 ## Reproducing a result
 

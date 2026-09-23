@@ -1,4 +1,4 @@
-# Primitives, v0.2
+# Primitives, v0.3
 
 The current model, not an immutable ontology. Adopted 2026-09-15 and revised through `DECISIONS.md`. Replace abstractions when discriminating cases support a simpler or more capable account consistent with INTENT. The status table distinguishes implemented mechanisms from proposals.
 
@@ -79,7 +79,10 @@ AI advancement is a module: a new type whose capability grows per round, plus sh
 For a composed world, under a sweep over the assumptions register:
 
 - **lock-in threshold**: smallest coalition that can force an irreversible transition regardless of others. Want high.
+- **prevention threshold**: smallest coalition that can keep an irreversible transition from happening regardless of others. Want low.
 - **correction threshold**: smallest coalition that can reverse a detected error regardless of others. Want low.
+
+Power is goal-free (`engine/power.py`, bounded form implemented). Within T rounds, a coalition maximizes the probability of entering a flagged terminal label; the complement minimizes it as one coordinated adversary; both see the full state; chance follows `outcomes`. Stage orders bracket the value: alpha (coalition commits first) is its guarantee, beta an upper bound; randomized play lies between. Prevention is the dual. Goals, horizons, beliefs and planner limits do not enter, so a power claim does not depend on them. What agents do (planner) and what coalitions could force (power) are separate reports; protection that rests on the gap between them is deterrence, not denial. Worlds may declare `physical(state)`, the part fixing menus, kernel and terminal status, as a memo key; the default is the whole state. Thresholds with an unresolved or straddling smaller coalition are upper bounds. Exact enumeration is exponential in agents and T; no claim extends beyond T.
 - **finite outcomes**: labels and terminal status at a stated duration, plus shares over the sampled assumptions. Survival to the time limit is not an attractor or a probability of real-world survival. Attractor detection is not implemented.
 - **coalition power**: can coalition C force outcome X. Answered per sample, reported as a fraction across samples.
 - **diff**: any of the above for world A minus world B, or one world under two scenarios.
@@ -111,6 +114,7 @@ Individual psychology beyond goals and horizon. Physical detail of the world bey
 | modules and composition | not yet | T7.1 |
 | queries: finite outcomes, one-at-a-time | implemented | |
 | queries: attractor detection | not yet | evidence of convergence on a case |
-| queries: lock-in, correction, coalition power, diff | not yet | T4.2, T4.3, T7.2 |
+| queries: goal-free force/prevent thresholds over terminal labels, bounded T | implemented | |
+| queries: lock-in over rule/authority states, correction of error states, diff | not yet | T4.2, T4.3, T7.2 |
 
 The static linter that preceded this model was removed on adoption; `DECISIONS.md` records where each of its checks went.

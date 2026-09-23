@@ -202,3 +202,14 @@ def test_work_cap_is_unresolved_not_a_power_result():
     assert any(r["force"]["alpha"] is None for r in rows)
     result = threshold(rows, "force")
     assert result["exact"] is False or result["size"] == 0
+
+
+def test_cli_power_json_matches_library():
+    import json
+    from tests.test_records import cli
+    completed = cli("--power", "1", "--json", "--fix", "n=2", "--target", "collapsed")
+    assert completed.returncode == 0, completed.stderr
+    data = json.loads(completed.stdout)
+    assert data["mode"] == "power" and data["settings"]["target"] == ["collapsed"]
+    world = commons.make({**commons.DEFAULTS, "n": 2}, random.Random(0))
+    assert data["results"]["rows"] == power_table(world, world.initial_state(), 1, ["collapsed"])

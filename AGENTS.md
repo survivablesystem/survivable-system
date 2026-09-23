@@ -49,6 +49,7 @@ The implementation and current model are replaceable. When a limitation matters,
 - A number outside `SPACE` or `FIXED`.
 - Tuning until a test passes. If the expected outcome only appears at a corner, say so in the case file. That is a finding.
 - Making the planner cleverer before a case needs it. Level-0 beliefs stayed until the commons showed they cannot hold a norm.
+- Reporting a good outcome without asking who could still force it away. Run the power query: survival that rests on goals is deterrence, not denial.
 - Treating a green suite as a validated model. It means the known outcomes emerge. It says nothing about unknown ones.
 - Long prose. Files are read by the next agent deciding what to trust.
 
@@ -63,4 +64,5 @@ python -m pytest -q
 python -m engine worlds.commons --oat                 one parameter at a time from DEFAULTS
 python -m engine worlds.commons --samples 100         random sweep of the register
 python -m engine worlds.commons --trace --fix n=4     one world, round by round
+python -m engine worlds.commons --power 3             goal-free: what each coalition can force or prevent
 ```

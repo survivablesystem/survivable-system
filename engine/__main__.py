@@ -4,6 +4,7 @@
     python -m engine worlds.commons --fix n=4 horizon=12  sweep with some params fixed
     python -m engine worlds.commons --trace --fix n=4     play one world and print each round
     python -m engine worlds.commons --oat                 move one parameter at a time from DEFAULTS
+    python -m engine worlds.commons --power 3             what each coalition can force within 3 rounds
 """
 import argparse
 import importlib
@@ -11,6 +12,7 @@ import json
 import math
 import random
 
+from .power import BUDGET, power_table, threshold
 from .records import artifact, run_record
 from .sweep import one_at_a_time, report, report_oat, sample_params, sweep
 
@@ -68,6 +70,9 @@ def main():
     mode = p.add_mutually_exclusive_group()
     mode.add_argument("--trace", action="store_true", help="play one world (DEFAULTS plus --fix) and print rounds")
     mode.add_argument("--oat", action="store_true", help="vary unfixed parameters from DEFAULTS plus --fix")
+    mode.add_argument("--power", type=positive_int, metavar="T",
+                      help="goal-free: what each coalition can force or prevent within T rounds from the initial state")
+    p.add_argument("--target", nargs="*", help="terminal labels for --power (default: any terminal)")
     p.add_argument("--seeds", type=positive_int, default=4, help="seeds per point for --oat")
     p.add_argument("--json", action="store_true")
     args = p.parse_args()
@@ -86,12 +91,40 @@ def main():
         print(json.dumps(artifact(mod, mode_name, settings, results), indent=2,
                          sort_keys=True, allow_nan=False))
 
-    if args.trace:
+    def baseline_params():
         rng = random.Random(args.seed)
         params = {**getattr(mod, "DEFAULTS", {}), **fixed}
         for k in space:
             if k not in params:
                 params[k] = sample_params({k: space[k]}, rng)[k]
+        return params
+
+    if args.power:
+        params = baseline_params()
+        world = mod.make(dict(params), random.Random(args.seed))
+        target = args.target or None
+        rows = power_table(world, world.initial_state(), args.power, target)
+        marks = [threshold(rows, kind, level) for kind in ("force", "prevent") for level in (1.0, 0.5)]
+        settings.update({"baseline": params, "power_rounds": args.power, "target": target, "budget": BUDGET,
+                         "query": "Goal-free finite-horizon reachability from the initial state; coordinated full-information adversary; alpha/beta stage orders bracket randomized play."})
+        if args.json:
+            emit("power", {"rows": rows, "thresholds": marks})
+            return
+        fmt = lambda v: "  ?  " if v is None else f"{v:.3f}"
+        print(f"params: {params}\ntarget: {target or 'any terminal'} within {args.power} rounds")
+        print("coalition                    force[alpha,beta]   prevent[alpha,beta]")
+        for r in rows:
+            name = ",".join(r["coalition"]) or "(none)"
+            f, v = r["force"], r["prevent"]
+            print(f"{name:28s} {fmt(f['alpha'])} {fmt(f['beta'])}        {fmt(v['alpha'])} {fmt(v['beta'])}")
+        for m in marks:
+            size = "none within T" if m["size"] is None else m["size"]
+            print(f"smallest coalition to {m['kind']} with p>={m['p']}: {size}{'' if m['exact'] else ' (upper bound)'}")
+        print("Power ignores goals: it says what could be forced, not what agents will do. ? = work cap.")
+        return
+
+    if args.trace:
+        params = baseline_params()
         result = run_record(mod.make, params, args.rounds, args.seed, include_trace=True)
         settings["baseline"] = params
         if args.json:
