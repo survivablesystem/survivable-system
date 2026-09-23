@@ -230,7 +230,8 @@ def restitution_pairs(world):
 
 def restitution(world, observation, agent):
     """With side payments (engine/transfers.py, restitution pairs, public disclosure): the
-    holder governs, and the round after it extracts it repays the citizens. Everyone else
+    holder governs, and the round after it extracts it repays the citizens the first declared
+    amount (less does not count). Everyone else
     organizes after an extraction, rises if the holder extracted again or did not repay,
     stands down once repaid, defends a governing holder against anyone else organizing,
     and otherwise stays. With a public record (engine/history.py), organizing counts as a
@@ -242,15 +243,18 @@ def restitution(world, observation, agent):
     warned = True if record is None else bool(record) and record[0]["base"]["extracting"]
     holder = base["office"]
     menu = world.actions(observation, agent)
+    due = world.amounts[0]  # restitution is the first declared amount; less does not count
     if me == holder:
         if base["extracting"]:
-            repay = [a for a in menu if a[0] == GOVERN and a[1] != "none"]
+            repay = [a for a in menu if a[0] == GOVERN and a[1] != "none"
+                     and set(world.parse(a[1])[0]) <= set(world.people) and world.parse(a[1])[1] >= due]
             if repay:
                 return repay[0]
         return (GOVERN, "none")
     if base["strength"][me] == 0:
         return (STAY, "none")
-    repaid = holder in paid  # public disclosure: everyone sees last round's payments
+    # public disclosure: everyone sees last round's payments
+    repaid = holder in paid and set(world.parse(paid[holder])[0]) <= set(world.people) and world.parse(paid[holder])[1] >= due
     if me in base["organized"]:
         return (RISE if warned and (base["extracting"] or not repaid) else STAY, "none")
     if base["extracting"]:

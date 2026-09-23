@@ -31,6 +31,11 @@ class Transfers(World):
         for agent in base.agents:
             self.add(agent)
 
+    def __getattr__(self, name):  # rules may reach the base world's helpers (units, people, ...)
+        if name == "base":
+            raise AttributeError(name)
+        return getattr(self.base, name)
+
     def payments(self, agent_id):
         return [NONE] + [f"pay:{r}:{a}" for p, r in self.pairs if p == agent_id for a in self.amounts]
 
