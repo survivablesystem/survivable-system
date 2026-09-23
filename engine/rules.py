@@ -25,7 +25,10 @@ TOLERANCE = 1e-9
 class RuleLimitExceeded(RuntimeError):
     def __init__(self, budget):
         self.budget = budget
-        super().__init__(f"rule check exceeded {budget} kernel entries; unresolved")
+        super().__init__(f"rule check exceeded {budget} kernel entries in one evaluation; unresolved")
+
+    def __reduce__(self):  # survive pickling across processes with the right message
+        return (RuleLimitExceeded, (self.budget,))
 
 
 class Check:
@@ -40,6 +43,11 @@ class Check:
         self.work += 1
         if self.work > self.budget:
             raise RuleLimitExceeded(self.budget)
+
+    def fresh(self):
+        """Start a new evaluation's work count; memoized values stay (they are exact)."""
+        self.work = 0
+        return self
 
     def prescribed(self, state):
         """The joint action the rule prescribes; each must be on the agent's menu."""
@@ -304,6 +312,9 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
         out = None
         for n, s in enumerate(states):
             try:
+                check.fresh()
+                for c in persistent_checks.values():
+                    c.fresh()
                 r = evaluate(s)
             except RuleLimitExceeded as error:
                 return {"gain": None, "error": str(error)}
@@ -317,7 +328,7 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
             continue
         best_harmful = None
         for n, s in enumerate(states):
-            h = checker(s, i).unilateral(s, i, depth)["harmful"]
+            h = checker(s, i).fresh().unilateral(s, i, depth)["harmful"]
             if h is not None and (best_harmful is None or h["gain"] > best_harmful["gain"] + TOLERANCE):
                 best_harmful = {**h, "at_start": n == 0, "state": s}
         r["harmful"] = best_harmful
@@ -331,16 +342,19 @@ def enforcement(world, module, rule, state, depth, reach=1, max_size=2, budget=B
             if r["gain"] is not None:  # the largest externalizing gains over the checked states
                 for field in ("externalizing", "externalizing_every"):
                     ext = None
-                    for n, s in enumerate(states):
-                        e = check.joint(s, list(coalition), depth, outside)[field]
-                        if e is not None and (ext is None or e["gain"] > ext["gain"] + TOLERANCE):
-                            ext = {**e, "at_start": n == 0, "state": s}
+                    try:
+                        for n, s in enumerate(states):
+                            e = check.fresh().joint(s, list(coalition), depth, outside)[field]
+                            if e is not None and (ext is None or e["gain"] > ext["gain"] + TOLERANCE):
+                                ext = {**e, "at_start": n == 0, "state": s}
+                    except RuleLimitExceeded as error:
+                        ext = {"gain": None, "error": str(error)}
                     r[field] = ext
             if window > 1 and r["gain"] is not None:  # coordinated departures over several rounds
                 seq = None
                 try:
                     for n, s in enumerate(states):
-                        q = check.sequential(s, list(coalition), depth, window, outside)
+                        q = check.fresh().sequential(s, list(coalition), depth, window, outside)
                         rank = (q["capture"], q["gain"])
                         if seq is None or rank > (seq["capture"], seq["gain"] + TOLERANCE):
                             seq = {**q, "at_start": n == 0, "state": s}

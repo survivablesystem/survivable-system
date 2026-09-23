@@ -59,7 +59,8 @@ def compact(report):
            for i, r in report["unilateral"].items()}
     pairs = []
     for r in report["coalitions"]:
-        keep = lambda e: None if e is None else {k: e[k] for k in ("gain", "members", "actions", "falls_outside", "at_start", "every_member")}
+        keep = lambda e: None if e is None else e if e.get("gain") is None else \
+            {k: e[k] for k in ("gain", "members", "actions", "falls_outside", "at_start", "every_member")}
         pairs.append({"coalition": r["coalition"], "gain": r["gain"], "externalizing": keep(r.get("externalizing")),
                       "externalizing_every": keep(r.get("externalizing_every"))})
     return {"holds_unilaterally": report["holds_unilaterally"], "no_harmful_departure": report["no_harmful_departure"],

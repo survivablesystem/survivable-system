@@ -243,3 +243,20 @@ def test_precaution_has_value_only_against_a_departer_who_persists():
     assert plain["unilateral"]["g"]["gain"] == pytest.approx(0.5) and plain["unilateral"]["g"]["action"] == "watch"
     # ...and worth it against one who keeps stealing.
     assert careful["unilateral"]["g"]["gain"] <= 1e-9
+
+
+
+def test_work_cap_is_per_evaluation_and_reported_unresolved():
+    import random
+    from engine.rules import Check, RuleLimitExceeded
+    from worlds import commons
+    world = commons.make({**commons.DEFAULTS, "n": 2}, random.Random(0))
+    rule = commons.RULES["quota and sanction"]
+    small = enforcement(world, commons, rule, world.initial_state(), 2, reach=0, budget=3)
+    assert small["holds_unilaterally"] is None  # unresolved, never "holds"
+    check = Check(world, rule, budget=10_000)
+    for _ in range(50):  # many evaluations on one check: the cap applies to each, not their sum
+        check.fresh().unilateral(world.initial_state(), "u0", 2)
+    import pickle
+    error = pickle.loads(pickle.dumps(RuleLimitExceeded(5)))
+    assert error.budget == 5 and str(error).count("exceeded") == 1

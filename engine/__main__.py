@@ -215,7 +215,7 @@ def main():
         print("coalitions that gain by departing together (upper bound):" + ("" if profitable else " none"))
         for r in profitable:
             print(f"  {','.join(r['coalition']):20s} {fmt(r['gain'])} {r.get('actions', '')}")
-        capture = [r for r in report["coalitions"] if (r.get("externalizing") or {}).get("gain", 0) > 1e-9]
+        capture = [r for r in report["coalitions"] if ((r.get("externalizing") or {}).get("gain") or 0) > 1e-9]
         print("coalitions that gain by departing onto others (a harm on outsiders):" + ("" if capture else " none"))
         for r in capture:
             e = r["externalizing"]

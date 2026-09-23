@@ -37,7 +37,8 @@ def compact(report):
     for r in report["coalitions"]:
         e = r.get("externalizing")
         co.append({"coalition": r["coalition"], "gain": r["gain"], "actions": r.get("actions"),
-                   "externalizing": None if e is None else {k: e[k] for k in ("gain", "actions", "falls_outside", "at_start", "members")}})
+                   "externalizing": None if e is None else e if e.get("gain") is None else
+                   {k: e[k] for k in ("gain", "actions", "falls_outside", "at_start", "members")}})
     return {"holds_unilaterally": report["holds_unilaterally"], "unilateral": uni, "coalitions": co,
             "harms_under_rule": report["harms_under_rule"], "states_checked": report["states_checked"]}
 
