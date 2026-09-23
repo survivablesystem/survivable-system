@@ -13,19 +13,26 @@ from itertools import product
 from .core import Agent, World, distribution, key
 
 
+def identity(state, joint):
+    return state
+
+
 class Composite(World):
     name = "composite"
 
-    def __init__(self, params, rng, parts, members, couple=None, planning=None, stakeholders=None):
+    def __init__(self, params, rng, parts, members, couple=None, planning=None, stakeholders=None,
+                 couple_reads=None):
         """parts: name -> World (in kernel order); members: part -> {local id: global id};
         couple(state, joint) -> state, pure and deterministic; planning: Agent keyword
-        arguments shared by every actor; stakeholders: global name -> [(part, local name)]."""
+        arguments shared by every actor; stakeholders: global name -> [(part, local name)];
+        couple_reads: actors the coupling reads by identity (None with a coupling: all)."""
         super().__init__(params, rng)
         self.parts, self.members = dict(parts), {p: dict(m) for p, m in members.items()}
+        self.couple_reads = couple_reads
         for part, world in self.parts.items():
             if set(self.members[part]) != {a.id for a in world.agents}:
                 raise ValueError(f"members of {part} must map exactly its agents")
-        self.couple = couple or (lambda state, joint: state)
+        self.couple = couple or identity
         self.local = {}  # global id -> {part: local agent}
         for part, mapping in self.members.items():
             for local, actor in mapping.items():
@@ -38,6 +45,21 @@ class Composite(World):
                 *(a.capabilities for a in where.values())), **(planning or {})))
             self.outsider[actor] = Agent(actor)
         self.stakeholder_map = stakeholders or {}
+
+    def types(self):
+        """Actors exchangeable in every part they share, and not read by identity by the
+        coupling (decision 2026-09-23, E2 step 2). The coupling may read part states only
+        through what the parts' `physical` keeps symmetric."""
+        reads = self.couple_reads
+        if reads is None:
+            reads = [] if self.couple is identity else [a.id for a in self.agents]
+        position = {p: {i: n for n, group in enumerate(w.types()) for i in group} for p, w in self.parts.items()}
+        groups = {}
+        for a in self.agents:
+            signature = (a.id,) if a.id in reads else tuple(
+                position[p].get(self.local[a.id][p].id) if p in self.local[a.id] else None for p in self.parts)
+            groups.setdefault(signature, []).append(a.id)
+        return list(groups.values())
 
     def view(self, part, actor):
         return self.local[actor].get(part, self.outsider[actor])

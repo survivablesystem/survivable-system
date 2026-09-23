@@ -52,7 +52,7 @@ def test_without_a_draw_the_whole_reproduces_the_fishery():
     for S in (30.0, 40.0):
         w = [r for r in externalization(whole, rc, at_stock(whole, S), 2) if r["harm"].startswith("commons")]
         p = externalization(part, commons, {**part.initial_state(), "S": S}, 2)
-        assert rename(w, {i: i for i in ("east", "west", "fisher")}) == rename(p, rc.MEMBERS["commons"])
+        assert rename(w, {i: i for i in ("east", "west", "fisher")}) == rename(p, rc.members(1)["commons"])
 
 
 def test_building_draws_on_the_shared_stock_and_outsiders_see_only_public_facts():

@@ -167,6 +167,40 @@ def row_for(world, rows, coalition):
     return next(r for r in rows if counts(world, r["coalition"]) == target)
 
 
+def symmetry_violations(world, states, rng, samples=20):
+    """Sampled check of `world.types()` (decision 2026-09-23, E2 step 2): members of a
+    group share menus, and swapping two members' actions leaves the successor distribution
+    over physical keys and harms unchanged. Returns the counterexamples found; none is
+    evidence, not proof."""
+    def successors(state, joint):
+        out = {}
+        for p, s in distribution(world.outcomes(state, joint)):
+            try:
+                harms = sorted(world.harmed(s))
+            except NotImplementedError:
+                harms = []
+            k = key([world.physical(s), harms])
+            out[k] = out.get(k, 0.0) + p
+        return {k: round(v, 12) for k, v in out.items()}
+
+    found = []
+    for state in states:
+        if world.terminal(state) is not None:
+            continue
+        menus = {a.id: world.actions(world.observe(state, a), a) for a in world.agents}
+        for group in (g for g in world.types() if len(g) > 1):
+            if any(key(menus[i]) != key(menus[group[0]]) for i in group):
+                found.append({"group": group, "state": world.physical(state), "menus": {i: menus[i] for i in group}})
+                continue
+            for _ in range(samples):
+                joint = {i: rng.choice(menu) for i, menu in menus.items()}
+                x, y = rng.sample(group, 2)
+                swapped = {**joint, x: joint[y], y: joint[x]}
+                if successors(state, joint) != successors(state, swapped):
+                    found.append({"group": group, "state": world.physical(state), "joint": joint, "swapped": [x, y]})
+    return found
+
+
 def power_table(world, state, rounds, target=None, budget=BUDGET):
     """Force and prevent brackets for every coalition up to declared symmetry; `stands_for`
     counts the coalitions a row represents. None marks an unresolved bound."""

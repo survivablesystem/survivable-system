@@ -7,6 +7,42 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  E2 step 2: declared symmetry inside composites; a generic invariance check
+
+Proposed before implementation. Composites claim no symmetry, so every whole is enumerated
+by identities and the one composite stops at three actors: the fishery under the race has
+one fisher. Whether a population of bystanders can protect what a few actors draw on is the
+externalization question at scale, and it cannot be asked.
+
+Change:
+- `Composite.types()` derives the groups from the parts: two actors are exchangeable in the
+  whole when, in every part, both are absent or both sit in the same declared group. The
+  coupling is the one place the parts' declarations cannot vouch for, so the composite takes
+  `couple_reads`: actors whose actions or part states the coupling reads by identity; each
+  is split into its own group. A coupling given without `couple_reads` claims no symmetry
+  (every actor alone), which is the safe default. The coupling must read part states only
+  through what the parts' `physical` keeps symmetric; stated, and tested.
+- `engine.power.symmetry_violations(world, states, rng, samples)`: for every declared group
+  of two or more, sampled joint actions and swaps of two members' actions; reports any
+  change in the successor distribution over `physical` keys, in harms, or in members' menus.
+  Any world's `types()` can now be tested the same way instead of by a per-world test.
+- `worlds/race_commons.py` gains `fishers` (register): the commons part has 2 + fishers
+  users. `draw` stays in low takes of the three-harvester fishery (an absolute amount per
+  build), so the race's demand on the stock does not shrink as more people share it and
+  the E4 evidence reproduces at fishers = 1.
+
+What it assumes and loses: exchangeable fishers are an authored claim (same menus, channels
+and role), checked by sampling, not proved. Power only; the planner is unchanged.
+
+Alternatives rejected: a composite-level `types` override (no check against the parts);
+inferring the coupling's reads by instrumentation (brittle); mean field over fishers (not
+exact; exact runs still fit).
+
+Intent tests: 1 derived from existing declarations, one argument; 2 no behavior; 3 the
+claim is declared and checked by a generic test; 4 reduced equals unreduced where both run;
+5 who must coordinate to prevent a harm on many, and who alone can force it, at population
+size; 6 whether a few actors' power over a shared resource dilutes with population.
+
 ## 2026-09-23  E12 (reduced form): precaution against revealed departers
 
 Proposed before implementation. T9.2 showed that one-shot checks give precaution no value:

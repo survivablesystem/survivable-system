@@ -39,3 +39,22 @@ a forced choice between its own safety and the fishery. Contradiction: no row ch
 Limits: three actors, T=2 exact; the coupling is one authored flow. Exponential in actors
 and menus (the composite's menus are products). Nothing here is about real fisheries or
 arms races; it shows that the tool now finds cross-part harms when they exist in the model.
+
+## A population of fishers (E2 step 2)
+
+Decision `DECISIONS.md` 2026-09-23 (E2 step 2). Fishers are declared exchangeable inside the
+whole (derived from the commons' declaration; the coupling reads only east and west). The
+fishery has 2 + `fishers` harvesters; each build still removes `draw` low takes of the
+three-harvester fishery, an absolute amount.
+
+**Expected before runs** (T=2, p=1, S in 20/30/40, draw in 0/1/2, fishers 1 to 10):
+- E-a. At draw 0 thresholds follow the fishery alone: shares, not numbers (coalition-power
+  finding 9).
+- E-b. At a positive draw, wherever one racer alone can force a fishery harm at one
+  fisher, it still can at ten: the build is an absolute lever and the racer's own take
+  shrinks only as 1/n. By duality no coalition without that racer can then prevent it.
+- E-c. The smallest preventing coalition is both racers plus a number of fishers that grows
+  with the population, so the gap between who can force the harm and how many must
+  coordinate to stop it widens with n.
+Contradiction: a single racer's forcing power disappears as fishers are added (dilution
+protects the stock), or the preventing coalition stays at the two racers at every size.
