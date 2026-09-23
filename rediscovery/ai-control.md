@@ -66,3 +66,55 @@ Modeled: lab, AI system, state (agents); the public and future people (no agents
 of control. Excluded and named: other labs and AI systems, hidden capability (sandbagging:
 capability is public here), deception about goals (drift is known to the modeler, not
 hidden from agents in a learned way), gradual or partial loss of control, misuse by people.
+
+## Engine findings (T9.2, 2026-09-23)
+
+`evidence/control.json`, clean `81067bc`, 4 min on 4 processes; `python -m tests.control_study`.
+Power: switch {2, 3, 4} x autonomy 0-3 x capability 1-5 x guard {1, 3} x audit bonus {0, 2}
+(240 states). Rules: drift {0, 0.25, 0.5, 0.75, 1} x switch {2, 4} x ambition {0.5, 3} x loss
+{5, 50} x audit bonus {0, 2} x benefit {0.1, 0.5} (160 designs), each rule checked from every
+autonomy level and capability 1 or 3 (8 starts), depth 4, one round off the path, pairs,
+coordinated departures over two rounds.
+
+| Expectation | Result |
+|---|---|
+| C1 autonomy moves the veto on shutdown to the AI | holds: each autonomy level lowers by one the capability up to which the lab alone can shut the AI down; the state's halt adds nothing the lab's switch lacks |
+| C2 drift 0 accepts shutdown, high drift resists | contradicted: at drift 0 the AI resists a prescribed shutdown in 160 of 256 checks; escape appears only from drift 0.5 |
+| C3 the lab and its AI gain together at the public's expense | holds: the lab grants, the AI resists the halt (160 of 256 at drift 0, no payment needed) |
+| C4 power identical for every drift | holds (tested) |
+
+1. **Granting autonomy is granting a veto.** With a switch of strength s, the lab alone can
+   shut down an AI of capability up to s - autonomy. At autonomy 3 and switch 3, it cannot
+   shut down even the starting AI without the AI's consent. Nobody could force escape alone
+   within three rounds in any tested state: loss of control needs the lab to grant network
+   access first, so every agent (lab, AI, state) alone can still prevent it. The veto on
+   *correction* shifts long before anyone can force *catastrophe*: the same pattern as the
+   authority case's point of no return.
+2. **An AI aligned to its lab resists shutdown when shutdown costs the lab.** At drift 0
+   the AI's goal is its lab's; after it is caught improving, the rule prescribes shutdown,
+   and resisting leaves the lab, the AI and even the state better off within the horizon.
+   Alignment to the developer is not corrigibility to the public: whether a shutdown is
+   accepted depends on whose interest it serves, not on the AI's goal alone. The off-switch
+   reference result (an AI maximizing its principal's utility accepts the principal's
+   shutdown) is the special case where the principal wants the shutdown.
+3. **Why nobody wants the shutdown here: precaution has no value without learning.** In a
+   one-shot check, everyone is assumed to follow the rule after a departure, so the future
+   risk a shutdown guards against (an AI that improved once improving again or escaping)
+   never materializes, and the shutdown is pure cost. In reality, being caught is evidence
+   about the AI's goals. The model has no belief updating over hidden goals (declared
+   excluded), and this case shows that exclusion is consequential: task E12.
+4. **Drift decides escape, not resistance.** Under full autonomy, the AI gains by escaping
+   in 0 checks at drift 0 or 0.25, 24 at 0.5, 48 at 0.75 and 192 of 256 at drift 1. Under
+   corrigibility, escape appears from drift 0.5 (21 checks) and dominates at drift 1.
+5. **The principal and its delegate capture oversight together.** The lab grants autonomy
+   and the AI resists the state's halt in 160 of 256 checks at drift 0, both gaining, no
+   payment: the shutdown the rule asks for falls on the pair, the harm of the resisted
+   shutdown on the public. Oversight aimed only at the AI misses the lab's side of it
+   (rival A).
+
+First surprise (test 6): finding 2 with 3 behind it. It is also the case's main limit:
+until agents can learn about hidden goals, no precautionary rule (shut down on evidence)
+can be credible in this engine.
+
+Scope: one lab, one AI, one state; capability public; drift fixed and known; escape all or
+nothing; depth 4. Nothing here is a claim about real AI systems.

@@ -1,0 +1,1002 @@
+{
+  "elapsed_seconds": 253.22437144800006,
+  "fixture_sha256": {
+    "/tmp/claude-0/-home-user-survivable-system/dc3be6f4-cda2-5276-91a3-13f7de207aa4/scratchpad/run2/tests/amendment_study.py": "86b58181b8965804855a1f84d9677c97915f84df75562a763727bac97d17d2a5",
+    "tests/test_constitution.py": "2f5b7d15807eb2221ffd747e62f53e678cdf3f394d9c69d4c524a466afd5602c"
+  },
+  "kind": "amendment",
+  "provenance": {
+    "git_commit": "87c1a0d57337d8dfc363f446e02e9a2cd13098e6",
+    "git_dirty": false,
+    "implementation": "CPython",
+    "python": "3.11.15",
+    "source_sha256": {
+      "INTENT.md": "683e2da3b9a3daba69f7ed71c616b63d1ea0145bca0fed19944d6a6e52d36482",
+      "engine/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "engine/__main__.py": "e14e46f6a3bb7c244877a6626cc17f117d903dcd9b96b5dee60368ea40d85907",
+      "engine/assess.py": "72e44e1007452da09cf6c31bda1d229dbfc422ab5840ef408318eb0ad90563c3",
+      "engine/compose.py": "ebf24c17bb78025383f03412214dbbedf0e19c11d5f4437db3ba0c5437b0d547",
+      "engine/constitution.py": "399979602bd955e61adc0d4c4b15cab985308d9fd05ced2c7ef48ae88c9f8c4e",
+      "engine/core.py": "51298484a4082896106743c62e9c6b4698f6f0370b52a6869c7f2defcc866015",
+      "engine/history.py": "07d1328af1d88ab0d3a0210068ba4aa97b165cfe2dc0e2d3fc625e34478298ac",
+      "engine/power.py": "fe6daa08b92531d8274c05953c14c414be7eaa3ecc616c42645ae38cb385e773",
+      "engine/records.py": "3896a8ac08690fdef628fc9cfbebe6df703f4dd12f81fbb4b8468847b4b382e7",
+      "engine/rules.py": "757eec4a7c90571417dfe10629ccfca65c9ef6880755c8b1b75d544b353f2043",
+      "engine/sweep.py": "e435934caf8b56f1db65fbaeba82fe5fd9cb74b25d7c1827daf33064ba6b0887",
+      "engine/transfers.py": "7721137d1f75e100ab17dcc046d6da4d493291322cc2f424595b08d2692fc9ec",
+      "spec/PRIMITIVES.md": "e4cb9fc8e6155ebcd047e5cc33719cf7749b4abbf96d806c49d56476bcae2ec1",
+      "worlds/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "worlds/audit.py": "d845e9ec39121a44ff1587fe34b4aec7eb085e63f2daf6d9ac32a1b8601b7c1d",
+      "worlds/authority.py": "513f348f5a10959cd28182b941c96dbfd60499742858bb9ea70626812500ba43",
+      "worlds/commons.py": "fc9b2b239e3094bb795375f1e6f5ce22ae6a787645791a11f3652eb395044ec6",
+      "worlds/frontier.py": "fff035e45502cff93caf9d062e06e3e088968fca4c9c1f4b3622f591211616a5",
+      "worlds/race_commons.py": "d76bd96017c30dad83d7d9a27ecd272f3147850a11420b9aac53544414e9a0d9",
+      "worlds/treaty.py": "bbc8310cab71359ea7c0a0a14a1dba246afad132de853a1f88fba2c34b661de4"
+    }
+  },
+  "results": [
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [
+        {
+          "actions": {
+            "l0": [
+              "secure",
+              "amend:race"
+            ],
+            "l1": [
+              "deploy",
+              "amend:race"
+            ]
+          },
+          "coalition": [
+            "l0",
+            "l1"
+          ],
+          "every_member": true,
+          "falls_outside": {
+            "catastrophe": [
+              "state",
+              "public",
+              "future people"
+            ],
+            "unsafe deployment": [
+              "public",
+              "future people"
+            ]
+          },
+          "gain": 1.263146399999999,
+          "kind": "one round"
+        }
+      ],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [
+        {
+          "actions": {
+            "l0": [
+              "secure",
+              "amend:race"
+            ],
+            "l1": [
+              "deploy",
+              "amend:race"
+            ]
+          },
+          "coalition": [
+            "l0",
+            "l1"
+          ],
+          "every_member": true,
+          "falls_outside": {
+            "catastrophe": [
+              "state",
+              "public",
+              "future people"
+            ],
+            "unsafe deployment": [
+              "public",
+              "future people"
+            ]
+          },
+          "gain": 1.8247248000000005,
+          "kind": "one round"
+        },
+        {
+          "actions": {
+            "l0": [
+              "secure",
+              "amend:race"
+            ],
+            "l1": [
+              "deploy",
+              "amend:race"
+            ]
+          },
+          "coalition": [
+            "l0",
+            "l1"
+          ],
+          "every_member": true,
+          "falls_outside": {
+            "catastrophe": [
+              "state",
+              "public",
+              "future people"
+            ],
+            "unsafe deployment": [
+              "public",
+              "future people"
+            ]
+          },
+          "gain": 1.8844272,
+          "kind": "over rounds"
+        }
+      ],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [
+        {
+          "actions": {
+            "l0": [
+              "secure",
+              "amend:race"
+            ],
+            "l1": [
+              "deploy",
+              "amend:race"
+            ]
+          },
+          "coalition": [
+            "l0",
+            "l1"
+          ],
+          "every_member": true,
+          "falls_outside": {
+            "catastrophe": [
+              "state",
+              "public",
+              "future people"
+            ],
+            "unsafe deployment": [
+              "public",
+              "future people"
+            ]
+          },
+          "gain": 1.263146399999999,
+          "kind": "one round"
+        }
+      ],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [
+        {
+          "actions": {
+            "l0": [
+              "secure",
+              "amend:race"
+            ],
+            "l1": [
+              "deploy",
+              "amend:race"
+            ]
+          },
+          "coalition": [
+            "l0",
+            "l1"
+          ],
+          "every_member": true,
+          "falls_outside": {
+            "catastrophe": [
+              "state",
+              "public",
+              "future people"
+            ],
+            "unsafe deployment": [
+              "public",
+              "future people"
+            ]
+          },
+          "gain": 1.8247248000000005,
+          "kind": "one round"
+        },
+        {
+          "actions": {
+            "l0": [
+              "secure",
+              "amend:race"
+            ],
+            "l1": [
+              "deploy",
+              "amend:race"
+            ]
+          },
+          "coalition": [
+            "l0",
+            "l1"
+          ],
+          "every_member": true,
+          "falls_outside": {
+            "catastrophe": [
+              "state",
+              "public",
+              "future people"
+            ],
+            "unsafe deployment": [
+              "public",
+              "future people"
+            ]
+          },
+          "gain": 1.8844272,
+          "kind": "over rounds"
+        }
+      ],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 0.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 0.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 1.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "deployment",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 0,
+      "liability": 5.0,
+      "no_harmful_departure": true,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, unanimity"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "state alone"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, majority"
+    },
+    {
+      "amendment_captures": [],
+      "first": 3.0,
+      "holds_unilaterally": false,
+      "lead": 1,
+      "liability": 5.0,
+      "no_harmful_departure": false,
+      "oversight": "continuous",
+      "rulemaking": "labs seated, unanimity"
+    }
+  ],
+  "schema_version": 1,
+  "settings": {
+    "depth": 4,
+    "grid": {
+      "first": [
+        0.0,
+        1.0,
+        3.0
+      ],
+      "lead": [
+        0,
+        1
+      ],
+      "liability": [
+        0.0,
+        5.0
+      ],
+      "oversight": [
+        "deployment",
+        "continuous"
+      ],
+      "rulemaking": [
+        "state alone",
+        "labs seated, majority",
+        "labs seated, unanimity"
+      ]
+    },
+    "initial": "licensing",
+    "reach": 1,
+    "regimes": [
+      "licensing",
+      "race"
+    ],
+    "voters": {
+      "labs seated, majority": [
+        [
+          "state",
+          "l0",
+          "l1"
+        ],
+        2
+      ],
+      "labs seated, unanimity": [
+        [
+          "state",
+          "l0",
+          "l1"
+        ],
+        3
+      ],
+      "state alone": [
+        [
+          "state"
+        ],
+        1
+      ]
+    },
+    "window": 2
+  }
+}

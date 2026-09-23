@@ -19,6 +19,7 @@ Each case file has: setup, sources/evidence status, hypothesis, competing explan
 | captured-auditor.md | rules as claims, capture as coalition departure, exposure, revocation | evidence reviewed (T2.0); "never by the auditor" contradicted | `worlds/audit.py`; capture is a pair's act; fixed assignment leaves it untouched |
 | treaty-no-verification.md | relative goals, verification as information, capability race, lock-in | evidence reviewed (T3.0); rivals: commitment, transparency, information | `worlds/treaty.py`; verification changes behavior, not power; its effect favored the leader |
 | frontier-ai.md | licensing, evaluation as information, capture of evaluator or state, oversight timing | evidence reviewed (T9.0), scope by the owner | `worlds/frontier.py`; evaluator = the state's information; breaks on stale certification; leader captures the state |
+| ai-control.md | delegation with drift, off switch, autonomy as a veto, principal-delegate capture | evidence reviewed (T9.2) | `worlds/control.py`; an AI aligned to its lab resists shutdown that costs the lab; precaution needs learning (E12) |
 | kinship-trust.md | goals over others' outcomes, trust radius, group selection | brief only | not yet |
 | money-issuance.md | money as a claim, issuance capability, acceptance as belief | brief only | not yet |
 

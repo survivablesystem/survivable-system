@@ -159,3 +159,16 @@ checked over 512 designs (records, assembly, repayment, disclosure, army, contes
 deployment and of blocked safe progress for four coalitions over 72 designs; licensing and
 race rules over 144 designs with harmful-departure witnesses and pair captures; three payment
 designs against evaluator liability; per-harm power at the defaults under both oversight modes.
+
+## AI systems as agents (T9.2)
+
+`control.json` identifies clean source `81067bc`. Reproduce with `python -m tests.control_study`
+(about 4 minutes on 4 processes). Shutdown and escape power over 240 states; corrigibility
+and full-autonomy rules over 160 designs from 8 starting states each, with coordinated
+departures over two rounds.
+
+## Rule-making (E10)
+
+`amendment.json` identifies clean source `87c1a0d`. Reproduce with `python -m tests.amendment_study`
+(about 4 minutes). Frontier licensing under three rule-making settings (state alone; labs
+seated, majority; labs seated, unanimity) over 24 designs each.

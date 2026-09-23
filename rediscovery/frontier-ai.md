@@ -190,3 +190,18 @@ rule-making (state alone; labs seated, majority; labs seated, unanimity).
   the race pays both (no liability, small first-mover bonus); the harm lands on the public.
   Contradiction: no amendment capture anywhere.
 - A3: unanimity (the state's veto) removes it. Contradiction: capture under unanimity.
+
+### Rule-making results
+
+`evidence/amendment.json`, clean `87c1a0d`, 4 min; 72 designs (24 per rule-making setting).
+
+| Expectation | Result |
+|---|---|
+| A1 state alone: no amendment capture | holds: 0/24 |
+| A2 labs seated by majority: labs amend licensing away | holds narrowly: 4/24, all with no lab liability and no first-mover bonus; the labs vote "race" together and the harm (unsafe deployment, catastrophe risk) falls on the public |
+| A3 unanimity removes it | holds: 0/24 |
+
+The narrow band is itself the finding: a first-mover bonus splits the labs (the trailer
+loses from a race and will not vote for it), and liability makes the race costly to both.
+Industry seats in rule-making are a capture route exactly when the labs' interests in
+deregulation are aligned and they bear none of the catastrophe.
