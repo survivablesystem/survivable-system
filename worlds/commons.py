@@ -82,6 +82,11 @@ class Commons(World):
                 for other in self.agents if other.id == agent.id or agent.observes(other.id)}
         return {**state, "last": last}
 
+    def physical(self, state):
+        # Menus depend only on fixed capabilities and channels; the kernel reads S and
+        # collapse. Last actions, payoffs and wealth never change what happens next.
+        return {"S": state["S"], "collapsed": state["collapsed"]}
+
     def beliefs(self, observation, agent):
         last = {o.id: observation["last"].get(o.id, self.prior_action(agent, o)) for o in self.agents}
         return [(1.0, {**observation, "last": last})]

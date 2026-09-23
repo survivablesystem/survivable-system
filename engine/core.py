@@ -120,6 +120,13 @@ class World:
         for probability, successor in self.outcomes(state, joint):
             yield probability, {a.id: self.value(successor, a) for a in self.agents}
 
+    def physical(self, state):
+        """Part of the state that fixes menus, kernel and terminal status (power memo key).
+
+        Default: the whole state. An override must not drop anything those depend on.
+        """
+        return state
+
     def prior_action(self, agent, other):
         raise NotImplementedError
 

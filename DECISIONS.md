@@ -7,6 +7,56 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  T1.5: goal-free coalition power beside goal-driven behavior
+
+Proposed before implementation. Every commons result so far depends on authored
+goals, horizons, beliefs and planner depth, the assumptions INTENT says hide
+opinion. INTENT's central questions (who can force an irreversible outcome, who
+can prevent or correct it) are questions of power, answerable without goals.
+Separating them distinguishes protection by deterrence (rests on the goals of
+the capable) from protection by denial (holds whatever anyone wants). Unknown or
+drifting goals of new agents, AI systems included, make the distinction central.
+
+Add `engine/power.py`: finite-horizon, zero-sum reachability over the world's own
+kernel. A coalition maximizes the probability of entering a flagged terminal
+label within T rounds; the complement minimizes it as one coordinated adversary;
+chance follows `outcomes`. Both sides see the full state and act by pure,
+history-dependent strategies; menus still come from each agent's observation.
+Two stage orders bracket the value: alpha (coalition commits each round first)
+is what it can guarantee; beta (complement commits first) bounds it above. By
+induction any randomized stage strategy lies between them, so equality is exact.
+Prevention is the dual: prevent_alpha(C) = 1 - force_beta(complement of C).
+Thresholds are the smallest coalition sizes reaching a stated probability, with
+witnesses; unresolved sizes block a threshold claim. Work is capped per query as
+in `core`; exhaustion is unresolved, never a power result.
+
+One optional world method, `physical(state)`: the part of the state that
+determines menus, kernel and terminal status. Default is the whole state. It is
+only a memo key for the power query; a wrong projection is a world bug, tested
+by comparing menus, successor projections and terminal status across states that
+share it. Commons declares stock and collapse.
+
+This implements the spec's lock-in and prevention queries in a bounded form
+(T4.2/T4.3 remain for rule/authority worlds and correction of error states).
+It is not a planner change and scripts no behavior; goals are unused.
+
+Alternatives rejected: sampling adversaries (cannot certify a guarantee);
+restricting coalitions to stationary strategies (understates power, hides
+adaptive defense); a mixed-strategy LP per stage (needs a solver and is only
+needed where the bracket is open); symmetry reduction by coalition size (an
+assumption about the world; checked, not assumed).
+
+Discriminating checks: hand-computed toy games (one where order matters, one
+with chance), duality, monotonicity in coalition, invariance to goal/planner
+parameters, projection validity, work-cap aborts.
+
+Intent tests: 1 one query over the existing kernel, one optional projection;
+2 no behavior computed or scripted; 3 query horizon, probability level and state
+grid are recorded settings, and goal parameters drop out of the claim; 4
+hypotheses and contradictions in `rediscovery/coalition-power.md` before runs;
+5 names who can force or block an irreversible harm regardless of intent; 6
+compare what agents do with what they could do.
+
 ## 2026-09-19  T1.4: exact reward integration at search leaves
 
 Proposed before implementation. Baseline profile `2535e47` shows branch expansion,
