@@ -71,11 +71,12 @@ def test_unpaid_sanctioning_collapses():
     assert survival_share({"confiscation_to": "stock"}) <= 0.25
 
 
-def test_larger_exact_search_is_unresolved_not_a_size_finding():
+def test_larger_exact_search_resolves_at_the_default_cap():
+    # Unresolved before interior reward integration (decision 2026-09-23, E2 step 3).
+    # Implementation regression only; what larger populations do is in open-commons.md.
     for seed in range(SEEDS):
         record = run_record(commons.make, {**BASELINE, "n": 10}, ROUNDS, seed)
-        assert record["status"] == "search_limit"
-        assert record["label"] is None and record["terminal"] is None
+        assert record["status"] == "complete" and record["terminal"] is not None
 
 
 def test_level0_beliefs_cannot_hold_a_norm():

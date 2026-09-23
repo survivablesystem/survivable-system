@@ -15,6 +15,8 @@ from worlds import commons
 
 def full_kernel(world):
     world.reward_outcomes = MethodType(World.reward_outcomes, world)
+    world.planning_outcomes = MethodType(World.planning_outcomes, world)
+    world.continuation = MethodType(World.continuation, world)
     return world
 
 

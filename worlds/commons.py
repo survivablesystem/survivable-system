@@ -172,6 +172,18 @@ class Commons(World):
             confiscated[j] = yields[j] * (m / (m + 1))
         yield 1.0, self.payoffs(yields, targets, cost, confiscated)
 
+    def successor(self, state, joint, S, yields, targets, cost, confiscated):
+        ids = list(joint)
+        returned = sum(confiscated.values()) if self.params["confiscation_to"] == "stock" else 0.0
+        S2 = S - sum(yields.values()) + returned
+        collapsed = S2 < self.S_min
+        wealth = dict(state["wealth"])
+        value = self.payoffs(yields, targets, cost, confiscated)
+        for i in ids:
+            wealth[i] += value[i]
+        return {"S": 0.0 if collapsed else S2, "collapsed": collapsed,
+                "last": dict(joint), "value": value, "wealth": wealth}
+
     def outcomes(self, state, joint):
         ids = list(joint)
         if state["collapsed"]:
@@ -189,15 +201,51 @@ class Commons(World):
                 p_success = m / (m + 1)
                 probability *= p_success if hit else 1 - p_success
                 confiscated[j] = yields[j] if hit else 0.0
-            returned = sum(confiscated.values()) if self.params["confiscation_to"] == "stock" else 0.0
-            S2 = S - sum(yields.values()) + returned
-            collapsed = S2 < self.S_min
-            wealth = dict(state["wealth"])
-            value = self.payoffs(yields, targets, cost, confiscated)
-            for i in ids:
-                wealth[i] += value[i]
-            yield probability, {"S": 0.0 if collapsed else S2, "collapsed": collapsed,
-                                "last": dict(joint), "value": value, "wealth": wealth}
+            yield probability, self.successor(state, joint, S, yields, targets, cost, confiscated)
+
+    def continuation(self, state):
+        # Payoffs and wealth are bookkeeping: no menu, kernel, choice or goal reads them
+        # (decision 2026-09-23, E2 step 3; checked in tests/test_continuation.py).
+        return {"S": state["S"], "collapsed": state["collapsed"], "last": state["last"]}
+
+    def planning_outcomes(self, state, joint, visit=lambda: None):
+        """Contest outcomes grouped by the stock they return, without enumerating hit
+        patterns: one class when confiscations go to sanctioners. Conditional expected
+        confiscations make payoffs exact (they are affine in confiscation)."""
+        ids = list(joint)
+        if state["collapsed"] or not joint or not any(a[1] for a in joint.values()):
+            for probability, successor in self.outcomes(state, joint):
+                visit()
+                yield probability, successor, {i: self.value(successor, self.by_id[i]) for i in ids}
+            return
+        S, yields, targets, cost = self.round_inputs(state, joint)
+        to_stock = self.params["confiscation_to"] == "stock"
+        # Classes keyed by the running sum `outcomes` computes, in the same id order,
+        # so keys equal its floats exactly: total -> [mass, {target: P(hit, total)}, witness].
+        classes = {0.0: [1.0, {}, ()]}
+        for j in (i for i in ids if i in targets):
+            m = len(targets[j])
+            p_success = m / (m + 1)
+            grown = {}
+            for total, (mass, hit_mass, witness) in classes.items():
+                for hit, q in ((False, 1 - p_success), (True, p_success)):
+                    visit()
+                    if not q:
+                        continue
+                    t = total + yields[j] if (hit and to_stock) else total
+                    entry = grown.setdefault(t, [0.0, {}, witness + ((j,) if hit else ())])
+                    entry[0] += mass * q
+                    for k, v in hit_mass.items():
+                        entry[1][k] = entry[1].get(k, 0.0) + v * q
+                    if hit:
+                        entry[1][j] = entry[1].get(j, 0.0) + mass * q
+            classes = grown
+        for mass, hit_mass, witness in classes.values():
+            visit()
+            expected = {i: yields[i] * hit_mass.get(i, 0.0) / mass for i in ids}
+            payoffs = self.payoffs(yields, targets, cost, expected)
+            actual = {i: yields[i] if i in witness else 0.0 for i in ids}
+            yield mass, self.successor(state, joint, S, yields, targets, cost, actual), payoffs
 
     def types(self):
         # Users share menus, capability and a symmetric channel structure (all or none);

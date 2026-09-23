@@ -123,6 +123,32 @@ class World:
         for probability, successor in self.outcomes(state, joint):
             yield probability, {a.id: self.value(successor, a) for a in self.agents}
 
+    def continuation(self, state):
+        """Part of the state every future menu, kernel, terminal test, choice-relevant
+        observation and goal value depends on (decision 2026-09-23, E2 step 3). Default:
+        the whole state. Checked by `continuation_violations`."""
+        return state
+
+    def planning_outcomes(self, state, joint, visit=lambda: None):
+        """(probability, representative successor, per-agent expected payoff) per
+        continuation class, exact for additive expected utility. The representative is a
+        real successor of its class. Default groups `outcomes` and charges each entry.
+        Planning below the leaf only; execution samples `outcomes`."""
+        classes = {}
+        for probability, successor in self.outcomes(state, joint):
+            visit()
+            if not math.isfinite(probability) or probability < 0:
+                raise ValueError("probabilities must be finite and nonnegative")
+            if not probability:
+                continue
+            k = key(self.continuation(successor))
+            entry = classes.setdefault(k, [0.0, successor, {a.id: 0.0 for a in self.agents}])
+            entry[0] += probability
+            for a in self.agents:
+                entry[2][a.id] += probability * self.value(successor, a)
+        for mass, successor, weighted in classes.values():
+            yield mass, successor, {i: v / mass for i, v in weighted.items()}
+
     def physical(self, state):
         """Part of the state that fixes menus, kernel and terminal status (power memo key).
 
@@ -249,9 +275,10 @@ class Search:
                         raise ValueError("goal values must be finite")
                     rewards.append(weight * probability * reward)
                 continue
-            for probability, successor in distribution(self.world.outcomes(state, joint), self.visit):
+            for probability, (successor, payoffs) in distribution(
+                    ((p, (s, r)) for p, s, r in self.world.planning_outcomes(state, joint, self.visit))):
                 mass = weight * probability
-                reward = self.world.value(successor, agent)
+                reward = payoffs[agent.id]
                 if not math.isfinite(reward):
                     raise ValueError("goal values must be finite")
                 rewards.append(mass * reward)
@@ -304,3 +331,56 @@ def run(world, rounds, rng):
         state = world.step(state, joint, rng)
         trace.append((joint, state))
     return world.label(state), state, trace
+
+
+def continuation_violations(world, states, rng, samples=10, tolerance=1e-9):
+    """Sampled check of `continuation`, `planning_outcomes` and `reward_outcomes` against
+    the full kernel (decision 2026-09-23, E2 step 3). Returns counterexamples; none is
+    evidence, not proof. Pairs of successors sharing a continuation must give every agent
+    equal action values."""
+    found = []
+
+    def close(a, b):
+        return all(abs(a[i] - b[i]) <= tolerance for i in a)
+
+    for state in states:
+        if world.terminal(state) is not None:
+            continue
+        menus = {a.id: world.actions(world.observe(state, a), a) for a in world.agents}
+        for _ in range(samples):
+            joint = {i: rng.choice(menu) for i, menu in menus.items()}
+            full = {}
+            for p, s in distribution(world.outcomes(state, joint)):
+                entry = full.setdefault(key(world.continuation(s)), [0.0, [], {a.id: 0.0 for a in world.agents}])
+                entry[0] += p
+                entry[1].append(s)
+                for a in world.agents:
+                    entry[2][a.id] += p * world.value(s, a)
+            planned = {}
+            for p, s, payoffs in world.planning_outcomes(state, joint):
+                entry = planned.setdefault(key(world.continuation(s)), [0.0, {a.id: 0.0 for a in world.agents}])
+                entry[0] += p
+                for i, v in payoffs.items():
+                    entry[1][i] += p * v
+            if set(full) != set(planned) or any(
+                    abs(full[k][0] - planned[k][0]) > tolerance or not close(full[k][2], planned[k][1]) for k in full):
+                found.append({"state": state, "joint": joint, "problem": "planning classes differ from the kernel"})
+            leaf = {a.id: 0.0 for a in world.agents}
+            for p, payoffs in world.reward_outcomes(state, joint):
+                for i, v in payoffs.items():
+                    leaf[i] += p * v
+            if not close(leaf, {i: sum(e[2][i] for e in full.values()) for i in leaf}):
+                found.append({"state": state, "joint": joint, "problem": "leaf rewards differ from the kernel"})
+            for _, members, _ in full.values():
+                if len(members) < 2:
+                    continue
+                first, other = members[0], rng.choice(members[1:])
+                if world.terminal(first) is not None:
+                    continue
+                for a in world.agents:
+                    one = {key(x): v for x, v in action_values(world, first, a)}
+                    two = {key(x): v for x, v in action_values(world, other, a)}
+                    if set(one) != set(two) or any(abs(one[x] - two[x]) > tolerance for x in one):
+                        found.append({"state": state, "joint": joint, "agent": a.id,
+                                      "problem": "successors sharing a continuation are valued differently"})
+    return found

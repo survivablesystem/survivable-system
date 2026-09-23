@@ -103,6 +103,33 @@ class Composite(World):
                                for p, local in self.local[a.id].items()) for a in self.agents}
             yield probability, {"parts": coupled["parts"], "value": value}
 
+    def continuation(self, state):
+        return {p: w.continuation(state["parts"][p]) for p, w in self.parts.items()}
+
+    def payoff_sum(self, part_payoffs):
+        return {a.id: sum(part_payoffs[p][local.id] for p, local in self.local[a.id].items()) for a in self.agents}
+
+    def planning_outcomes(self, state, joint, visit=lambda: None):
+        """Parts' continuation classes, combined; the coupling acts on each representative
+        and must not change part values (decision 2026-09-23, E2 step 3)."""
+        branches = [(1.0, {}, {})]
+        for p, w in self.parts.items():
+            support = list(w.planning_outcomes(state["parts"][p], self.part_joint(p, joint), visit))
+            branches = [(q * r, {**s, p: sub}, {**pay, p: part_pay}) for q, s, pay in branches for r, sub, part_pay in support]
+        for probability, parts, payoffs in branches:
+            coupled = self.couple({"parts": parts}, joint)
+            value = {a.id: sum(self.parts[p].value(coupled["parts"][p], local)
+                               for p, local in self.local[a.id].items()) for a in self.agents}
+            yield probability, {"parts": coupled["parts"], "value": value}, self.payoff_sum(payoffs)
+
+    def reward_outcomes(self, state, joint):
+        branches = [(1.0, {})]
+        for p, w in self.parts.items():
+            support = list(w.reward_outcomes(state["parts"][p], self.part_joint(p, joint)))
+            branches = [(q * r, {**pay, p: part_pay}) for q, pay in branches for r, part_pay in support]
+        for probability, payoffs in branches:
+            yield probability, self.payoff_sum(payoffs)
+
     def observed_last(self, state, agent, other):
         """What `agent` saw `other` do last, part by part; priors where it saw nothing."""
         seen, out = False, {}

@@ -7,6 +7,52 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  E2 step 3: exact reward integration inside the tree, by declared continuation
+
+Proposed before implementation. Measured (fishery under the race, sanctions on, one decision
+after a round of play, depth 2): 3.5k entries at one fisher, 16k at two, 394k at four, 8.9M
+(156 s) at six; without sanctions 469, 757, 1,333, 1,909. Behavior runs are unresolved at
+the default cap from four fishers. The cost is the kernel's independent sanction contests
+(2^targets successors per joint), not level-1 responses (2,772 cached at six). The
+successors differ only in payoffs and wealth, which no menu, kernel, observation that a
+choice depends on, or goal ever reads: with confiscations to sanctioners they have one
+continuation. T1.4 integrated rewards only at leaves and deferred interior reduction
+because it needs an information-set argument; this supplies it as a declaration.
+
+Change:
+- `World.continuation(state)`: the part of a state every future menu, kernel, terminal
+  test, observation-dependent choice and goal value depends on. Default: the whole state.
+  A declaration, like `physical`, checked by a generic test.
+- `World.planning_outcomes(state, joint, visit)`: (probability, representative successor,
+  per-agent expected immediate payoff) per continuation class. The representative is a
+  real successor from its class, never an average; payoffs are conditional expectations,
+  exact for additive expected utility (the leaf argument of T1.4 applied at every depth).
+  Default groups `outcomes` by `continuation` and charges each emitted outcome, so work
+  units are unchanged for worlds that declare nothing. A world may compute the classes
+  without enumerating (commons: a pass over contests keyed by the stock returned).
+- The planner uses it below the leaf; the leaf keeps `reward_outcomes`. Execution still
+  samples `outcomes`.
+- Composites combine parts' `planning_outcomes`, `reward_outcomes` and `continuation`;
+  the coupling may not change part values (checked).
+- `engine.core.continuation_violations(world, states, rng)`: planning classes against the
+  full kernel grouped by continuation (probabilities, conditional payoffs), leaf rewards
+  against the kernel, and equal action values for every agent at pairs of successors that
+  share a continuation.
+
+What it assumes and loses: the continuation claim is authored; a world that lets wealth
+matter must keep it. Nothing is approximated. Values change only by float rounding; ties
+are broken as before but could in principle flip at the 1e-12 tolerance (traces compared).
+
+Alternatives rejected: symmetry over level-1 responses (not where the cost is); raising
+the cap (T1.4 rejected calling that resolution); dropping wealth from the commons state
+(it is reported; the claim is what matters, and other worlds need the same interface);
+sampling contests (not exact).
+
+Intent tests: 1 one declaration generalizing an existing reduction; 2 no behavior
+scripted; 3 declared, checked, work cap unchanged; 4 values equal to full enumeration
+where both run; 5 behavior at population size, where harms fall; 6 whether sanctions
+hold a norm among many, which the commons could not test beyond a handful of users.
+
 ## 2026-09-23  E2 step 2: declared symmetry inside composites; a generic invariance check
 
 Proposed before implementation. Composites claim no symmetry, so every whole is enumerated
