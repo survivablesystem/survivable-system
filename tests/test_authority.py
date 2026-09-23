@@ -111,3 +111,12 @@ def test_assembly_changes_no_power_value(surveillance):
             s = state_of(w, organized=organized, extracting=True)
             tables.append(power_table(w, s, 2, harm_target(w, "extraction")))
         assert tables[0] == tables[1]
+
+
+def test_lock_equals_force_for_the_declared_irreversible_harm():
+    from engine.power import lock_in
+    w = world(citizens=2, surveillance="all")
+    for row in lock_in(w, A, w.initial_state(), 2, 2):
+        if A.HARMS[row["harm"]]["irreversible"]:
+            assert row["lock"]["size"] == row["force"]["size"]
+            assert row["lock"]["witnesses"] == row["force"]["witnesses"]

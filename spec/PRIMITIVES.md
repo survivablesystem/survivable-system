@@ -1,4 +1,4 @@
-# Primitives, v0.3
+# Primitives, v0.4
 
 The current model, not an immutable ontology. Adopted 2026-09-15 and revised through `DECISIONS.md`. Replace abstractions when discriminating cases support a simpler or more capable account consistent with INTENT. The status table distinguishes implemented mechanisms from proposals.
 
@@ -54,8 +54,10 @@ rules:           nested levels. L0 operational: which actions are allowed. L1 co
                  claim, worth what others are believed to honor. rediscovery/money-issuance.
 delegation:      an agent may create a sub-agent, granting capability and setting its goal.
                  The set goal drifts from the intended one by a swept amount.
-irreversibility: flagged transitions that cannot be undone. A case declares catastrophic
-                 harms, affected groups and exclusions; majority utility is not a definition.
+irreversibility: flagged transitions that cannot be undone, and harms that a coalition can
+                 keep against everyone else (computed by the lock query, E5). A case declares
+                 catastrophic harms, affected groups and exclusions; majority utility is not a
+                 definition.
 harms:           declared per world (STAKEHOLDERS, HARMS, EXCLUDED; decision 2026-09-23, E1):
                  predicates on physical state, irreversible or not, each naming the
                  stakeholders it falls on, agents or not. Every artifact carries them.
@@ -87,7 +89,8 @@ For a composed world, under a sweep over the assumptions register:
 
 - **lock-in threshold**: smallest coalition that can force an irreversible transition regardless of others. Want high.
 - **prevention threshold**: smallest coalition that can keep an irreversible transition from happening regardless of others. Want low.
-- **correction threshold**: smallest coalition that can reverse a detected error regardless of others. Want low. Bounded form implemented for realized reversible harms (E1).
+- **correction threshold**: smallest coalition that can reverse a detected error regardless of others. Want low. Bounded form implemented for realized harms (E1), with `keep` (smallest coalition that can keep the harm against everyone) and `veto` (agents without whom nobody can end it) (E5).
+- **lock**: smallest coalition that can force a harm and then keep it for T' rounds against everyone (`engine.power.lock_in`, decision 2026-09-23, E5). Irreversibility is computed, not only declared: a harm some coalition can lock is irreversible for everyone outside it within T', whatever its flag; for a terminal harm lock equals force. A realized harm declared irreversible that some coalition can end is a declaration error and fails loudly. Keeping is with certainty by default; below certainty the pure-strategy value is a lower bound. At p = 1 every alpha value is exact (a mixture guarantees certainty only if each action in it does).
 - **externalization**: per declared harm, the thresholds above plus the smallest coalition that can force it without any affected agent, whether the affected can prevent it, and which affected stakeholders have no agent (`engine.power.externalization`).
 
 Power is goal-free (`engine/power.py`, bounded form implemented). Within T rounds, a coalition maximizes the probability of entering a flagged terminal label; the complement minimizes it as one coordinated adversary; both see the full state; chance follows `outcomes`. Stage orders bracket the value: alpha (coalition commits first) is its guarantee, beta an upper bound; randomized play lies between. Prevention is the dual. Goals, horizons, beliefs and planner limits do not enter, so a power claim does not depend on them. What agents do (planner) and what coalitions could force (power) are separate reports; protection that rests on the gap between them is deterrence, not denial. Worlds may declare `physical(state)`, the part fixing menus, kernel and terminal status, as a memo key; the default is the whole state. Thresholds with an unresolved or straddling smaller coalition are upper bounds. Exact enumeration is exponential in agents and T; no claim extends beyond T.
@@ -115,14 +118,15 @@ Individual psychology beyond goals and horizon. Physical detail of the world bey
 | resources with conversion | per-world only | captured auditor, T2.2 |
 | rules as claims, nested levels | not yet | standing army, T4.1 |
 | delegation with drift | not yet | standing army |
-| irreversibility | implemented (collapse) | |
-| error and correction | not yet | T4.3 |
+| irreversibility | declared (terminal labels, harm flags) and computed (lock, E5) | |
+| error and correction | bounded: end, keep, veto and lock of declared harms (E5) | errors in beliefs |
 | selection | not yet | captured auditor |
 | types with populations, mean field | not yet | T8.1 |
 | modules and composition | not yet | T7.1 |
 | queries: finite outcomes, one-at-a-time | implemented | |
 | queries: attractor detection | not yet | evidence of convergence on a case |
 | queries: goal-free force/prevent thresholds over terminal labels, bounded T | implemented | |
-| queries: lock-in over rule/authority states, correction of error states, diff | not yet | T4.2, T4.3, T7.2 |
+| queries: lock-in and correction over declared harms, including authority (`worlds/authority.py`) | implemented, bounded T and T' | |
+| queries: diff | not yet | T7.2 |
 
 The static linter that preceded this model was removed on adoption; `DECISIONS.md` records where each of its checks went.

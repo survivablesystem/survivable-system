@@ -2,7 +2,7 @@
 
 A research prototype for comparing institutions under explicit assumptions, with the long-term aim of reducing civilizational risk. Agents choose actions from goals and beliefs. The tool asks who bears costs, who can force irreversible outcomes, and who can correct errors.
 
-Implemented: two worlds (a commons, a treaty and capability race), a limited planner, finite simulations, parameter sweeps and a goal-free coalition power query. Rule/authority lock-in, correction of error states, nested institutions and a civilizational protocol are not implemented or validated. The historical briefs are hypotheses awaiting source and counterexample review.
+Implemented: three worlds (a commons, a treaty and capability race, authority and coercion) and a composite of two, a limited planner, finite simulations, parameter sweeps and goal-free coalition power queries: force, prevent, externalization, correction and lock (who can make a harm permanent for everyone else). Rules as claims beyond the contest for office, nested institutions and a civilizational protocol are not implemented or validated. The historical briefs are hypotheses awaiting source and counterexample review.
 
 Read [`INTENT.md`](INTENT.md) first. It is the measure for every change.
 
@@ -42,6 +42,12 @@ Worlds compose into one system (`engine/compose.py`): the same actors act in sev
 
 ```sh
 python -m engine worlds.race_commons --externalities 2 --state parts.commons.S=30 --fix draw=2.0 treaty.lead=0 treaty.advantage=1.5
+```
+
+`--lock K` adds, per harm, the smallest coalition that can force it and then keep it K rounds against everyone. Irreversibility is then computed rather than only declared: a reversible harm that someone can lock is irreversible for everyone else. For a harm already realized the report names who can end it, who can keep it, and who holds a veto on ending it. `worlds/authority.py` (office, coercion, surveillance, purges) is the case where this matters ([`rediscovery/standing-army.md`](rediscovery/standing-army.md)).
+
+```sh
+python -m engine worlds.authority --externalities 3 --lock 3 --state extracting=true
 ```
 
 `engine.power.sure` asks the information question: can a coalition guarantee an outcome using only what its members observe? It is how verification, disclosure or any channel can show up as denial rather than only as behavior (see [`rediscovery/treaty-no-verification.md`](rediscovery/treaty-no-verification.md)).
