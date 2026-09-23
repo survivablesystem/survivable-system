@@ -154,3 +154,36 @@ Two register additions; defaults reproduce the T3.1 world exactly.
   but not blind; with a free budget, none (the T3.1 result). Contradiction: no such cell
   under scarcity (information still buys no denial), or any under a free budget (a bug).
 - S3: no prediction on how many cells; the count and where they lie are the result.
+
+### T3.2 findings
+
+Artifact `evidence/treaty-scarce.json`, clean `684448e`, 22 s;
+`python -m tests.treaty_scarce_study`. Threshold contest power grid: budget free or scarce
+(reserve 0-3) x elasticity 1/1.5/2 x returns x advantage x lead x T in {1, 2, 4, 6, 8}
+(1,800 cells). Behavior: 120 new samples of the full register (seed 3032), paired on
+verification. A study run first exposed a belief bug (zero rival builds wrongly
+infeasible at reserve 0, round 0; certain builders with no affordable schedule); fixed
+with tests before the recorded run.
+
+| Expectation | Result |
+|---|---|
+| S1 elasticity above one makes lock-in accumulate | holds weakly: force depends on T in 10 of 120 settings at elasticity 2, none at 1 or 1.5 (ceiling 12 limits growth) |
+| S2 scarcity lets information buy denial | contradicted: blind, verified and informed sure prevention agree in all 1,800 cells |
+
+6. **Information has no denial value while the defender has one best move.** Under a
+   scarce budget the trailer's best preventive play is still to build whenever it can
+   afford to: capability only rises, so an earlier build never hurts prevention. A
+   strategy that is best against every rival move needs no information, so verification
+   cannot add guarantees. The query found this without it being written into the world;
+   the check (blind equals informed) generalizes to any world. Verification would buy
+   denial only where the right preventive move depends on the rival's hidden choice
+   (which capability, which target, which route). This world has one capability
+   dimension, so it cannot show that. T3.3.
+7. **Cross-check.** Full-information force values and informed sure prevention, computed
+   by two separate methods, agree in every deterministic cell.
+8. **Verification's behavioral effect runs both ways.** New sample, 120 pairs: 6
+   outcomes change. Four move toward the leader disarming the trailer; one disarmament
+   is prevented. There, at depth 3, the verified trailer builds alongside the leader and
+   keeps parity, while the blind trailer holds and is disarmed in round 2. T3.1's "none
+   toward compliance" was a property of its sample, not a law. Across both samples,
+   verification reduced runs where nobody builds (threshold: 45 to 34, then 47 to 40).

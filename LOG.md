@@ -216,3 +216,19 @@ opponent model. Evidence `evidence/treaty.json` (clean `a2d4c64`, 6 s). 153 test
 
 Next agent: T3.2 (scarce responses; ratio-raising returns). The treaty world is cheap, so
 larger sweeps and depth 3 are affordable. A1 now has a recorded case.
+
+## 2026-09-23  Claude: T3.2, scarce responses and ratio-raising returns
+
+Added `elasticity`, `budget` (scarce: two units per build, one per round), `reserve`.
+Defaults reproduce T3.1; `treaty_study` pins the new keys and reproduced its first 20
+behavior pairs exactly. First study run crashed on a belief bug (scarce, reserve 0,
+round 0: zero rival builds treated as infeasible; certain builder with no affordable
+schedule got zero mass); fixed with parametrized tests, then recorded.
+
+Learned: scarcity does not make verification buy denial; the defender's best preventive
+move (build when affordable) is uniformly best, so information cannot add guarantees.
+Elasticity 2 makes lock-in accumulate. Verification's behavioral effect runs both ways.
+Evidence `evidence/treaty-scarce.json` (clean `684448e`, 22 s). 162 tests pass.
+
+Next agent: T3.3 (hidden choice: domains). The blind-versus-informed sure comparison is
+a general check any world can run: if equal, information has no denial value there.

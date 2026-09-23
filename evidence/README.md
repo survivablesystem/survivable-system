@@ -90,3 +90,10 @@ under a recorded study cap of 2,000,000 entries.
 verified and informed; default runs with round-1 action values; 120 verification-paired
 random samples with outcomes, build and strike counts. See
 `rediscovery/treaty-no-verification.md`.
+
+## Treaty: scarce responses
+
+`treaty-scarce.json` identifies clean source `684448e`. Reproduce with
+`python -m tests.treaty_scarce_study` (about 20 seconds). 1,800-cell power grid with
+force values and blind/verified/informed sure prevention, and 120 verification-paired
+samples of the full register.
