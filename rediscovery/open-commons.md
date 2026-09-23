@@ -187,3 +187,10 @@ survival came from 12-round constant-action rollouts, not from anything exact se
 depth 5 reproduces. Behavioral conclusions in this world are therefore conclusions about
 planners that look at most about five rounds ahead. Longer reach needs an explicit,
 swept continuation-value assumption; none is adopted here (A1).
+
+## Opponent model (A1, 2026-09-23)
+
+`evidence/opponent-models.json`: eight neighborhood configurations under `others` react
+and plan (seed 0, 30 rounds). Every configuration that collapsed under react collapses
+under plan, and r=0.3 survives under both; timing moves (baseline 17 to 21, depth 3 17 to
+22, n=2 8 to 7). Commons conclusions are qualitative in collapse, not in timing.

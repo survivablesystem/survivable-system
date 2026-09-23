@@ -250,3 +250,21 @@ Next agent: stage 3 has answered its question within scope. Candidate next steps
 case file: the leader's own information (sure reach), longer horizons under scarcity, a
 third party (inspector with its own goals, T9.1 needs ASK). Or return to stage 2 (captured
 auditor), where the same power/information queries apply to evaluation of AI systems.
+
+## 2026-09-23  Claude: A1, opponent model swept
+
+Prototyped the textbook level-1 rule in scratch before any decision: it changed treaty
+defaults (1 to 4 disarmaments in 4) and the commons baseline timing (17 to 21). Neither
+rule is established, so both are kept as the swept assumption `others` (decision first);
+react stays default and all evidence stands. Sampling studies pin the new key.
+`records.py` unchanged: the key is in each run's params, and saved artifacts still replay.
+
+Learned: commons collapse/survival is robust to the opponent model, timing is not.
+Treaty's "verification makes trailers arm" (T3.1) does not survive; small two-signed
+outcome effects do; power findings are model-free. Evidence
+`evidence/opponent-models.json` (clean `c81efb5`). 169 tests pass.
+
+Next agent: every behavioral claim should now be reported under both `others` values
+and the depth cap; power claims need neither. Candidates: stage 2 captured auditor (the
+evaluator-paid-by-the-evaluated problem, directly relevant to AI evaluation), or the
+leader-information question in the treaty case.

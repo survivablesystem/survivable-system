@@ -249,3 +249,25 @@ traces. A summary bug (only first-domain builds counted) was fixed before the re
 
 Scope: the adversary in every power query is fully informed, so these cells measure the
 defender's information only. Two domains, threshold contest, 8 rounds, ceiling 12.
+
+## Opponent model (A1, 2026-09-23)
+
+Decision `DECISIONS.md` 2026-09-23 (A1): register key `others` in {react, plan}; react is
+the rule every earlier result used (others plan only when reacting to an observed move),
+plan makes every other agent a level-0 planner at every node, root included. Artifact
+`evidence/opponent-models.json`, clean `c81efb5`, 25 s; `python -m tests.opponents_study`.
+Same 120 T3.1 samples (the react column reproduces T3.1 exactly), each run under both
+models and both verification settings.
+
+| Threshold contest, 58 samples | react | plan |
+|---|---|---|
+| disarmed, none / exact | 21 / 25 | 24 / 25 |
+| nobody ever builds, none / exact | 45 / 34 | 38 / 37 |
+| outcomes changed by verification | 4, all toward the leader | 5: 3 toward the leader, 2 prevented |
+
+12. **"Verified trailers arm" was an artifact of the opponent model.** Under react, blind
+    parties never anticipate a rival's build, so verification is what makes them arm.
+    Under plan, blind parties already anticipate and arm, and verification changes almost
+    nothing (38 vs 37). The defaults' first strike (finding 3) happens under plan in all
+    four opening/verification cases. What survives both models: verification's effect on
+    outcomes is small and of both signs. All power findings are independent of the model.

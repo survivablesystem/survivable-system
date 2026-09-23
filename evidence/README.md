@@ -104,3 +104,9 @@ samples of the full register.
 `python -m tests.treaty_domains_study` (about 2 minutes). 360-cell grid of blind, verified
 and informed sure prevention for one and two domains, and 120 two-domain samples paired
 on verification.
+
+## Opponent models
+
+`opponent-models.json` identifies clean source `c81efb5`. Reproduce with
+`python -m tests.opponents_study` (about 25 seconds). Commons neighborhood and the T3.1
+treaty samples under both level-1 opponent models (`others` react and plan).
