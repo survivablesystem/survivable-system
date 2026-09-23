@@ -170,3 +170,17 @@ Evidence `evidence/restraint.json` (clean `4175ae0`, 3 min). 133 tests pass.
 
 Next agent: T1.7 (report power beside behavior), then T1.8. Enlarged menus raise planner
 and power cost (5 actions per user with sanctions; one sample became unresolved).
+
+## 2026-09-23  Claude: T1.7, behavior beside power
+
+Added `engine.power.profile` and `--trace --profile T [--target labels]`. Each played round
+shows the smallest coalitions able to force or prevent the target within T from the state
+the round began in; fragile (one agent can force it) and sealed flags. Tests: toy trace,
+CLI/library agreement, `--profile` requires `--trace`. 135 tests pass.
+
+Learned: with restraint on, the paid baseline's final collapse step is everyone taking the
+enforced low take at S=9.7 (three resters would have prevented it): the sanction rule
+protects a fixed quota, not the stock. The restraint-only survivor was fragile at every
+rest round. Evidence `evidence/power-profiles.json` (clean `81bece6`).
+
+Next agent: T1.8 (planner reach). New worlds must ship this report with their first case.

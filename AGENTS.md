@@ -65,4 +65,5 @@ python -m engine worlds.commons --oat                 one parameter at a time fr
 python -m engine worlds.commons --samples 100         random sweep of the register
 python -m engine worlds.commons --trace --fix n=4     one world, round by round
 python -m engine worlds.commons --power 3             goal-free: what each coalition can force or prevent
+python -m engine worlds.commons --trace --profile 3   a run, with who could force or prevent collapse each round
 ```

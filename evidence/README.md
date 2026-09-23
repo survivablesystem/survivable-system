@@ -70,3 +70,9 @@ value. See `rediscovery/coalition-power.md`.
 restraint off and on (same parameters and seed; menus differ, so random draws are not
 guaranteed to align), full traces for the one-at-a-time neighborhood, random-sample
 outcomes, and T=3 power maps. See `rediscovery/open-commons.md`, restraint findings.
+
+## Power profiles
+
+`power-profiles.json` identifies clean source `81bece6`. Reproduce with
+`python -m tests.profile_study` (about 2 minutes). Five commons runs with full traces
+and, per round, force/prevent thresholds within 3 rounds, fragile and sealed flags.

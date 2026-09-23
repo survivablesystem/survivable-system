@@ -119,3 +119,29 @@ beyond T, about larger populations, or about real fisheries. Costs of forcing or
 preventing are ignored by construction. Cost: a full 16-coalition table takes 0.2-2 s at
 T=3 and up to 13 s at T=4; exact enumeration grows with menus^n per stage and with
 distinct reachable states per round, so larger worlds need symmetry reduction (T8.1).
+
+## Behavior beside power (T1.7, 2026-09-23)
+
+`python -m engine worlds.commons --trace --profile 3 --target collapsed` prints, beside each
+played round, the smallest coalitions that could force or prevent collapse within 3 rounds
+from the state the round started in. `FRAGILE`: one agent could force it with certainty,
+so whatever held, goals held it. `SEALED`: nobody can prevent it. Artifact
+`evidence/power-profiles.json`, clean `81bece6`, 2 min; `python -m tests.profile_study`.
+
+| Run (defaults, restraint on unless stated) | Outcome | Fragile rounds | Sealed |
+|---|---|---|---|
+| paid | collapse 17 | none | never |
+| unpaid | collapse 7 | none | never |
+| no sanction | collapse 5 | none | never |
+| paid, no restraint (T1.5 world) | collapse 17 | 16, 17 | 17 |
+| rest-and-raid survivor (n=2) | survived 30 | 12 of 30 (every rest round) | never |
+
+7. **The last step to collapse was compliance.** With restraint on, the paid baseline
+   collapses at round 17 with all four users taking the *low* take, the take sanctions
+   enforce, from S=9.7. Three resting users would have prevented it (prevent threshold 3).
+   The sanction rule targets takes above one's own, so it protects the quota, not the
+   stock: at low stock the enforced norm is itself the collapse. A fixed-quota norm is a
+   design choice this world hard-codes; a stock-dependent norm is untested.
+8. **Survival can be fragile in every other round.** The only restraint-dependent survivor
+   rests whenever the stock nears the brink; at each rest round a single user could force
+   collapse within 3 rounds. Its 30-round survival is goal-held, not denied.
