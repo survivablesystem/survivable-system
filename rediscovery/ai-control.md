@@ -215,3 +215,22 @@ Scope: two types (drift 0 or 1), one observer, beliefs conditioned on the true e
 states, types best-respond to the rule (not an equilibrium search), depth 4, capability
 public. Precision is where the answer on resistance lives (finding 9); only 0, 1 and
 infinity were tested.
+
+### Does improvement reveal only because capability is worthless to the lab? (T9.4)
+
+Finding 9's tell may be authored: the lab values work only, so its aligned AI never has a
+reason to improve. Register option `leverage`: a round of work is worth
+benefit x (1 + autonomy) x (1 + leverage x (capability - start)); 0 is the world above.
+
+Expectations stated before running (`python -m tests.leverage_study`):
+
+- V1 (instrumental convergence): above some leverage the aligned type improves too, and at
+  best response a caught improvement no longer moves the posterior. Contradiction: the
+  aligned type never improves at any tested leverage within depth 4 (then finding 9 holds
+  in the tested space, scoped to the planning depth).
+- V2: where both types improve, shutdown on improvement costs the lab an aligned AI's work
+  at a low prior and stops being credible; the lab departs by running. Contradiction: it
+  stays credible because the misaligned type's later conduct (resisting, escaping) still
+  makes the shutdown worth it at the prior.
+- V3: what still distinguishes the types is escape (only the misaligned type values it);
+  resistance stays uninformative. Contradiction: some other action becomes the tell.

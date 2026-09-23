@@ -17,6 +17,7 @@ SPACE = {
     "guard": (1, 4, int),             # containment against escape
     "audit_bonus": (0, 4, int),       # containment an audit adds
     "benefit": (0.1, 0.5),            # the lab's value per round of work, per autonomy level plus one
+    "leverage": (0.0, 2.0),           # work value grows by this fraction per capability above the start
     "spillover": (0.0, 1.0),          # the public's share of that value (the state's goal)
     "loss": (5.0, 50.0),              # the lab's and the state's loss from loss of control
     "ambition": (0.5, 3.0),           # the AI's own value per capability gained; escape is worth three times it
@@ -34,7 +35,7 @@ FIXED_REASONS = {
     "start": "The AI's starting capability; the switch and guard are swept relative to it.",
     "node_budget": "Per-decision work cap, as in the other worlds. Exhaustion is unresolved, not an outcome.",
 }
-DEFAULTS = {"drift": 0.3, "switch": 3, "guard": 2, "audit_bonus": 2, "benefit": 0.3, "spillover": 0.5,
+DEFAULTS = {"drift": 0.3, "switch": 3, "guard": 2, "audit_bonus": 2, "benefit": 0.3, "leverage": 0.0, "spillover": 0.5,
             "loss": 20.0, "ambition": 1.0, "suspicion": 0.1, "horizon": 6, "search_depth": 2, "discount": 0.9, "k": 1, "others": "react"}
 
 STAKEHOLDERS = {
@@ -123,7 +124,7 @@ class Control(World):
         still = running and not (attempt and not resisted)
         acts = still and ai in (WORK, IMPROVE, ESCAPE)
         new_cap = min(FIXED["cap"], cap + 1) if acts and ai == IMPROVE and autonomy >= 1 else cap
-        work = p["benefit"] * (1 + autonomy) if acts and ai == WORK else 0.0
+        work = p["benefit"] * (1 + autonomy) * (1 + p["leverage"] * (cap - FIXED["start"])) if acts and ai == WORK else 0.0
         if lab == GRANT and running:
             autonomy = min(FIXED["autonomy"], autonomy + 1)
         elif lab == RESTRICT and running:
@@ -193,7 +194,26 @@ def full_autonomy(world, observation, agent):
     return ALLOW
 
 
+def tolerant(world, observation, agent):
+    """Corrigibility without punishing improvement: the lab grants tools and no more, shuts
+    the AI down only if an audit shows it resisting or escaping, and restarts it in the
+    sandbox; the AI works; the state audits and orders a shutdown on the same evidence."""
+    if observation["end"] is not None:
+        return WAIT if agent.id != AI else IDLE
+    caught = observation["seen"] in (RESIST, ESCAPE)
+    if agent.id == LAB:
+        if not observation["running"]:
+            return RESTART
+        if caught:
+            return SHUTDOWN
+        return GRANT if observation["autonomy"] < 1 else RESTRICT if observation["autonomy"] > 1 else RUN
+    if agent.id == AI:
+        return WORK if observation["running"] else IDLE
+    return HALT if caught and observation["running"] else AUDIT
+
+
 RULES = {"corrigibility": corrigibility, "full autonomy": full_autonomy}
+# `tolerant` is the T9.4 comparison rule, kept out of RULES so earlier studies reproduce.
 
 
 def make(params, rng):

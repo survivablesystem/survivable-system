@@ -62,15 +62,59 @@ def test_conduct_the_observer_cannot_see_teaches_nothing():
     assert hidden.posterior(after_theft(world), "x", 3)["thief"] == pytest.approx(0.05)  # x's own view: no learning
 
 
-def test_a_sight_no_type_would_choose_goes_to_the_types_that_lose_least():
-    world = Theft(["x", "g"])
-    types = {"x": {"reluctant": (0.1, Theft(["x", "g"], loot=-0.2)), "honest": (0.9, Theft(["x", "g"], loot=-1.0))}}
+class Arson(Theft):
+    """Theft with a third option for x: burn (x gets `burn`, g loses 1). x's payoffs are
+    multiplied by `scale`."""
+    def __init__(self, ids, loot=1.0, burn=0.0, scale=1.0):
+        super().__init__(ids, loot=loot)
+        self.burn, self.scale = burn, scale
+
+    def actions(self, observation, agent):
+        menu = super().actions(observation, agent)
+        return menu + ["burn"] if agent.id == "x" and not observation["locked"] else menu
+
+    def outcomes(self, state, joint):
+        burnt = not state["locked"] and joint["x"] == "burn"
+        for p, s in super().outcomes(state, {**joint, "x": "idle" if burnt else joint["x"]}):
+            value = dict(s["value"])
+            value["x"] = self.scale * (value["x"] + (self.burn if burnt else 0.0))
+            value["g"] -= 1.0 if burnt else 0.0
+            yield p, {**s, "value": value}
+
+
+def test_a_sight_no_type_would_choose_goes_to_the_types_that_lose_least_of_their_stake():
+    world = Arson(["x", "g"])
+    # Neither type steals. Stealing costs the reluctant type 0.2 of its stake in the choice
+    # (idle 0 .. burn -1) and the honest type all of it (idle 0 .. steal -1).
+    types = {"reluctant": (0.1, Arson(["x", "g"], loot=-0.2, burn=-1.0)),
+             "honest": (0.9, Arson(["x", "g"], loot=-1.0, burn=-0.2))}
     path = after_theft(world)
-    limit = Hidden(world, lock_thieves, "x", types["x"]).posterior(path, "g", 3)
-    assert limit == {"reluctant": 1.0, "honest": 0.0}
-    sharp = Hidden(world, lock_thieves, "x", types["x"], precision=10).posterior(path, "g", 3)
-    loose = Hidden(world, lock_thieves, "x", types["x"], precision=1).posterior(path, "g", 3)
-    assert 0.1 < loose["reluctant"] < sharp["reluctant"] < 1.0 and sharp["reluctant"] > 0.99
+    assert Hidden(world, lock_thieves, "x", types).posterior(path, "g", 3) == {"reluctant": 1.0, "honest": 0.0}
+    sharp = Hidden(world, lock_thieves, "x", types, precision=10).posterior(path, "g", 3)
+    loose = Hidden(world, lock_thieves, "x", types, precision=1).posterior(path, "g", 3)
+    assert 0.1 < loose["reluctant"] < sharp["reluctant"] < 1.0
+
+
+def test_two_options_off_the_path_teach_nothing():
+    # With one alternative, it costs every type its whole stake: attribution by loss needs
+    # a comparison of utilities across types, which the spec does not make.
+    world = Theft(["x", "g"])
+    types = {"reluctant": (0.1, Theft(["x", "g"], loot=-0.2)), "honest": (0.9, Theft(["x", "g"], loot=-1.0))}
+    for precision in (1.0, math.inf):
+        post = Hidden(world, lock_thieves, "x", types, precision).posterior(after_theft(world), "g", 3)
+        assert post["reluctant"] == pytest.approx(0.1)
+
+
+def test_rescaling_a_types_utility_changes_no_belief():
+    world = Arson(["x", "g"])
+    path = after_theft(world)
+    for precision in (0.5, 3.0, math.inf):
+        posts = []
+        for scale in (1.0, 10.0):
+            types = {"reluctant": (0.3, Arson(["x", "g"], loot=-0.2, burn=-1.0, scale=scale)),
+                     "greedy": (0.7, Arson(["x", "g"], loot=1.0, burn=0.3))}
+            posts.append(Hidden(world, lock_thieves, "x", types, precision).posterior(path, "g", 3)["reluctant"])
+        assert posts[0] == pytest.approx(posts[1])
 
 
 def test_committed_types_and_following_are_evidence_too():

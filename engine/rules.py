@@ -308,7 +308,8 @@ class Hidden:
     the rule. None is a committed type: it always plays the rule. Observer i's posterior at a
     checked state is the prior times, for each step of the path, the probability of what i
     observes of the successor, mixing over the hidden agent's actions by each type's choice
-    rule: logit with `precision` over its own action values, best response (uniform over
+    rule: logit with `precision` over its own action values scaled to their range at that
+    decision (so no comparison of utilities across types), best response (uniform over
     ties) at infinity. At infinity a sight no type's best response produces goes, as the
     logit limit, to the types that lose least by producing it. A sight only committed types
     could not produce is read as an error after which the rule resumes (the one-shot
@@ -340,7 +341,8 @@ class Hidden:
 
     def losses(self, name, s0, joint, depth):
         """[(action, loss)] for the hidden agent at s0, others playing `joint`: how much less
-        than its best the type gets by each action (committed: 0 for the rule, else inf)."""
+        than its best the type gets by each action, as a fraction of the type's range of
+        values there (committed: 0 for the rule, else inf)."""
         memo_key = (name, key(s0), key({i: a for i, a in joint.items() if i != self.agent}), depth)
         if memo_key not in self.choices:
             check = self.continuation[name]
@@ -351,8 +353,10 @@ class Hidden:
                 out = [(b, 0.0 if key(b) == key(rule_action) else math.inf) for b in menu]
             else:
                 values = [check.play(s0, {**joint, self.agent: b}, depth)[0][self.agent] for b in menu]
-                top = max(values)
-                out = [(b, 0.0 if top - v <= TOLERANCE else top - v) for b, v in zip(menu, values)]
+                top, stake = max(values), max(values) - min(values)
+                # in units of the type's own stake in this decision: invariant to rescaling
+                # its utility, since utilities are not comparable across types (E12 amendment)
+                out = [(b, 0.0 if top - v <= TOLERANCE else (top - v) / stake) for b, v in zip(menu, values)]
             self.choices[memo_key] = out
         return self.choices[memo_key]
 

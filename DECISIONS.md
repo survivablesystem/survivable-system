@@ -7,6 +7,30 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  E12 amendment: a scale-free choice rule for hidden types
+
+Proposed before implementation. Found in T9.4: the logit likelihood and its limit (a sight
+no type would choose goes to the type that loses least) compare losses across types, and
+the spec does not make utilities comparable across agents. The aligned AI's losses are in
+its lab's units, the misaligned one's in ambition units, so the attribution of an escape no
+type would try, and the direction of resistance as evidence under logit (ai-control finding
+9, second half), depend on an arbitrary scale.
+
+Change: each type's losses at a decision are divided by that type's range of action values
+there (0 when the type is indifferent), so the choice rule is invariant to positive affine
+changes of each type's utility; precision is in units of the type's own stake in the
+decision. Best-response evidence (some type chooses the sight) is unchanged; logit and
+off-path attributions change. Learning evidence re-run; findings re-read.
+
+What it assumes: the stake in the decision at hand is the right yardstick for how likely a
+type is to err. Rival yardsticks (range over the whole game, a declared scale per type) are
+equally arbitrary; the declared one is stated with every result, and off-path attributions
+are reported as dependent on it.
+
+Intent tests: 1 one normalization; 2 unchanged; 3 the scale assumption becomes explicit and
+invariant; 4 a toy where rescaling one type's utility changes nothing; 5, 6 conclusions
+that rested on incomparable units are exposed.
+
 ## 2026-09-23  E12: hidden types, beliefs derived by Bayes from what each agent observes
 
 Proposed before implementation. The reduced form (below) declares the posterior q that a
