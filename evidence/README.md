@@ -116,3 +116,10 @@ treaty samples under both level-1 opponent models (`others` react and plan).
 `externalization.json` identifies clean source `6b48e9b`. Reproduce with
 `python -m tests.externalization_study` (seconds). Declarations of both worlds and
 per-harm reports for commons stocks and treaty settings at T=3.
+
+## Race on a shared fishery (composition)
+
+`race-commons.json` identifies clean source `2d220b6`. Reproduce with
+`python -m tests.race_commons_study` (about 5 minutes). Declarations and coverage,
+fishery harms alone versus in the whole by draw and stock, forced choices over draw,
+stock and treaty settings, and planner runs under both opponent models.

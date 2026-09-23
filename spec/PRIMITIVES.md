@@ -75,6 +75,8 @@ The engine currently expands individual agents. Types with populations and neste
 
 A module is an intervention on the world or on a set of types: change a conversion rate, add or remove a channel, add a rule at a level, add an amendment rule, restrict an action set, flag a transition irreversible, create a type. Composition is the union of interventions on one world. Interactions emerge because everything acts on the same dynamics.
 
+Worlds compose (`engine/compose.py`, decision 2026-09-23, E4): parts keep their kernels; actors map across parts and act in each; a declared coupling carries flows between parts; outsiders see only a part's public facts. Harms, stakeholders and exclusions of the parts become the whole's, with every part exclusion carried or covered. The whole is the unit of analysis: harms one part imposes on another, and forced choices between harms in different parts (`joint_prevention`), appear only there.
+
 AI advancement is a module: a new type whose capability grows per round, plus shifts in conversion rates (information to capability becomes cheap; capability gains returns to scale).
 
 ## Queries

@@ -38,6 +38,12 @@ python -m engine worlds.treaty --trace --rounds 12 --profile 3
 
 `--externalities T` runs the same query per declared harm: who can force it, who can impose it without bearing it, who can prevent or end it, and whom it falls on without any agent in the model. Every world must declare its stakeholders, harms and exclusions ([`rediscovery/externalization.md`](rediscovery/externalization.md)).
 
+Worlds compose into one system (`engine/compose.py`): the same actors act in several parts, declared couplings carry flows between them, and every query runs on the whole. `worlds/race_commons.py` puts an arms race on a shared fishery; the whole shows harms and forced choices that neither part shows ([`rediscovery/race-commons.md`](rediscovery/race-commons.md)).
+
+```sh
+python -m engine worlds.race_commons --externalities 2 --state parts.commons.S=30 --fix draw=2.0 treaty.lead=0 treaty.advantage=1.5
+```
+
 `engine.power.sure` asks the information question: can a coalition guarantee an outcome using only what its members observe? It is how verification, disclosure or any channel can show up as denial rather than only as behavior (see [`rediscovery/treaty-no-verification.md`](rediscovery/treaty-no-verification.md)).
 
 A good outcome that the planner produces but that one agent could still force away rests on goals: it is deterrence, not denial. Power claims do not depend on goals, horizons, beliefs or planner depth, and say nothing beyond T. Exact enumeration is exponential; a work cap marks unresolved entries. See [`rediscovery/coalition-power.md`](rediscovery/coalition-power.md).

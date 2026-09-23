@@ -282,3 +282,25 @@ harms fall mostly on stakeholders with no agent; a treaty leader imposes disarma
 population that has none. 180 tests pass. Evidence `evidence/externalization.json`.
 
 Next agent: E4 composition (claimed), then E2 scale.
+
+## 2026-09-23  Claude: E4, the whole system
+
+Owner note mid-session: viewing the system as a whole is the point; analysing parts
+alone is what externalizes harm. Built composition (decision first): `engine/compose.py`
+runs part kernels in order with a declared coupling, maps actors across parts, gives
+outsiders public views (treaty generalized; T3.1 outcomes still reproduce). Moved
+`joint_prevention` into `engine/power.py` (per-coalition forced choices, any world); the
+CLI prints them. Exclusion coverage is checked in tests.
+
+Found by comparing CLI and library output: a chained-assignment bug in the new nested
+`--state` override silently left the start state unchanged; fixed with a regression test.
+Also caught before recording: the composite's behavioral "collapse caused by the race"
+was a collapse brought forward; the fishery alone was already depleting (stock 8.9 at 30).
+
+Learned: 8/18 fishery harm rows change between part and whole; forced choices between a
+party's safety and the fishery in 4/27 settings; the bystander drops out of minimal
+preventing coalitions. Evidence `evidence/race-commons.json` (clean `2d220b6`).
+186 tests pass (E1 log said 180; it was 179).
+
+Next agent: E2 scale (types and symmetry), now needed by composites: menus multiply
+across parts and `others = plan` already exceeds the work cap at three actors.
