@@ -49,10 +49,10 @@ def power_grid():
 
 def behavior():
     rng = random.Random(SAMPLE_SEED)
-    space = {k: v for k, v in treaty.SPACE.items() if k not in ("verification", "domains")}
+    space = {k: v for k, v in treaty.SPACE.items() if k not in ("verification", "domains", "others")}
     rows = []
     for _ in range(SAMPLES):
-        params = {**sample_params(space, rng), "domains": 2}
+        params = {**sample_params(space, rng), "domains": 2, "others": "react"}  # others added later; pinned
         seed = rng.getrandbits(32)
         rows.append({"params": params, "seed": seed, **paired(params, seed)})
     return rows

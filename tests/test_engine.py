@@ -52,3 +52,11 @@ def test_run_returns_label_and_trace():
     w = TwoAction()
     label, state, trace = run(w, 5, random.Random(0))
     assert label == "done" and state["t"] == 5 and len(trace) == 5
+
+
+def test_opponent_model_is_validated_and_ignored_at_level_zero():
+    import pytest
+    from engine.core import Agent
+    with pytest.raises(ValueError):
+        Agent("x", others="guess")
+    assert Agent("x", k=0, others="plan").others == "plan"

@@ -7,6 +7,34 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  A1: the level-1 opponent model becomes a swept assumption
+
+Proposed before implementation. Level 1 currently treats others as level-0 planners
+only where they react: at future nodes, and only if they observe the actor. At the root,
+and when unobserved, they repeat their last action. The treaty case (finding 4) showed
+the root rule decides whether a trailing party anticipates a leader's build. A scratch
+prototype of the textbook rule (every other agent is a level-0 planner at every node,
+root included) changes the treaty defaults from 1 disarmament in 4 to 4 in 4, and the
+commons baseline from collapse at 17 to collapse at 21. Two defensible models of bounded
+reasoning give different answers; neither is established.
+
+Change: `Agent.others` in {"react", "plan"}; "react" is the existing rule and the default,
+so all recorded evidence stands. "plan" makes every other agent a level-0 planner from the
+hypothetical state at every node; unobserved actions enter their plans only through
+their own observations. Only level 1 reads it. Worlds expose it as the register key
+`others` and sweep it.
+
+Alternatives rejected: replacing the rule (hides a demonstrated dependence behind one
+authored choice); a level-2 planner (no case needs it); treating the prototype's outcomes
+as a correction (the new rule is not better established, only more standard).
+
+Discriminating checks: "react" reproduces every existing test and artifact; "plan" gives
+the prototype's treaty and commons outcomes; level 0 ignores the option.
+
+Intent tests: 1 one flag on one branch of `q`; 2 no behavior scripted; 3 the opponent
+model is now in the register; 4 the treaty result that depended on it is re-run both ways;
+5 unchanged; 6 shows which behavioral findings survive a change of opponent model.
+
 ## 2026-09-23  T3.1: information-restricted sure power
 
 Proposed before implementation. The T1.5 query gives both sides the full state, so it

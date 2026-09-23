@@ -34,6 +34,7 @@ SPACE = {
     "budget": ["free", "scarce"],     # scarce: a build costs build_units, income one unit per round
     "reserve": (0, 3, int),           # scarce budget: units held before round 1
     "domains": [1, 2],                # capability domains; a strike is decided within one
+    "others": ["react", "plan"],      # level-1 opponent model, see engine/core.py
 }
 FIXED = {"base": 2, "cap": 12, "node_budget": 20_000, "build_units": 2}
 FIXED_REASONS = {
@@ -46,7 +47,8 @@ DEFAULTS = {"returns": 0.25, "contest": "threshold", "advantage": 2.0, "lead": 1
             "verification": "exact", "security": 0.5, "build_cost": 0.3, "strike_cost": 0.1,
             "prize": 2.0, "prior_build": 0.5, "horizon": 6, "search_depth": 2,
             "discount": 0.9, "k": 1, "opening": "hold",
-            "elasticity": 1.0, "budget": "free", "reserve": 2, "domains": 1}
+            "elasticity": 1.0, "budget": "free", "reserve": 2, "domains": 1,
+            "others": "react"}
 
 HOLD, BUILD, STRIKE = "hold", "build", "strike"
 RIVAL = {"a": "b", "b": "a"}
@@ -73,7 +75,7 @@ class Treaty(World):
         for i in PARTIES:
             channels = frozenset({RIVAL[i]}) if exact else frozenset()
             self.add(Agent(i, p["horizon"], p["discount"], frozenset({"build", "strike"}),
-                           channels, p["k"], p["search_depth"], FIXED["node_budget"]))
+                           channels, p["k"], p["search_depth"], FIXED["node_budget"], p["others"]))
 
     @property
     def domains(self):

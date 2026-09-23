@@ -29,6 +29,7 @@ SPACE = {
     "k": [0, 1],                      # belief level, see engine/core.py
     "confiscation_to": ["stock", "sanctioners"],  # where a confiscated take goes: a design choice
     "restraint": [False, True],       # whether a user may rest (take nothing); resting users cannot sanction
+    "others": ["react", "plan"],      # level-1 opponent model, see engine/core.py
 }
 # Only K is a scale choice. The dimensionless fractions are substantive assumptions.
 FIXED = {"K": 100.0, "S0_frac": 0.5, "S_min_frac": 0.05, "lo_frac": 0.8,
@@ -43,7 +44,8 @@ FIXED_REASONS = {
 # Used by --trace when a swept param is not fixed on the command line.
 DEFAULTS = {"n": 4, "horizon": 12, "discount": 0.9, "channels": "all", "sanction": True,
             "sanction_cost": 0.1, "prior": "lo", "r": 0.5, "hi_mult": 2, "k": 1,
-            "confiscation_to": "sanctioners", "search_depth": 2, "restraint": True}
+            "confiscation_to": "sanctioners", "search_depth": 2, "restraint": True,
+            "others": "react"}
 
 REST, LO, HI = "rest", "lo", "hi"
 
@@ -65,7 +67,7 @@ class Commons(World):
         for i in ids:
             channels = frozenset(j for j in ids if j != i) if p["channels"] == "all" else frozenset()
             self.add(Agent(i, p["horizon"], p["discount"], caps, channels, p["k"],
-                           p["search_depth"], FIXED["node_budget"]))
+                           p["search_depth"], FIXED["node_budget"], p["others"]))
 
     def prior_last(self):
         p = self.params["prior"]

@@ -15,6 +15,7 @@ class Agent:
     k: int = 0
     search_depth: int | None = None
     node_budget: int = 20_000
+    others: str = "react"  # level 1: others plan only when reacting ("react") or everywhere ("plan")
 
     def __post_init__(self):
         for name, value in (("horizon", self.horizon), ("node_budget", self.node_budget),
@@ -23,6 +24,8 @@ class Agent:
                 raise ValueError(f"{name} must be a positive integer")
         if self.k not in (0, 1):
             raise ValueError("implemented belief levels are 0 and 1")
+        if self.others not in ("react", "plan"):
+            raise ValueError("others must be react or plan")
         if not math.isfinite(self.discount) or not 0 <= self.discount <= 1:
             raise ValueError("discount must be finite and in [0, 1]")
 
@@ -214,7 +217,9 @@ class Search:
             if self.world.terminal(state) is not None:
                 continue
             responses = None
-            if k == 1 and future:
+            if k == 1 and agent.others == "plan":  # every other agent plans at level 0, root included
+                responses = {o.id: self.response(state, o, depth) for o in self.world.agents if o.id != agent.id}
+            elif k == 1 and future:  # only direct observers react, after the first transition
                 responses = {o.id: self.response(state, o, depth) for o in self.world.agents
                              if o.id != agent.id and o.observes(agent.id)}
             joint = believed_joint(self.world, state, agent, action, responses)

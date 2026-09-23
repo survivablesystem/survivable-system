@@ -145,3 +145,17 @@ def test_two_domain_beliefs_split_unobserved_builds():
     by = {tuple(s["builds"]["b"]): p for p, s in support}
     assert by[(0, 0)] == pytest.approx(0.25) and by[(1, 1)] == pytest.approx(0.125)
     assert all(key(w.observe(s, agent)) == key(w.observe(state, agent)) for _, s in support)
+
+
+@pytest.mark.parametrize("opening", ["hold", "build"])
+@pytest.mark.parametrize("verification", ["none", "exact"])
+def test_opponent_model_decides_the_default_first_strike(opening, verification):
+    # Decision 2026-09-23: with others planning at the root, the leader disarms the
+    # trailer under every default opening and verification; with reacting others it does
+    # so only when verified and the opening is hold (treaty finding 4).
+    from engine.records import run_record
+    params = {**treaty.DEFAULTS, "opening": opening, "verification": verification}
+    plan = run_record(treaty.make, {**params, "others": "plan"}, 12, 0)
+    react = run_record(treaty.make, {**params, "others": "react"}, 12, 0)
+    assert plan["label"] == "b_disarmed"
+    assert react["label"] == ("b_disarmed" if (opening, verification) == ("hold", "exact") else "no_disarm")

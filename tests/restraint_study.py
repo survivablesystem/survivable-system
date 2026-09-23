@@ -46,10 +46,11 @@ def neighborhood():
 
 def random_pairs():
     rng = random.Random(SAMPLE_SEED)
-    space = {k: v for k, v in commons.SPACE.items() if k != "restraint"}
+    # Keys added after this study are pinned so it reproduces its evidence.
+    space = {k: v for k, v in commons.SPACE.items() if k not in ("restraint", "others")}
     out = []
     for _ in range(SAMPLES):
-        params = sample_params(space, rng)
+        params = {**sample_params(space, rng), "others": "react"}
         seed = rng.getrandbits(32)
         runs = paired(params, seed)
         for r in runs.values():

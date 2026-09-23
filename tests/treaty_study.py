@@ -67,7 +67,7 @@ def paired(params, seed):
 def behavior():
     rng = random.Random(SAMPLE_SEED)
     # T3.1 sampled the register before T3.2 added these keys; pinned so the study reproduces.
-    later = {"elasticity": 1.0, "budget": "free", "reserve": 2}
+    later = {"elasticity": 1.0, "budget": "free", "reserve": 2, "domains": 1, "others": "react"}
     space = {k: v for k, v in treaty.SPACE.items() if k != "verification" and k not in later}
     rows = []
     for _ in range(SAMPLES):
