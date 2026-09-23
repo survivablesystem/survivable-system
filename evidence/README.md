@@ -198,9 +198,18 @@ liability {0, 2, 10}, with single-agent, one-round and two-round coalition depar
 
 ## Precaution (E12, T9.2)
 
-`precaution.json` identifies clean source `2ec45c1`. Reproduce with `python -m tests.precaution_study`
-(seconds). Lab, state and AI incentives right after the AI is caught, over 27 states and five
-posteriors that the AI persists as a misaligned type.
+`precaution.json` identifies clean source `e3c070e` (replacing `2ec45c1`, whose lab and state
+gains for a persisting type came from a bug fixed in `e3c070e`; finding 7 corrected).
+Reproduce with `python -m tests.precaution_study` (seconds). Lab, state and AI incentives right
+after the AI is caught, over 27 states and five posteriors that the AI persists as a misaligned
+type.
+
+## Learning about hidden goals (E12, derived posteriors)
+
+`learning.json` identifies clean source `e3c070e`. Reproduce with `python -m tests.learning_study`
+(seconds). 486 cells: switch, autonomy, capability, ambition, prior, precision; posteriors after
+each AI action, lab and state gains when the AI is caught improving, resistance as evidence, and
+the misaligned type's own path from the sandbox.
 
 ## Re-run after interior reward integration (E2 step 3)
 

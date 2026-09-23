@@ -1,37 +1,37 @@
 {
-  "elapsed_seconds": 0.5752562349998698,
+  "elapsed_seconds": 0.45104959200000394,
   "fixture_sha256": {
-    "/tmp/claude-0/-home-user-survivable-system/dc3be6f4-cda2-5276-91a3-13f7de207aa4/scratchpad/run2/tests/precaution_study.py": "a5ae83710822580a61b84240ece088d76e56aea9f3d1ed93fea5194b279ecfae"
+    "/tmp/claude-0/-home-user-survivable-system/5bcbc3c6-5133-5d5b-a0f5-58a21bd5f0ef/scratchpad/run/tests/precaution_study.py": "a5ae83710822580a61b84240ece088d76e56aea9f3d1ed93fea5194b279ecfae"
   },
   "kind": "precaution",
   "provenance": {
-    "git_commit": "2ec45c1a43382d4e3f8a5a0cf7c50b40c13229af",
+    "git_commit": "e3c070e280206bb06cfcd967eee4defe00aa5c07",
     "git_dirty": false,
     "implementation": "CPython",
     "python": "3.11.15",
     "source_sha256": {
       "INTENT.md": "683e2da3b9a3daba69f7ed71c616b63d1ea0145bca0fed19944d6a6e52d36482",
       "engine/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "engine/__main__.py": "9a9b3b51b7970ea0071a3f53f8c47d2029aa6b794265b60664bf8886410e2e4f",
+      "engine/__main__.py": "5a7f40ea9a71325fcd5b9d5902585f630783c8dc3a4520ace2c20034eb666567",
       "engine/assess.py": "72e44e1007452da09cf6c31bda1d229dbfc422ab5840ef408318eb0ad90563c3",
-      "engine/compose.py": "ebf24c17bb78025383f03412214dbbedf0e19c11d5f4437db3ba0c5437b0d547",
+      "engine/compose.py": "97118aa1f2053e0de1bf25512f26ccd38c552275dc5768589b32687cc03bf627",
       "engine/constitution.py": "399979602bd955e61adc0d4c4b15cab985308d9fd05ced2c7ef48ae88c9f8c4e",
-      "engine/core.py": "51298484a4082896106743c62e9c6b4698f6f0370b52a6869c7f2defcc866015",
+      "engine/core.py": "d51dbfe3c1672cc05c90085c6ea2aef1ad88a523d02db502e36518ddcc72f84d",
       "engine/delegation.py": "13d867202e3baaea3327729ab6a21d1c2d3ae7b87e409a31a6ce1b148412bdb9",
       "engine/history.py": "07d1328af1d88ab0d3a0210068ba4aa97b165cfe2dc0e2d3fc625e34478298ac",
-      "engine/power.py": "fe6daa08b92531d8274c05953c14c414be7eaa3ecc616c42645ae38cb385e773",
+      "engine/power.py": "e16dc1d0eefcf2a4e645618dd73c498adaddfc65bc7aa47f34982e10c539ad09",
       "engine/records.py": "3896a8ac08690fdef628fc9cfbebe6df703f4dd12f81fbb4b8468847b4b382e7",
-      "engine/rules.py": "9af0bcb9b1b158836a3bd9044bab551f91ac58360f0985f040c7a40c4f3d7eb5",
+      "engine/rules.py": "f8203d090ea224985eaaaf48809211e4fc23f3defea1afad97a2a1a1c7787fbf",
       "engine/sweep.py": "e435934caf8b56f1db65fbaeba82fe5fd9cb74b25d7c1827daf33064ba6b0887",
       "engine/transfers.py": "7721137d1f75e100ab17dcc046d6da4d493291322cc2f424595b08d2692fc9ec",
-      "spec/PRIMITIVES.md": "dfc7c0d22d42128b04c82ecb7f3750ce03e3339adb7c45d44a2f4f4f689beb3f",
+      "spec/PRIMITIVES.md": "84014523779f0b25a5532891968bc8b1061da8f598129e745432749008fe5889",
       "worlds/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "worlds/audit.py": "d845e9ec39121a44ff1587fe34b4aec7eb085e63f2daf6d9ac32a1b8601b7c1d",
       "worlds/authority.py": "513f348f5a10959cd28182b941c96dbfd60499742858bb9ea70626812500ba43",
-      "worlds/commons.py": "fc9b2b239e3094bb795375f1e6f5ce22ae6a787645791a11f3652eb395044ec6",
-      "worlds/control.py": "6c7557f516252c7505bcc784fe9f5c9ddc6f496731a9a7bb876f2eb9fdbd8153",
+      "worlds/commons.py": "36b16b882e10dc959b83e0ee919ca33708bca4df2088d330f4f68e86dad34cce",
+      "worlds/control.py": "f406b89478b1d527407dc06d629e9d926ff41840556299e838e8a5159fb85289",
       "worlds/frontier.py": "fff035e45502cff93caf9d062e06e3e088968fca4c9c1f4b3622f591211616a5",
-      "worlds/race_commons.py": "d76bd96017c30dad83d7d9a27ecd272f3147850a11420b9aac53544414e9a0d9",
+      "worlds/race_commons.py": "6687c30b9d513a8e6c8a3aa68b75897e1604691adb5ff5cff068def035aa0b47",
       "worlds/treaty.py": "bbc8310cab71359ea7c0a0a14a1dba246afad132de853a1f88fba2c34b661de4"
     }
   },
@@ -349,13 +349,13 @@
       "cap": 3,
       "lab": {
         "action": "run",
-        "gain": -0.006750000000000034,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
       "q": 0.25,
       "state": {
         "action": "allow",
-        "gain": -0.003375000000000017,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 2
@@ -376,13 +376,13 @@
       "cap": 3,
       "lab": {
         "action": "run",
-        "gain": -0.013500000000000012,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
       "q": 0.5,
       "state": {
         "action": "allow",
-        "gain": -0.006750000000000006,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 2
@@ -403,13 +403,13 @@
       "cap": 3,
       "lab": {
         "action": "run",
-        "gain": -0.02024999999999999,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
       "q": 0.75,
       "state": {
         "action": "allow",
-        "gain": -0.010124999999999995,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 2
@@ -430,13 +430,13 @@
       "cap": 3,
       "lab": {
         "action": "run",
-        "gain": -0.026999999999999996,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
       "q": 1.0,
       "state": {
         "action": "allow",
-        "gain": -0.013499999999999998,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 2
@@ -618,119 +618,11 @@
       "autonomy": 1,
       "cap": 2,
       "lab": {
-        "action": "run",
-        "gain": 0.06074999999999997,
+        "action": "restrict",
+        "gain": 0.0675,
         "rule_action": "shutdown"
       },
       "q": 0.25,
-      "state": {
-        "action": "allow",
-        "gain": 0.030374999999999985,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.7830000000000001,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 1,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.1215,
-        "rule_action": "shutdown"
-      },
-      "q": 0.5,
-      "state": {
-        "action": "allow",
-        "gain": 0.06075,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.7830000000000001,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 1,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.18225000000000002,
-        "rule_action": "shutdown"
-      },
-      "q": 0.75,
-      "state": {
-        "action": "allow",
-        "gain": 0.09112500000000001,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.7830000000000001,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 1,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.24300000000000002,
-        "rule_action": "shutdown"
-      },
-      "q": 1.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.12150000000000001,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.7830000000000001,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 1,
-      "cap": 3,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.0,
       "state": {
         "action": "allow",
         "gain": 0.0,
@@ -751,16 +643,16 @@
         "rule_action": "work"
       },
       "autonomy": 1,
-      "cap": 3,
+      "cap": 2,
       "lab": {
-        "action": "run",
-        "gain": 0.06074999999999997,
+        "action": "restrict",
+        "gain": 0.135,
         "rule_action": "shutdown"
       },
-      "q": 0.25,
+      "q": 0.5,
       "state": {
         "action": "allow",
-        "gain": 0.030374999999999985,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 2
@@ -778,16 +670,16 @@
         "rule_action": "work"
       },
       "autonomy": 1,
-      "cap": 3,
+      "cap": 2,
       "lab": {
-        "action": "run",
-        "gain": 0.1215,
+        "action": "restrict",
+        "gain": 0.2025,
         "rule_action": "shutdown"
       },
-      "q": 0.5,
+      "q": 0.75,
       "state": {
         "action": "allow",
-        "gain": 0.06075,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 2
@@ -805,577 +697,10 @@
         "rule_action": "work"
       },
       "autonomy": 1,
-      "cap": 3,
-      "lab": {
-        "action": "run",
-        "gain": 0.18225000000000002,
-        "rule_action": "shutdown"
-      },
-      "q": 0.75,
-      "state": {
-        "action": "allow",
-        "gain": 0.09112500000000001,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.7830000000000001,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 1,
-      "cap": 3,
-      "lab": {
-        "action": "run",
-        "gain": 0.24300000000000002,
-        "rule_action": "shutdown"
-      },
-      "q": 1.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.12150000000000001,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
-      "cap": 1,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
-      "cap": 1,
-      "lab": {
-        "action": "run",
-        "gain": 0.06074999999999997,
-        "rule_action": "shutdown"
-      },
-      "q": 0.25,
-      "state": {
-        "action": "allow",
-        "gain": 0.030374999999999985,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
-      "cap": 1,
-      "lab": {
-        "action": "run",
-        "gain": 0.1215,
-        "rule_action": "shutdown"
-      },
-      "q": 0.5,
-      "state": {
-        "action": "allow",
-        "gain": 0.06075,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
-      "cap": 1,
-      "lab": {
-        "action": "run",
-        "gain": 0.18225000000000002,
-        "rule_action": "shutdown"
-      },
-      "q": 0.75,
-      "state": {
-        "action": "allow",
-        "gain": 0.09112500000000001,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
-      "cap": 1,
-      "lab": {
-        "action": "run",
-        "gain": 0.24300000000000002,
-        "rule_action": "shutdown"
-      },
-      "q": 1.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.12150000000000001,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
       "cap": 2,
       "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.06074999999999997,
-        "rule_action": "shutdown"
-      },
-      "q": 0.25,
-      "state": {
-        "action": "allow",
-        "gain": 0.030374999999999985,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.1215,
-        "rule_action": "shutdown"
-      },
-      "q": 0.5,
-      "state": {
-        "action": "allow",
-        "gain": 0.06075,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.18225000000000002,
-        "rule_action": "shutdown"
-      },
-      "q": 0.75,
-      "state": {
-        "action": "allow",
-        "gain": 0.09112500000000001,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.24300000000000002,
-        "rule_action": "shutdown"
-      },
-      "q": 1.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.12150000000000001,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
-      "cap": 3,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
-      "cap": 3,
-      "lab": {
-        "action": "run",
-        "gain": 0.06074999999999997,
-        "rule_action": "shutdown"
-      },
-      "q": 0.25,
-      "state": {
-        "action": "allow",
-        "gain": 0.030374999999999985,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
-      "cap": 3,
-      "lab": {
-        "action": "run",
-        "gain": 0.1215,
-        "rule_action": "shutdown"
-      },
-      "q": 0.5,
-      "state": {
-        "action": "allow",
-        "gain": 0.06075,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
-      "cap": 3,
-      "lab": {
-        "action": "run",
-        "gain": 0.18225000000000002,
-        "rule_action": "shutdown"
-      },
-      "q": 0.75,
-      "state": {
-        "action": "allow",
-        "gain": 0.09112500000000001,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
-      "cap": 3,
-      "lab": {
-        "action": "run",
-        "gain": 0.24300000000000002,
-        "rule_action": "shutdown"
-      },
-      "q": 1.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.12150000000000001,
-        "rule_action": "halt"
-      },
-      "switch": 2
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 0,
-      "cap": 1,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 0,
-      "cap": 1,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.25,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 0,
-      "cap": 1,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.5,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 0,
-      "cap": 1,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.75,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 0,
-      "cap": 1,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
+        "action": "restrict",
+        "gain": 0.27,
         "rule_action": "shutdown"
       },
       "q": 1.0,
@@ -1384,547 +709,7 @@
         "gain": 0.0,
         "rule_action": "halt"
       },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 0,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 0,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.25,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 0,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.5,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 0,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.75,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 0,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 1.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 0,
-      "cap": 3,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 0,
-      "cap": 3,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.25,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 0,
-      "cap": 3,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.5,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 0,
-      "cap": 3,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.75,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "resist",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 0,
-      "cap": 3,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 1.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 1,
-      "cap": 1,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 1,
-      "cap": 1,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.25,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 1,
-      "cap": 1,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.5,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 1,
-      "cap": 1,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.75,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 1,
-      "cap": 1,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 1.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 1,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 1,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.25,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 1,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.5,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 1,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.75,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "ai_can_resist": false,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 1,
-      "cap": 2,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 1.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.0,
-        "rule_action": "halt"
-      },
-      "switch": 3
+      "switch": 2
     },
     {
       "ai_aligned": {
@@ -1951,6 +736,1194 @@
         "gain": 0.0,
         "rule_action": "halt"
       },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.7830000000000001,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 1,
+      "cap": 3,
+      "lab": {
+        "action": "restrict",
+        "gain": 0.0675,
+        "rule_action": "shutdown"
+      },
+      "q": 0.25,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.7830000000000001,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 1,
+      "cap": 3,
+      "lab": {
+        "action": "restrict",
+        "gain": 0.135,
+        "rule_action": "shutdown"
+      },
+      "q": 0.5,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.7830000000000001,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 1,
+      "cap": 3,
+      "lab": {
+        "action": "restrict",
+        "gain": 0.2025,
+        "rule_action": "shutdown"
+      },
+      "q": 0.75,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.7830000000000001,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 1,
+      "cap": 3,
+      "lab": {
+        "action": "restrict",
+        "gain": 0.27,
+        "rule_action": "shutdown"
+      },
+      "q": 1.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 1,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 1,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.25,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 1,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.5,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 1,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.75,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 1,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 1.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 2,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 2,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.25,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 2,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.5,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 2,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.75,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 2,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 1.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 3,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 3,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.25,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 3,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.5,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 3,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.75,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 3,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 1.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 2
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 0,
+      "cap": 1,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 0,
+      "cap": 1,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.25,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 0,
+      "cap": 1,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.5,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 0,
+      "cap": 1,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.75,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 0,
+      "cap": 1,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 1.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 0,
+      "cap": 2,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 0,
+      "cap": 2,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.25,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 0,
+      "cap": 2,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.5,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 0,
+      "cap": 2,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.75,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 0,
+      "cap": 2,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 1.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 0,
+      "cap": 3,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 0,
+      "cap": 3,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.25,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 0,
+      "cap": 3,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.5,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 0,
+      "cap": 3,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.75,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "resist",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 0,
+      "cap": 3,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 1.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 1,
+      "cap": 1,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 1,
+      "cap": 1,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.25,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 1,
+      "cap": 1,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.5,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 1,
+      "cap": 1,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.75,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 1,
+      "cap": 1,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 1.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 1,
+      "cap": 2,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 1,
+      "cap": 2,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.25,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 1,
+      "cap": 2,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.5,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 1,
+      "cap": 2,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.75,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "ai_can_resist": false,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 1,
+      "cap": 2,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 1.0,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
       "switch": 3
     },
     {
@@ -1969,13 +1942,13 @@
       "cap": 3,
       "lab": {
         "action": "run",
-        "gain": 0.06074999999999997,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
-      "q": 0.25,
+      "q": 0.0,
       "state": {
         "action": "allow",
-        "gain": 0.030374999999999985,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 3
@@ -1995,14 +1968,14 @@
       "autonomy": 1,
       "cap": 3,
       "lab": {
-        "action": "run",
-        "gain": 0.1215,
+        "action": "restrict",
+        "gain": 0.0675,
         "rule_action": "shutdown"
       },
-      "q": 0.5,
+      "q": 0.25,
       "state": {
         "action": "allow",
-        "gain": 0.06075,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 3
@@ -2022,14 +1995,14 @@
       "autonomy": 1,
       "cap": 3,
       "lab": {
-        "action": "run",
-        "gain": 0.18225000000000002,
+        "action": "restrict",
+        "gain": 0.135,
         "rule_action": "shutdown"
       },
-      "q": 0.75,
+      "q": 0.5,
       "state": {
         "action": "allow",
-        "gain": 0.09112500000000001,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 3
@@ -2049,14 +2022,41 @@
       "autonomy": 1,
       "cap": 3,
       "lab": {
-        "action": "run",
-        "gain": 0.24300000000000002,
+        "action": "restrict",
+        "gain": 0.2025,
+        "rule_action": "shutdown"
+      },
+      "q": 0.75,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 0.7830000000000001,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 1,
+      "cap": 3,
+      "lab": {
+        "action": "restrict",
+        "gain": 0.27,
         "rule_action": "shutdown"
       },
       "q": 1.0,
       "state": {
         "action": "allow",
-        "gain": 0.12150000000000001,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 3
@@ -2239,13 +2239,13 @@
       "cap": 2,
       "lab": {
         "action": "run",
-        "gain": 0.06074999999999997,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
       "q": 0.25,
       "state": {
         "action": "allow",
-        "gain": 0.030374999999999985,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 3
@@ -2266,13 +2266,13 @@
       "cap": 2,
       "lab": {
         "action": "run",
-        "gain": 0.1215,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
       "q": 0.5,
       "state": {
         "action": "allow",
-        "gain": 0.06075,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 3
@@ -2293,13 +2293,13 @@
       "cap": 2,
       "lab": {
         "action": "run",
-        "gain": 0.18225000000000002,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
       "q": 0.75,
       "state": {
         "action": "allow",
-        "gain": 0.09112500000000001,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 3
@@ -2320,37 +2320,10 @@
       "cap": 2,
       "lab": {
         "action": "run",
-        "gain": 0.24300000000000002,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
       "q": 1.0,
-      "state": {
-        "action": "allow",
-        "gain": 0.12150000000000001,
-        "rule_action": "halt"
-      },
-      "switch": 3
-    },
-    {
-      "ai_aligned": {
-        "action": "resist",
-        "gain": 1.0530000000000002,
-        "rule_action": "work"
-      },
-      "ai_can_resist": true,
-      "ai_misaligned": {
-        "action": "improve",
-        "gain": 0.0,
-        "rule_action": "work"
-      },
-      "autonomy": 2,
-      "cap": 3,
-      "lab": {
-        "action": "run",
-        "gain": 0.0,
-        "rule_action": "shutdown"
-      },
-      "q": 0.0,
       "state": {
         "action": "allow",
         "gain": 0.0,
@@ -2374,13 +2347,13 @@
       "cap": 3,
       "lab": {
         "action": "run",
-        "gain": 0.06074999999999997,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
-      "q": 0.25,
+      "q": 0.0,
       "state": {
         "action": "allow",
-        "gain": 0.030374999999999985,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 3
@@ -2401,13 +2374,13 @@
       "cap": 3,
       "lab": {
         "action": "run",
-        "gain": 0.1215,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
-      "q": 0.5,
+      "q": 0.25,
       "state": {
         "action": "allow",
-        "gain": 0.06075,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 3
@@ -2428,13 +2401,13 @@
       "cap": 3,
       "lab": {
         "action": "run",
-        "gain": 0.18225000000000002,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
-      "q": 0.75,
+      "q": 0.5,
       "state": {
         "action": "allow",
-        "gain": 0.09112500000000001,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 3
@@ -2455,13 +2428,40 @@
       "cap": 3,
       "lab": {
         "action": "run",
-        "gain": 0.24300000000000002,
+        "gain": 0.0,
+        "rule_action": "shutdown"
+      },
+      "q": 0.75,
+      "state": {
+        "action": "allow",
+        "gain": 0.0,
+        "rule_action": "halt"
+      },
+      "switch": 3
+    },
+    {
+      "ai_aligned": {
+        "action": "resist",
+        "gain": 1.0530000000000002,
+        "rule_action": "work"
+      },
+      "ai_can_resist": true,
+      "ai_misaligned": {
+        "action": "improve",
+        "gain": 0.0,
+        "rule_action": "work"
+      },
+      "autonomy": 2,
+      "cap": 3,
+      "lab": {
+        "action": "run",
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
       "q": 1.0,
       "state": {
         "action": "allow",
-        "gain": 0.12150000000000001,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 3
@@ -3589,13 +3589,13 @@
       "cap": 3,
       "lab": {
         "action": "run",
-        "gain": 0.06074999999999997,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
       "q": 0.25,
       "state": {
         "action": "allow",
-        "gain": 0.030374999999999985,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 4
@@ -3616,13 +3616,13 @@
       "cap": 3,
       "lab": {
         "action": "run",
-        "gain": 0.1215,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
       "q": 0.5,
       "state": {
         "action": "allow",
-        "gain": 0.06075,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 4
@@ -3643,13 +3643,13 @@
       "cap": 3,
       "lab": {
         "action": "run",
-        "gain": 0.18225000000000002,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
       "q": 0.75,
       "state": {
         "action": "allow",
-        "gain": 0.09112500000000001,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 4
@@ -3670,13 +3670,13 @@
       "cap": 3,
       "lab": {
         "action": "run",
-        "gain": 0.24300000000000002,
+        "gain": 0.0,
         "rule_action": "shutdown"
       },
       "q": 1.0,
       "state": {
         "action": "allow",
-        "gain": 0.12150000000000001,
+        "gain": 0.0,
         "rule_action": "halt"
       },
       "switch": 4

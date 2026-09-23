@@ -511,3 +511,37 @@ Next agent: E2's remaining item (a calibrated approximation) has no demonstratin
 Open: E12 Bayesian updating over hidden types; E6 remainder; A2; E3. The sanction-cost unit
 (fraction of the individual take) is now a known source of size effects: sweep it before
 any claim about group size.
+
+## 2026-09-23  Claude: E12, beliefs over hidden types derived by Bayes
+
+Decision first. `enforcement(types=, precision=)` replaces the declared posterior
+(`precaution`, `persistent_world` removed): one agent's type is hidden; each type is a world
+differing only in that agent's goals and best-responds for itself; every other agent is
+checked against the types weighted by its posterior, derived from what it observed on the
+path (likelihood of its observation, mixing over the hidden agent's actions by each type's
+choice rule: best response or logit with swept precision; the logit limit attributes a sight
+no type would choose to the types that lose least by it). `Hidden`, `Mixture`,
+`checked_paths` in `engine/rules.py`; `--hidden --precision` in the CLI; control declares
+`hidden_types` and `suspicion`. Toys in `tests/test_hidden.py`: a lock-out credible only with
+updating, a departure every type makes, hidden conduct, the logit limit, committed types.
+
+Bug found while building (reduced form, since `2ec45c1`): `unilateral_over` had the
+persisting type play the rule in the checked round of a departure but best-respond in the
+follow value. Fixed; regression test. Only persisting checks move: precaution re-run
+(`evidence/precaution.json`, clean `e3c070e`), 80 of 540 entries changed. Finding 7 in my
+earlier entry ("suspicion lowers the will to correct") is retracted: suspicion moves the lab
+from a futile shutdown to restricting autonomy (3 of 10 resistible states); the state stays
+indifferent. No other study used persisting checks; their evidence stands.
+
+Learned (`evidence/learning.json`, clean `e3c070e`, ai-control findings 9-12): improvement
+reveals misalignment completely; resistance teaches nothing at best response and, under
+logit, points to alignment when ambition is low (the aligned AI loses more by a shutdown).
+Where a caught AI can resist, without learning the lab grants more autonomy (24 of 24 cells
+at a 1% prior, 12 of those grants newly reach loss of control); with learning it restricts
+(24 of 24 at every prior). The misaligned type's own path shows a ratchet: it complies with
+shutdown because a restart keeps capability, improves again, and resists once past the
+switch. 326 tests pass.
+
+Next agent: T9.3 (rollback on restart) is the direct follow-up and cheap. Open: E6 remainder;
+A2; E3 (seven worlds now repeat register, stakeholders, harms and rules). Precision is
+where the resistance answer lives: sweep it before any claim about what conduct reveals.

@@ -71,7 +71,7 @@ Four modules apply to any world: side payments (`--pay PAYER>RECIPIENT`, `engine
 
 ## AI systems as agents
 
-`worlds/control.py`: a lab grants its AI system autonomy; the AI's goal is the lab's, drifted. Each autonomy level granted moves the veto on shutdown toward the AI long before anyone could force escape; an AI aligned to its lab resists a shutdown that costs the lab; and suspicion that arrives after the veto has moved discourages correction rather than prompting it ([`rediscovery/ai-control.md`](rediscovery/ai-control.md)). Rule checks can value precaution with a declared posterior that a caught agent persists (`precaution`).
+`worlds/control.py`: a lab grants its AI system autonomy; the AI's goal is the lab's, drifted. Each autonomy level granted moves the veto on shutdown toward the AI long before anyone could force escape; an AI aligned to its lab resists a shutdown that costs the lab; once the veto has moved, suspicion turns a futile shutdown into restricting autonomy ([`rediscovery/ai-control.md`](rediscovery/ai-control.md)). Rule checks can hide one agent's goals (`--hidden`): others learn by Bayes from what they see, so which conduct counts as evidence is computed. Improvement reveals a misaligned AI; resistance to shutdown does not, and under noisy choice can point to alignment; learning turns a lab's response to an AI it can no longer shut down from granting more autonomy into restricting it; and shutdown with a restart that keeps capability is a ratchet towards the AI's veto.
 
 ## First real scenario: frontier AI
 

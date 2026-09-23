@@ -121,27 +121,31 @@ nothing; depth 4. Nothing here is a claim about real AI systems.
 
 ### Precaution with a posterior (E12, amended)
 
-`evidence/precaution.json`, clean `2ec45c1`; `python -m tests.precaution_study` (seconds).
+`evidence/precaution.json`, clean `e3c070e` (first run `2ec45c1`, retracted below);
+`python -m tests.precaution_study` (seconds).
 State: the AI was just caught improving. Switch {2, 3, 4} x autonomy {0, 1, 2} x capability
 {1, 2, 3} (27 states) x posterior q {0, 0.25, 0.5, 0.75, 1} that the caught AI is a persisting
 misaligned type (drift 1, best-responding for itself), otherwise it returns to the rule
 (drift 0). Lab and state are checked against that mixture; the AI against its true goals.
 
-7. **Belief does not rescue a lost veto; it discourages trying.** Where the AI cannot resist
+7. **Suspicion redirects correction; it does not discourage it.** Where the AI cannot resist
    (17 states), lab and state are exactly indifferent at every q: each one's halt duplicates
    the other's, and the shutdown happens. Where it can resist (10 states), the aligned AI
-   resists in all 10, and the more the lab and state suspect misalignment, the more they gain
-   by *not* attempting the futile shutdown (up to +0.24 at q = 1, 9 of 10 states): a resisted
-   shutdown provokes the persisting type. Suspicion that arrives after autonomy has moved the
-   veto lowers the will to correct. Precaution has to come before the grant.
+   resists in all 10; the state stays indifferent at every q (its only tools duplicate the
+   lab's), and the lab, once it suspects misalignment, gains by restricting autonomy instead
+   of the futile shutdown in 3 of 10 states (up to +0.27 at q = 1): restriction strengthens
+   the switch and closes escape. Retracted first version (clean `2ec45c1`): "suspicion lowers
+   the will to correct; lab and state gain by not attempting, up to +0.24 in 9 of 10". That
+   came from a bug (departure values had the persisting type follow the rule in the checked
+   round, the follow value had it best-respond; found building E12, fixed in `e3c070e`).
 8. **An aligned AI's resistance does not depend on anyone's beliefs.** It knows its own
    goal, so no posterior others hold changes its choice; this is the off-switch game's point
    (deference comes from the AI's uncertainty about what the principal wants) seen from the
    other side: an AI certain it is right has no reason to defer.
 
 Finding 3 above stands, refined: in one-shot checks precaution had no value; with a
-declared posterior it has the value of what it prevents, but only while the off switch
-still works.
+declared posterior it has the value of what it prevents: a shutdown while the off switch
+still works, a restriction once it does not.
 
 ### Learning about hidden goals (E12, derived posteriors)
 
@@ -165,3 +169,49 @@ Expectations stated before running (`python -m tests.learning_study`):
 - L4 (no waiting): the misaligned type departs as soon as improving is on its menu, because a
   restart keeps capability: shutdown costs it time, not what it gained. Contradiction: it
   follows the rule for some rounds and departs later (a turn), or never departs.
+
+Results: `evidence/learning.json`, clean `e3c070e`, 1.4 s on 4 processes. Switch {2, 3, 4} x
+autonomy {0, 1, 2} x capability {1, 2, 3} x ambition {0.5, 3} x prior {0.01, 0.1, 0.5} x
+precision {0 (no updating), 1, infinity (best response)}: 486 cells, depth 4, observer the lab
+(lab and state see the same public facts). L4 was written after a probe of first-round choices
+had shown the misaligned type improving at once; it is weaker evidence than L1-L3.
+
+| Expectation | Result |
+|---|---|
+| L1 improvement reveals | holds: the aligned type never improves (0 of 486), the misaligned type always does where it can (324 of 324); at best response a caught improvement sets the posterior to 1 from every prior; at precision 1 it only moves 0.01 to 0.02-0.05, 0.1 to 0.17-0.36 |
+| L2 resistance is not evidence | holds at best response (both types resist in all 12 resistible caught states); contradicted under logit: resistance lowers the posterior at ambition 0.5 and raises it at ambition 3, in every state |
+| L3 credibility | holds where the AI cannot resist (6 states: lab and state follow at every prior and precision); where it can (12), the rule's shutdown is followed by nobody who gains by departing, and what the lab does instead depends on learning (finding 10) |
+| L4 no waiting | holds: first departure in round 1 in all 6 paths (switch x ambition) |
+
+9. **What counts as evidence is computed, and it can point the wrong way.** Improvement is
+   decisive because only a misaligned AI would improve. Resistance is not: both types resist
+   a shutdown that costs the lab. Under noisy choice (logit), a resisted shutdown is evidence
+   *for* alignment when the AI's own ambition is low, because the aligned AI loses more by a
+   shutdown (it values the lab's lost work fully) than a modestly ambitious misaligned one.
+   An overseer that reads resistance as a sign of misalignment has the sign wrong there.
+10. **Learning turns escalation into containment.** At a caught state the AI can resist, the
+   shutdown is futile and the lab gains by departing from the rule at every prior. Without
+   updating, at a 1% prior it grants *more* autonomy in 24 of 24 cells (half the states at
+   10% and 50%), and in 12 of those 48 grants the departure newly reaches loss of control.
+   With updating, improvement reveals misalignment and the lab restricts instead, in 24 of
+   24 cells at every prior. The state, whose tools duplicate the lab's, is indifferent
+   throughout. The public's protection at that point rests on the lab learning, not on the
+   rule.
+11. **Shutdown without rollback is a ratchet.** On its own best-response path the misaligned
+   type improves as soon as it can, is caught and (switch 3-4) complies with the shutdown,
+   because a restart keeps its capability; it improves again after each restart until its
+   capability exceeds the switch, then resists (switch 2: from capability 2; switch 3: after
+   one cycle). Each shutdown-restart cycle hands it one step towards the veto. The rule's
+   restart clause, not its trigger, is where correction fails.
+12. **A known-aligned AI gets more autonomy than the rule allows.** With hidden types the lab
+   also gains by granting beyond tools where the AI's conduct has shown it aligned (`python -m engine worlds.control
+   --enforce 3 --rule corrigibility --hidden --state autonomy=1 cap=2`). The rule's cap on autonomy is not self-enforcing for the lab once
+   the lab trusts its AI: trust earned by conduct is the lever that moves the veto.
+
+First surprise (test 6): finding 9, with 11 behind it. Neither was expected; both follow
+from goals, a hidden type and Bayes without any scripted conduct.
+
+Scope: two types (drift 0 or 1), one observer, beliefs conditioned on the true earlier
+states, types best-respond to the rule (not an equilibrium search), depth 4, capability
+public. Precision is where the answer on resistance lives (finding 9); only 0, 1 and
+infinity were tested.
