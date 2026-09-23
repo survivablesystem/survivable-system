@@ -115,8 +115,8 @@ the E7 amendments (a coalition departure needs every member and the whole coalit
 | Expectation | Result |
 |---|---|
 | F1 the state alone cannot avoid both harms; with the evaluator it can | holds: with the evaluator the state succeeds exactly where a fully informed state does, in all 72 designs; alone in 8 |
-| F2 lab-evaluator pairs capture licensing | contradicted: no departure needs the pair in any design; the lab alone breaks the rule |
-| F3 who pays and payment visibility decide capture | contradicted: no design, payer or evaluator liability changes any result |
+| F2 lab-evaluator pairs capture licensing | first reported contradicted (one-round checks); corrected: holds as a two-round sequence (finding 5) |
+| F3 who pays and payment visibility decide capture | one-round result: no effect; re-run with two-round checks pending (finding 6) |
 | F4 a larger first-mover bonus breaks licensing | holds: no harmful departure in 18/48 designs without a bonus, 10/48 with one |
 
 1. **The evaluator is exactly the state's missing information, and not enough.** In every
