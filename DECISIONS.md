@@ -7,6 +7,36 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-23  E11: delegation with drift as a goal module; AI systems as agents
+
+Proposed before implementation. The spec's delegation primitive (an agent grants
+capability to a sub-agent and sets its goal; the set goal drifts) was never implemented.
+It is the structure of AI control (a lab grants an AI system access; its goal may drift),
+of armies, firms and bureaucracies. The owner's standing approval (2026-09-23: "where
+something is useful or needed to progress towards intent, view it as approved") covers
+the scope step from the first frontier case (AI as a stock) to AI systems as agents.
+
+Change: `engine/delegation.py`, `Delegation(world, principals, drift)`: for each declared
+delegate, utility becomes (1 - drift) x its principal's utility + drift x its own (the
+world's value for it), drift a swept assumption per delegate. Kernel, observations,
+menus and harms are untouched: goal-free power cannot change (tested); drift changes
+whether rules hold and what agents do. Granting capability is world mechanics (the
+authority world's office, the control world's autonomy), not engine state: the engine does
+not create agents mid-run; delegates exist from the start with whatever capability the
+state gives them.
+
+Scope: fixed agent set; drift is a mixture of two declared goals, not a learned or
+hidden goal (hidden goals are a belief question for a later case).
+
+Alternatives rejected: creating agents during a run (the agent set is part of every
+query's enumeration; a delegate with zero capability is the same thing, finitely);
+goal drift as noise on actions (scripts behavior instead of changing goals).
+
+Intent tests: 1 one wrapper; 2 behavior still computed; 3 drift swept and declared; 4 the
+off-switch result (a delegate sharing its principal's goal accepts shutdown) is a reference
+that can fail; 5 loss of control falls on people with no agent and is named; 6 at what
+autonomy correction is lost, and whether principal and delegate capture oversight together.
+
 ## 2026-09-23  E10: amendable rules (a constitution module over any world)
 
 Proposed before implementation. The spec's rules have levels (L0 conduct; L1 who changes
