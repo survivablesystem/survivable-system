@@ -651,3 +651,15 @@ from a threshold contest with integer strengths should be re-checked against m =
 
 Next agent: frontier and commons use their own contest-like forms; E3 (declarative worlds) and
 E6 remainder remain. The race without licensing (T9.6 finding 2) is cheap to check.
+
+## 2026-09-24  Claude: race without licensing (T9.6 follow-up)
+
+Rule `race + corrigibility` in `worlds/race_control.py`; `tests/race_rule_study.py`. Learned
+(`evidence/race-rule.json`, clean `c68303d`, race-control finding 5): without licensing,
+coupling moves the pair's tolerance both ways (up in 72, down in 120 of 192): the AI's gains
+pay in the race but widen a deployed lab's safety gap, and the pair bears catastrophe risk.
+Licensing's own contribution is halving lab A's unilateral tolerance. 
+
+Next agent: open items are E3 (declarative worlds), E6 remainder, E13 (needs a spec
+decision on goals as state functions), cheaper composite power. The composite power cost
+(product menus of shared actors) is now the binding limit on whole-system queries.

@@ -80,3 +80,19 @@ Expectation stated before running (`python -m tests.race_rule_study`):
 - Y4: without licensing, coupling raises the lab A and state pair's gain from tolerating a
   caught AI (the AI's gains are race capability nobody makes lab A pay to secure).
   Contradiction: coupling still lowers or leaves it unchanged.
+
+Results: `evidence/race-rule.json`, clean `c68303d`, 53 s on 4 processes; the same 384 cells as
+above; the licensing rows reproduce `race-control.json` exactly.
+
+| Expectation | Result |
+|---|---|
+| Y4 without licensing, coupling raises tolerance | holds in part: the pair's gain rises in 72 of 192 matched cells and falls in 120 (effects up to +/-2.1, against at most -1.2 with licensing); lab A's own gain from skipping the shutdown is no longer halved by coupling (96 cells coupled and uncoupled) |
+
+5. **Two disciplines, one of them licensing's.** Without a regime the race's effect on
+   tolerance is two-signed: where the AI's gains pay (a first mover's lead, lab A not yet
+   past its margin) the pair tolerates more; where they widen a deployed lab's safety gap,
+   the catastrophe risk the pair itself bears makes tolerance costlier. Licensing turned
+   that risk into a certain cost and removed the gains side (finding 2); what it alone
+   contributed is the halving of lab A's own tolerance. Under the race rule both race harms
+   are reached with positive probability even when everyone follows it; under licensing,
+   none.

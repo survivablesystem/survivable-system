@@ -254,3 +254,7 @@ dirty tree gave identical results.
 `contest.json` identifies clean source `21dda20`. Reproduce with `python -m tests.contest_study`
 (about 10 minutes on 4 processes). Ruler vetoes on correction with one and two commands over 16
 authority cells and 13 contest forms; the ratio endpoint equals `authority.json` (32 of 32).
+
+`race-rule.json` identifies clean source `c68303d`. Reproduce with `python -m tests.race_rule_study`
+(about a minute). The T9.6 rule cells under licensing and under the unregulated race; licensing
+rows equal `race-control.json`.
