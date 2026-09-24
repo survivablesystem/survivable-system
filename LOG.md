@@ -635,3 +635,19 @@ identical coupled and uncoupled; the AI is in no smallest forcing coalition.
 Next agent: A2 contest family is claimed and its study is running (`tests/contest_study.py`).
 Then: the race without licensing (does the discipline of finding 2 vanish?), and cheaper
 composite power (symmetry does not help here; the cost is product menus of shared actors).
+
+## 2026-09-24  Claude: A2, a contest family in the authority world
+
+Tullock contest (`contest = tullock`, `decisiveness`), endpoints tested (m = 1 with advantage
+1 is ratio; large m decides at level one half as the threshold contest). The E5 behavior
+sample is pinned to its register so it reproduces (checked). Overflow at extreme m fixed.
+
+Learned (`evidence/contest.json`, clean `21dda20`, standing-army findings 7-8): A1
+contradicted, no switch in decisiveness. Finding 2 (coup-proofing entrenches under decisive
+contests) rests on the threshold's tie rule: 5 cells at the threshold, 1 at m = 1024, none
+from m = 2 to 64 at advantage 1.5. Finding 3 (ratio: splitting removes the ruler's veto)
+holds at every m without a defender advantage. Most of the family is neutral. Any finding
+from a threshold contest with integer strengths should be re-checked against m = 1024.
+
+Next agent: frontier and commons use their own contest-like forms; E3 (declarative worlds) and
+E6 remainder remain. The race without licensing (T9.6 finding 2) is cheap to check.

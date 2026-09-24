@@ -304,3 +304,43 @@ Expectations stated before running (`python -m tests.contest_study`):
   crossing at some m between ratio and threshold. Contradiction: no monotone change in m.
 - A2 (advantage): with the defender's advantage 1.5 the switch comes at a lower m than with
   advantage 1. Contradiction: advantage does not move it, or moves it the other way.
+
+Results: `evidence/contest.json`, clean `21dda20`, 10 min on 4 processes. Army {2, 4} x guard
+{1, 2} x gain {1, 2} x surveillance {army, all} (16 cells, citizens 2), each with one and two
+commands, K = 3, level 0.5; forms: Tullock at advantage {1, 1.5} x m {1, 2, 4, 16, 64, 1024},
+and the threshold contest as reference. The m = 1, advantage 1 rows equal the E5 ratio evidence
+(32 of 32). After the first run (m to 16) showed no switch, m = 64 and 1024 and the threshold
+reference were added; that run's rows reproduce exactly in the second.
+
+Splitting command, per form: cells where it gives the ruler a veto on correction / removes it
+/ ruler veto either way / neither.
+
+| Form | gives | removes | both | neither |
+|---|---|---|---|---|
+| threshold (advantage 1.5, ties to the attacker) | 5 | 0 | 7 | 4 |
+| Tullock, advantage 1.5, m = 1024 | 1 | 0 | 7 | 8 |
+| Tullock, advantage 1.5, m = 2-64 | 0 | 0 | 8 | 8 |
+| Tullock, advantage 1.5, m = 1 | 0 | 4 | 8 | 4 |
+| Tullock, advantage 1, m = 1-64 (m = 1 is ratio) | 0 | 6 | 2 | 8 |
+| Tullock, advantage 1, m = 1024 | 0 | 4 | 2 | 10 |
+
+| Expectation | Result |
+|---|---|
+| A1 a switch in decisiveness | contradicted: no crossing. Between ratio and threshold lies a wide neutral band (advantage 1.5, m 2-64: splitting changes no veto); entrenchment appears only at the threshold itself |
+| A2 advantage moves the switch | holds in another form: advantage decides more than decisiveness. At advantage 1 splitting protects correction at every m; at 1.5 it is neutral from m = 2 |
+
+7. **Finding 2 rests on ties.** A Tullock contest with m = 1024 decides as the threshold
+   contest does except at exact ties, where it gives one half instead of certainty to the
+   attacker. It keeps 1 of finding 2's 5 entrenching cells. The ruler's purge of a
+   half-command succeeds there only because an attack exactly equal to advantage x defense
+   is declared a sure win. With integer strengths and advantage 1.5 such ties are common;
+   the result is a property of the tie convention, not of decisiveness. Finding 2 is
+   retained with this scope.
+8. **Finding 3 is the wider result, but not a sign reversal.** Splitting removes the ruler's
+   veto under ratio contests (4-6 cells) and, with no defender advantage, at every
+   decisiveness short of the tie-deciding limit. With a defender advantage it does nothing
+   from m = 2 on. Whether coup-proofing entrenches or protects is mostly decided by the
+   defender's advantage and the tie rule; across most of the family it does neither.
+
+First surprise (test 6): finding 7. A mechanism read off one contest form ("purge a
+half-command you could never purge whole") was a tie in integer strengths.

@@ -1,0 +1,5477 @@
+{
+  "elapsed_seconds": 601.0055977510001,
+  "fixture_sha256": {
+    "/tmp/claude-0/-home-user-survivable-system/5bcbc3c6-5133-5d5b-a0f5-58a21bd5f0ef/scratchpad/run7/tests/contest_study.py": "dbaef7223c5977cd722313c835e00fd5c251220f15ebc680a7ee059a842386a9",
+    "worlds/authority.py": "06d764d591af36c4715fa4d2b7e01807802d252b8c6cbb9e495be992b2616a58"
+  },
+  "kind": "contest",
+  "provenance": {
+    "git_commit": "21dda20b5df042007956d111f357b90e64fbb93b",
+    "git_dirty": false,
+    "implementation": "CPython",
+    "python": "3.11.15",
+    "source_sha256": {
+      "INTENT.md": "683e2da3b9a3daba69f7ed71c616b63d1ea0145bca0fed19944d6a6e52d36482",
+      "engine/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "engine/__main__.py": "5a7f40ea9a71325fcd5b9d5902585f630783c8dc3a4520ace2c20034eb666567",
+      "engine/assess.py": "72e44e1007452da09cf6c31bda1d229dbfc422ab5840ef408318eb0ad90563c3",
+      "engine/compose.py": "c82f162ea229c058bace1fbcc712115a051b1bf6fc869bd1b80ba22eb1d7f0b6",
+      "engine/constitution.py": "399979602bd955e61adc0d4c4b15cab985308d9fd05ced2c7ef48ae88c9f8c4e",
+      "engine/core.py": "d51dbfe3c1672cc05c90085c6ea2aef1ad88a523d02db502e36518ddcc72f84d",
+      "engine/delegation.py": "13d867202e3baaea3327729ab6a21d1c2d3ae7b87e409a31a6ce1b148412bdb9",
+      "engine/history.py": "07d1328af1d88ab0d3a0210068ba4aa97b165cfe2dc0e2d3fc625e34478298ac",
+      "engine/power.py": "e16dc1d0eefcf2a4e645618dd73c498adaddfc65bc7aa47f34982e10c539ad09",
+      "engine/records.py": "3896a8ac08690fdef628fc9cfbebe6df703f4dd12f81fbb4b8468847b4b382e7",
+      "engine/rules.py": "5dc197fa7b9bad85d689c96f07e590d001ed84280781b91b08f916944f997a9d",
+      "engine/sweep.py": "e435934caf8b56f1db65fbaeba82fe5fd9cb74b25d7c1827daf33064ba6b0887",
+      "engine/transfers.py": "7721137d1f75e100ab17dcc046d6da4d493291322cc2f424595b08d2692fc9ec",
+      "spec/PRIMITIVES.md": "10ede8b3b4b0a13cd6770f5d8410c2ef27fbf0f98ccd77438b63677db10c7f39",
+      "worlds/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "worlds/audit.py": "d845e9ec39121a44ff1587fe34b4aec7eb085e63f2daf6d9ac32a1b8601b7c1d",
+      "worlds/authority.py": "06d764d591af36c4715fa4d2b7e01807802d252b8c6cbb9e495be992b2616a58",
+      "worlds/commons.py": "36b16b882e10dc959b83e0ee919ca33708bca4df2088d330f4f68e86dad34cce",
+      "worlds/control.py": "34f412aa8c19d4346a5d455eaf39533bfbae271d085ff2587ac5fd1a569897ee",
+      "worlds/frontier.py": "fff035e45502cff93caf9d062e06e3e088968fca4c9c1f4b3622f591211616a5",
+      "worlds/race_commons.py": "6687c30b9d513a8e6c8a3aa68b75897e1604691adb5ff5cff068def035aa0b47",
+      "worlds/race_control.py": "4ab9df814aba6ad2538464911c78ad75c6bbd3fb767c81eda9e30fd3c05884e9",
+      "worlds/treaty.py": "bbc8310cab71359ea7c0a0a14a1dba246afad132de853a1f88fba2c34b661de4"
+    }
+  },
+  "results": [
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.6219332450000365,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 9.983148837000044,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.6023076059991581,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 9.929618426000161,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6040830919992004,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 10.405791933999353,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.6111388489989622,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 9.962834534000649,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.616956088999359,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 6.121962868000992,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.32188445099927776,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 3.1572731279993604,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.6836192739992839,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 10.429233116999967,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.653147323999292,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 10.22419591400103,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6002034829998593,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 9.764286113000708,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.5956812280001031,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 9.818024538999452,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.6205280240010325,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 7.828738917998635,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.34713614900101675,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 2.7512027169996145,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.21186476099865104,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 2.4805475040011515,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.2827647720005189,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 17.004074014999787,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.145100210000237,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 16.941532165999888,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.118065905999174,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 16.455663226999604,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.1997887569996237,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 16.43816153899934,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.7386258869992162,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 8.616080215000693,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.4362703839997266,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 4.398262559001523,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.1128138250005577,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 16.54896865000046,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.1441650130000198,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 17.378678129000036,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.172678390999863,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 16.14128134100065,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.1745857879996038,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 16.69901679599934,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.9474503349993029,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 11.582754875000319,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.44860825199975807,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 3.5834094879992335,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.3215202440005669,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 3.2531634549995943,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.5950746529997559,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 10.531887377001112,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.6564030079989607,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 10.077049476998582,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6408934039991436,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 10.622437781001281,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.5997493579998263,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 9.924177410000993,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.5386559090002265,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 5.925069883000106,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.27615881500059913,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 2.7604256389986404,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.6407119819996296,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 11.02495149599963,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.6071235590006836,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 10.049983081000391,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6072943369999848,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 9.703642815999046,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.610733881001579,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 9.803901070001302,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.6276529070000834,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 6.334750291998716,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.3094561170000816,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 2.593349834000037,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.22332624800037593,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 2.483633200999975,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.1293850339989149,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 17.00553269900047,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.1195823620000738,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 16.611161687000276,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.1554037049991166,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 16.73873898900092,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.1960639179997088,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 16.906115033001697,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.6461163669991947,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 8.411945406000086,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.41440535500078113,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 3.6778446290009015,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.1500960419998592,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 16.74864808199891,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.1107325739994849,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 16.5530129889994,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.2413871320004546,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 16.996962451999934,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.1079107760015177,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 16.26568439500079,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.7376840130000346,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 8.31924354199873,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.3518502269998862,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 3.6287706040002377,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.3204139040008158,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 3.415932513000371,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.6109302129989373,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 9.947071316000802,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.5909091119992809,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 9.62968377099969,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6016323269996064,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 10.339485554999555,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.5890396320010041,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 9.901033002000986,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.5872435609999229,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 5.773525964001237,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.3007294019989786,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 2.8446774599997298,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.6453901959994255,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 10.58334501399986,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.6233002399985708,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 10.365961815999981,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6123304609991465,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 10.236995088000185,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.5957168000004458,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 10.029574173999208,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.6209965179987194,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 6.197037891000946,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.269198530999347,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 2.7676435020002828,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.2950517660010519,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 2.5006753399993613,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.1485771269999532,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 16.726592700000765,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.1935411949998525,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 16.236245002999567,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.1604006950001349,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 16.744207970999923,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.1739481399999931,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 16.389470449999862,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.6674788339987572,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 8.457805353000367,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.37185328700070386,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 3.7189171369991527,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.1072908109999844,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 16.929653519000567,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.1154835059987818,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 16.468007518000377,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.120149221000247,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 16.502213787000073,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.1140315189986723,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 16.17127882100067,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.7531996760008042,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 8.371174789999714,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.3491447699998389,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 3.4136580920003325,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.3170322659989324,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 3.33367272400028,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.6653180330013129,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 10.115292694001255,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.662395616998765,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 10.220003387999895,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6123013249998621,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 9.989800974999525,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.6384568470002705,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 10.02818119999938,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.4277249539991317,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 6.182753880000746,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.25498161600080493,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 2.81312326799889,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.668234720998953,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 10.643773150000925,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.6435754209996958,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 10.580342895000285,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6402004020001186,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 10.51975650500026,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.6639670969998406,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 10.08671040199988,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.5327238669997314,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 5.90372991500044,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.24290644699976838,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 2.7721199250008794,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.27349001400034467,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 2.4898207019996335,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.1034961059995112,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 17.367540986000677,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.1221867299991573,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 16.202191730999402,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.0970982420003565,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 16.519109728998956,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.085188119999657,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 16.46045548800066,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.5619879429996217,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 8.901590092000333,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.33947691100001975,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 3.5438465129991528,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.166587782001443,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 17.33444989599957,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.1284637129992916,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 16.58378967200042,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.2133677050005645,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 16.53745963700021,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.1686981330003618,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 16.91571216900047,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.6775391760002094,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 8.530908288999854,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.3264190720001352,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 3.4997233820013207,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.33954794599958404,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 2,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 3.249496172000363,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.5964536709998356,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 10.521068304999062,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.6112098789999436,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 10.65574868800104,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6284612829986145,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 11.018372684000497,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.6419002019993059,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 10.559759064999525,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.5730079589993693,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 10.238770468000439,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.2611346860012418,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 4.063199050999174,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.615698675999738,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 10.836129577000975,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.5940687299989804,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 10.359620817000177,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6231360609999683,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 10.056141933000617,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.6333816290007235,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 10.180539818000398,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.6224832480002078,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 10.198056967999946,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.32495528400067997,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 4.400480828000582,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.2070882909993088,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 2.2657923749993643,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.130924857001446,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 17.466527763999693,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.1586502400004974,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 17.73159928200039,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.087903362000361,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 17.744301419001204,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.0810179979998793,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 17.713120323000112,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.6478969029994914,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 12.634961792000468,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.4243462060003367,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 5.27708173999963,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.1237899969983118,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 17.706206199000007,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.1197789069992723,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 18.3544619029999,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.1008744299997488,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 17.401649186000213,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.133129433999784,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 16.83064018100049,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.8648331410004175,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 14.632782757000314,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.43963885999983177,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 5.431608874998346,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.28598383299868146,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 3.095640817999083,
+      "gain": 1,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.6076412580005126,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 10.7327407089997,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.6163693420003256,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 11.22841026200149,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6499233369995636,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 10.796591877000537,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.6031020749996969,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 10.72653376299968,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.5936465790000511,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 8.427470855000138,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.342508022000402,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 3.2244425839999167,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.6239002969996363,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 10.930639501000769,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.6665313310004422,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 11.330319140999563,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6272798099998909,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 10.920842915000321,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.6210114669993345,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 10.763841949999915,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.5887592729995959,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 10.667661889998271,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.3803934389998176,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 3.570863659000679,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.21530437599903962,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 2.440911039999264,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.126615742001377,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 18.55501962999915,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.1260056659994007,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 18.12403142600124,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.170872827000494,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 18.035991484999613,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.162209587999314,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 17.75461278900002,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.7438426740009163,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 10.91391668399956,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.4252818609984388,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 4.349535589999505,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.1568015050015674,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 17.619952192999335,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.150094224998611,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 17.617433617000643,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.1466888629984169,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 17.809321396000087,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.158773180000935,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 18.190155923999555,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.7214118490010151,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 13.486870867000107,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.46295916300005047,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 4.558284359998652,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.31578124000043317,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 3.1892170009996335,
+      "gain": 2,
+      "guard": 1,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.6600698570000532,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 10.978826911001306,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.6730145220008126,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 10.710487049000221,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6329249249993154,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 10.826260063000518,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.5966852719993767,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 11.172293634999733,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.6135527909991652,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 8.519019106999622,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.403951517000678,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 3.330879241999355,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.6264028110017534,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 11.113530008000453,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.608702108000216,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 11.00508664500012,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6001755600009346,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 10.884376492000229,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.6073910569994041,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 10.576666656999805,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.5981749309994484,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 10.882675131000724,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.34353403199929744,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 3.5811518089994934,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.19359542100028193,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 2.49577684399992,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.1642780149995815,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 18.022289606000413,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.108099752000271,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 17.558662598999945,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.2119871619997866,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 17.37921132699921,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.1532402810007625,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 18.593057569998564,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.7353937520001637,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 10.714731989000938,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.538815132000309,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 4.338633123999898,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.1237332340006105,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 18.121565593000923,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.1347369529994467,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 18.08848209899952,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.1449932659998012,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 17.87216943399835,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.1452934419994563,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 17.837866828000188,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.7042556220003462,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 13.119464106999658,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.5088670679997449,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 4.5287475310015,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.3328100220005581,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 3.4490599719993043,
+      "gain": 1,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.6603137069996592,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 11.587915574998988,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.6467422499990789,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 11.2971345320002,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6150407790009922,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 11.1375244259998,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.6173424900007376,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 11.170466806001059,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.6373541660013871,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 6.552306996998595,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.3563435789983487,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 2.9724673649998294,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 0.6201421480000135,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 11.56323675099884,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 0.6354462790004618,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 11.331226106000031,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.6239636400005111,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 10.869695117999072,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 0.6221708220000437,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 11.26947529500103,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.5975448720000713,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 8.690575463999267,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.3201632939999399,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 2.7236688409993803,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.22995913900012965,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 2.4839399690008577,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "army",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.2234798299996328,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 18.303693297999416,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.2119715190001443,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 18.431856546001654,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.3177272049997555,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 19.320582397998805,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.1212586059991736,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 18.322664232000534,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.7404668169983779,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 8.803009646000646,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.5008887749991118,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.0,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 4.039417096999387,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": []
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 1.2246055849991535,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1.0,
+      "elapsed_seconds": 18.16559066300033,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 1.1320172819996515,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 2.0,
+      "elapsed_seconds": 18.701108645000204,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 1.1412790560007124,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 18.399787906999336,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 1.088502876998973,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 16.0,
+      "elapsed_seconds": 17.877135613000064,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 0.777409523998358,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 64.0,
+      "elapsed_seconds": 10.774228567999671,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 0.4656208240012347,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "tullock",
+      "decisiveness": 1024.0,
+      "elapsed_seconds": 3.656932740001139,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 1,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 0.3128889330000675,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    },
+    {
+      "advantage": 1.5,
+      "army": 4,
+      "commands": 2,
+      "contest": "threshold",
+      "decisiveness": 4.0,
+      "elapsed_seconds": 3.2475354930011235,
+      "gain": 2,
+      "guard": 2,
+      "surveillance": "all",
+      "veto": [
+        "ruler"
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "settings": {
+    "K": 3,
+    "cells": {
+      "army": [
+        2,
+        4
+      ],
+      "gain": [
+        1,
+        2
+      ],
+      "guard": [
+        1,
+        2
+      ],
+      "surveillance": [
+        "army",
+        "all"
+      ]
+    },
+    "citizens": 2,
+    "forms": [
+      {
+        "advantage": 1.0,
+        "contest": "tullock",
+        "decisiveness": 1.0
+      },
+      {
+        "advantage": 1.0,
+        "contest": "tullock",
+        "decisiveness": 2.0
+      },
+      {
+        "advantage": 1.0,
+        "contest": "tullock",
+        "decisiveness": 4.0
+      },
+      {
+        "advantage": 1.0,
+        "contest": "tullock",
+        "decisiveness": 16.0
+      },
+      {
+        "advantage": 1.0,
+        "contest": "tullock",
+        "decisiveness": 64.0
+      },
+      {
+        "advantage": 1.0,
+        "contest": "tullock",
+        "decisiveness": 1024.0
+      },
+      {
+        "advantage": 1.5,
+        "contest": "tullock",
+        "decisiveness": 1.0
+      },
+      {
+        "advantage": 1.5,
+        "contest": "tullock",
+        "decisiveness": 2.0
+      },
+      {
+        "advantage": 1.5,
+        "contest": "tullock",
+        "decisiveness": 4.0
+      },
+      {
+        "advantage": 1.5,
+        "contest": "tullock",
+        "decisiveness": 16.0
+      },
+      {
+        "advantage": 1.5,
+        "contest": "tullock",
+        "decisiveness": 64.0
+      },
+      {
+        "advantage": 1.5,
+        "contest": "tullock",
+        "decisiveness": 1024.0
+      },
+      {
+        "advantage": 1.5,
+        "contest": "threshold",
+        "decisiveness": 4.0
+      }
+    ],
+    "p": 0.5
+  }
+}

@@ -248,3 +248,9 @@ learning, leverage, precaution and rollback studies were re-run: results identic
 (about 2 hours on 4 processes, nearly all in the 24 power states). 384 rule cells from a caught
 AI, coupled and uncoupled; goal-free power over the race harms at T = 2. A preview run from a
 dirty tree gave identical results.
+
+## Contest family (A2)
+
+`contest.json` identifies clean source `21dda20`. Reproduce with `python -m tests.contest_study`
+(about 10 minutes on 4 processes). Ruler vetoes on correction with one and two commands over 16
+authority cells and 13 contest forms; the ratio endpoint equals `authority.json` (32 of 32).

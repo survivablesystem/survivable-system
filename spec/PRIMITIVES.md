@@ -129,7 +129,7 @@ Individual psychology beyond goals and horizon. Physical detail of the world bey
 |---|---|---|
 | goals, capabilities, channels, horizon, discount | implemented | |
 | beliefs, level 0 and 1 | implemented; in rule checks, posteriors over one agent's hidden types derived by Bayes (E12) | planner level 2 or learned: A1 |
-| contests, ratio form | implemented in the commons | second form: A2 |
+| contests, ratio and threshold forms; Tullock family in the authority world (A2) | implemented per world | a family shared across worlds, when a second world's outcome depends on the form |
 | resources with conversion | per-world only; utility transfers as a module (E8) | T2.2 |
 | rules as claims | declared conduct, tested (E7); amendment by declared voters (E10) | L2 nesting when a case needs it |
 | delegation with drift | goal module (E11), `worlds/control.py` | agents created mid-run |
