@@ -7,6 +7,37 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-24  E17: harm prices as a goal module (E13 reformulated)
+
+Proposed before implementation. E13 asked which agents' goals price each declared harm. Its
+recorded difficulty stands: payoffs are paid on transitions, so for a harm caused by actions
+(a resisted shutdown) the price cannot be separated from its causes; only successors that
+differ by chance identify it. Asking it anyway would ship a confounded answer. The
+identifiable counterpart is the intervention: what changes if agent X's goal prices harm H
+at amount p. Four worlds already do this by hand with their own register entries (frontier
+`liability`, `loss`; control `loss`, `vigilance`; audit `harm`), each a new parameter per
+question. Change: `engine/prices.py`, a goal module over any world (like E11): each declared
+(agent, harm, amount) subtracts the amount from the agent's utility on every transition into
+a state where the harm holds (once, on entry, for terminal harms). Kernel, observations,
+menus and harms untouched, so goal-free power cannot change. CLI `--price AGENT:HARM=P`
+(any mode), grid key `price.AGENT.HARM` (E16). Wrapped innermost, before side payments and
+records.
+
+Discriminating check: with the world's own entry set to zero, the module reproduces it
+exactly where that entry is a pure harm price (control `loss` on "loss of control", frontier
+`liability` and `loss` on "catastrophe", audit `harm` on "investors misled"). Where a world's
+entry prices something that is not a declared harm (control `vigilance`: the running AI could
+resist), the module cannot, and that gap is the result to report, not to patch.
+
+Not done: detecting which goals already price a harm (E13's original form); identified only on
+chance pairs, left open.
+
+Intent tests: 1 one module replaces per-world pricing parameters for new questions; existing
+parameters stay so evidence reproduces; 2 prices are goals, choices still computed; 3 the price
+is a swept number on the grid; 4 expectations below before any run; 5 asks directly whose goal
+must carry a harm on people without agents for protection to appear, and at what price;
+6 see the control case.
+
 ## 2026-09-24  E16: every query across the register; designs compared on the same assumptions
 
 Proposed before implementation. Limitation: the goal-free queries (`--power`,
