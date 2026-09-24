@@ -24,6 +24,7 @@ from .power import BUDGET, externalization, joint_prevention, lock_in, power_tab
 from .assess import assess, render
 from .records import artifact, run_record
 from .rules import enforcement
+from .prices import parse_prices
 from .grid import Setup, apply_state, baseline as baseline_of, cells, compare, parse_fix, parse_grid, render as render_grid, run, summarize, validate_fix
 from .sweep import one_at_a_time, report, report_oat, sweep
 
@@ -66,6 +67,8 @@ def main():
                    help="any mode: wrap the world so these agents may pay each other (side payments, engine/transfers.py)")
     p.add_argument("--amounts", nargs="*", type=float, default=[0.5, 1.0], help="with --pay: payment sizes (utility)")
     p.add_argument("--disclosure", choices=["parties", "public"], default="parties", help="with --pay: who sees payments")
+    p.add_argument("--price", nargs="*", action="extend", metavar="AGENT:HARM=P",
+                   help="any mode: this agent's goal pays P each round the declared harm holds (engine/prices.py)")
     p.add_argument("--records", type=positive_int, metavar="K",
                    help="any mode: keep the last K public records in every observation (engine/history.py)")
     p.add_argument("--state", nargs="*", action="extend", help="key=value overrides of top-level initial-state fields for --power/--externalities")
@@ -101,8 +104,16 @@ def main():
     pairs = [tuple(x.split(">", 1)) for x in args.pay or []]
     if any(len(pair) != 2 for pair in pairs):
         p.error("--pay expects PAYER>RECIPIENT")
-    setup = Setup(args.world, tuple(pairs), tuple(args.amounts), args.disclosure, args.records)
-    _, make, rules = setup.build()
+    try:
+        prices = parse_prices(args.price)
+        setup = Setup(args.world, tuple(pairs), tuple(args.amounts), args.disclosure, args.records,
+                      tuple(sorted(prices.items())))
+        _, make, rules = setup.build()
+        make(dict(baseline_of(mod, fixed, args.seed)), random.Random(args.seed))  # fail early on a bad price
+    except ValueError as error:
+        p.error(str(error))
+    if prices:
+        settings["prices"] = {f"{a}:{h}": v for (a, h), v in prices.items()}
     if args.pay:
         settings["transfers"] = {"pairs": pairs, "amounts": args.amounts, "disclosure": args.disclosure}
     if args.records:

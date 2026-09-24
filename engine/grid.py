@@ -12,7 +12,7 @@ grid: nothing here speaks for values outside it.
 from __future__ import annotations
 
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import importlib
 from itertools import product
 import json
@@ -21,6 +21,7 @@ from multiprocessing import Pool
 import random
 
 from .history import History, lift as lift_history
+from .prices import Prices
 from .power import externalization, joint_prevention, lock_in, power_table, threshold
 from .rules import TOLERANCE, enforcement
 from .sweep import dependence, sample_params
@@ -76,11 +77,15 @@ class Setup:
     amounts: tuple = (0.5, 1.0)
     disclosure: str = "parties"
     records: int | None = None    # engine/history.py
+    prices: tuple = ()            # ((agent, harm), amount) pairs, engine/prices.py, innermost
 
     def build(self):
         """(module, make, rules): the world factory and its rules, lifted through the wrappers."""
         mod = importlib.import_module(self.module)
         make, rules = mod.make, dict(getattr(mod, "RULES", {}))
+        if self.prices:
+            plain, priced = make, dict(self.prices)
+            make = lambda params, rng: Prices(plain(params, rng), priced, mod.HARMS)
         if self.pay:
             base, pairs, amounts = make, [tuple(p) for p in self.pay], list(self.amounts)
             make = lambda params, rng: Transfers(base(params, rng), pairs, amounts, self.disclosure)
@@ -124,7 +129,8 @@ def apply_state(state, overrides):
 
 
 def parse_grid(items, space, rules=None):
-    """`k=v1,v2` per item. Keys: register parameters, `state.<path>`, `rule` (names from RULES)."""
+    """`k=v1,v2` per item. Keys: register parameters, `state.<path>`, `rule` (names from RULES),
+    `price.<agent>.<harm>` (amounts, engine/prices.py)."""
     grid = {}
     for item in items or []:
         k, sep, text = item.partition("=")
@@ -139,7 +145,10 @@ def parse_grid(items, space, rules=None):
                 raise ValueError(f"unknown rules {unknown}; choose from: {', '.join(rules)}")
         else:
             values = [parse_value(v) for v in text.split(",")]
-            if not k.startswith("state."):
+            if k.startswith("price."):
+                if k.count(".") < 2 or not all(numeric(v) for v in values):
+                    raise ValueError(f"expected price.AGENT.HARM=amounts, got {item!r}")
+            elif not k.startswith("state."):
                 for v in values:
                     validate_fix({k: v}, space)
         if len({json.dumps(v) for v in values}) != len(values):
@@ -162,9 +171,11 @@ def cells(module, fixed, grid, draws=None, seed=0, state=None):
     for d, base in bases:
         for values in product(*grid.values()):
             g = dict(zip(grid, values))
-            params = {**base, **{k: v for k, v in g.items() if k != "rule" and not k.startswith("state.")}}
+            params = {**base, **{k: v for k, v in g.items() if k != "rule" and not k.startswith(("state.", "price."))}}
             overrides = {**(state or {}), **{k[len("state."):]: v for k, v in g.items() if k.startswith("state.")}}
-            out.append({"draw": d, "grid": g, "params": params, "state": overrides, "rule": g.get("rule")})
+            prices = {":".join(k[len("price."):].split(".", 1)): v for k, v in g.items() if k.startswith("price.")}
+            out.append({"draw": d, "grid": g, "params": params, "state": overrides, "rule": g.get("rule"),
+                        "prices": prices})
     return out
 
 
@@ -277,6 +288,9 @@ def rule_measures(report):
 
 def evaluate(setup, query, cell, seed=0):
     """Run one query in one cell. `query`: mode (externalities, power, enforce) and its settings."""
+    if cell.get("prices"):
+        merged = {**dict(setup.prices), **{tuple(k.split(":", 1)): v for k, v in cell["prices"].items()}}
+        setup = replace(setup, prices=tuple(sorted(merged.items())))
     mod, make, rules = setup.build()
     world = make(dict(cell["params"]), random.Random(seed))
     state = apply_state(world.initial_state(), cell["state"])

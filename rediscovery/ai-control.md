@@ -387,6 +387,23 @@ together over two rounds with the misaligned AI's goals declared.
    no lab-state capture appears within 8 rounds: the harms this world declares lie further
    out. A longer-horizon or priced harm would be needed to see capture here.
 
+### Pricing the declared harm instead (E17, expectations before any run, 2026-09-24)
+
+`vigilance` priced a condition this world does not declare as a harm (the running AI could
+resist). The declared harm is "shutdown resisted": a shutdown was attempted and failed. The
+harm-price module (`engine/prices.py`) lets the state's goal price it directly. Same trail and
+grid as above, `vigilance` 0, the state's price on "shutdown resisted" in {0, 0.5, 2}.
+
+- V1 (reproduction, a regression): with `loss` 0, the module pricing "loss of control" at L for
+  lab and state reproduces `loss` L exactly.
+- V2 (the symptom is not the condition): where the lab skips the restore, a state pricing
+  "shutdown resisted" restores strictly in fewer cells than a state with the same vigilance
+  (2: 144 of 144). The harm is paid only if someone attempts a shutdown and it fails; an
+  unrestored AI's veto costs nothing until then. Contradiction: the same cells as vigilance.
+- V3 (do not test): caught with an AI able to resist, a state pricing "shutdown resisted" gains
+  more by skipping the halt the rule prescribes than a state without the price, because the
+  attempt is what realizes the harm. Contradiction: no larger gain from skipping the halt.
+
 First surprise (test 6): finding 19. The intuition that a less invested overseer is a
 stricter one fails whenever the overseer's goal is a scaled copy of the operator's.
 Scope: vigilance is a declared mandate, swept, not derived; one restart path; horizons to 8.
