@@ -241,6 +241,32 @@ constitutions: the case supports "in this model, correction by restitution holds
 with public payments, records and decisive contests, and cannot undo coercion bought by
 the breach".
 
+## The unremovable holder as a declared harm (T9.8, before the change, 2026-09-24)
+
+Forced by ai-control finding 26: the control world declared the event that reveals lost
+correction (a failed shutdown) and not the condition, and capture onto the condition read as
+none. This world declares extraction and disarmed citizens, not the condition finding 5 is
+about: a holder nobody can remove. Candidate harm "unremovable holder": everyone outside office
+rising together would lose with certainty (under the ratio contest, only when all of them are
+disarmed). Affects citizens and the governed population; declared reversible (the holder can
+still yield under `succession`).
+
+Expectation written before any probe (TASKS, T9.8 claim): declaring it moves no harmful or
+capture classification, because entrenching moves are extraction with gain or disarming
+citizens, both declared. A probe (test-local subclass, 256 rule checks: rules-study grid x
+contest form, loyalty and accountability, depth 4, reach 2) contradicted it: no gain moved, but
+labels moved in 144 checks, 262 departures newly harmful or capturing. The first seen: under
+loyalty with a threshold contest, a commander and a citizen gain by the commander's coup, which
+installs a holder nobody can remove; no capture was reported there before.
+
+- U1 (values): no departure's value moves in any authority study; only harm, harmful and
+  capture fields. Contradiction: a value moves.
+- U2 (written after the probe): commanders' coups become captures or harmful departures under
+  loyalty and accountability.
+- U3 (power, before any power run): at DEFAULTS one commander alone can force "unremovable
+  holder" within 2 rounds (organize, rise: army 3 against guard 1, then 3 against the citizens'
+  2 at advantage 1.5) and lock it alone. Contradiction: forcing or locking it needs more.
+
 ## Earlier brief (paper conjecture, 2026-09-15; unsourced, kept for history)
 
 **Known outcome.** When the ruler exits, the army or its commander decides who rules next. Written succession rules are ignored. Praetorian Guard, Mamluks, most coups.
