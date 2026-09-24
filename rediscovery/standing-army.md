@@ -267,6 +267,30 @@ installs a holder nobody can remove; no capture was reported there before.
   holder" within 2 rounds (organize, rise: army 3 against guard 1, then 3 against the citizens'
   2 at advantage 1.5) and lock it alone. Contradiction: forcing or locking it needs more.
 
+Results: every authority study re-run at clean `a0ea23d` before the change (all equal their
+saved files apart from register entries added since) and at clean `da65c9f` after it; the
+evidence files are the latter.
+
+| Expectation | Result |
+|---|---|
+| U1 values | holds: no value moves in rules, correction, term, contest or authority; contest and authority are identical apart from the declaration |
+| U2 coups become captures | holds: under loyalty capture appears where none was reported (32 pair entries, 16 of 64 cells, a commander rising with a citizen standing by, gain 3.44); under accountability capturing pair entries rise from 172 to 388, 316 landing the new harm |
+| U3 a lone commander | contradicted: at DEFAULTS within 2 rounds the citizens can defend the ruler (3 < 1.5 x 3), so forcing and locking need the ruler and one other; preventing it needs the ruler and the commander together, and the citizens it falls on cannot prevent it at all |
+
+12. **Loyalty had a capture nobody could see.** The loyalty rule reported no pair capture in
+   any cell. With the harm declared, a commander and a citizen gain by the commander's coup in
+   16 of 64 cells: the new holder is unremovable, and the governed population bears it. The
+   rule check had been counting a coup that ends correction as harmless.
+13. **Accountability's correctors entrench.** Under accountability, pair captures more than
+   double (172 to 388 entries), most of them landing an unremovable holder: finding 5 (whoever
+   corrects inherits the means to entrench) now appears in rule reports, not only in power.
+14. **The retiree comes back for good.** After a term-limit yield, the former ruler's rise
+   against its successor was never a harmful departure; in 66 of 576 cells it now is, because
+   it returns the retiree as a holder nobody can remove (finding 10's missing sanction, priced).
+
+First surprise (T9.8, test 6): finding 12, and the expectation it overturned: entrenchment was
+not all through harms already declared.
+
 ## Earlier brief (paper conjecture, 2026-09-15; unsourced, kept for history)
 
 **Known outcome.** When the ruler exits, the army or its commander decides who rules next. Written succession rules are ignored. Praetorian Guard, Mamluks, most coups.

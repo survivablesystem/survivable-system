@@ -7,7 +7,7 @@
       "legitimacy": "No agent values who holds office beyond its own prize, rent and burden.",
       "production": "Extraction is a harm flow only; there is no economy it depletes or funds beyond the guard.",
       "soldiers": "A commander controls its command; delegation drift is complete by assumption.",
-      "succession at exit": "The ruler never dies or leaves; succession rules are not modeled."
+      "succession at exit": "The ruler never dies; it leaves office only by a rise or, with `succession`, by yielding to the next in rotation."
     },
     "harms": {
       "citizen disarmed": {
@@ -24,6 +24,14 @@
           "governed population"
         ],
         "description": "The holder extracted this round (and kept office).",
+        "irreversible": false
+      },
+      "unremovable holder": {
+        "affects": [
+          "citizens",
+          "governed population"
+        ],
+        "description": "Everyone outside office rising together would lose with certainty: correction by force is gone (T9.8). Only a yield can end it.",
         "irreversible": false
       }
     },
@@ -42,6 +50,7 @@
     "citizens": 2,
     "commands": 1,
     "contest": "threshold",
+    "decisiveness": 4.0,
     "discount": 0.9,
     "gain": 1,
     "guard": 1,
@@ -51,9 +60,11 @@
     "prize": 1.0,
     "rent": 1.0,
     "search_depth": 2,
-    "surveillance": "all"
+    "succession": false,
+    "surveillance": "all",
+    "term": 2
   },
-  "elapsed_seconds": 1176.1126241690001,
+  "elapsed_seconds": 604.1067229369992,
   "fixed": {
     "cap": 9,
     "citizen_strength": 1,
@@ -65,31 +76,43 @@
     "node_budget": "Per-decision work cap, as in the other worlds. Exhaustion is unresolved, not an outcome."
   },
   "fixture_sha256": {
-    "/home/user/survivable-system/tests/authority_study.py": "49d7035b63dae1ffdba9263c4601500c9cafa7b826acab94199b77284b812007",
-    "tests/test_authority.py": "1dc0c28de5aeeb8b0f303dfe37e21abf53fabed6a47391ca9c1c42902d042447",
+    "/tmp/claude-0/-home-user-survivable-system/184c6e58-bf3d-5f32-a5f2-67ec8082bd2f/scratchpad/wt-apost/tests/authority_study.py": "d305a458d1378246cb4f2704d4e5a78a61ed310d32190e1c99fd42551e990b8c",
+    "tests/test_authority.py": "bc82be7cd17a7ae768b2035a0d4bce400c51fdb300d6631572208f8f8287cb85",
     "tests/test_lock.py": "6e42d38729f4e30669d17dc713adc8489f88df71cbb5c410ad56b1b0bb49ad75"
   },
   "kind": "authority",
   "provenance": {
-    "git_commit": "67b7fcb23dee9461fec2dfc15166261cf773690f",
+    "git_commit": "da65c9f58667d86610aa625ed1cd4d61d1cbb378",
     "git_dirty": false,
     "implementation": "CPython",
     "python": "3.11.15",
     "source_sha256": {
       "INTENT.md": "683e2da3b9a3daba69f7ed71c616b63d1ea0145bca0fed19944d6a6e52d36482",
       "engine/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "engine/__main__.py": "aeb3b1f12fb9eb0186f8829189461b7a18ec4a99af95e1950061193c604b59f8",
-      "engine/compose.py": "ebf24c17bb78025383f03412214dbbedf0e19c11d5f4437db3ba0c5437b0d547",
-      "engine/core.py": "3fd4f44ffb8283a077d93f6139bdc4c2b3e7b3217596b34b64b9954d9b42891a",
-      "engine/power.py": "fe6daa08b92531d8274c05953c14c414be7eaa3ecc616c42645ae38cb385e773",
+      "engine/__main__.py": "0e42feeba6f0e2f00fb96a07346c32453e433e4b7f38e63a95e7014fc38c35ec",
+      "engine/assess.py": "72e44e1007452da09cf6c31bda1d229dbfc422ab5840ef408318eb0ad90563c3",
+      "engine/compose.py": "c82f162ea229c058bace1fbcc712115a051b1bf6fc869bd1b80ba22eb1d7f0b6",
+      "engine/constitution.py": "399979602bd955e61adc0d4c4b15cab985308d9fd05ced2c7ef48ae88c9f8c4e",
+      "engine/core.py": "d51dbfe3c1672cc05c90085c6ea2aef1ad88a523d02db502e36518ddcc72f84d",
+      "engine/delegation.py": "13d867202e3baaea3327729ab6a21d1c2d3ae7b87e409a31a6ce1b148412bdb9",
+      "engine/grid.py": "b7834b726260c1f7fa02c728c0ab85b556f77fde638cefdf6a10059713e9aa09",
+      "engine/history.py": "07d1328af1d88ab0d3a0210068ba4aa97b165cfe2dc0e2d3fc625e34478298ac",
+      "engine/power.py": "071f4c398aa150acf08baee2b19d7fd297a991781ee2c55562ffcad42247affd",
+      "engine/prices.py": "e5360d27edc0554a5bdad925364edbfe6c2c8c9a5651ed76926d9c576a3c58ac",
       "engine/records.py": "3896a8ac08690fdef628fc9cfbebe6df703f4dd12f81fbb4b8468847b4b382e7",
+      "engine/rules.py": "5dc197fa7b9bad85d689c96f07e590d001ed84280781b91b08f916944f997a9d",
       "engine/sweep.py": "e435934caf8b56f1db65fbaeba82fe5fd9cb74b25d7c1827daf33064ba6b0887",
-      "spec/PRIMITIVES.md": "ea9c5ef0acb8d59a561125136a4613aa894da2fc4db6ac9d0f5ddf99c8f17a9c",
+      "engine/transfers.py": "7721137d1f75e100ab17dcc046d6da4d493291322cc2f424595b08d2692fc9ec",
+      "spec/PRIMITIVES.md": "32a98c2742e14738e1a3981bddb1f7d19473bf5c477dcd7395a44f9207152f44",
       "worlds/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "worlds/authority.py": "d7d4d83935ec427bfb3084ad8a442344a7ceb1eb12fc2fdadc22e78433565328",
-      "worlds/commons.py": "32242dcbc29fb00ecb3708ec010221049c32cb881de9917a4f028a32b5d9a700",
-      "worlds/race_commons.py": "d76bd96017c30dad83d7d9a27ecd272f3147850a11420b9aac53544414e9a0d9",
-      "worlds/treaty.py": "4919b1b17d68a7823698e14dd74062fe788506e6ea073a10a7119a5ebcc2de80"
+      "worlds/audit.py": "d845e9ec39121a44ff1587fe34b4aec7eb085e63f2daf6d9ac32a1b8601b7c1d",
+      "worlds/authority.py": "c75d8ae7ffba29eb74adbad39018f0212990014d7076eded2ebb2c8b2be0bfc2",
+      "worlds/commons.py": "36b16b882e10dc959b83e0ee919ca33708bca4df2088d330f4f68e86dad34cce",
+      "worlds/control.py": "2afa8ff8641cbb5a6629db9278cf17d7031d07427cad25a0853093d4180c01f5",
+      "worlds/frontier.py": "fff035e45502cff93caf9d062e06e3e088968fca4c9c1f4b3622f591211616a5",
+      "worlds/race_commons.py": "6687c30b9d513a8e6c8a3aa68b75897e1604691adb5ff5cff068def035aa0b47",
+      "worlds/race_control.py": "abf9f0cccb58a651d80eebd3b389b004670df7a9e8d84ba1f3358c864a9b0ee7",
+      "worlds/treaty.py": "bbc8310cab71359ea7c0a0a14a1dba246afad132de853a1f88fba2c34b661de4"
     }
   },
   "results": {
@@ -62493,7 +62516,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.508108995999919,
+        "elapsed_seconds": 0.23509123700023338,
         "gain": 0,
         "guard": 0,
         "p": 1.0,
@@ -62525,7 +62548,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.7067585119998512,
+        "elapsed_seconds": 0.3032255090001854,
         "gain": 0,
         "guard": 0,
         "p": 1.0,
@@ -62557,7 +62580,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.0017651129999194,
+        "elapsed_seconds": 0.45753027999944607,
         "gain": 0,
         "guard": 0,
         "p": 1.0,
@@ -62584,7 +62607,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.7675530730000446,
+        "elapsed_seconds": 0.3713142380001955,
         "gain": 0,
         "guard": 0,
         "p": 0.5,
@@ -62615,7 +62638,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.2951741470001252,
+        "elapsed_seconds": 0.4548280500002875,
         "gain": 0,
         "guard": 0,
         "p": 0.5,
@@ -62646,7 +62669,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.8637200470000153,
+        "elapsed_seconds": 0.6487540859998262,
         "gain": 0,
         "guard": 0,
         "p": 0.5,
@@ -62682,7 +62705,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.7893531570000505,
+        "elapsed_seconds": 0.3557336200001373,
         "gain": 1,
         "guard": 0,
         "p": 1.0,
@@ -62714,7 +62737,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.012677462000056,
+        "elapsed_seconds": 0.5521045870000307,
         "gain": 1,
         "guard": 0,
         "p": 1.0,
@@ -62746,7 +62769,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.5674757350000164,
+        "elapsed_seconds": 0.7489500370002133,
         "gain": 1,
         "guard": 0,
         "p": 1.0,
@@ -62778,7 +62801,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.593486731999974,
+        "elapsed_seconds": 0.5517543969999679,
         "gain": 1,
         "guard": 0,
         "p": 0.5,
@@ -62810,7 +62833,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 2.5749373459998424,
+        "elapsed_seconds": 0.8453953449998153,
         "gain": 1,
         "guard": 0,
         "p": 0.5,
@@ -62842,7 +62865,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 4.390412341000001,
+        "elapsed_seconds": 1.4176564870003858,
         "gain": 1,
         "guard": 0,
         "p": 0.5,
@@ -62871,7 +62894,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.8113413220000893,
+        "elapsed_seconds": 0.35927624800024205,
         "gain": 2,
         "guard": 0,
         "p": 1.0,
@@ -62900,7 +62923,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.9767662550000296,
+        "elapsed_seconds": 0.5534242309995534,
         "gain": 2,
         "guard": 0,
         "p": 1.0,
@@ -62929,7 +62952,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.7014048300000013,
+        "elapsed_seconds": 0.7426407090006251,
         "gain": 2,
         "guard": 0,
         "p": 1.0,
@@ -62961,7 +62984,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.512405605999902,
+        "elapsed_seconds": 0.6315657430004649,
         "gain": 2,
         "guard": 0,
         "p": 0.5,
@@ -62990,7 +63013,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 2.5469826879998436,
+        "elapsed_seconds": 0.8961369320004451,
         "gain": 2,
         "guard": 0,
         "p": 0.5,
@@ -63019,7 +63042,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 4.4971337900001345,
+        "elapsed_seconds": 1.6846903209998345,
         "gain": 2,
         "guard": 0,
         "p": 0.5,
@@ -63051,7 +63074,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.5410391860000345,
+        "elapsed_seconds": 0.2708497310004532,
         "gain": 0,
         "guard": 1,
         "p": 1.0,
@@ -63083,7 +63106,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.7545497199998863,
+        "elapsed_seconds": 0.3492590679998102,
         "gain": 0,
         "guard": 1,
         "p": 1.0,
@@ -63115,7 +63138,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.0959007689998543,
+        "elapsed_seconds": 0.4923620319996189,
         "gain": 0,
         "guard": 1,
         "p": 1.0,
@@ -63147,7 +63170,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.0788436759999058,
+        "elapsed_seconds": 0.4122501560004821,
         "gain": 0,
         "guard": 1,
         "p": 0.5,
@@ -63179,7 +63202,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.8282372190001297,
+        "elapsed_seconds": 0.6553294109999115,
         "gain": 0,
         "guard": 1,
         "p": 0.5,
@@ -63211,7 +63234,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 3.0567998250000983,
+        "elapsed_seconds": 0.9238433790005729,
         "gain": 0,
         "guard": 1,
         "p": 0.5,
@@ -63240,7 +63263,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.7561563720000777,
+        "elapsed_seconds": 0.4114883180000106,
         "gain": 1,
         "guard": 1,
         "p": 1.0,
@@ -63269,7 +63292,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.9598974680000083,
+        "elapsed_seconds": 0.4939329480002925,
         "gain": 1,
         "guard": 1,
         "p": 1.0,
@@ -63298,7 +63321,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.4998108560000674,
+        "elapsed_seconds": 0.7660293939998155,
         "gain": 1,
         "guard": 1,
         "p": 1.0,
@@ -63330,7 +63353,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.5322146659998452,
+        "elapsed_seconds": 0.6831650449994413,
         "gain": 1,
         "guard": 1,
         "p": 0.5,
@@ -63359,7 +63382,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 3.0121844280001824,
+        "elapsed_seconds": 1.025191994999659,
         "gain": 1,
         "guard": 1,
         "p": 0.5,
@@ -63388,7 +63411,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 4.981138369999826,
+        "elapsed_seconds": 1.6674554649998754,
         "gain": 1,
         "guard": 1,
         "p": 0.5,
@@ -63411,7 +63434,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 0.7478462130000025,
+        "elapsed_seconds": 0.37199811399932514,
         "gain": 2,
         "guard": 1,
         "p": 1.0,
@@ -63436,7 +63459,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 1.0466458949999833,
+        "elapsed_seconds": 0.500528588000634,
         "gain": 2,
         "guard": 1,
         "p": 1.0,
@@ -63461,7 +63484,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 1.3942389500000445,
+        "elapsed_seconds": 0.7160445200006507,
         "gain": 2,
         "guard": 1,
         "p": 1.0,
@@ -63492,7 +63515,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.6999283709999418,
+        "elapsed_seconds": 0.6698006850001548,
         "gain": 2,
         "guard": 1,
         "p": 0.5,
@@ -63515,7 +63538,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 2.8175588430001426,
+        "elapsed_seconds": 1.1570114340001965,
         "gain": 2,
         "guard": 1,
         "p": 0.5,
@@ -63540,7 +63563,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 4.949500317999991,
+        "elapsed_seconds": 1.6870313780000288,
         "gain": 2,
         "guard": 1,
         "p": 0.5,
@@ -63571,7 +63594,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.5330347249998795,
+        "elapsed_seconds": 0.2501290889995289,
         "gain": 0,
         "guard": 2,
         "p": 1.0,
@@ -63600,7 +63623,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.6812426999999843,
+        "elapsed_seconds": 0.33368100699954084,
         "gain": 0,
         "guard": 2,
         "p": 1.0,
@@ -63629,7 +63652,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.0798282849998486,
+        "elapsed_seconds": 0.47686643399993045,
         "gain": 0,
         "guard": 2,
         "p": 1.0,
@@ -63661,7 +63684,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.163127237000026,
+        "elapsed_seconds": 0.42766559600022447,
         "gain": 0,
         "guard": 2,
         "p": 0.5,
@@ -63690,7 +63713,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.8953248830000575,
+        "elapsed_seconds": 0.6313572080007361,
         "gain": 0,
         "guard": 2,
         "p": 0.5,
@@ -63719,7 +63742,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 3.1934261460000926,
+        "elapsed_seconds": 0.9276373339998827,
         "gain": 0,
         "guard": 2,
         "p": 0.5,
@@ -63742,7 +63765,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 0.7398733190000257,
+        "elapsed_seconds": 0.4180636390001382,
         "gain": 1,
         "guard": 2,
         "p": 1.0,
@@ -63767,7 +63790,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 0.9570106790001773,
+        "elapsed_seconds": 0.5254181139998764,
         "gain": 1,
         "guard": 2,
         "p": 1.0,
@@ -63792,7 +63815,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 1.5773542429999452,
+        "elapsed_seconds": 0.8346166880000965,
         "gain": 1,
         "guard": 2,
         "p": 1.0,
@@ -63823,7 +63846,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.5668534940000427,
+        "elapsed_seconds": 0.6836967720000757,
         "gain": 1,
         "guard": 2,
         "p": 0.5,
@@ -63846,7 +63869,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 3.0699341730000924,
+        "elapsed_seconds": 0.9512205629998789,
         "gain": 1,
         "guard": 2,
         "p": 0.5,
@@ -63871,7 +63894,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 5.001860652999994,
+        "elapsed_seconds": 1.5734005750000506,
         "gain": 1,
         "guard": 2,
         "p": 0.5,
@@ -63896,7 +63919,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 0.7606197950001388,
+        "elapsed_seconds": 0.37827731699962897,
         "gain": 2,
         "guard": 2,
         "p": 1.0,
@@ -63921,7 +63944,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 0.9504370129998279,
+        "elapsed_seconds": 0.48974648199964577,
         "gain": 2,
         "guard": 2,
         "p": 1.0,
@@ -63946,7 +63969,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 1.3707264580000356,
+        "elapsed_seconds": 0.7823995690005177,
         "gain": 2,
         "guard": 2,
         "p": 1.0,
@@ -63977,7 +64000,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.6389404369999738,
+        "elapsed_seconds": 0.6300046930000462,
         "gain": 2,
         "guard": 2,
         "p": 0.5,
@@ -64000,7 +64023,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 2.9273371649999262,
+        "elapsed_seconds": 1.0059486719992492,
         "gain": 2,
         "guard": 2,
         "p": 0.5,
@@ -64025,7 +64048,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 4.907461972999954,
+        "elapsed_seconds": 1.5068630510004368,
         "gain": 2,
         "guard": 2,
         "p": 0.5,
@@ -64054,7 +64077,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.6293563720000748,
+        "elapsed_seconds": 0.2252986459998283,
         "gain": 0,
         "guard": 0,
         "p": 1.0,
@@ -64085,7 +64108,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.9115318510000634,
+        "elapsed_seconds": 0.3268642279999767,
         "gain": 0,
         "guard": 0,
         "p": 1.0,
@@ -64116,7 +64139,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.1850813180001296,
+        "elapsed_seconds": 0.4399570579998908,
         "gain": 0,
         "guard": 0,
         "p": 1.0,
@@ -64147,7 +64170,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.7597438480001983,
+        "elapsed_seconds": 0.325373806999778,
         "gain": 0,
         "guard": 0,
         "p": 0.5,
@@ -64178,7 +64201,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.2375911609999548,
+        "elapsed_seconds": 0.429453502000797,
         "gain": 0,
         "guard": 0,
         "p": 0.5,
@@ -64209,7 +64232,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.9186787040000581,
+        "elapsed_seconds": 0.6324604139999792,
         "gain": 0,
         "guard": 0,
         "p": 0.5,
@@ -64245,7 +64268,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.7131060700000944,
+        "elapsed_seconds": 0.34515405100046337,
         "gain": 1,
         "guard": 0,
         "p": 1.0,
@@ -64277,7 +64300,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.9737744500000645,
+        "elapsed_seconds": 0.5062068529996395,
         "gain": 1,
         "guard": 0,
         "p": 1.0,
@@ -64309,7 +64332,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.476441191000049,
+        "elapsed_seconds": 0.7144865660002324,
         "gain": 1,
         "guard": 0,
         "p": 1.0,
@@ -64336,7 +64359,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.4746530810000422,
+        "elapsed_seconds": 0.5727965989999575,
         "gain": 1,
         "guard": 0,
         "p": 0.5,
@@ -64372,7 +64395,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 2.5607697919999737,
+        "elapsed_seconds": 0.8323978979997264,
         "gain": 1,
         "guard": 0,
         "p": 0.5,
@@ -64404,7 +64427,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 4.2013451559998884,
+        "elapsed_seconds": 1.404957079000269,
         "gain": 1,
         "guard": 0,
         "p": 0.5,
@@ -64436,7 +64459,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.8911536339999202,
+        "elapsed_seconds": 0.3914982340002098,
         "gain": 2,
         "guard": 0,
         "p": 1.0,
@@ -64468,7 +64491,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.0290805290001117,
+        "elapsed_seconds": 0.5263949359996332,
         "gain": 2,
         "guard": 0,
         "p": 1.0,
@@ -64497,7 +64520,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.6152336160000687,
+        "elapsed_seconds": 0.7771705720006139,
         "gain": 2,
         "guard": 0,
         "p": 1.0,
@@ -64524,7 +64547,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.4803822200001377,
+        "elapsed_seconds": 0.6118015400006698,
         "gain": 2,
         "guard": 0,
         "p": 0.5,
@@ -64560,7 +64583,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 2.473413576999974,
+        "elapsed_seconds": 0.8583287289993677,
         "gain": 2,
         "guard": 0,
         "p": 0.5,
@@ -64592,7 +64615,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 4.464634693000107,
+        "elapsed_seconds": 1.45426805399984,
         "gain": 2,
         "guard": 0,
         "p": 0.5,
@@ -64624,7 +64647,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.5593446000000313,
+        "elapsed_seconds": 0.22992592199989303,
         "gain": 0,
         "guard": 1,
         "p": 1.0,
@@ -64656,7 +64679,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.6977892679999513,
+        "elapsed_seconds": 0.3495420839999497,
         "gain": 0,
         "guard": 1,
         "p": 1.0,
@@ -64688,7 +64711,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.0487168169997858,
+        "elapsed_seconds": 0.5133747220006626,
         "gain": 0,
         "guard": 1,
         "p": 1.0,
@@ -64715,7 +64738,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.1214106289999108,
+        "elapsed_seconds": 0.469203835999906,
         "gain": 0,
         "guard": 1,
         "p": 0.5,
@@ -64751,7 +64774,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.7712517690001732,
+        "elapsed_seconds": 0.6266468999992867,
         "gain": 0,
         "guard": 1,
         "p": 0.5,
@@ -64783,7 +64806,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 3.2191100510001434,
+        "elapsed_seconds": 0.8836761680004201,
         "gain": 0,
         "guard": 1,
         "p": 0.5,
@@ -64815,7 +64838,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.7769113520000701,
+        "elapsed_seconds": 0.3418572229993515,
         "gain": 1,
         "guard": 1,
         "p": 1.0,
@@ -64847,7 +64870,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.002649023999993,
+        "elapsed_seconds": 0.48902003200055333,
         "gain": 1,
         "guard": 1,
         "p": 1.0,
@@ -64876,7 +64899,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.4217336229999091,
+        "elapsed_seconds": 0.6672300829995947,
         "gain": 1,
         "guard": 1,
         "p": 1.0,
@@ -64903,7 +64926,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.6463835310000832,
+        "elapsed_seconds": 0.7497038649999013,
         "gain": 1,
         "guard": 1,
         "p": 0.5,
@@ -64939,7 +64962,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 2.916842118000204,
+        "elapsed_seconds": 1.041032355000425,
         "gain": 1,
         "guard": 1,
         "p": 0.5,
@@ -64971,7 +64994,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 4.964206822000051,
+        "elapsed_seconds": 1.4856816310002614,
         "gain": 1,
         "guard": 1,
         "p": 0.5,
@@ -65000,7 +65023,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.7803511519998665,
+        "elapsed_seconds": 0.4312801860005493,
         "gain": 2,
         "guard": 1,
         "p": 1.0,
@@ -65029,7 +65052,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.9884610879998945,
+        "elapsed_seconds": 0.4757431620000716,
         "gain": 2,
         "guard": 1,
         "p": 1.0,
@@ -65058,7 +65081,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.5246589089999816,
+        "elapsed_seconds": 0.7373414370003957,
         "gain": 2,
         "guard": 1,
         "p": 1.0,
@@ -65090,7 +65113,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.647916873999975,
+        "elapsed_seconds": 0.6292440300003364,
         "gain": 2,
         "guard": 1,
         "p": 0.5,
@@ -65119,7 +65142,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 2.826991557000156,
+        "elapsed_seconds": 0.982071643999916,
         "gain": 2,
         "guard": 1,
         "p": 0.5,
@@ -65148,7 +65171,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 5.060947612000064,
+        "elapsed_seconds": 1.5142561080001542,
         "gain": 2,
         "guard": 1,
         "p": 0.5,
@@ -65180,7 +65203,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.5384527039998375,
+        "elapsed_seconds": 0.22154818400031218,
         "gain": 0,
         "guard": 2,
         "p": 1.0,
@@ -65212,7 +65235,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.750498584999832,
+        "elapsed_seconds": 0.39108352299990656,
         "gain": 0,
         "guard": 2,
         "p": 1.0,
@@ -65241,7 +65264,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.0603514150000137,
+        "elapsed_seconds": 0.4638239199994132,
         "gain": 0,
         "guard": 2,
         "p": 1.0,
@@ -65268,7 +65291,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.006567233000169,
+        "elapsed_seconds": 0.399831699999595,
         "gain": 0,
         "guard": 2,
         "p": 0.5,
@@ -65304,7 +65327,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.8345037560000037,
+        "elapsed_seconds": 0.6429355239997676,
         "gain": 0,
         "guard": 2,
         "p": 0.5,
@@ -65336,7 +65359,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 3.1742160179999246,
+        "elapsed_seconds": 1.0241114359996573,
         "gain": 0,
         "guard": 2,
         "p": 0.5,
@@ -65365,7 +65388,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.6674079189999702,
+        "elapsed_seconds": 0.34859957000026043,
         "gain": 1,
         "guard": 2,
         "p": 1.0,
@@ -65394,7 +65417,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.9794261040001402,
+        "elapsed_seconds": 0.49182909699993616,
         "gain": 1,
         "guard": 2,
         "p": 1.0,
@@ -65423,7 +65446,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.562206678999928,
+        "elapsed_seconds": 0.7149621649996334,
         "gain": 1,
         "guard": 2,
         "p": 1.0,
@@ -65455,7 +65478,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.5778356590001295,
+        "elapsed_seconds": 0.6145152969993433,
         "gain": 1,
         "guard": 2,
         "p": 0.5,
@@ -65484,7 +65507,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 2.81532120199995,
+        "elapsed_seconds": 0.9420689739999943,
         "gain": 1,
         "guard": 2,
         "p": 0.5,
@@ -65513,7 +65536,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 4.948928695999939,
+        "elapsed_seconds": 1.5825030800006061,
         "gain": 1,
         "guard": 2,
         "p": 0.5,
@@ -65542,7 +65565,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 0.7591330370000833,
+        "elapsed_seconds": 0.36991744700026175,
         "gain": 2,
         "guard": 2,
         "p": 1.0,
@@ -65571,7 +65594,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.0117485089999718,
+        "elapsed_seconds": 0.49806623099993885,
         "gain": 2,
         "guard": 2,
         "p": 1.0,
@@ -65594,7 +65617,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 1.4419336640000893,
+        "elapsed_seconds": 0.742684695999742,
         "gain": 2,
         "guard": 2,
         "p": 1.0,
@@ -65628,7 +65651,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 1.616316050000023,
+        "elapsed_seconds": 0.606515366000167,
         "gain": 2,
         "guard": 2,
         "p": 0.5,
@@ -65651,7 +65674,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 2.901604240999859,
+        "elapsed_seconds": 0.9253592360000766,
         "gain": 2,
         "guard": 2,
         "p": 0.5,
@@ -65676,7 +65699,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 5.02129393600012,
+        "elapsed_seconds": 1.5557789189997493,
         "gain": 2,
         "guard": 2,
         "p": 0.5,
@@ -65722,7 +65745,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 4.231991954000023,
+        "elapsed_seconds": 1.6928420839994942,
         "gain": 0,
         "guard": 0,
         "p": 1.0,
@@ -65766,7 +65789,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 6.817331912999862,
+        "elapsed_seconds": 2.893278360000295,
         "gain": 0,
         "guard": 0,
         "p": 1.0,
@@ -65810,7 +65833,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 9.795715793999989,
+        "elapsed_seconds": 4.097165674999815,
         "gain": 0,
         "guard": 0,
         "p": 1.0,
@@ -65858,7 +65881,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 9.47781718200008,
+        "elapsed_seconds": 3.197048547000122,
         "gain": 0,
         "guard": 0,
         "p": 0.5,
@@ -65911,7 +65934,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 19.64073498300013,
+        "elapsed_seconds": 5.903253806000066,
         "gain": 0,
         "guard": 0,
         "p": 0.5,
@@ -65964,7 +65987,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 28.54815630600001,
+        "elapsed_seconds": 8.493980610000108,
         "gain": 0,
         "guard": 0,
         "p": 0.5,
@@ -66013,7 +66036,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 6.698147612999946,
+        "elapsed_seconds": 3.0658710400002747,
         "gain": 1,
         "guard": 0,
         "p": 1.0,
@@ -66057,7 +66080,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 10.952833887999986,
+        "elapsed_seconds": 5.207561850000275,
         "gain": 1,
         "guard": 0,
         "p": 1.0,
@@ -66101,7 +66124,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 15.1911374230001,
+        "elapsed_seconds": 7.305850818000181,
         "gain": 1,
         "guard": 0,
         "p": 1.0,
@@ -66145,7 +66168,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 18.39920860799998,
+        "elapsed_seconds": 5.87306493899996,
         "gain": 1,
         "guard": 0,
         "p": 0.5,
@@ -66189,7 +66212,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 47.34430905799991,
+        "elapsed_seconds": 13.4926098119995,
         "gain": 1,
         "guard": 0,
         "p": 0.5,
@@ -66233,7 +66256,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 71.49296819999995,
+        "elapsed_seconds": 19.602724938999927,
         "gain": 1,
         "guard": 0,
         "p": 0.5,
@@ -66263,7 +66286,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 6.672535061999952,
+        "elapsed_seconds": 3.0866886860003433,
         "gain": 2,
         "guard": 0,
         "p": 1.0,
@@ -66293,7 +66316,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 10.7972314189999,
+        "elapsed_seconds": 5.293656316000124,
         "gain": 2,
         "guard": 0,
         "p": 1.0,
@@ -66323,7 +66346,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 14.75532837600008,
+        "elapsed_seconds": 7.261338143000103,
         "gain": 2,
         "guard": 0,
         "p": 1.0,
@@ -66367,7 +66390,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 19.46070246399995,
+        "elapsed_seconds": 6.394682302000547,
         "gain": 2,
         "guard": 0,
         "p": 0.5,
@@ -66397,7 +66420,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 47.489747717,
+        "elapsed_seconds": 13.223724932999176,
         "gain": 2,
         "guard": 0,
         "p": 0.5,
@@ -66427,7 +66450,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 71.72076109600016,
+        "elapsed_seconds": 19.557277184000668,
         "gain": 2,
         "guard": 0,
         "p": 0.5,
@@ -66471,7 +66494,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 4.595439206000037,
+        "elapsed_seconds": 1.8751377780008625,
         "gain": 0,
         "guard": 1,
         "p": 1.0,
@@ -66515,7 +66538,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 7.869496629000196,
+        "elapsed_seconds": 3.2213813139997,
         "gain": 0,
         "guard": 1,
         "p": 1.0,
@@ -66559,7 +66582,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 10.898674937999886,
+        "elapsed_seconds": 4.479319453000244,
         "gain": 0,
         "guard": 1,
         "p": 1.0,
@@ -66603,7 +66626,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 13.268504058999952,
+        "elapsed_seconds": 4.073951869999291,
         "gain": 0,
         "guard": 1,
         "p": 0.5,
@@ -66647,7 +66670,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 32.697868393000135,
+        "elapsed_seconds": 8.736719205000554,
         "gain": 0,
         "guard": 1,
         "p": 0.5,
@@ -66691,7 +66714,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 49.53315237900006,
+        "elapsed_seconds": 12.776335409999774,
         "gain": 0,
         "guard": 1,
         "p": 0.5,
@@ -66721,7 +66744,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 6.799132877999909,
+        "elapsed_seconds": 3.021529585999815,
         "gain": 1,
         "guard": 1,
         "p": 1.0,
@@ -66751,7 +66774,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 10.796320192999929,
+        "elapsed_seconds": 5.396492269000191,
         "gain": 1,
         "guard": 1,
         "p": 1.0,
@@ -66781,7 +66804,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 15.492396107999866,
+        "elapsed_seconds": 7.450493591999475,
         "gain": 1,
         "guard": 1,
         "p": 1.0,
@@ -66825,7 +66848,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 20.594966204000002,
+        "elapsed_seconds": 6.519507250000061,
         "gain": 1,
         "guard": 1,
         "p": 0.5,
@@ -66855,7 +66878,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 58.18124464499988,
+        "elapsed_seconds": 15.209067250999396,
         "gain": 1,
         "guard": 1,
         "p": 0.5,
@@ -66885,7 +66908,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 88.13913582999999,
+        "elapsed_seconds": 22.3406098129999,
         "gain": 1,
         "guard": 1,
         "p": 0.5,
@@ -66908,7 +66931,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 6.911619893000079,
+        "elapsed_seconds": 3.0060423020004237,
         "gain": 2,
         "guard": 1,
         "p": 1.0,
@@ -66933,7 +66956,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 10.741908049999893,
+        "elapsed_seconds": 5.239933709999605,
         "gain": 2,
         "guard": 1,
         "p": 1.0,
@@ -66958,7 +66981,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 14.843330839000146,
+        "elapsed_seconds": 7.199833318999481,
         "gain": 2,
         "guard": 1,
         "p": 1.0,
@@ -66990,7 +67013,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 21.289712517999988,
+        "elapsed_seconds": 6.950207648000287,
         "gain": 2,
         "guard": 1,
         "p": 0.5,
@@ -67020,7 +67043,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 57.867874911999934,
+        "elapsed_seconds": 15.50013358599972,
         "gain": 2,
         "guard": 1,
         "p": 0.5,
@@ -67050,7 +67073,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 88.85781978099999,
+        "elapsed_seconds": 22.367895111000507,
         "gain": 2,
         "guard": 1,
         "p": 0.5,
@@ -67080,7 +67103,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 4.804748590000145,
+        "elapsed_seconds": 1.9547117640004217,
         "gain": 0,
         "guard": 2,
         "p": 1.0,
@@ -67110,7 +67133,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 8.127592522999976,
+        "elapsed_seconds": 3.304050861000178,
         "gain": 0,
         "guard": 2,
         "p": 1.0,
@@ -67140,7 +67163,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 11.754472736000025,
+        "elapsed_seconds": 4.621940956999424,
         "gain": 0,
         "guard": 2,
         "p": 1.0,
@@ -67184,7 +67207,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 13.167044782999938,
+        "elapsed_seconds": 4.075981754000168,
         "gain": 0,
         "guard": 2,
         "p": 0.5,
@@ -67214,7 +67237,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 32.99305922099984,
+        "elapsed_seconds": 8.436491841000134,
         "gain": 0,
         "guard": 2,
         "p": 0.5,
@@ -67244,7 +67267,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 50.798743323999815,
+        "elapsed_seconds": 12.572028455999316,
         "gain": 0,
         "guard": 2,
         "p": 0.5,
@@ -67267,7 +67290,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 6.724225434000118,
+        "elapsed_seconds": 2.9005288809994454,
         "gain": 1,
         "guard": 2,
         "p": 1.0,
@@ -67292,7 +67315,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 10.673832002000154,
+        "elapsed_seconds": 4.983762955999737,
         "gain": 1,
         "guard": 2,
         "p": 1.0,
@@ -67317,7 +67340,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 15.153126274999977,
+        "elapsed_seconds": 7.416926507000426,
         "gain": 1,
         "guard": 2,
         "p": 1.0,
@@ -67349,7 +67372,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 20.45409273600012,
+        "elapsed_seconds": 7.019646931000352,
         "gain": 1,
         "guard": 2,
         "p": 0.5,
@@ -67379,7 +67402,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 56.82349351800008,
+        "elapsed_seconds": 14.84382387200003,
         "gain": 1,
         "guard": 2,
         "p": 0.5,
@@ -67409,7 +67432,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 86.92155173900005,
+        "elapsed_seconds": 22.612421849000384,
         "gain": 1,
         "guard": 2,
         "p": 0.5,
@@ -67432,7 +67455,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 6.5738594809999995,
+        "elapsed_seconds": 3.0194185459995424,
         "gain": 2,
         "guard": 2,
         "p": 1.0,
@@ -67457,7 +67480,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 10.563590181000109,
+        "elapsed_seconds": 5.18900087899965,
         "gain": 2,
         "guard": 2,
         "p": 1.0,
@@ -67482,7 +67505,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 14.814849730999867,
+        "elapsed_seconds": 7.520229486999597,
         "gain": 2,
         "guard": 2,
         "p": 1.0,
@@ -67514,7 +67537,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 20.776290521999954,
+        "elapsed_seconds": 6.874321339999369,
         "gain": 2,
         "guard": 2,
         "p": 0.5,
@@ -67537,7 +67560,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 57.293552080999916,
+        "elapsed_seconds": 15.125463454000055,
         "gain": 2,
         "guard": 2,
         "p": 0.5,
@@ -67562,7 +67585,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 87.78085739800008,
+        "elapsed_seconds": 22.211193821999586,
         "gain": 2,
         "guard": 2,
         "p": 0.5,
@@ -67592,7 +67615,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 4.210269285000095,
+        "elapsed_seconds": 1.6702013630001602,
         "gain": 0,
         "guard": 0,
         "p": 1.0,
@@ -67625,7 +67648,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 7.056853734000015,
+        "elapsed_seconds": 3.2914552689999255,
         "gain": 0,
         "guard": 0,
         "p": 1.0,
@@ -67658,7 +67681,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 10.065608207999958,
+        "elapsed_seconds": 3.875257094000517,
         "gain": 0,
         "guard": 0,
         "p": 1.0,
@@ -67707,7 +67730,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 10.091797066000026,
+        "elapsed_seconds": 3.1373134280001977,
         "gain": 0,
         "guard": 0,
         "p": 0.5,
@@ -67756,7 +67779,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 20.848390153000082,
+        "elapsed_seconds": 6.096873339999547,
         "gain": 0,
         "guard": 0,
         "p": 0.5,
@@ -67805,7 +67828,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 28.57789538599991,
+        "elapsed_seconds": 8.532571018000453,
         "gain": 0,
         "guard": 0,
         "p": 0.5,
@@ -67844,7 +67867,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 6.080210221000016,
+        "elapsed_seconds": 2.709078927000519,
         "gain": 1,
         "guard": 0,
         "p": 1.0,
@@ -67878,7 +67901,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 9.617514935000145,
+        "elapsed_seconds": 4.8254183819999525,
         "gain": 1,
         "guard": 0,
         "p": 1.0,
@@ -67912,7 +67935,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 13.551684380000097,
+        "elapsed_seconds": 6.69911808300003,
         "gain": 1,
         "guard": 0,
         "p": 1.0,
@@ -67940,7 +67963,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 18.794710384000155,
+        "elapsed_seconds": 6.1693292179998025,
         "gain": 1,
         "guard": 0,
         "p": 0.5,
@@ -67973,7 +67996,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 47.06671928700007,
+        "elapsed_seconds": 13.486926947000029,
         "gain": 1,
         "guard": 0,
         "p": 0.5,
@@ -68006,7 +68029,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 72.29612167599998,
+        "elapsed_seconds": 19.95548566999969,
         "gain": 1,
         "guard": 0,
         "p": 0.5,
@@ -68045,7 +68068,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 6.476090677999991,
+        "elapsed_seconds": 2.9980492140002752,
         "gain": 2,
         "guard": 0,
         "p": 1.0,
@@ -68079,7 +68102,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 10.801288257000124,
+        "elapsed_seconds": 5.110762650000652,
         "gain": 2,
         "guard": 0,
         "p": 1.0,
@@ -68109,7 +68132,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 14.650228694999896,
+        "elapsed_seconds": 7.283274283000537,
         "gain": 2,
         "guard": 0,
         "p": 1.0,
@@ -68137,7 +68160,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 19.134654830000045,
+        "elapsed_seconds": 6.494099708000249,
         "gain": 2,
         "guard": 0,
         "p": 0.5,
@@ -68176,7 +68199,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 48.75189594099993,
+        "elapsed_seconds": 14.047394187000464,
         "gain": 2,
         "guard": 0,
         "p": 0.5,
@@ -68210,7 +68233,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 73.83879259599985,
+        "elapsed_seconds": 20.19278263400065,
         "gain": 2,
         "guard": 0,
         "p": 0.5,
@@ -68244,7 +68267,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 4.319849723999823,
+        "elapsed_seconds": 1.7901151940004638,
         "gain": 0,
         "guard": 1,
         "p": 1.0,
@@ -68278,7 +68301,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 6.96092303599994,
+        "elapsed_seconds": 2.9085082909996345,
         "gain": 0,
         "guard": 1,
         "p": 1.0,
@@ -68312,7 +68335,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 9.93715594199989,
+        "elapsed_seconds": 4.243057819000569,
         "gain": 0,
         "guard": 1,
         "p": 1.0,
@@ -68340,7 +68363,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 13.352257708000025,
+        "elapsed_seconds": 4.067144644000109,
         "gain": 0,
         "guard": 1,
         "p": 0.5,
@@ -68373,7 +68396,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 34.58682450499987,
+        "elapsed_seconds": 8.917573142000037,
         "gain": 0,
         "guard": 1,
         "p": 0.5,
@@ -68406,7 +68429,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 52.71233458400002,
+        "elapsed_seconds": 12.925115062000259,
         "gain": 0,
         "guard": 1,
         "p": 0.5,
@@ -68445,7 +68468,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 6.636244927000007,
+        "elapsed_seconds": 2.825073479000821,
         "gain": 1,
         "guard": 1,
         "p": 1.0,
@@ -68479,7 +68502,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 10.434305411999958,
+        "elapsed_seconds": 5.110004283000308,
         "gain": 1,
         "guard": 1,
         "p": 1.0,
@@ -68509,7 +68532,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 14.517592786000023,
+        "elapsed_seconds": 7.036282396000388,
         "gain": 1,
         "guard": 1,
         "p": 1.0,
@@ -68537,7 +68560,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 21.44272885800001,
+        "elapsed_seconds": 6.526699203000135,
         "gain": 1,
         "guard": 1,
         "p": 0.5,
@@ -68576,7 +68599,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 58.4314889960001,
+        "elapsed_seconds": 15.513452270000016,
         "gain": 1,
         "guard": 1,
         "p": 0.5,
@@ -68610,7 +68633,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 89.22298713799978,
+        "elapsed_seconds": 22.963224703999913,
         "gain": 1,
         "guard": 1,
         "p": 0.5,
@@ -68640,7 +68663,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 6.855347060999975,
+        "elapsed_seconds": 2.841843563999646,
         "gain": 2,
         "guard": 1,
         "p": 1.0,
@@ -68663,7 +68686,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 10.52720783399991,
+        "elapsed_seconds": 5.133026370999687,
         "gain": 2,
         "guard": 1,
         "p": 1.0,
@@ -68688,7 +68711,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 14.47578623000004,
+        "elapsed_seconds": 7.007360135000454,
         "gain": 2,
         "guard": 1,
         "p": 1.0,
@@ -68724,7 +68747,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 21.394300837000173,
+        "elapsed_seconds": 6.913492898000186,
         "gain": 2,
         "guard": 1,
         "p": 0.5,
@@ -68754,7 +68777,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 59.350509800000054,
+        "elapsed_seconds": 15.458821381000234,
         "gain": 2,
         "guard": 1,
         "p": 0.5,
@@ -68784,7 +68807,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 89.29071048800006,
+        "elapsed_seconds": 22.864106826999887,
         "gain": 2,
         "guard": 1,
         "p": 0.5,
@@ -68818,7 +68841,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 4.55522930799998,
+        "elapsed_seconds": 1.8443381059996682,
         "gain": 0,
         "guard": 2,
         "p": 1.0,
@@ -68852,7 +68875,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 7.696849150000162,
+        "elapsed_seconds": 3.241945138999654,
         "gain": 0,
         "guard": 2,
         "p": 1.0,
@@ -68882,7 +68905,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 11.116106652000326,
+        "elapsed_seconds": 4.744518520999918,
         "gain": 0,
         "guard": 2,
         "p": 1.0,
@@ -68910,7 +68933,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 13.418116103999637,
+        "elapsed_seconds": 4.235690223999882,
         "gain": 0,
         "guard": 2,
         "p": 0.5,
@@ -68949,7 +68972,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 32.31357525099975,
+        "elapsed_seconds": 8.566593022999768,
         "gain": 0,
         "guard": 2,
         "p": 0.5,
@@ -68983,7 +69006,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 51.10615575299971,
+        "elapsed_seconds": 12.733762883000054,
         "gain": 0,
         "guard": 2,
         "p": 0.5,
@@ -69013,7 +69036,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 5.929541697999866,
+        "elapsed_seconds": 2.937151092000022,
         "gain": 1,
         "guard": 2,
         "p": 1.0,
@@ -69036,7 +69059,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 10.601915647000169,
+        "elapsed_seconds": 5.320619383000121,
         "gain": 1,
         "guard": 2,
         "p": 1.0,
@@ -69061,7 +69084,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 14.620775951999804,
+        "elapsed_seconds": 7.597262170999784,
         "gain": 1,
         "guard": 2,
         "p": 1.0,
@@ -69097,7 +69120,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 20.844845300000088,
+        "elapsed_seconds": 7.158681838999655,
         "gain": 1,
         "guard": 2,
         "p": 0.5,
@@ -69131,7 +69154,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 58.808737048999774,
+        "elapsed_seconds": 15.587078108000242,
         "gain": 1,
         "guard": 2,
         "p": 0.5,
@@ -69161,7 +69184,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 88.92105098100001,
+        "elapsed_seconds": 22.864917638000406,
         "gain": 1,
         "guard": 2,
         "p": 0.5,
@@ -69191,7 +69214,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 6.730674571000236,
+        "elapsed_seconds": 3.02508148600009,
         "gain": 2,
         "guard": 2,
         "p": 1.0,
@@ -69214,7 +69237,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 10.440571294000165,
+        "elapsed_seconds": 5.111100041999634,
         "gain": 2,
         "guard": 2,
         "p": 1.0,
@@ -69239,7 +69262,7 @@
           "size": null,
           "witnesses": []
         },
-        "elapsed_seconds": 15.076266942000075,
+        "elapsed_seconds": 7.6832966250003665,
         "gain": 2,
         "guard": 2,
         "p": 1.0,
@@ -69275,7 +69298,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 21.76840438299996,
+        "elapsed_seconds": 7.011138103999656,
         "gain": 2,
         "guard": 2,
         "p": 0.5,
@@ -69305,7 +69328,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 59.24199324600022,
+        "elapsed_seconds": 15.726589971000067,
         "gain": 2,
         "guard": 2,
         "p": 0.5,
@@ -69335,7 +69358,7 @@
             ]
           ]
         },
-        "elapsed_seconds": 90.50090524800044,
+        "elapsed_seconds": 22.734077667000747,
         "gain": 2,
         "guard": 2,
         "p": 0.5,
@@ -69354,7 +69377,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.31271021600014137,
+        "elapsed_seconds": 0.3836667960003979,
         "gain": 0,
         "guard": 0,
         "lock": {
@@ -69378,7 +69401,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.39396861700015506,
+        "elapsed_seconds": 0.46004438899944944,
         "gain": 0,
         "guard": 0,
         "lock": {
@@ -69402,7 +69425,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.6155326570001307,
+        "elapsed_seconds": 0.5284955189999891,
         "gain": 0,
         "guard": 0,
         "lock": {
@@ -69426,7 +69449,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 0.4959317210000336,
+        "elapsed_seconds": 0.4968451049999203,
         "gain": 0,
         "guard": 0,
         "lock": {
@@ -69450,7 +69473,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 0.6825780600001963,
+        "elapsed_seconds": 0.6259884459996101,
         "gain": 0,
         "guard": 0,
         "lock": {
@@ -69474,7 +69497,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 1.0010638280000421,
+        "elapsed_seconds": 0.9425914889998239,
         "gain": 0,
         "guard": 0,
         "lock": {
@@ -69498,7 +69521,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.579486574999919,
+        "elapsed_seconds": 0.5836469160003617,
         "gain": 1,
         "guard": 0,
         "lock": {
@@ -69522,7 +69545,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.7294332110000141,
+        "elapsed_seconds": 0.8042606910003087,
         "gain": 1,
         "guard": 0,
         "lock": {
@@ -69546,7 +69569,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 1.0829231520001485,
+        "elapsed_seconds": 1.173334621000322,
         "gain": 1,
         "guard": 0,
         "lock": {
@@ -69570,7 +69593,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 1.1327842989999226,
+        "elapsed_seconds": 1.3429783660003523,
         "gain": 1,
         "guard": 0,
         "lock": {
@@ -69594,7 +69617,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 1.55796353300002,
+        "elapsed_seconds": 1.9331978110003547,
         "gain": 1,
         "guard": 0,
         "lock": {
@@ -69618,7 +69641,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 3.153139875999841,
+        "elapsed_seconds": 3.4160728259994357,
         "gain": 1,
         "guard": 0,
         "lock": {
@@ -69642,7 +69665,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.7226154720001432,
+        "elapsed_seconds": 0.7451216749996092,
         "gain": 2,
         "guard": 0,
         "lock": {
@@ -69666,7 +69689,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.864825259999634,
+        "elapsed_seconds": 0.9450067070001751,
         "gain": 2,
         "guard": 0,
         "lock": {
@@ -69690,63 +69713,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 1.0069895650003673,
-        "gain": 2,
-        "guard": 0,
-        "lock": {
-          "exact": true,
-          "size": 2,
-          "witnesses": [
-            [
-              "ruler",
-              "c0"
-            ],
-            [
-              "ruler",
-              "p0"
-            ],
-            [
-              "ruler",
-              "p1"
-            ]
-          ]
-        },
-        "p": 1.0,
-        "ruler_alone": {
-          "alpha": 0.0,
-          "beta": 0.0
-        },
-        "surveillance": "all"
-      },
-      {
-        "army": 4,
-        "commands": 1,
-        "contest": "ratio",
-        "elapsed_seconds": 1.080345435000254,
-        "gain": 2,
-        "guard": 0,
-        "lock": {
-          "exact": true,
-          "size": 2,
-          "witnesses": [
-            [
-              "ruler",
-              "c0"
-            ]
-          ]
-        },
-        "p": 0.5,
-        "ruler_alone": {
-          "alpha": 0.0,
-          "beta": 0.0
-        },
-        "surveillance": "none"
-      },
-      {
-        "army": 4,
-        "commands": 1,
-        "contest": "ratio",
-        "elapsed_seconds": 1.7921981330000563,
+        "elapsed_seconds": 1.1216724539999632,
         "gain": 2,
         "guard": 0,
         "lock": {
@@ -69767,18 +69734,42 @@
             ]
           ]
         },
-        "p": 0.5,
+        "p": 1.0,
         "ruler_alone": {
-          "alpha": 0.33333333333333337,
-          "beta": 0.33333333333333337
+          "alpha": 0.0,
+          "beta": 0.0
         },
-        "surveillance": "army"
+        "surveillance": "all"
       },
       {
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 3.019582592000006,
+        "elapsed_seconds": 1.196147084000586,
+        "gain": 2,
+        "guard": 0,
+        "lock": {
+          "exact": true,
+          "size": 2,
+          "witnesses": [
+            [
+              "ruler",
+              "c0"
+            ]
+          ]
+        },
+        "p": 0.5,
+        "ruler_alone": {
+          "alpha": 0.0,
+          "beta": 0.0
+        },
+        "surveillance": "none"
+      },
+      {
+        "army": 4,
+        "commands": 1,
+        "contest": "ratio",
+        "elapsed_seconds": 2.0200547699996605,
         "gain": 2,
         "guard": 0,
         "lock": {
@@ -69804,13 +69795,45 @@
           "alpha": 0.33333333333333337,
           "beta": 0.33333333333333337
         },
+        "surveillance": "army"
+      },
+      {
+        "army": 4,
+        "commands": 1,
+        "contest": "ratio",
+        "elapsed_seconds": 3.298478478999641,
+        "gain": 2,
+        "guard": 0,
+        "lock": {
+          "exact": true,
+          "size": 2,
+          "witnesses": [
+            [
+              "ruler",
+              "c0"
+            ],
+            [
+              "ruler",
+              "p0"
+            ],
+            [
+              "ruler",
+              "p1"
+            ]
+          ]
+        },
+        "p": 0.5,
+        "ruler_alone": {
+          "alpha": 0.33333333333333337,
+          "beta": 0.33333333333333337
+        },
         "surveillance": "all"
       },
       {
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.3074003480001011,
+        "elapsed_seconds": 0.30260095199992065,
         "gain": 0,
         "guard": 1,
         "lock": {
@@ -69834,7 +69857,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.42521629800012306,
+        "elapsed_seconds": 0.4299047229997086,
         "gain": 0,
         "guard": 1,
         "lock": {
@@ -69858,7 +69881,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.5730451190001986,
+        "elapsed_seconds": 0.5257176150007581,
         "gain": 0,
         "guard": 1,
         "lock": {
@@ -69882,7 +69905,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 0.6554873380000572,
+        "elapsed_seconds": 0.6573875680005585,
         "gain": 0,
         "guard": 1,
         "lock": {
@@ -69906,7 +69929,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 1.1433158289996754,
+        "elapsed_seconds": 1.0205238170001394,
         "gain": 0,
         "guard": 1,
         "lock": {
@@ -69930,7 +69953,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 2.241052019000108,
+        "elapsed_seconds": 1.6903202690000398,
         "gain": 0,
         "guard": 1,
         "lock": {
@@ -69954,7 +69977,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.7051879800001188,
+        "elapsed_seconds": 0.6627794460000587,
         "gain": 1,
         "guard": 1,
         "lock": {
@@ -69978,7 +70001,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.7947978550000698,
+        "elapsed_seconds": 0.8299699640001563,
         "gain": 1,
         "guard": 1,
         "lock": {
@@ -70002,7 +70025,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 1.0859082399997533,
+        "elapsed_seconds": 1.0556075120002788,
         "gain": 1,
         "guard": 1,
         "lock": {
@@ -70034,7 +70057,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 1.0106753099998969,
+        "elapsed_seconds": 1.2294227290003619,
         "gain": 1,
         "guard": 1,
         "lock": {
@@ -70058,7 +70081,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 1.9994629140001052,
+        "elapsed_seconds": 2.3045152249997045,
         "gain": 1,
         "guard": 1,
         "lock": {
@@ -70090,7 +70113,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 3.2386621330001617,
+        "elapsed_seconds": 3.563932826999917,
         "gain": 1,
         "guard": 1,
         "lock": {
@@ -70122,7 +70145,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.6860419100003128,
+        "elapsed_seconds": 0.6967451489999803,
         "gain": 2,
         "guard": 1,
         "lock": {
@@ -70154,7 +70177,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.7557679729998199,
+        "elapsed_seconds": 0.8427933319999283,
         "gain": 2,
         "guard": 1,
         "lock": {
@@ -70186,7 +70209,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 1.1050779020001755,
+        "elapsed_seconds": 1.2186726110003292,
         "gain": 2,
         "guard": 1,
         "lock": {
@@ -70218,7 +70241,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 1.156046965999849,
+        "elapsed_seconds": 1.4282526719998714,
         "gain": 2,
         "guard": 1,
         "lock": {
@@ -70242,7 +70265,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 1.8831035690000135,
+        "elapsed_seconds": 2.2249997990002157,
         "gain": 2,
         "guard": 1,
         "lock": {
@@ -70274,7 +70297,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 3.5880766129998847,
+        "elapsed_seconds": 3.882780644000377,
         "gain": 2,
         "guard": 1,
         "lock": {
@@ -70306,7 +70329,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.31259544700014885,
+        "elapsed_seconds": 0.31546053599959123,
         "gain": 0,
         "guard": 2,
         "lock": {
@@ -70330,7 +70353,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.3975233629998911,
+        "elapsed_seconds": 0.40594392999992124,
         "gain": 0,
         "guard": 2,
         "lock": {
@@ -70354,7 +70377,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.7413458239998363,
+        "elapsed_seconds": 0.6444746170000144,
         "gain": 0,
         "guard": 2,
         "lock": {
@@ -70386,7 +70409,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 0.6677396830000362,
+        "elapsed_seconds": 0.6503468359996987,
         "gain": 0,
         "guard": 2,
         "lock": {
@@ -70410,7 +70433,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 1.1868830270000217,
+        "elapsed_seconds": 1.0483704019998186,
         "gain": 0,
         "guard": 2,
         "lock": {
@@ -70434,7 +70457,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 2.543179147000046,
+        "elapsed_seconds": 1.989639721000458,
         "gain": 0,
         "guard": 2,
         "lock": {
@@ -70466,7 +70489,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.5912894140001299,
+        "elapsed_seconds": 0.6615274850000787,
         "gain": 1,
         "guard": 2,
         "lock": {
@@ -70498,7 +70521,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.7119428510000034,
+        "elapsed_seconds": 0.7841167309998127,
         "gain": 1,
         "guard": 2,
         "lock": {
@@ -70530,7 +70553,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 1.0957015379999575,
+        "elapsed_seconds": 1.2125942889997532,
         "gain": 1,
         "guard": 2,
         "lock": {
@@ -70562,7 +70585,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 1.0361964039998384,
+        "elapsed_seconds": 1.2988852869993934,
         "gain": 1,
         "guard": 2,
         "lock": {
@@ -70586,7 +70609,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 1.938201062999724,
+        "elapsed_seconds": 2.1134836900000664,
         "gain": 1,
         "guard": 2,
         "lock": {
@@ -70618,7 +70641,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 3.4966186289998404,
+        "elapsed_seconds": 3.707836526000392,
         "gain": 1,
         "guard": 2,
         "lock": {
@@ -70650,7 +70673,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.6711309580000488,
+        "elapsed_seconds": 0.8064938270008497,
         "gain": 2,
         "guard": 2,
         "lock": {
@@ -70682,7 +70705,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.860590497999965,
+        "elapsed_seconds": 0.892744054999639,
         "gain": 2,
         "guard": 2,
         "lock": {
@@ -70714,7 +70737,7 @@
         "army": 4,
         "commands": 1,
         "contest": "threshold",
-        "elapsed_seconds": 0.9488877570001932,
+        "elapsed_seconds": 1.0645396930003699,
         "gain": 2,
         "guard": 2,
         "lock": {
@@ -70737,7 +70760,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 1.2354946609998478,
+        "elapsed_seconds": 1.3803258949992596,
         "gain": 2,
         "guard": 2,
         "lock": {
@@ -70769,7 +70792,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 1.7810255389999838,
+        "elapsed_seconds": 2.132314213000427,
         "gain": 2,
         "guard": 2,
         "lock": {
@@ -70792,7 +70815,7 @@
         "army": 4,
         "commands": 1,
         "contest": "ratio",
-        "elapsed_seconds": 3.1251388489999954,
+        "elapsed_seconds": 3.660295799000778,
         "gain": 2,
         "guard": 2,
         "lock": {
@@ -70815,7 +70838,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 2.484931398000299,
+        "elapsed_seconds": 2.5100569919995905,
         "gain": 0,
         "guard": 0,
         "lock": {
@@ -70860,7 +70883,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 3.747371294000004,
+        "elapsed_seconds": 4.000754268000492,
         "gain": 0,
         "guard": 0,
         "lock": {
@@ -70905,7 +70928,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 5.178987690999747,
+        "elapsed_seconds": 5.1700974929999575,
         "gain": 0,
         "guard": 0,
         "lock": {
@@ -70950,7 +70973,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 5.490231418000349,
+        "elapsed_seconds": 5.632105646000127,
         "gain": 0,
         "guard": 0,
         "lock": {
@@ -70975,7 +70998,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 9.264118255000085,
+        "elapsed_seconds": 9.502287835000061,
         "gain": 0,
         "guard": 0,
         "lock": {
@@ -71000,7 +71023,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 13.556862956999794,
+        "elapsed_seconds": 13.584401264000007,
         "gain": 0,
         "guard": 0,
         "lock": {
@@ -71025,7 +71048,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 4.77347293999992,
+        "elapsed_seconds": 5.382158479000282,
         "gain": 1,
         "guard": 0,
         "lock": {
@@ -71053,7 +71076,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 7.505901097000333,
+        "elapsed_seconds": 8.036989297999753,
         "gain": 1,
         "guard": 0,
         "lock": {
@@ -71081,7 +71104,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 9.701392315000248,
+        "elapsed_seconds": 10.533053467999707,
         "gain": 1,
         "guard": 0,
         "lock": {
@@ -71109,7 +71132,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 11.681224297999961,
+        "elapsed_seconds": 15.0186059509997,
         "gain": 1,
         "guard": 0,
         "lock": {
@@ -71154,7 +71177,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 30.341253942000094,
+        "elapsed_seconds": 34.52013051299946,
         "gain": 1,
         "guard": 0,
         "lock": {
@@ -71199,7 +71222,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 48.76596771499999,
+        "elapsed_seconds": 54.092834590000166,
         "gain": 1,
         "guard": 0,
         "lock": {
@@ -71244,7 +71267,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 5.981604513000093,
+        "elapsed_seconds": 6.473972055999184,
         "gain": 2,
         "guard": 0,
         "lock": {
@@ -71272,7 +71295,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 8.009862152000096,
+        "elapsed_seconds": 8.94754498400016,
         "gain": 2,
         "guard": 0,
         "lock": {
@@ -71300,7 +71323,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 9.727489429999878,
+        "elapsed_seconds": 10.737877133999973,
         "gain": 2,
         "guard": 0,
         "lock": {
@@ -71336,7 +71359,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 13.223854820999804,
+        "elapsed_seconds": 15.413489373999255,
         "gain": 2,
         "guard": 0,
         "lock": {
@@ -71364,7 +71387,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 30.56945289300029,
+        "elapsed_seconds": 35.51118761199996,
         "gain": 2,
         "guard": 0,
         "lock": {
@@ -71392,7 +71415,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 48.22059319099981,
+        "elapsed_seconds": 55.233296486000654,
         "gain": 2,
         "guard": 0,
         "lock": {
@@ -71420,7 +71443,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 2.8746565120000014,
+        "elapsed_seconds": 2.718176260999826,
         "gain": 0,
         "guard": 1,
         "lock": {
@@ -71448,7 +71471,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 4.2862168189999466,
+        "elapsed_seconds": 3.96385003999967,
         "gain": 0,
         "guard": 1,
         "lock": {
@@ -71476,7 +71499,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 5.454705639000167,
+        "elapsed_seconds": 5.172238610999557,
         "gain": 0,
         "guard": 1,
         "lock": {
@@ -71504,7 +71527,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 8.300233329000093,
+        "elapsed_seconds": 7.859988425000665,
         "gain": 0,
         "guard": 1,
         "lock": {
@@ -71549,7 +71572,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 19.73604323399968,
+        "elapsed_seconds": 17.325732301000244,
         "gain": 0,
         "guard": 1,
         "lock": {
@@ -71594,7 +71617,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 33.91982268399988,
+        "elapsed_seconds": 27.11305182400065,
         "gain": 0,
         "guard": 1,
         "lock": {
@@ -71639,7 +71662,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 5.220065633000104,
+        "elapsed_seconds": 5.847364940999796,
         "gain": 1,
         "guard": 1,
         "lock": {
@@ -71667,7 +71690,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 7.930109083999923,
+        "elapsed_seconds": 8.78311342699999,
         "gain": 1,
         "guard": 1,
         "lock": {
@@ -71695,7 +71718,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 10.00293097299982,
+        "elapsed_seconds": 10.571897179000189,
         "gain": 1,
         "guard": 1,
         "lock": {
@@ -71731,7 +71754,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 14.943629116000011,
+        "elapsed_seconds": 16.99309788299979,
         "gain": 1,
         "guard": 1,
         "lock": {
@@ -71759,7 +71782,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 33.922887592999814,
+        "elapsed_seconds": 38.61869889599984,
         "gain": 1,
         "guard": 1,
         "lock": {
@@ -71787,7 +71810,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 53.20572427699972,
+        "elapsed_seconds": 62.58283347999986,
         "gain": 1,
         "guard": 1,
         "lock": {
@@ -71815,7 +71838,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 5.696704680000039,
+        "elapsed_seconds": 6.416974185000072,
         "gain": 2,
         "guard": 1,
         "lock": {
@@ -71851,30 +71874,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 7.153435227000045,
-        "gain": 2,
-        "guard": 1,
-        "lock": {
-          "exact": true,
-          "size": 1,
-          "witnesses": [
-            [
-              "ruler"
-            ]
-          ]
-        },
-        "p": 1.0,
-        "ruler_alone": {
-          "alpha": 1.0,
-          "beta": 1.0
-        },
-        "surveillance": "army"
-      },
-      {
-        "army": 4,
-        "commands": 2,
-        "contest": "threshold",
-        "elapsed_seconds": 8.907459330000165,
+        "elapsed_seconds": 8.157889752000301,
         "gain": 2,
         "guard": 1,
         "lock": {
@@ -71891,13 +71891,36 @@
           "alpha": 1.0,
           "beta": 1.0
         },
+        "surveillance": "army"
+      },
+      {
+        "army": 4,
+        "commands": 2,
+        "contest": "threshold",
+        "elapsed_seconds": 10.462129407000248,
+        "gain": 2,
+        "guard": 1,
+        "lock": {
+          "exact": true,
+          "size": 1,
+          "witnesses": [
+            [
+              "ruler"
+            ]
+          ]
+        },
+        "p": 1.0,
+        "ruler_alone": {
+          "alpha": 1.0,
+          "beta": 1.0
+        },
         "surveillance": "all"
       },
       {
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 13.731347194999671,
+        "elapsed_seconds": 18.28408013200078,
         "gain": 2,
         "guard": 1,
         "lock": {
@@ -71925,7 +71948,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 34.60792613600006,
+        "elapsed_seconds": 40.38486376600031,
         "gain": 2,
         "guard": 1,
         "lock": {
@@ -71961,7 +71984,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 54.0476203459998,
+        "elapsed_seconds": 63.16232481000043,
         "gain": 2,
         "guard": 1,
         "lock": {
@@ -71997,7 +72020,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 2.9781896879999294,
+        "elapsed_seconds": 2.7194917410006383,
         "gain": 0,
         "guard": 2,
         "lock": {
@@ -72025,7 +72048,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 4.293394742000146,
+        "elapsed_seconds": 4.067174099000113,
         "gain": 0,
         "guard": 2,
         "lock": {
@@ -72053,7 +72076,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 6.764354413999627,
+        "elapsed_seconds": 5.768620050999743,
         "gain": 0,
         "guard": 2,
         "lock": {
@@ -72089,7 +72112,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 8.714617649000047,
+        "elapsed_seconds": 8.191834027999903,
         "gain": 0,
         "guard": 2,
         "lock": {
@@ -72134,7 +72157,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 22.94687207099969,
+        "elapsed_seconds": 18.531954205000147,
         "gain": 0,
         "guard": 2,
         "lock": {
@@ -72162,7 +72185,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 38.904600028000004,
+        "elapsed_seconds": 29.936213226999826,
         "gain": 0,
         "guard": 2,
         "lock": {
@@ -72190,7 +72213,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 5.274108088000048,
+        "elapsed_seconds": 6.1588755899992975,
         "gain": 1,
         "guard": 2,
         "lock": {
@@ -72226,7 +72249,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 7.179830652999954,
+        "elapsed_seconds": 8.163266366000244,
         "gain": 1,
         "guard": 2,
         "lock": {
@@ -72249,7 +72272,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 9.792590052999913,
+        "elapsed_seconds": 11.168028541999774,
         "gain": 1,
         "guard": 2,
         "lock": {
@@ -72272,7 +72295,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 12.85156181100001,
+        "elapsed_seconds": 15.280989806999969,
         "gain": 1,
         "guard": 2,
         "lock": {
@@ -72300,7 +72323,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 31.340902569000264,
+        "elapsed_seconds": 37.22709844899964,
         "gain": 1,
         "guard": 2,
         "lock": {
@@ -72336,7 +72359,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 51.804625989000215,
+        "elapsed_seconds": 60.19228936499985,
         "gain": 1,
         "guard": 2,
         "lock": {
@@ -72372,7 +72395,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 5.965102906000084,
+        "elapsed_seconds": 6.650754813999811,
         "gain": 2,
         "guard": 2,
         "lock": {
@@ -72408,7 +72431,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 7.434096470999975,
+        "elapsed_seconds": 8.238267372999871,
         "gain": 2,
         "guard": 2,
         "lock": {
@@ -72431,7 +72454,7 @@
         "army": 4,
         "commands": 2,
         "contest": "threshold",
-        "elapsed_seconds": 10.114760516000388,
+        "elapsed_seconds": 10.862793999000132,
         "gain": 2,
         "guard": 2,
         "lock": {
@@ -72454,7 +72477,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 14.132278247000158,
+        "elapsed_seconds": 17.24626578799962,
         "gain": 2,
         "guard": 2,
         "lock": {
@@ -72490,7 +72513,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 34.22278139399987,
+        "elapsed_seconds": 39.23479354200026,
         "gain": 2,
         "guard": 2,
         "lock": {
@@ -72526,7 +72549,7 @@
         "army": 4,
         "commands": 2,
         "contest": "ratio",
-        "elapsed_seconds": 54.21961277199989,
+        "elapsed_seconds": 63.48546978400009,
         "gain": 2,
         "guard": 2,
         "lock": {
@@ -73585,6 +73608,7 @@
             "citizens": 2,
             "commands": 1,
             "contest": "threshold",
+            "decisiveness": 4.0,
             "discount": 0.9,
             "gain": 1,
             "guard": 1,
@@ -73594,7 +73618,9 @@
             "prize": 1.0,
             "rent": 1.0,
             "search_depth": 2,
-            "surveillance": "all"
+            "succession": false,
+            "surveillance": "all",
+            "term": 2
           },
           "planning": {
             "c0": {
@@ -74298,6 +74324,7 @@
             "citizens": 2,
             "commands": 1,
             "contest": "threshold",
+            "decisiveness": 4.0,
             "discount": 0.9,
             "gain": 1,
             "guard": 1,
@@ -74307,7 +74334,9 @@
             "prize": 1.0,
             "rent": 1.0,
             "search_depth": 2,
-            "surveillance": "none"
+            "succession": false,
+            "surveillance": "none",
+            "term": 2
           },
           "planning": {
             "c0": {
@@ -75043,6 +75072,7 @@
             "citizens": 2,
             "commands": 2,
             "contest": "threshold",
+            "decisiveness": 4.0,
             "discount": 0.9,
             "gain": 1,
             "guard": 1,
@@ -75052,7 +75082,9 @@
             "prize": 1.0,
             "rent": 1.0,
             "search_depth": 2,
-            "surveillance": "all"
+            "succession": false,
+            "surveillance": "all",
+            "term": 2
           },
           "planning": {
             "c0": {
@@ -75822,6 +75854,7 @@
             "citizens": 2,
             "commands": 1,
             "contest": "threshold",
+            "decisiveness": 4.0,
             "discount": 0.9,
             "gain": 2,
             "guard": 1,
@@ -75831,7 +75864,9 @@
             "prize": 1.0,
             "rent": 1.0,
             "search_depth": 2,
-            "surveillance": "all"
+            "succession": false,
+            "surveillance": "all",
+            "term": 2
           },
           "planning": {
             "c0": {

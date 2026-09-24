@@ -293,3 +293,14 @@ identical in results; the others differ only in harm and capture fields, and in 
 the two-round report selects (200 control entries). Race-control power is identical. The
 `vigilance` column of `escrow.json` and `price.json` is now that price. Findings 26-28 in
 `rediscovery/ai-control.md`; race-control finding 3 scoped.
+
+## The unremovable holder as a declared harm (T9.8)
+
+The authority world declares "unremovable holder". Every authority study was re-run at clean
+`a0ea23d` before the change (equal to the saved files apart from register entries added since)
+and at clean `da65c9f` after it. These files now identify `da65c9f` (earlier versions in git
+history): `rules.json`, `correction.json`, `term.json`, `contest.json`, `authority.json`
+(authority about 10 minutes, the others 1-4 each, on 4 processes). Contest and authority are
+identical apart from the declaration; the others differ only in harm and capture fields. The
+commons, treaty and audit parts of `rules.json` are identical. Findings 12-14 in
+`rediscovery/standing-army.md`.

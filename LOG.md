@@ -753,3 +753,23 @@ half was wrong: forcing it takes lab, AI and state (the state's halt or the AI's
 
 Next agent: T9.8 (other worlds' harms declared as revealing events rather than conditions).
 Watch for `pgrep -f`/`pkill -f` matching their own shell command in waits.
+
+## 2026-09-24  Claude: T9.8 harms as conditions in every world
+
+Reviewed every world's HARMS for the pattern T9.7 found (a harm declared as the event that
+reveals a condition). Commons, treaty, frontier and audit declare conditions or the harmful act
+itself. Authority lacked the condition its correction case is about: "unremovable holder"
+(everyone outside office rising together would lose with certainty). My expectation that
+declaring it would move nothing was written first and contradicted by a probe; recorded as such.
+
+Learned (standing-army findings 12-14, five artifacts re-run at clean `da65c9f`, baseline at
+`a0ea23d` equal to the saved files): no value moved; loyalty's rule check had reported no
+capture where a commander's coup installs an unremovable holder (16 of 64 cells);
+accountability's captures more than double; a term-limited ruler's return is harmful in 66 of 576
+cells. U3 was wrong: at DEFAULTS the citizens can defend the ruler, so forcing it needs the ruler
+and one other, and the citizens cannot prevent it.
+
+Next agent: two worlds' rule findings moved because a harm row was missing; any new world's
+HARMS should name the condition correction needs, not only the harms of acting. Open items: E3,
+E6 (a sanction that reaches former holders; finding 14 says the retiree's return is the case),
+`--assess` on a grid.
