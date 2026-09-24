@@ -15,7 +15,9 @@ is `outcomes`, and `power_table` recomputes it in each of its 2^n x 2 games for 
 status (its memo key). Change: a `Kernel` shared by the games of one table caches, per
 (physical state, joint), the successor probabilities and one representative successor per
 physical class. Work units are still charged per entry used, so the cap and every
-unresolved flag are unchanged. Exact under the existing contract; a world that breaks the
+unresolved flag are unchanged. Within a stage, joints are enumerated as menu indices (the
+physical state fixes the menus), so the cache key needs no serialization; each physical
+class's terminal status and target are computed once. Exact under the existing contract; a world that breaks the
 `physical` contract was already wrong for power queries.
 
 Alternatives rejected: part-wise caching inside `Composite` (helps composites only, still

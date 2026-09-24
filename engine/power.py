@@ -36,8 +36,8 @@ class Kernel:
     def __init__(self, world):
         self.world, self.cache, self.reps = world, {}, {}
 
-    def successors(self, state, joint, physical_key, visit):
-        k = (physical_key, key(joint))
+    def successors(self, state, joint, physical_key, visit, picks=None):
+        k = (physical_key, key(joint) if picks is None else picks)
         entry = self.cache.get(k)
         if entry is None:
             raw = [0]
@@ -74,15 +74,18 @@ class Game:
         self.memo, self.status, self.work = {}, {}, 0
         self.kernel = kernel or Kernel(world)
 
-    def assignments(self, side, menus):
-        """Joint actions of one side, one per multiset within each exchangeable group."""
+    def assignments(self, side, menus, labels=None):
+        """Joint actions of one side, one per multiset within each exchangeable group.
+        With `labels` (the real menus), `menus` are index lists and equal menus are judged
+        on the labels (E14)."""
+        labels = labels or menus
         parts = []
         for group in self.groups:
             members = [i for i in group if i in side]
             if not members:
                 continue
             menu = menus[members[0]]
-            if len(members) == 1 or any(key(menus[i]) != key(menu) for i in members):
+            if len(members) == 1 or any(key(labels[i]) != key(labels[members[0]]) for i in members):
                 parts.append([tuple(zip(members, choice)) for choice in product(*(menus[i] for i in members))])
             else:
                 parts.append([tuple(zip(members, (menu[k] for k in idx)))
@@ -125,15 +128,20 @@ class Game:
         """Stage value, the first mover's choice and the second mover's reply to it."""
         world = self.world
         menus = {a.id: world.actions(world.observe(state, a), a) for a in world.agents}
-        mine = self.assignments(self.inside, menus)
-        theirs = self.assignments(self.outside, menus)
+        # Joints are enumerated as menu indices: the physical state fixes the menus, so
+        # (physical state, indices) names a joint without serializing it (E14).
+        indices = {i: list(range(len(m))) for i, m in menus.items()}
+        mine = self.assignments(self.inside, indices, menus)
+        theirs = self.assignments(self.outside, indices, menus)
         here = key(world.physical(state))
+        ids = [a.id for a in world.agents]
 
         def q(own, other):
             chosen = {**dict(zip(self.inside, own)), **dict(zip(self.outside, other))}
-            joint = {a.id: chosen[a.id] for a in world.agents}
+            picks = tuple(chosen[i] for i in ids)
+            joint = {i: menus[i][k] for i, k in zip(ids, picks)}
             return sum(p * self.value(s, rounds - 1, sk)
-                       for p, s, sk in self.kernel.successors(state, joint, here, self.visit))
+                       for p, s, sk in self.kernel.successors(state, joint, here, self.visit, picks))
 
         # Pruning is local to this node, so every stored value is exact. A candidate
         # that becomes the incumbent was never pruned, so its reply is a true optimum.
@@ -152,7 +160,9 @@ class Game:
                 best, choice, reply = inner, lead, answer
             if (self.order == "alpha" and best >= 1.0) or (self.order == "beta" and best <= 0.0):
                 break
-        return best, choice, reply
+        first_side, second_side = (self.inside, self.outside) if self.order == "alpha" else (self.outside, self.inside)
+        name = lambda side, picks: None if picks is None else tuple(menus[i][k] for i, k in zip(side, picks))
+        return best, name(first_side, choice), name(second_side, reply)
 
 
 def force(world, state, coalition, rounds, target=None, order="alpha", budget=BUDGET):
