@@ -695,3 +695,23 @@ thirds of cells.
 
 Next agent: E6's next candidate is a sanction that reaches former holders (a court whose ruling
 coordinates enforcement, or a bond forfeited on overstaying), then council-controlled pay.
+
+## 2026-09-24  Claude: E16 every query across the register
+
+Owner asked for tooling before more worlds. Picked E16 (new, decision first): the goal-free
+queries and rule checks ran at DEFAULTS only, and each comparison needed a bespoke study.
+`engine/grid.py`: `--grid KEY=V1,V2` (register keys, `state.<path>`, `rule`), `--draws N`,
+`--compare KEY`, `--jobs`; reports flattened into named measures (numbers compared by
+direction); per measure, same in every cell or the keys that change it alone. The CLI's
+world/rule setup moved into `Setup` (picklable, for workers). `tests/grid_toy.py` is a toy
+world for its tests. Reproduces `evidence/externalization.json` cell for cell, except that
+witnesses are one per symmetry class since E2 (compared up to symmetry).
+
+Learned (`evidence/audit-grid.json`, clean `da8029b`, captured-auditor findings 6-7): the
+audit findings hold across the parameters E7 held fixed, but the premium's sign is not
+general: at credibility 1 it deters (exact arithmetic in the case file). E7 held credibility
+at the cap, the one value that hides this. The study took one short file on the new module.
+
+Next agent: before stating a DEFAULTS result generally, grid the values it held fixed. Other
+worlds' case files still carry single-point claims (frontier's `--assess` screen; commons
+externalities at n = 3). E13 and E3 remain; `--assess` on a grid is cheap to add if needed.

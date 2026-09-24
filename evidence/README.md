@@ -264,3 +264,12 @@ rows equal `race-control.json`.
 `term.json` identifies clean source `6384e53`. Reproduce with `python -m tests.term_study` (about a
 minute). 576 authority cells with succession, from the round the ruler must yield and the round
 after, depths 4, 8 and 12; the holder's value of each action at the limit.
+
+## Grids (E16)
+
+`audit-grid.json` (clean `da8029b`): `python -m tests.audit_grid_study`. The audit rule check
+(independence) on the E7 grid and on that grid crossed with the endpoints of every parameter
+E7 held at DEFAULTS; per cell the grid values and flattened measures, per grid the summary
+and paired comparisons (`engine/grid.py`). Full reports are not stored; any cell reruns from
+its grid values with `python -m engine worlds.audit --enforce 4 --reach 2 --rule independence
+--grid ... --json --reports`. Findings 6-7 in `rediscovery/captured-auditor.md`.

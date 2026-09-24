@@ -99,6 +99,8 @@ checked (one departure per round), coalitions up to 2. Margins at a round with w
    premium 0, 1, 2 with exposure 0.2 and no regulator): a clean opinion from a credible
    auditor is worth more exactly when the books are weak. The pair's gain is gone only
    with exposure of at least 0.5 and either revocation or no premium (16 of 96 cells).
+   Scoped by finding 7: this holds for a fully credible auditor (credibility was held at the
+   cap); with little credibility left the premium can deter.
 4. **Revocation disciplines through exit, not through the firm.** Under capture with fixed
    assignment, revocation makes strictness pay for the auditor (0.3 to 1.3 as exposure
    rises); with two auditors and firm choice, the firm's switching threat still outweighs it.
@@ -119,6 +121,39 @@ the capture departure pays the firm and leaves the auditor indifferent, so it ne
 payment. With the side-payment module (`--pay firm>a0`), the firm pays its auditor 0.5 and
 the departure pays both (`tests/test_transfers.py`); capture as a pair's act no longer rests
 on the transferable-utility assumption.
+
+## Across the held parameters (E16, 2026-09-24)
+
+`evidence/audit-grid.json`, clean `da8029b`, `python -m tests.audit_grid_study` (60 s on 4
+processes). The E7 grid held fee, penalty, starting credibility, the chance of weak books and
+investors' harm at DEFAULTS. Same rule check (independence, depth 4, reach 2, pairs, from a
+round with weak books), first on the original 96 cells, then crossed with both endpoints of
+each held parameter (3,072 cells), through `engine/grid.py`. No expectation was written
+before this run: an exploratory grid in the same session came first, so these are checks of
+findings 1-3, not tests of new predictions.
+
+6. **Findings 1 and 2 survive the held parameters.** The original cells reproduce finding 1
+   (independence holds for every agent, the hired pair captures in 80 of 96). Across 3,072
+   cells independence still holds for every single agent in every cell and the hired pair
+   captures in 2,400 (78%): 1,104/1,536 at credibility 1 and 1,296 at 3, 1,160 to 1,240
+   across fee, penalty and weak endpoints, identical across investors' harm (the regulator's
+   goal does not enter a rule it follows). Fixed assignment leaves the capture gain that pays
+   every member unchanged in every paired setting (finding 2). Only the summed upper bound
+   moves, in 8 of 1,536: there the firm takes a lenient pass and then leaves its auditor,
+   which is exploitation of the auditor, not collusion.
+7. **Reputation deters only an auditor with little left to sell.** Raising the premium
+   lowers the pair's capture gain (every member paid) in 32 of the 512 paired settings where
+   the pair captures at both premiums, all at credibility 1 of 3, exposure 0.5, no regulator
+   and weak books one round in ten; it raises it in 480. At credibility 1 a lenient pass sells a clean opinion worth premium/3 now; an
+   exposure (probability 0.5) costs the last step, premium/3 in every later sound round.
+   Over depth 4 at discount 0.9 that loss is 0.5 x 0.9 x (0.9 + 0.81 + 0.729) / 3 = 0.366 per
+   unit of premium against 0.333 gained: -0.0325 per unit, the slope measured in all 32
+   (from 0.25 or 1.5 at premium 0, down 0.0325 per unit to premium 2). Rival R's discipline appears, but only where current
+   credibility is low relative to the future it risks. The E7 grid held credibility at the
+   cap and weak at 0.3, the two values that hide it. A second-order point: in this world the
+   premium feeds capture exactly for the auditors whose opinions are most trusted.
+
+Scope as above; both endpoints only, so thresholds between them are not located.
 
 First surprise (test 6): finding 2, with 3 behind it: the remedy aimed at the auditor's
 incentive leaves the joint incentive untouched, and the reputation premium feeds it.
