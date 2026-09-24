@@ -663,3 +663,17 @@ Licensing's own contribution is halving lab A's unilateral tolerance.
 Next agent: open items are E3 (declarative worlds), E6 remainder, E13 (needs a spec
 decision on goals as state functions), cheaper composite power. The composite power cost
 (product menus of shared actors) is now the binding limit on whole-system queries.
+
+## 2026-09-24  Claude: E14 cheaper whole-system power; E15 contract test
+
+E14 (decision first): `power_table` shares one `Kernel` across its games, keyed by the
+physical state and menu indices (the physical contract fixes menus and kernel); terminal and
+target status cached per physical class. Work is charged per entry as before, so caps and
+unresolved flags cannot move. One race-control state: 904 s -> 267 s; the whole T9.6 power grid
+recomputed at clean `7f0d023` equals the saved evidence. Suite 89 s -> 76 s.
+
+E15: `tests/test_contract.py` checks every module in `worlds/` (found automatically) for the
+authoring contract, including the physical contract E14 relies on, on states reached by
+several paths. All eight worlds pass. AGENTS.md now points new worlds at it.
+
+Next agent: E6 term limits are claimed and their study is running (`tests/term_study.py`).
