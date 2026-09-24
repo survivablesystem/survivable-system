@@ -1,15 +1,15 @@
 {
-  "elapsed_seconds": 28.17084290699995,
+  "elapsed_seconds": 27.45244089100015,
   "fixture_sha256": {
-    "/tmp/claude-0/-home-user-survivable-system/184c6e58-bf3d-5f32-a5f2-67ec8082bd2f/scratchpad/run2/tests/price_study.py": "902fc1fa6e761e95946b78957741be25f15a002ca6e1c729e0783b12071e75c7",
+    "/tmp/claude-0/-home-user-survivable-system/184c6e58-bf3d-5f32-a5f2-67ec8082bd2f/scratchpad/wt-post/tests/price_study.py": "32c6634084278931ca436d6fa4924c523b45425ac2465b5f1299c06d29e33e00",
     "engine/prices.py": "e5360d27edc0554a5bdad925364edbfe6c2c8c9a5651ed76926d9c576a3c58ac",
     "engine/rules.py": "5dc197fa7b9bad85d689c96f07e590d001ed84280781b91b08f916944f997a9d",
-    "tests/escrow_study.py": "125d8594d086387f9b01120647060834f4e773ec2ff384dd8f529adb20fb0893",
-    "worlds/control.py": "34f412aa8c19d4346a5d455eaf39533bfbae271d085ff2587ac5fd1a569897ee"
+    "tests/escrow_study.py": "be606dec52b4e2a97c13ca425e93de7cf1c75ece0dc4036fc5a5f87c95a327d0",
+    "worlds/control.py": "2afa8ff8641cbb5a6629db9278cf17d7031d07427cad25a0853093d4180c01f5"
   },
   "kind": "price",
   "provenance": {
-    "git_commit": "be17fc88442b80bbc9a00ca31cd4ca9aba3d8e2d",
+    "git_commit": "c58fd997ebcb7b7fd6ab2b8fef36ff273ec8391b",
     "git_dirty": false,
     "implementation": "CPython",
     "python": "3.11.15",
@@ -30,12 +30,12 @@
       "engine/rules.py": "5dc197fa7b9bad85d689c96f07e590d001ed84280781b91b08f916944f997a9d",
       "engine/sweep.py": "e435934caf8b56f1db65fbaeba82fe5fd9cb74b25d7c1827daf33064ba6b0887",
       "engine/transfers.py": "7721137d1f75e100ab17dcc046d6da4d493291322cc2f424595b08d2692fc9ec",
-      "spec/PRIMITIVES.md": "4091da4cada85cf95100c61ac80ef2576a1c0549acd9df79c3b4dfbec83378c6",
+      "spec/PRIMITIVES.md": "32a98c2742e14738e1a3981bddb1f7d19473bf5c477dcd7395a44f9207152f44",
       "worlds/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "worlds/audit.py": "d845e9ec39121a44ff1587fe34b4aec7eb085e63f2daf6d9ac32a1b8601b7c1d",
       "worlds/authority.py": "e8cdadef6d39ea77a192e49714301d691433980fd7481df7755a172b9e13fd89",
       "worlds/commons.py": "36b16b882e10dc959b83e0ee919ca33708bca4df2088d330f4f68e86dad34cce",
-      "worlds/control.py": "34f412aa8c19d4346a5d455eaf39533bfbae271d085ff2587ac5fd1a569897ee",
+      "worlds/control.py": "2afa8ff8641cbb5a6629db9278cf17d7031d07427cad25a0853093d4180c01f5",
       "worlds/frontier.py": "fff035e45502cff93caf9d062e06e3e088968fca4c9c1f4b3622f591211616a5",
       "worlds/race_commons.py": "6687c30b9d513a8e6c8a3aa68b75897e1604691adb5ff5cff068def035aa0b47",
       "worlds/race_control.py": "abf9f0cccb58a651d80eebd3b389b004670df7a9e8d84ba1f3358c864a9b0ee7",

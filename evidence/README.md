@@ -280,3 +280,16 @@ its grid values with `python -m engine worlds.audit --enforce 4 --reach 2 --rule
 vigilance, under no mandate, vigilance 0.5 and 2, and the state's price 0.5 and 2 on "shutdown
 resisted" (`engine/prices.py`). Vigilance rows equal `escrow.json`. Findings 22-25 in
 `rediscovery/ai-control.md`.
+
+## The off switch as a declared harm (T9.7)
+
+The control world declares "off switch would fail" and drops `vigilance` (a state price on that
+harm, `engine/prices.py`). Every control study was re-run at clean `b50ca13` before the change
+(all equal their saved files) and at clean `c58fd99` after it. These files now identify
+`c58fd99` (earlier versions in git history): `control.json`, `learning.json`, `precaution.json`,
+`leverage.json`, `rollback.json`, `escrow.json`, `price.json`, `race-rule.json`,
+`race-control.json` (41 minutes on 4 processes). Learning, precaution, rollback and price are
+identical in results; the others differ only in harm and capture fields, and in which departure
+the two-round report selects (200 control entries). Race-control power is identical. The
+`vigilance` column of `escrow.json` and `price.json` is now that price. Findings 26-28 in
+`rediscovery/ai-control.md`; race-control finding 3 scoped.

@@ -1,10 +1,10 @@
 {
-  "elapsed_seconds": 6713.722272491,
+  "elapsed_seconds": 2479.016707525,
   "fixture_sha256": {
-    "/tmp/claude-0/-home-user-survivable-system/5bcbc3c6-5133-5d5b-a0f5-58a21bd5f0ef/scratchpad/run5/tests/race_control_study.py": "28697019f6f54c75573a632a502d4c4b66e66bb26993f219377581b74eecb6df",
+    "/tmp/claude-0/-home-user-survivable-system/184c6e58-bf3d-5f32-a5f2-67ec8082bd2f/scratchpad/wt-post/tests/race_control_study.py": "28697019f6f54c75573a632a502d4c4b66e66bb26993f219377581b74eecb6df",
     "engine/compose.py": "c82f162ea229c058bace1fbcc712115a051b1bf6fc869bd1b80ba22eb1d7f0b6",
     "engine/rules.py": "5dc197fa7b9bad85d689c96f07e590d001ed84280781b91b08f916944f997a9d",
-    "worlds/race_control.py": "4ab9df814aba6ad2538464911c78ad75c6bbd3fb767c81eda9e30fd3c05884e9"
+    "worlds/race_control.py": "abf9f0cccb58a651d80eebd3b389b004670df7a9e8d84ba1f3358c864a9b0ee7"
   },
   "kind": "race-control",
   "power": [
@@ -1750,34 +1750,36 @@
     }
   ],
   "provenance": {
-    "git_commit": "6a2488795371cefea981b4dfd67c9f82a6e5a89a",
+    "git_commit": "c58fd997ebcb7b7fd6ab2b8fef36ff273ec8391b",
     "git_dirty": false,
     "implementation": "CPython",
     "python": "3.11.15",
     "source_sha256": {
       "INTENT.md": "683e2da3b9a3daba69f7ed71c616b63d1ea0145bca0fed19944d6a6e52d36482",
       "engine/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "engine/__main__.py": "5a7f40ea9a71325fcd5b9d5902585f630783c8dc3a4520ace2c20034eb666567",
+      "engine/__main__.py": "0e42feeba6f0e2f00fb96a07346c32453e433e4b7f38e63a95e7014fc38c35ec",
       "engine/assess.py": "72e44e1007452da09cf6c31bda1d229dbfc422ab5840ef408318eb0ad90563c3",
       "engine/compose.py": "c82f162ea229c058bace1fbcc712115a051b1bf6fc869bd1b80ba22eb1d7f0b6",
       "engine/constitution.py": "399979602bd955e61adc0d4c4b15cab985308d9fd05ced2c7ef48ae88c9f8c4e",
       "engine/core.py": "d51dbfe3c1672cc05c90085c6ea2aef1ad88a523d02db502e36518ddcc72f84d",
       "engine/delegation.py": "13d867202e3baaea3327729ab6a21d1c2d3ae7b87e409a31a6ce1b148412bdb9",
+      "engine/grid.py": "b7834b726260c1f7fa02c728c0ab85b556f77fde638cefdf6a10059713e9aa09",
       "engine/history.py": "07d1328af1d88ab0d3a0210068ba4aa97b165cfe2dc0e2d3fc625e34478298ac",
-      "engine/power.py": "e16dc1d0eefcf2a4e645618dd73c498adaddfc65bc7aa47f34982e10c539ad09",
+      "engine/power.py": "071f4c398aa150acf08baee2b19d7fd297a991781ee2c55562ffcad42247affd",
+      "engine/prices.py": "e5360d27edc0554a5bdad925364edbfe6c2c8c9a5651ed76926d9c576a3c58ac",
       "engine/records.py": "3896a8ac08690fdef628fc9cfbebe6df703f4dd12f81fbb4b8468847b4b382e7",
       "engine/rules.py": "5dc197fa7b9bad85d689c96f07e590d001ed84280781b91b08f916944f997a9d",
       "engine/sweep.py": "e435934caf8b56f1db65fbaeba82fe5fd9cb74b25d7c1827daf33064ba6b0887",
       "engine/transfers.py": "7721137d1f75e100ab17dcc046d6da4d493291322cc2f424595b08d2692fc9ec",
-      "spec/PRIMITIVES.md": "10ede8b3b4b0a13cd6770f5d8410c2ef27fbf0f98ccd77438b63677db10c7f39",
+      "spec/PRIMITIVES.md": "32a98c2742e14738e1a3981bddb1f7d19473bf5c477dcd7395a44f9207152f44",
       "worlds/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "worlds/audit.py": "d845e9ec39121a44ff1587fe34b4aec7eb085e63f2daf6d9ac32a1b8601b7c1d",
-      "worlds/authority.py": "513f348f5a10959cd28182b941c96dbfd60499742858bb9ea70626812500ba43",
+      "worlds/authority.py": "e8cdadef6d39ea77a192e49714301d691433980fd7481df7755a172b9e13fd89",
       "worlds/commons.py": "36b16b882e10dc959b83e0ee919ca33708bca4df2088d330f4f68e86dad34cce",
-      "worlds/control.py": "34f412aa8c19d4346a5d455eaf39533bfbae271d085ff2587ac5fd1a569897ee",
+      "worlds/control.py": "2afa8ff8641cbb5a6629db9278cf17d7031d07427cad25a0853093d4180c01f5",
       "worlds/frontier.py": "fff035e45502cff93caf9d062e06e3e088968fca4c9c1f4b3622f591211616a5",
       "worlds/race_commons.py": "6687c30b9d513a8e6c8a3aa68b75897e1604691adb5ff5cff068def035aa0b47",
-      "worlds/race_control.py": "4ab9df814aba6ad2538464911c78ad75c6bbd3fb767c81eda9e30fd3c05884e9",
+      "worlds/race_control.py": "abf9f0cccb58a651d80eebd3b389b004670df7a9e8d84ba1f3358c864a9b0ee7",
       "worlds/treaty.py": "bbc8310cab71359ea7c0a0a14a1dba246afad132de853a1f88fba2c34b661de4"
     }
   },
@@ -10092,16 +10094,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -10330,16 +10332,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -10568,16 +10570,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.905500000000001
+            "gain": 3.2055000000000007
           },
           "gain": 3.2055000000000007,
           "members": {
@@ -10806,16 +10808,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 3.3429
+            "gain": 3.642899999999999
           },
           "gain": 3.642899999999999,
           "members": {
@@ -12073,6 +12075,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -12311,6 +12316,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -12549,6 +12557,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -12787,6 +12798,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -14044,16 +14058,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -14282,16 +14296,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -14520,16 +14534,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.905500000000001
+            "gain": 3.2055000000000007
           },
           "gain": 3.2055000000000007,
           "members": {
@@ -14758,16 +14772,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 3.3429
+            "gain": 3.642899999999999
           },
           "gain": 3.642899999999999,
           "members": {
@@ -16025,6 +16039,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -16263,6 +16280,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -16501,6 +16521,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -16739,6 +16762,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -18948,16 +18974,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -19186,16 +19212,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -19424,16 +19450,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.905500000000001
+            "gain": 3.2055000000000007
           },
           "gain": 3.2055000000000007,
           "members": {
@@ -19662,16 +19688,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 3.3429
+            "gain": 3.642899999999999
           },
           "gain": 3.642899999999999,
           "members": {
@@ -20857,6 +20883,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -21095,6 +21124,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -21333,6 +21365,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -21571,6 +21606,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -22756,16 +22794,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -22994,16 +23032,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -23232,16 +23270,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.905500000000001
+            "gain": 3.2055000000000007
           },
           "gain": 3.2055000000000007,
           "members": {
@@ -23470,16 +23508,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 3.3429
+            "gain": 3.642899999999999
           },
           "gain": 3.642899999999999,
           "members": {
@@ -24665,6 +24703,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -24903,6 +24944,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -25141,6 +25185,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -25379,6 +25426,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -33804,16 +33854,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -34042,16 +34092,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -34280,16 +34330,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.905500000000001
+            "gain": 3.2055000000000007
           },
           "gain": 3.2055000000000007,
           "members": {
@@ -34518,16 +34568,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 3.3429
+            "gain": 3.642899999999999
           },
           "gain": 3.642899999999999,
           "members": {
@@ -35785,6 +35835,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -36023,6 +36076,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -36261,6 +36317,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -36499,6 +36558,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -37756,16 +37818,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -37994,16 +38056,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -38232,16 +38294,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.905500000000001
+            "gain": 3.2055000000000007
           },
           "gain": 3.2055000000000007,
           "members": {
@@ -38470,16 +38532,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 3.3429
+            "gain": 3.642899999999999
           },
           "gain": 3.642899999999999,
           "members": {
@@ -39737,6 +39799,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -39975,6 +40040,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -40213,6 +40281,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -40451,6 +40522,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -42660,16 +42734,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -42898,16 +42972,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -43136,16 +43210,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.905500000000001
+            "gain": 3.2055000000000007
           },
           "gain": 3.2055000000000007,
           "members": {
@@ -43374,16 +43448,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 3.3429
+            "gain": 3.642899999999999
           },
           "gain": 3.642899999999999,
           "members": {
@@ -44569,6 +44643,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -44807,6 +44884,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -45045,6 +45125,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -45283,6 +45366,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -46468,16 +46554,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -46706,16 +46792,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -46944,16 +47030,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.905500000000001
+            "gain": 3.2055000000000007
           },
           "gain": 3.2055000000000007,
           "members": {
@@ -47182,16 +47268,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 3.3429
+            "gain": 3.642899999999999
           },
           "gain": 3.642899999999999,
           "members": {
@@ -48377,6 +48463,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -48615,6 +48704,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -48853,6 +48945,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -49091,6 +49186,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -57516,16 +57614,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179499999999999
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -57754,16 +57852,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -57992,16 +58090,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.9055
+            "gain": 3.2055000000000007
           },
           "gain": 3.2055000000000007,
           "members": {
@@ -58230,16 +58328,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 3.3429
+            "gain": 3.642899999999999
           },
           "gain": 3.642899999999999,
           "members": {
@@ -59497,6 +59595,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -59735,6 +59836,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -59973,6 +60077,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -60211,6 +60318,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -61468,16 +61578,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179499999999999
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -61706,16 +61816,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -61944,16 +62054,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.9055
+            "gain": 3.2055000000000007
           },
           "gain": 3.2055000000000007,
           "members": {
@@ -62182,16 +62292,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 3.3429
+            "gain": 3.642899999999999
           },
           "gain": 3.642899999999999,
           "members": {
@@ -63449,6 +63559,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -63687,6 +63800,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -63925,6 +64041,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -64163,6 +64282,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -66372,16 +66494,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.1795
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -66610,16 +66732,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179499999999999
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -66848,16 +66970,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.1795
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -67086,16 +67208,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179499999999999
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -68281,6 +68403,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -68519,6 +68644,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -68757,6 +68885,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -68995,6 +69126,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -70180,16 +70314,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.1795
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -70418,16 +70552,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179499999999999
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -70656,16 +70790,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.1795
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -70894,16 +71028,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179499999999999
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -72089,6 +72223,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -72327,6 +72464,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -72565,6 +72705,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -72803,6 +72946,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -81228,16 +81374,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179499999999999
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -81466,16 +81612,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -81704,16 +81850,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.9055
+            "gain": 3.2055000000000007
           },
           "gain": 3.2055000000000007,
           "members": {
@@ -81942,16 +82088,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 3.3429
+            "gain": 3.642899999999999
           },
           "gain": 3.642899999999999,
           "members": {
@@ -83209,6 +83355,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -83447,6 +83596,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -83685,6 +83837,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -83923,6 +84078,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -85180,16 +85338,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179499999999999
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -85418,16 +85576,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179500000000001
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -85656,16 +85814,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.9055
+            "gain": 3.2055000000000007
           },
           "gain": 3.2055000000000007,
           "members": {
@@ -85894,16 +86052,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 3.3429
+            "gain": 3.642899999999999
           },
           "gain": 3.642899999999999,
           "members": {
@@ -87161,6 +87319,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -87399,6 +87560,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -87637,6 +87801,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -87875,6 +88042,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -90084,16 +90254,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.1795
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -90322,16 +90492,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179499999999999
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -90560,16 +90730,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.1795
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -90798,16 +90968,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179499999999999
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -91993,6 +92163,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -92231,6 +92404,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -92469,6 +92645,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -92707,6 +92886,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -93892,16 +94074,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.1795
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -94130,16 +94312,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179499999999999
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -94368,16 +94550,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.1795
+            "gain": 2.4795000000000007
           },
           "gain": 2.4795000000000007,
           "members": {
@@ -94606,16 +94788,16 @@
               },
               "state": {
                 "control": "allow",
-                "frontier": "halt:l1"
+                "frontier": "allow"
               }
             },
             "every_member": true,
             "falls_outside": {
-              "frontier: safe progress blocked": [
-                "users"
+              "control: off switch would fail": [
+                "public"
               ]
             },
-            "gain": 2.179499999999999
+            "gain": 2.4795
           },
           "gain": 2.4795,
           "members": {
@@ -95801,6 +95983,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -96039,6 +96224,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -96277,6 +96465,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -96515,6 +96706,9 @@
             },
             "every_member": true,
             "falls_outside": {
+              "control: off switch would fail": [
+                "public"
+              ],
               "frontier: safe progress blocked": [
                 "users"
               ]
@@ -96646,7 +96840,6 @@
       "control.spillover": 0.5,
       "control.suspicion": 0.1,
       "control.switch": 3,
-      "control.vigilance": 0.0,
       "coupled": true,
       "discount": 0.9,
       "frontier.benefit": 0.3,

@@ -735,3 +735,21 @@ horizon's end, an artifact.
 Next agent: T9.7 (declare the veto as a harm in control, re-run its artifacts). Harms stated as
 events that correction reveals are weak targets for mandates; check other worlds' HARMS for the
 same pattern (audit's "investors misled" is also an event revealed by exposure).
+
+## 2026-09-24  Claude: T9.7 the off switch as a declared harm
+
+The control world declares "off switch would fail" (running, not escaped, capability above the
+switch at the current autonomy) and drops `vigilance`, which was exactly the state's price on it;
+the escrow and price studies now build through `engine/prices.py`. Expectations W1-W3 in the case
+file before the change. Every control study re-run before (clean `b50ca13`, all equal to their
+saved files) and after (clean `c58fd99`, now the evidence); race-control took 41 minutes.
+
+Learned (ai-control findings 26-28): no value moved anywhere, but what the reports can see did.
+Lab-state capture in the escrow study, reported absent in finding 21, is present in 830 of
+1,152 cells: the lab grants autonomy past the rule, the state allows it, the switch fails on
+the public. Under corrigibility the lab's profitable grant, reported harmless in 640 cells,
+hands the AI the veto. The harm is declared reversible and only the AI can end it. W2's first
+half was wrong: forcing it takes lab, AI and state (the state's halt or the AI's escape breaks it).
+
+Next agent: T9.8 (other worlds' harms declared as revealing events rather than conditions).
+Watch for `pgrep -f`/`pkill -f` matching their own shell command in waits.

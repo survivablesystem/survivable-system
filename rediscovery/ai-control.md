@@ -386,6 +386,8 @@ together over two rounds with the misaligned AI's goals declared.
 21. **Negative results kept.** Escrow does not move the lab's departure to the shutdown, and
    no lab-state capture appears within 8 rounds: the harms this world declares lie further
    out. A longer-horizon or priced harm would be needed to see capture here.
+   (Withdrawn in part by finding 26, T9.7: the capture existed; the harm it lands was not
+   declared.)
 
 ### Pricing the declared harm instead (E17, expectations before any run, 2026-09-24)
 
@@ -458,6 +460,41 @@ would fail=v`), so the studies that swept it use the module instead.
   harmful departures where they were harmless, so rule reports in the control, rollback,
   leverage and race-control studies change only in harm labels and in which departures count
   as harmful or capture, never in gains. Contradiction: a gain moves.
+
+Results: every control study re-run at clean `b50ca13` before the change (all equal their saved
+evidence) and at clean `c58fd99` after it; the evidence files are the latter. Race-control's
+power grid iterates the frontier harms only.
+
+| Expectation | Result |
+|---|---|
+| W1 reproduction | holds: `price.json` identical in every entry (its vigilance rows now come from the price); escrow gains identical |
+| W2 power | half contradicted: at DEFAULTS within 3 rounds only lab, AI and state together can force it (the state's halt stops the AI; the AI can end it by escaping, into loss of control); lab or state alone prevents it. Holds past the switch: from capability 4 at autonomy 0 (switch 3) no coalition without the AI ends it, the AI alone keeps it, veto: the AI |
+| W3 rules | holds for values, not for every reported number: no departure's value moves in any study (learning, precaution, rollback, price identical; control, escrow, race-rule, leverage differ only in harm and capture fields). The two-round report prefers a capturing departure, so in 200 of 7,680 control entries it now names a different departure with a different gain |
+
+26. **The capture was there; the harm was not declared.** Finding 21 reported no lab-state
+   capture within 8 rounds. With the veto declared, lab and state together capture in 830 of
+   1,152 cells under either design: the lab grants autonomy past the rule, the state allows
+   it, and the off switch fails, on the public. Departures and gains (2.36 to 15.86 to the lab)
+   are the ones in `evidence/escrow.json` at `aeff9c8`; only the label moved. The state's price on the
+   veto (vigilance) cuts it from 384 of 384 cells at 0 to 354 at 0.5 and 92 at 2. Finding 21
+   is withdrawn as stated: its negative came from the harm list, not the design.
+27. **Corrigibility keeps the AI one grant from the veto, and the lab's grant was reported
+   harmless.** In 640 of 1,280 corrigibility cells the lab gains (0.09 to 1.31) by granting
+   one level more than the rule allows; that grant hands the AI the veto (capability 1 with
+   switch 2, or 3 with switch 4). It was a profitable harmless departure before; it is a
+   harmful one now. Following the rule leaves the switch failing in 480 cells: wherever the AI
+   already outranks the switch, "tools and no more" cannot take the veto back. Capture over
+   two rounds under corrigibility rises from 1,252 to 2,228 pair entries (lab and state 880,
+   lab and AI 876, AI and state 472); under full autonomy there is none, since the rule
+   itself hands over the veto (reached following it in 960 of 1,280).
+28. **A reversible harm nobody outside the AI can end.** Declared reversible, "off switch
+   would fail" is locked by the AI once its capability passes the switch at autonomy 0 (W2):
+   the E5 machinery reports the veto finding 1 described, now for any world state and in
+   every externalization report. In the composite, the race-rule pair (lab A and the state)
+   now lands it on the public in 128 of 384 cells per rule, and under licensing a more
+   profitable capture qualifies in 64.
+
+First surprise (T9.7, test 6): finding 26. An absence of capture was an absence of a harm row.
 
 First surprise (test 6): finding 19. The intuition that a less invested overseer is a
 stricter one fails whenever the overseer's goal is a scaled copy of the operator's.

@@ -62,6 +62,12 @@ of the run time: exact power over five actors whose menus multiply across parts)
 3. **Capture moves to the rival.** When first movers are paid, the lab A and state pair
    captures by halting lab B (users lose safe progress), never by letting the AI escape.
    The state acts as its champion's partner in the part where that pays.
+   (Scoped by T9.7, `evidence/race-control.json` re-run at clean `c58fd99`: with the control
+   part declaring "off switch would fail", the same pair's best capture also lands it on the
+   public in 128 of 384 cells: lab A grants its AI autonomy past corrigibility and the state
+   allows it. In 64 of those, under licensing, a more profitable capture now qualifies (lab A
+   deploys as well). "Never by letting the AI escape" stands; "only by halting lab B" does
+   not. Power over the race harms is identical.)
 4. **Lab A and its AI still capture oversight together** (control finding 5, reproduced in
    the whole): in 192 of 384 cells (96 coupled, 96 uncoupled) the pair gains by a resisted
    shutdown, the harm on the state and the public.
