@@ -74,6 +74,8 @@ python -m engine worlds.commons --externalities 3 --state S=20   per declared ha
 python -m engine worlds.control --assess 3 --rule corrigibility   one screen: power, rule, capture, exclusions
 python -m engine worlds.frontier --enforce 4 --rule licensing --size 2 --window 2   rule as a claim: who breaks it, who captures it
 python -m engine worlds.authority --externalities 2 --lock 3     who can force a harm, then keep it 3 rounds against everyone
+python -m engine worlds.treaty --externalities 2 --grid lead=0,2 verification=none,exact --compare verification
+                                                      any of power/externalities/enforce in every cell; what changes, with what
 ```
 
-Rule checks: use `window=2` (two-round coordinated departures) when asking about capture; one-round checks missed the frontier capture. `precaution=q` values acting on revealed departures. Modules that wrap any world (`engine/transfers.py`, `history.py`, `constitution.py`, `delegation.py`) never change power; worlds expose `PAID_RULES` / `RECORD_RULES` for them.
+A result at DEFAULTS is one cell. Before a case file states it generally, run it on a grid over the register values it held fixed (`--grid`, `state.<path>`, `rule`); the report says which keys move each answer. Rule checks: use `window=2` (two-round coordinated departures) when asking about capture; one-round checks missed the frontier capture. `precaution=q` values acting on revealed departures. Modules that wrap any world (`engine/transfers.py`, `history.py`, `constitution.py`, `delegation.py`) never change power; worlds expose `PAID_RULES` / `RECORD_RULES` for them.

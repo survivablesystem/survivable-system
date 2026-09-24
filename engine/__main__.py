@@ -11,6 +11,8 @@
     python -m engine worlds.treaty --enforce 4 --rule restraint       does a declared rule hold; who profits by breaking it
     python -m engine worlds.frontier --assess 2 --rule licensing      one screen: power, the rule, capture, exclusions
     python -m engine worlds.audit --enforce 4 --rule independence --pay firm>a0   ...when the firm can pay its auditor
+    python -m engine worlds.treaty --externalities 2 --grid lead=0,2 verification=none,exact --compare verification
+                                                          ...in every cell of a grid; designs paired on the same cells
 """
 import argparse
 import importlib
@@ -22,45 +24,8 @@ from .power import BUDGET, externalization, joint_prevention, lock_in, power_tab
 from .assess import assess, render
 from .records import artifact, run_record
 from .rules import enforcement
-from .history import History, lift as lift_history
-from .transfers import Transfers, lift
-from .sweep import one_at_a_time, report, report_oat, sample_params, sweep
-
-
-def parse_fix(items):
-    out = {}
-    for item in items or []:
-        if "=" not in item:
-            raise ValueError(f"expected param=value, got {item!r}")
-        k, v = item.split("=", 1)
-        if not k or not v or k in out:
-            raise ValueError(f"empty or duplicate override: {item!r}")
-        for cast in (int, float):
-            try:
-                out[k] = cast(v)
-                break
-            except ValueError:
-                continue
-        else:
-            out[k] = {"true": True, "false": False}.get(v.lower(), v)
-    return out
-
-
-def validate_fix(fixed, space):
-    for key, value in fixed.items():
-        if key not in space:
-            raise ValueError(f"unknown parameter {key!r}; choose from {', '.join(space)}")
-        spec = space[key]
-        if isinstance(spec, list):
-            valid = any(type(value) is type(v) and value == v for v in spec)
-        elif isinstance(spec, tuple):
-            integer = len(spec) == 3 and spec[2] is int
-            valid = (type(value) is int if integer else type(value) in (int, float))
-            valid = valid and spec[0] <= value <= spec[1] and math.isfinite(value)
-        else:
-            valid = type(value) is type(spec) and value == spec
-        if not valid:
-            raise ValueError(f"invalid value {value!r} for {key}; declared domain: {spec}")
+from .grid import Setup, apply_state, baseline as baseline_of, cells, compare, parse_fix, parse_grid, render as render_grid, run, summarize, validate_fix
+from .sweep import one_at_a_time, report, report_oat, sweep
 
 
 def positive_int(value):
@@ -110,6 +75,13 @@ def main():
                    help="with --trace: smallest coalitions able to force/prevent the target within T rounds, each round")
     p.add_argument("--target", nargs="*", action="extend", help="terminal labels for --power/--profile (default: any terminal)")
     p.add_argument("--seeds", type=positive_int, default=4, help="seeds per point for --oat")
+    p.add_argument("--grid", nargs="*", action="extend", metavar="KEY=V1,V2",
+                   help="with --power/--externalities/--enforce: run in every cell of this product (register keys, state.<path>, rule)")
+    p.add_argument("--draws", type=positive_int, metavar="N",
+                   help="with --grid modes: cross the grid with N seeded draws of the unfixed register instead of DEFAULTS")
+    p.add_argument("--compare", metavar="KEY", help="with --grid: pair cells that differ only in this grid key")
+    p.add_argument("--jobs", type=positive_int, help="with --grid: worker processes (default: all cores; 1 runs serially)")
+    p.add_argument("--reports", action="store_true", help="with --grid --json: keep every cell's full report (large)")
     p.add_argument("--json", action="store_true")
     args = p.parse_args()
 
@@ -126,21 +98,14 @@ def main():
         p.error(str(error))
     space.update(fixed)
     settings = {"seed": args.seed, "rounds": args.rounds, "overrides": fixed}
-    make, rules = mod.make, dict(getattr(mod, "RULES", {}))
+    pairs = [tuple(x.split(">", 1)) for x in args.pay or []]
+    if any(len(pair) != 2 for pair in pairs):
+        p.error("--pay expects PAYER>RECIPIENT")
+    setup = Setup(args.world, tuple(pairs), tuple(args.amounts), args.disclosure, args.records)
+    _, make, rules = setup.build()
     if args.pay:
-        pairs = [tuple(x.split(">", 1)) for x in args.pay]
-        if any(len(pair) != 2 for pair in pairs):
-            p.error("--pay expects PAYER>RECIPIENT")
-        make = lambda params, rng: Transfers(mod.make(params, rng), pairs, args.amounts, args.disclosure)
-        rules = {name: lift(rule) for name, rule in rules.items()}
-        rules.update(getattr(mod, "PAID_RULES", {}))  # rules that use payments themselves
         settings["transfers"] = {"pairs": pairs, "amounts": args.amounts, "disclosure": args.disclosure}
     if args.records:
-        inner_make = make
-        make = lambda params, rng: History(inner_make(params, rng), args.records)
-        rules = {name: lift_history(rule) for name, rule in rules.items()}
-        if not args.pay:
-            rules.update(getattr(mod, "RECORD_RULES", {}))  # rules that read the record themselves
         settings["records"] = args.records
 
     def emit(mode_name, results):
@@ -148,33 +113,57 @@ def main():
                          sort_keys=True, allow_nan=False))
 
     def baseline_params():
-        rng = random.Random(args.seed)
-        params = {**getattr(mod, "DEFAULTS", {}), **fixed}
-        for k in space:
-            if k not in params:
-                params[k] = sample_params({k: space[k]}, rng)[k]
-        return params
+        return baseline_of(mod, fixed, args.seed)
 
     def start_state(world):
-        state = world.initial_state()
         try:
             overrides = parse_fix(args.state)
+            state = apply_state(world.initial_state(), overrides)
         except ValueError as error:
             p.error(str(error))
-        for k, v in overrides.items():
-            *path, leaf = k.split(".")  # dotted paths reach nested fields, e.g. parts.commons.S
-            node = state
-            for step in path:
-                if not isinstance(node.get(step), dict):
-                    p.error(f"unknown state path {k!r}")
-                child = dict(node[step])
-                node[step] = child
-                node = child
-            if leaf not in node:
-                p.error(f"unknown state field {k!r}; choose from {', '.join(node)}")
-            node[leaf] = float(v) if isinstance(node[leaf], float) and isinstance(v, int) else v
         settings["state_overrides"] = overrides
         return state
+
+    if args.grid or args.draws or args.compare:
+        query_mode = "power" if args.power else "externalities" if args.externalities else "enforce" if args.enforce else None
+        if query_mode is None:
+            p.error("--grid, --draws and --compare need --power, --externalities or --enforce")
+        try:
+            grid = parse_grid(args.grid, space, rules if args.enforce else None)
+            state_overrides = parse_fix(args.state)
+        except ValueError as error:
+            p.error(str(error))
+        if args.compare and args.compare not in grid:
+            p.error("--compare needs a key from --grid")
+        if args.enforce and "rule" not in grid and args.rule not in rules:
+            p.error(f"--enforce needs --rule or a rule grid, from: {', '.join(rules) or '(world declares no RULES)'}")
+        if args.hidden and not hasattr(mod, "hidden_types"):
+            p.error("--hidden needs the world to declare hidden_types(params)")
+        rounds = args.power or args.externalities or args.enforce
+        query = {"mode": query_mode, "rounds": rounds, "lock": args.lock, "target": args.target or None,
+                 "rule": args.rule, "reach": args.reach, "size": args.size, "window": args.window,
+                 "hidden": args.hidden, "precision": args.precision}
+        cell_list = cells(mod, fixed, grid, args.draws, args.seed, state_overrides)
+        try:
+            results = run(setup, query, cell_list, args.seed, args.jobs)
+        except ValueError as error:
+            p.error(str(error))
+        summary = summarize(results, mod, fixed)
+        comparison = compare(results, args.compare) if args.compare else None
+        settings.update({"grid": grid, "draws": args.draws, "compare": args.compare, "state_overrides": state_overrides,
+                         "query": {**query, "precision": None if math.isinf(args.precision) else args.precision},
+                         "sampling": "Grid product; with draws, independent uniform draws of the unfixed register (seeded)."})
+        if args.json:
+            kept = results if args.reports else [{k: v for k, v in r.items() if k != "report"} for r in results]
+            emit("grid", {"cells": kept, "summary": summary, "comparison": comparison})
+            return
+        shape = " x ".join(f"{k}={','.join(map(str, v))}" for k, v in grid.items()) or "one cell"
+        header = (f"world: {mod.__name__}; query: {query_mode} within {rounds} rounds"
+                  f"{' (rule ' + args.rule + ')' if args.enforce and args.rule and 'rule' not in grid else ''}; "
+                  f"{len(results)} cells: {shape}" + (f" x {args.draws} draws" if args.draws else "")
+                  + (f"\nfixed: {fixed}" if fixed else ""))
+        print(render_grid(summary, comparison, header))
+        return
 
     if args.assess:
         if args.rule is not None and args.rule not in rules:

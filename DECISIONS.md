@@ -18,12 +18,13 @@ lists `diff` as not yet; every comparison so far is a bespoke `tests/*_study.py`
 cell of a product of declared values (register parameters, `state.<path>` start-state
 fields, and `rule` for rule checks); `--draws N` crosses the grid with N seeded draws of the
 remaining register. Each cell's report is flattened into named measures (per harm: force,
-prevent, who, lock, end; per rule: holds, who departs, capture). Summary per measure: the
-same in every cell, or which grid keys change it (pairs of cells that differ in that key
-alone, counted), with draw associations marked as associations. `--compare k` pairs cells
-that differ only in k (same draw, same other keys): per measure, the transitions from the
-first value of k to each other value and the grid keys the change depends on (T7.2's paired
-comparison). Cells run in parallel; order and seeds are fixed so output does not depend on
+prevent, who, lock, end, forced choice per pair; per rule: holds, who departs, capture, and
+numeric margins and pair gains). Summary per measure: the same in every cell, or which grid
+keys change it (holding every other key and the draw fixed, in how many settings moving that
+key alone changes it), with draw associations marked as associations. `--compare k` pairs
+cells that differ only in k (same draw, same other keys): per measure, the transitions from
+the first value of k to each other value (numbers: rises, falls, same) and the keys along
+which the transition itself changes (T7.2's paired comparison). Cells run in parallel; order and seeds are fixed so output does not depend on
 the number of processes. Full per-cell reports stay in the JSON artifact.
 
 Discriminating check: the grid reproduces saved study evidence cell for cell

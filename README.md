@@ -67,6 +67,14 @@ python -m engine worlds.audit --enforce 4 --rule independence --reach 2
 python -m engine worlds.audit --enforce 4 --rule independence --reach 2 --pay firm>a0   # with a bribe available
 ```
 
+## Across the register, and designs compared
+
+Every answer above is one cell: DEFAULTS plus `--fix`. `--grid KEY=V1,V2 ...` runs `--power`, `--externalities` or `--enforce` in every cell of a product of register values, start-state fields (`state.S=8,20`) and rules (`rule=a,b`); `--draws N` crosses it with seeded draws of the rest of the register. The report lists what is the same in every cell, and for everything else which keys change it when moved alone. `--compare KEY` pairs cells that differ only in that key, the paired comparison of two designs on the same assumptions. Across the parameters the audit study held at defaults, capture by the firm and its auditor survives, but the reputation premium turns from feeding capture to deterring it for an auditor with little credibility left ([`rediscovery/captured-auditor.md`](rediscovery/captured-auditor.md)).
+
+```sh
+python -m engine worlds.audit --enforce 4 --reach 2 --rule independence --grid state.weak=true credibility=1,3 premium=0.0,1.0 exposure=0.5 regulator=none weak=0.1 --compare premium
+```
+
 Four modules apply to any world: side payments (`--pay PAYER>RECIPIENT`, `engine/transfers.py`), public records (`--records K`, `engine/history.py`), amendable rules (`engine/constitution.py`) and delegation with goal drift (`engine/delegation.py`). They never change what can be forced, only which rules can hold. With both, the authority world has a rule that corrects a ruler by restitution instead of deposition; it holds only with public payments, records and decisive contests ([`rediscovery/standing-army.md`](rediscovery/standing-army.md)).
 
 ## AI systems as agents
