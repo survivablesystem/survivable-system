@@ -131,3 +131,8 @@ def test_tullock_family_joins_ratio_and_threshold():
             # at level one half, a very decisive contest decides as the threshold contest does
             assert (sharp.contest(a, d) >= 0.5) == (threshold.contest(a, d) >= 0.5)
     assert 0.5 < world(contest="tullock", decisiveness=4.0, advantage=1.0).contest(3, 2) < 1.0
+
+
+def test_tullock_survives_extreme_decisiveness():
+    w = world(contest="tullock", decisiveness=1024.0)
+    assert w.contest(1, 9) == 0.0 and w.contest(9, 1) == 1.0

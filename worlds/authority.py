@@ -132,7 +132,10 @@ class Authority(World):
             if attack <= 0:
                 return 0.0
             m, d = self.params["decisiveness"], self.params["advantage"] * defense
-            return 1.0 / (1.0 + (d / attack) ** m)
+            try:
+                return 1.0 / (1.0 + (d / attack) ** m)
+            except OverflowError:  # the defense is overwhelming at this decisiveness
+                return 0.0
         return attack / (attack + defense) if attack + defense else 0.0
 
     def outcomes(self, state, joint):

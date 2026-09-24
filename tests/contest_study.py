@@ -15,7 +15,10 @@ from worlds import authority as A
 K = 3           # rounds to end extraction
 P = 0.5         # level: the threshold contest decides here as at certainty
 CELLS = {"army": (2, 4), "guard": (1, 2), "gain": (1, 2), "surveillance": ("army", "all")}
-FORMS = [{"contest": "tullock", "decisiveness": m, "advantage": adv} for adv in (1.0, 1.5) for m in (1.0, 2.0, 4.0, 16.0)]
+FORMS = [{"contest": "tullock", "decisiveness": m, "advantage": adv} for adv in (1.0, 1.5)
+         for m in (1.0, 2.0, 4.0, 16.0, 64.0, 1024.0)] + [{"contest": "threshold", "decisiveness": 4.0, "advantage": 1.5}]
+# m = 1024 decides as the threshold contest except at exact ties (probability one half, not one):
+# added after the first run showed no switch up to m = 16 (rediscovery/standing-army.md).
 
 
 def veto(args):
