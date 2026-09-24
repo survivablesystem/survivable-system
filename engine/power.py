@@ -27,8 +27,35 @@ class PowerLimitExceeded(RuntimeError):
         super().__init__(f"power query exceeded {budget} kernel entries; unresolved")
 
 
+class Kernel:
+    """Successor distributions shared by the games of one table (decision 2026-09-24, E14).
+    Keyed by (physical state, joint): under the `physical` contract that fixes the kernel.
+    Each physical class keeps one representative successor. Entries remember how many raw
+    kernel entries produced them, so work is charged exactly as without the cache."""
+
+    def __init__(self, world):
+        self.world, self.cache, self.reps = world, {}, {}
+
+    def successors(self, state, joint, physical_key, visit):
+        k = (physical_key, key(joint))
+        entry = self.cache.get(k)
+        if entry is None:
+            raw = [0]
+
+            def count():
+                raw[0] += 1
+            support = []
+            for p, s in distribution(self.world.outcomes(state, joint), count):
+                sk = key(self.world.physical(s))
+                support.append((p, self.reps.setdefault(sk, s), sk))
+            entry = self.cache[k] = (raw[0], support)
+        for _ in range(entry[0]):
+            visit()
+        return entry[1]
+
+
 class Game:
-    def __init__(self, world, coalition, target, order, budget):
+    def __init__(self, world, coalition, target, order, budget, kernel=None):
         ids = [a.id for a in world.agents]
         unknown = set(coalition) - set(ids)
         if unknown:
@@ -44,7 +71,8 @@ class Game:
         self.inside = [i for i in ids if i in coalition]
         self.outside = [i for i in ids if i not in coalition]
         self.groups = world.types()
-        self.memo, self.work = {}, 0
+        self.memo, self.status, self.work = {}, {}, 0
+        self.kernel = kernel or Kernel(world)
 
     def assignments(self, side, menus):
         """Joint actions of one side, one per multiset within each exchangeable group."""
@@ -74,13 +102,18 @@ class Game:
             return bool(self.predicate(state))
         return label is not None and (self.target is None or label in self.target)
 
-    def value(self, state, rounds):
-        label = self.world.terminal(state)
-        if self.hit(state, label):
+    def value(self, state, rounds, physical_key=None):
+        if physical_key is None:
+            physical_key = key(self.world.physical(state))
+        status = self.status.get(physical_key)
+        if status is None:  # terminal label and target: fixed by the physical state (E14)
+            label = self.world.terminal(state)
+            status = self.status[physical_key] = (self.hit(state, label), label is not None)
+        if status[0]:
             return 1.0
-        if rounds == 0 or label is not None:
+        if rounds == 0 or status[1]:
             return 0.0
-        memo_key = (key(self.world.physical(state)), rounds)
+        memo_key = (physical_key, rounds)
         if memo_key not in self.memo:
             self.memo[memo_key] = self.stage(state, rounds)
         return self.memo[memo_key]
@@ -94,12 +127,13 @@ class Game:
         menus = {a.id: world.actions(world.observe(state, a), a) for a in world.agents}
         mine = self.assignments(self.inside, menus)
         theirs = self.assignments(self.outside, menus)
+        here = key(world.physical(state))
 
         def q(own, other):
             chosen = {**dict(zip(self.inside, own)), **dict(zip(self.outside, other))}
             joint = {a.id: chosen[a.id] for a in world.agents}
-            return sum(p * self.value(s, rounds - 1)
-                       for p, s in distribution(world.outcomes(state, joint), self.visit))
+            return sum(p * self.value(s, rounds - 1, sk)
+                       for p, s, sk in self.kernel.successors(state, joint, here, self.visit))
 
         # Pruning is local to this node, so every stored value is exact. A candidate
         # that becomes the incumbent was never pruned, so its reply is a true optimum.
@@ -206,10 +240,11 @@ def power_table(world, state, rounds, target=None, budget=BUDGET):
     counts the coalitions a row represents. None marks an unresolved bound."""
     rows = []
     groups = world.types()
+    kernel = Kernel(world)  # shared by every game of the table (E14)
     for coalition in coalitions(world):
         values, work = {}, {}
         for order in ORDERS:
-            game = Game(world, coalition, target, order, budget)
+            game = Game(world, coalition, target, order, budget, kernel)
             try:
                 values[order] = game.value(state, rounds)
             except PowerLimitExceeded:

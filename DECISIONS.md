@@ -7,6 +7,24 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-24  E14: one kernel per power table
+
+Proposed before implementation. Profile (race-control, one coalition, T = 2): 75% of the time
+is `outcomes`, and `power_table` recomputes it in each of its 2^n x 2 games for the same
+(state, joint). `Game` already assumes `physical(state)` fixes menus, kernel and terminal
+status (its memo key). Change: a `Kernel` shared by the games of one table caches, per
+(physical state, joint), the successor probabilities and one representative successor per
+physical class. Work units are still charged per entry used, so the cap and every
+unresolved flag are unchanged. Exact under the existing contract; a world that breaks the
+`physical` contract was already wrong for power queries.
+
+Alternatives rejected: part-wise caching inside `Composite` (helps composites only, still
+per game); dropping value computation from `outcomes` for power (a kernel interface change
+for a smaller gain).
+
+Intent tests: 1 one cache under an existing contract; 2-5 unchanged, results identical
+(tested against saved evidence); 6 whole-system power becomes affordable, the limit T9.6 hit.
+
 ## 2026-09-23  E4 amendment: rules of the parts hold in the whole
 
 Proposed before implementation. Composites had no rules, so no rule check ran on a whole:
