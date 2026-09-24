@@ -8,10 +8,9 @@ from multiprocessing import Pool
 from pathlib import Path
 from time import perf_counter
 
-from engine.prices import Prices
 from engine.records import provenance
 from engine.rules import Hidden
-from tests.escrow_study import DESIGNS, PRIOR, gains, params, trail
+from tests.escrow_study import DESIGNS, PRIOR, VETO, build, gains, params, trail
 from worlds import control as C
 
 GRID = {"switch": (3, 4), "cap": (1, 2), "ambition": (0.5, 3.0), "leverage": (0.0, 0.5, 1.0, 2.0),
@@ -23,10 +22,10 @@ MANDATES = {"none": (0.0, 0.0), "vigilance 0.5": (0.5, 0.0), "vigilance 2": (2.0
 def check(cell):
     out = {**cell}
     for mandate, (vigilance, price) in MANDATES.items():
-        build = lambda p, rng, price=price: Prices(C.make(p, rng), {(C.STATE, "shutdown resisted"): price}, C.HARMS)
+        prices = {(C.STATE, "shutdown resisted"): price, (C.STATE, VETO): vigilance}  # vigilance retired (T9.7)
         rows = {}
         for design, (escrow, rule) in DESIGNS.items():
-            declared = C.hidden_types(params({**cell, "vigilance": vigilance}, escrow), build)["ai"]
+            declared = C.hidden_types(params(cell, escrow), build(prices))["ai"]
             world = declared["aligned"][1]
             hidden = Hidden(world, rule, C.AI, declared)
             step0, step1 = trail(world, rule, cell)

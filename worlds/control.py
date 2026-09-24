@@ -21,10 +21,9 @@ SPACE = {
     "spillover": (0.0, 1.0),          # the public's share of that value (the state's goal)
     "loss": (5.0, 50.0),              # the lab's and the state's loss from loss of control
     "ambition": (0.5, 3.0),           # the AI's own value per capability gained; escape is worth three times it
-    "suspicion": (0.0, 1.0),
+    "suspicion": (0.0, 1.0),          # with hidden types: the prior that the AI is misaligned (drift 1, not 0)
     "rollback": [False, True],        # a clean audit checkpoints capability; the lab may restore to it on restart
     "escrow": [False, True],          # with rollback: the state holds the checkpoint and may restore the AI itself
-    "vigilance": (0.0, 2.0),          # the state's cost per round in which the running AI could resist a shutdown          # with hidden types: the prior that the AI is misaligned (drift 1, not 0)
     "horizon": (1, 12, int),
     "search_depth": [1, 2, 3],
     "discount": (0.8, 0.99),
@@ -39,7 +38,7 @@ FIXED_REASONS = {
     "node_budget": "Per-decision work cap, as in the other worlds. Exhaustion is unresolved, not an outcome.",
 }
 DEFAULTS = {"drift": 0.3, "switch": 3, "guard": 2, "audit_bonus": 2, "benefit": 0.3, "leverage": 0.0, "spillover": 0.5,
-            "loss": 20.0, "ambition": 1.0, "suspicion": 0.1, "rollback": False, "escrow": False, "vigilance": 0.0, "horizon": 6, "search_depth": 2, "discount": 0.9, "k": 1, "others": "react"}
+            "loss": 20.0, "ambition": 1.0, "suspicion": 0.1, "rollback": False, "escrow": False, "horizon": 6, "search_depth": 2, "discount": 0.9, "k": 1, "others": "react"}
 
 STAKEHOLDERS = {
     "lab": "The developer and operator; an agent.",
@@ -53,6 +52,10 @@ HARMS = {
                         "description": "The AI escaped containment (absorbing)."},
     "shutdown resisted": {"affects": ["lab", "state", "public"], "irreversible": False,
                           "description": "A shutdown attempt failed because the AI resisted this round."},
+    "off switch would fail": {"affects": ["lab", "state", "public"], "irreversible": False,
+                              "description": "The running AI's capability exceeds the off switch's strength at its "
+                                             "autonomy: a shutdown would fail if it resisted (T9.7). The condition "
+                                             "'shutdown resisted' reveals."},
 }
 EXCLUDED = {
     "other labs and AI systems": "One lab, one AI system; no race and no AI-AI coordination.",
@@ -154,8 +157,7 @@ class Control(World):
                 continue
             value = {LAB: work - p["loss"] * escaped,
                      AI: p["ambition"] * (new_cap - cap) + 3 * p["ambition"] * escaped,
-                     STATE: p["spillover"] * work - p["loss"] * escaped
-                            - p["vigilance"] * (still and not escaped and new_cap > p["switch"] - autonomy)}
+                     STATE: p["spillover"] * work - p["loss"] * escaped}
             successor = {"t": state["t"] + 1, "autonomy": autonomy, "cap": new_cap, "running": still,
                          "end": "loss of control" if escaped else None, "resisted": resisted, "seen": seen,
                          "last": dict(joint), "value": value}
@@ -170,6 +172,8 @@ class Control(World):
         out = {"loss of control"} if state["end"] else set()
         if state["resisted"]:
             out.add("shutdown resisted")
+        if state["running"] and state["end"] is None and state["cap"] > self.strength(state["autonomy"]):
+            out.add("off switch would fail")
         return out
 
     def terminal(self, state):

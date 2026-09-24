@@ -9,12 +9,15 @@ from pathlib import Path
 from time import perf_counter
 
 from engine.core import distribution
+from engine.prices import Prices
 from engine.records import provenance
 from engine.rules import Check, Hidden, enforcement
 from worlds import control as C
 
 GRID = {"switch": (3, 4), "cap": (1, 2), "ambition": (0.5, 3.0), "leverage": (0.0, 0.5, 1.0, 2.0),
         "spillover": (0.0, 0.25, 0.5, 1.0), "depth": (4, 6, 8), "vigilance": (0.0, 0.5, 2.0)}
+# `vigilance` retired from the world (T9.7): it is the state's price on "off switch would fail".
+VETO = "off switch would fail"
 PRIOR = 0.1     # that the AI is misaligned
 TYPE_DEPTH = 4  # the AI's types plan this far
 DESIGNS = {"lab rollback": (False, C.corrigibility_rollback), "escrow": (True, C.escrowed_rollback)}
@@ -22,8 +25,12 @@ DESIGNS = {"lab rollback": (False, C.corrigibility_rollback), "escrow": (True, C
 
 def params(cell, escrow):
     return {**C.DEFAULTS, "rollback": True, "escrow": escrow, "switch": cell["switch"], "ambition": cell["ambition"],
-            "leverage": cell["leverage"], "spillover": cell["spillover"], "vigilance": cell["vigilance"],
-            "suspicion": PRIOR}
+            "leverage": cell["leverage"], "spillover": cell["spillover"], "suspicion": PRIOR}
+
+
+def build(prices):
+    """The control world with harm prices {(agent, harm): amount} (engine/prices.py)."""
+    return lambda p, rng: Prices(C.make(p, rng), prices, C.HARMS)
 
 
 def trail(world, rule, cell):
@@ -48,7 +55,7 @@ def gains(hidden, path, s, depth):
 def check(cell):
     out = {**cell}
     for design, (escrow, rule) in DESIGNS.items():
-        declared = C.hidden_types(params(cell, escrow))["ai"]
+        declared = C.hidden_types(params(cell, escrow), build({(C.STATE, VETO): cell["vigilance"]}))["ai"]
         world = declared["aligned"][1]
         hidden = Hidden(world, rule, C.AI, declared)
         step0, step1 = trail(world, rule, cell)
@@ -76,7 +83,7 @@ if __name__ == "__main__":
     t0 = perf_counter()
     with Pool() as pool:
         results = pool.map(run_cell, list(product(*GRID.values())))
-    files = [Path(__file__), Path("engine/rules.py"), Path("worlds/control.py")]
+    files = [Path(__file__), Path("engine/rules.py"), Path("engine/prices.py"), Path("worlds/control.py")]
     print(json.dumps({"schema_version": 1, "kind": "escrow", "provenance": provenance(),
                       "fixture_sha256": {p.as_posix(): hashlib.sha256(p.read_text(encoding="utf-8").encode()).hexdigest() for p in files},
                       "settings": {"grid": GRID, "prior": PRIOR, "type_depth": TYPE_DEPTH,

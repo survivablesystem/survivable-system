@@ -6,6 +6,7 @@ import pytest
 
 from engine.core import distribution, key
 from engine.delegation import Delegation
+from engine.prices import Prices
 from engine.power import externalization, power_table, row_for
 from engine.rules import checked_states, enforcement, follow_value
 from worlds import control as C
@@ -114,8 +115,8 @@ def test_rollback_is_off_by_default_and_restores_the_clean_checkpoint():
         follow_value(w, C.corrigibility_rollback, s2, 2)
 
 
-def test_escrow_restore_overrides_a_lab_restart_and_vigilance_prices_the_veto():
-    w = world(rollback=True, escrow=True, vigilance=1.0, switch=3)
+def test_escrow_restore_overrides_a_lab_restart_and_a_price_on_the_veto():
+    w = Prices(world(rollback=True, escrow=True, switch=3), {("state", "off switch would fail"): 1.0}, C.HARMS)
     off = {**w.initial_state(), "autonomy": 1, "cap": 3, "checkpoint": 1, "running": False}
     assert "restore" in w.actions(w.observe(off, w.by_id["state"]), w.by_id["state"])
     assert "restore" not in world(rollback=True).actions(world(rollback=True).observe(off, w.by_id["state"]), w.by_id["state"])
@@ -125,6 +126,7 @@ def test_escrow_restore_overrides_a_lab_restart_and_vigilance_prices_the_veto():
     assert kept["cap"] == 3
     on = {**w.initial_state(), "autonomy": 1, "cap": 3, "checkpoint": 1}  # strength 2 < capability 3: a veto
     veto = next(x for _, x in distribution(w.outcomes(on, {"lab": "run", "ai": "work", "state": "audit"})))
+    assert "off switch would fail" in w.harmed(veto) and "off switch would fail" not in w.harmed(off)
     assert veto["value"]["state"] == pytest.approx(0.5 * 0.3 * 2 - 1.0)
     for s in checked_states(w, C.escrowed_rollback, w.initial_state(), 2):
         follow_value(w, C.escrowed_rollback, s, 2)

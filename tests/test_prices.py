@@ -105,26 +105,26 @@ def test_grid_prices_and_bad_declarations():
             Prices(world, prices, grid_toy.HARMS)
 
 
-def test_vigilance_is_a_price_on_an_undeclared_harm():
-    """control's `vigilance` charges the state each round the running AI could resist a
-    shutdown. Declared as a harm (test-local), the module's price reproduces it exactly: the
-    mandate that made rollback hold priced a harm the world does not declare (ai-control 24)."""
-    class Declared(control.Control):
-        def harmed(self, state):
-            out = super().harmed(state)
-            if state["running"] and state["end"] is None and state["cap"] > self.strength(state["autonomy"]):
-                out.add("off switch fails")
-            return out
-
-    harms = {**control.HARMS, "off switch fails": {"affects": ["public"], "irreversible": False}}
-    build = lambda v: control.Delegation(Declared({**control.DEFAULTS, "vigilance": v, "rollback": True}, random.Random(0)),
-                                         {"ai": "lab"}, {"ai": control.DEFAULTS["drift"]})
-    own = build(2.0)
-    priced = Prices(build(0.0), {("state", "off switch fails"): 2.0}, harms)
-    assert same_kernel(own, priced, 4) > 30
-    shutdown = Prices(build(0.0), {("state", "shutdown resisted"): 2.0}, harms)
-    s = {**own.initial_state(), "autonomy": 1, "cap": 3, "checkpoint": 1}
+def test_the_off_switch_harm_is_the_condition_vigilance_priced():
+    """T9.7: "off switch would fail" holds exactly where the retired `vigilance` charged the
+    state (running, not escaped, capability above the switch at this autonomy; ai-control 24),
+    so a price on it is vigilance. The event "shutdown resisted" is unpaid until an attempt fails."""
+    w = Prices(control.make({**control.DEFAULTS, "rollback": True}, random.Random(0)),
+               {("state", "off switch would fail"): 2.0}, control.HARMS)
+    plain = control.make({**control.DEFAULTS, "rollback": True}, random.Random(0))
+    for s in reachable(w, 4, limit=200):
+        if w.terminal(s):
+            continue
+        menus = [w.actions(w.observe(s, a), a) for a in w.agents]
+        for acts in product(*menus):
+            joint = {a.id: x for a, x in zip(w.agents, acts)}
+            for (_, x), (_, y) in zip(w.outcomes(s, joint), plain.outcomes(s, joint)):
+                old_vigilance = x["running"] and x["end"] is None and x["cap"] > control.DEFAULTS["switch"] - x["autonomy"]
+                assert x["value"]["state"] == pytest.approx(y["value"]["state"] - 2.0 * old_vigilance)
+    event = Prices(control.make({**control.DEFAULTS, "rollback": True}, random.Random(0)),
+                   {("state", "shutdown resisted"): 2.0}, control.HARMS)
+    s = {**w.initial_state(), "autonomy": 1, "cap": 3, "checkpoint": 1}
     joint = {"lab": "run", "ai": "work", "state": "allow"}
-    (_, a), = own.outcomes(s, joint)
-    (_, b), = shutdown.outcomes(s, joint)
-    assert a["value"]["state"] - b["value"]["state"] == pytest.approx(-2.0)  # the symptom is unpaid until an attempt fails
+    (_, a), = w.outcomes(s, joint)
+    (_, b), = event.outcomes(s, joint)
+    assert a["value"]["state"] - b["value"]["state"] == pytest.approx(-2.0)
