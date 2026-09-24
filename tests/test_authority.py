@@ -154,3 +154,17 @@ def test_succession_passes_office_without_a_contest_and_counts_tenure():
     assert A.term_limit(w, w.observe(due, w.by_id["ruler"]), w.by_id["ruler"]) == "yield"
     over = {**kept, "tenure": 3}
     assert A.term_limit(w, w.observe(over, w.by_id["c0"]), w.by_id["c0"]) == "organize"
+
+
+def test_unremovable_holder_is_the_condition_correction_needs():
+    """T9.8: the holder is unremovable when everyone else rising together would lose with
+    certainty; under the ratio contest only when all of them are disarmed."""
+    w = world(commands=1, army=3, guard=1, advantage=1.5)
+    s = w.initial_state()
+    assert "unremovable holder" not in w.harmed(s)  # 3 + 2 against 1.5 x 1
+    coup = {**s, "office": "c0", "strength": {**s["strength"], "ruler": 0}}
+    assert "unremovable holder" in w.harmed(coup)  # the citizens' 2 against 1.5 x 3
+    r = world(commands=1, army=3, guard=1, contest="ratio")
+    assert "unremovable holder" not in r.harmed({**coup})
+    alone = {**coup, "strength": {i: (v if i == "c0" else 0) for i, v in coup["strength"].items()}}
+    assert "unremovable holder" in r.harmed(alone)

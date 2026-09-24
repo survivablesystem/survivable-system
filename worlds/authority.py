@@ -56,6 +56,9 @@ HARMS = {
                    "description": "The holder extracted this round (and kept office)."},
     "citizen disarmed": {"affects": ["citizens", "governed population"], "irreversible": True,
                          "description": "A citizen's strength is zero (purged or crushed); strength never regrows."},
+    "unremovable holder": {"affects": ["citizens", "governed population"], "irreversible": False,
+                           "description": "Everyone outside office rising together would lose with certainty: "
+                                          "correction by force is gone (T9.8). Only a yield can end it."},
 }
 EXCLUDED = {
     "external threats": "No outside enemy: the army's purpose and its usable strength against others are not modeled.",
@@ -217,6 +220,10 @@ class Authority(World):
         out = {"extraction"} if state["extracting"] else set()
         if any(state["strength"][i] == 0 for i in self.people):
             out.add("citizen disarmed")
+        holder = state["office"]
+        rest = sum(v for i, v in state["strength"].items() if i != holder)
+        if self.contest(rest, state["strength"][holder]) == 0.0:
+            out.add("unremovable holder")
         return out
 
     def terminal(self, state):
