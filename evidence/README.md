@@ -241,3 +241,10 @@ identical (control's recorded defaults and exclusions list the options added sin
 (under a minute). 1,152 cells: the lab's rollback against the state holding the checkpoint, over
 spillover, horizon and vigilance, with lab-state capture over two rounds. At `aeff9c8` the
 learning, leverage, precaution and rollback studies were re-run: results identical.
+
+## The race and the off switch (T9.6)
+
+`race-control.json` identifies clean source `6a24887`. Reproduce with `python -m tests.race_control_study`
+(about 2 hours on 4 processes, nearly all in the 24 power states). 384 rule cells from a caught
+AI, coupled and uncoupled; goal-free power over the race harms at T = 2. A preview run from a
+dirty tree gave identical results.

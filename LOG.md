@@ -616,3 +616,22 @@ agent's goal prices a harm that otherwise falls on people without agents. That i
 query worth building: per declared harm, which agents' goals price it at all (value changes
 when only the harm flag changes). A "priced by" column in `--externalities` would have
 flagged findings 17-20 in advance. Candidate task E13. Then E6 remainder, A2, E3.
+
+## 2026-09-24  Claude: T9.6, the race and the off switch composed
+
+Decision first (E4 amendment, `lift_rules`). `worlds/race_control.py`: frontier + control,
+lab A in both, one state; the coupling makes the AI's gains a floor on lab A's race
+capability (`coupled`, swept). Expectations written after one prototype probe (stated in
+the case file). Power over five actors with product menus is slow: 24 states at T = 2 took
+most of 112 minutes; a preview run from a dirty tree matched the clean run exactly.
+
+Learned (`evidence/race-control.json`, clean `6a24887`, `rediscovery/race-control.md`): Y1
+contradicted. Lab A and the state skip a caught AI's shutdown in 384 of 384 cells with or
+without the race; the chain's weak link is inside the lab, before any race. Where the race
+touches the AI it disciplines (licensing prices the safety gap the AI's gains open). When
+first movers are paid, the pair captures by halting the rival (users bear it). Power
+identical coupled and uncoupled; the AI is in no smallest forcing coalition.
+
+Next agent: A2 contest family is claimed and its study is running (`tests/contest_study.py`).
+Then: the race without licensing (does the discipline of finding 2 vanish?), and cheaper
+composite power (symmetry does not help here; the cost is product menus of shared actors).
