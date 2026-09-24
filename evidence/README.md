@@ -273,3 +273,10 @@ E7 held at DEFAULTS; per cell the grid values and flattened measures, per grid t
 and paired comparisons (`engine/grid.py`). Full reports are not stored; any cell reruns from
 its grid values with `python -m engine worlds.audit --enforce 4 --reach 2 --rule independence
 --grid ... --json --reports`. Findings 6-7 in `rediscovery/captured-auditor.md`.
+
+## Harm prices (E17)
+
+`price.json` (clean `be17fc8`): `python -m tests.price_study`. The escrow grid (T9.5) without
+vigilance, under no mandate, vigilance 0.5 and 2, and the state's price 0.5 and 2 on "shutdown
+resisted" (`engine/prices.py`). Vigilance rows equal `escrow.json`. Findings 22-25 in
+`rediscovery/ai-control.md`.

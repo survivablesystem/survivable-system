@@ -75,7 +75,7 @@ Every answer above is one cell: DEFAULTS plus `--fix`. `--grid KEY=V1,V2 ...` ru
 python -m engine worlds.audit --enforce 4 --reach 2 --rule independence --grid state.weak=true credibility=1,3 premium=0.0,1.0 exposure=0.5 regulator=none weak=0.1 --compare premium
 ```
 
-Four modules apply to any world: side payments (`--pay PAYER>RECIPIENT`, `engine/transfers.py`), public records (`--records K`, `engine/history.py`), amendable rules (`engine/constitution.py`) and delegation with goal drift (`engine/delegation.py`). They never change what can be forced, only which rules can hold. With both, the authority world has a rule that corrects a ruler by restitution instead of deposition; it holds only with public payments, records and decisive contests ([`rediscovery/standing-army.md`](rediscovery/standing-army.md)).
+Five modules apply to any world: side payments (`--pay PAYER>RECIPIENT`, `engine/transfers.py`), public records (`--records K`, `engine/history.py`), amendable rules (`engine/constitution.py`), delegation with goal drift (`engine/delegation.py`) and harm prices (`--price AGENT:HARM=P`, `engine/prices.py`: what if this agent's goal carried that harm, as a liability or mandate would). In the AI control case, pricing the declared harm "shutdown resisted" protects far less than pricing the undeclared condition behind it, that the off switch would fail ([`rediscovery/ai-control.md`](rediscovery/ai-control.md), findings 22-24). They never change what can be forced, only which rules can hold. With both, the authority world has a rule that corrects a ruler by restitution instead of deposition; it holds only with public payments, records and decisive contests ([`rediscovery/standing-army.md`](rediscovery/standing-army.md)).
 
 ## AI systems as agents
 

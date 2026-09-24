@@ -92,7 +92,7 @@ A module is an intervention on the world or on a set of types: change a conversi
 
 Worlds compose (`engine/compose.py`, decision 2026-09-23, E4): parts keep their kernels; actors map across parts and act in each; a declared coupling carries flows between parts; outsiders see only a part's public facts. Harms, stakeholders and exclusions of the parts become the whole's, with every part exclusion carried or covered. The whole is the unit of analysis: harms one part imposes on another, and forced choices between harms in different parts (`joint_prevention`), appear only there.
 
-Two modules apply to any world (decisions 2026-09-23, E8 and E9). `engine/transfers.py`: declared payers may pay declared recipients (one agent or a group) declared amounts of utility each round, unconditional and unlimited by wealth, seen by the parties or by everyone. `engine/history.py`: worlds declare `public(state)`; the last k records join every observation. Neither touches the kernel, physical state or harms, so goal-free power is unchanged by construction; both change which rules can hold. They nest.
+Two modules apply to any world (decisions 2026-09-23, E8 and E9). `engine/transfers.py`: declared payers may pay declared recipients (one agent or a group) declared amounts of utility each round, unconditional and unlimited by wealth, seen by the parties or by everyone. `engine/history.py`: worlds declare `public(state)`; the last k records join every observation. Neither touches the kernel, physical state or harms, so goal-free power is unchanged by construction; both change which rules can hold. They nest. A third, `engine/prices.py` (decision 2026-09-24, E17), adds a declared price per (agent, declared harm) to that agent's goal, paid on every transition into a state where the harm holds; it asks what happens if X's goal carried H, since whether it already does is not identified for harms caused by actions. It too leaves power unchanged. A delegate does not inherit its principal's price.
 
 AI advancement is a module: a new type whose capability grows per round, plus shifts in conversion rates (information to capability becomes cheap; capability gains returns to scale).
 
@@ -143,7 +143,7 @@ Individual psychology beyond goals and horizon. Physical detail of the world bey
 | queries: goal-free force/prevent thresholds over terminal labels, bounded T | implemented | |
 | queries: lock-in and correction over declared harms, including authority (`worlds/authority.py`) | implemented, bounded T and T' | |
 | rules as claims: self-enforcement, coalition and externalizing departures | implemented, one-shot, bounded depth; hidden types (E12) | several hidden agents; equilibrium search |
-| side payments, public records, amendment (modules over any world) | implemented (E8, E9, E10) | budgets, contracts, private memory |
+| side payments, public records, amendment, harm prices (modules over any world) | implemented (E8, E9, E10, E17) | budgets, contracts, private memory; which goals already price a harm (identified only on chance pairs) |
 | first real scenario (frontier AI, owner's scope) | `worlds/frontier.py` | AI systems as agents |
 | queries: diff | one world across a grid of assumptions, designs paired on the same cells (E16) | different worlds side by side: compose them |
 

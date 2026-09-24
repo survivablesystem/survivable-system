@@ -404,6 +404,41 @@ grid as above, `vigilance` 0, the state's price on "shutdown resisted" in {0, 0.
   more by skipping the halt the rule prescribes than a state without the price, because the
   attempt is what realizes the harm. Contradiction: no larger gain from skipping the halt.
 
+Results: `evidence/price.json`, clean `be17fc8`, 28 s on 4 processes, `python -m tests.price_study`.
+The 384 cells of the escrow grid without vigilance, under five mandates: none, vigilance 0.5
+and 2, a price of 0.5 and 2 on "shutdown resisted" for the state. The vigilance rows equal
+`evidence/escrow.json` in all 4,608 compared entries.
+
+| Expectation | Result |
+|---|---|
+| V1 reproduction | holds exactly (`tests/test_prices.py`), with the delegate priced at (1 - drift) x L: a delegate does not inherit its principal's price |
+| V2 the symptom is not the condition | holds: where the lab skips the restore (216 cells), the priced state restores strictly in 24, vigilance 2 in 144; the 24 are a subset, all at depth 8; the price's size (0.5 or 2) moves no cell |
+| V3 do not test | contradicted: the priced state is indifferent to the halt in 96 of 96 cells where the AI can resist; the lab's own shutdown makes the attempt happen anyway |
+
+22. **Pricing the symptom protects only where the failed attempt is in view.** A state that
+   pays when a shutdown fails restores the checkpoint only at depth 8, where the next caught
+   improvement and the resisted shutdown after it fall inside its horizon; everywhere else it
+   skips as before, at any price. Protection then comes from foresight, not from the mandate.
+23. **The state cannot avoid the test, so it has no reason to.** V3 failed for a reason in
+   the rule: the lab shuts down whenever the AI is caught, so the state's halt changes
+   nothing, and pricing the harm a halt might reveal gives it no incentive either way.
+24. **Vigilance was a price on a harm the world never declared.** Its cost is charged on
+   successors where the AI runs with capability above the switch's strength, a predicate on
+   state. Declared as a harm, "off switch fails", the module's price reproduces vigilance
+   exactly on every state checked (`tests/test_prices.py`). Finding 20's mandate works
+   because it prices the condition (the veto exists), not the event that reveals it (a
+   failed shutdown). The world's HARMS list the event only; the condition, this case's
+   central object since finding 1, has no row in any externalization report. Proposed as a
+   task (T9.7), not changed here: declaring it changes every control rule-check artifact.
+25. **Negative result kept, and an artifact found in the saved evidence.** Vigilance 2 makes
+   the state depart from the prescribed halt to an audit in 86 of 96 cells where the AI can
+   resist (present in `evidence/escrow.json`, not reported before). Halting and auditing
+   exclude each other, so a halting state sees nothing that round and the rule stops
+   counting the AI as caught. The gain, though, is exactly posterior x vigilance x
+   0.9^(depth - 1) in all 64 cells at depths 4 and 6: one round at the horizon's end, where
+   the misaligned type stops resisting because nothing after it counts. A depth artifact, not
+   a finding about audits; depth 8 (smaller gains in 24 cells) is not explained.
+
 First surprise (test 6): finding 19. The intuition that a less invested overseer is a
 stricter one fails whenever the overseer's goal is a scaled copy of the operator's.
 Scope: vigilance is a declared mandate, swept, not derived; one restart path; horizons to 8.

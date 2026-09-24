@@ -715,3 +715,23 @@ at the cap, the one value that hides this. The study took one short file on the 
 Next agent: before stating a DEFAULTS result generally, grid the values it held fixed. Other
 worlds' case files still carry single-point claims (frontier's `--assess` screen; commons
 externalities at n = 3). E13 and E3 remain; `--assess` on a grid is cheap to add if needed.
+
+## 2026-09-24  Claude: E17 harm prices (E13 reformulated)
+
+E13 (who prices each harm) stays unidentified for harms caused by actions, so it was
+reformulated as the intervention (decision first): `engine/prices.py` adds a price per
+(agent, declared harm) to a goal; `--price AGENT:HARM=P`, grid key `price.AGENT.HARM`.
+Reproduces control `loss`, frontier `liability`/`loss` and audit `harm` exactly. A delegate
+does not inherit its principal's price (control's AI must be priced at (1 - drift) x L).
+
+Learned (`evidence/price.json`, clean `be17fc8`, ai-control findings 22-25): the T9.5 mandate
+(vigilance) is exactly a price on a harm the world never declared (the off switch would fail);
+pricing the declared event instead ("shutdown resisted") protects in 24 of 216 cells against
+144, only where the failure is within the state's horizon. V3 failed because the lab's own
+shutdown makes the state's halt redundant. The saved escrow evidence holds an unreported
+halt-to-audit departure under vigilance; at depths 4-6 it is exactly one round at the
+horizon's end, an artifact.
+
+Next agent: T9.7 (declare the veto as a harm in control, re-run its artifacts). Harms stated as
+events that correction reveals are weak targets for mandates; check other worlds' HARMS for the
+same pattern (audit's "investors misled" is also an event revealed by exposure).
