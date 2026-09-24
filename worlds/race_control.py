@@ -89,6 +89,7 @@ def make(params, rng):
 RULES = {
     "licensing + corrigibility": lift_rules({"frontier": frontier.licensing, "control": control.corrigibility}),
     "race + full autonomy": lift_rules({"frontier": frontier.race, "control": control.full_autonomy}),
+    "race + corrigibility": lift_rules({"frontier": frontier.race, "control": control.corrigibility}),
 }
 
 

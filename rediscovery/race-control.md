@@ -69,3 +69,14 @@ of the run time: exact power over five actors whose menus multiply across parts)
 First surprise (test 6): finding 1. The whole shows the chain's weak link is earlier than
 expected: the loss of correction is already priced out inside the lab before any race.
 Scope: one state, two labs, one AI; the coupling is a floor; depth 3-4; T = 2 for power.
+
+## Without licensing
+
+Finding 2 credited licensing with the discipline. Rule `race + corrigibility`: the frontier
+part without a regime (labs deploy and scale, the state allows), the control part as before.
+
+Expectation stated before running (`python -m tests.race_rule_study`):
+
+- Y4: without licensing, coupling raises the lab A and state pair's gain from tolerating a
+  caught AI (the AI's gains are race capability nobody makes lab A pay to secure).
+  Contradiction: coupling still lowers or leaves it unchanged.
