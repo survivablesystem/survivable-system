@@ -7,6 +7,38 @@ Log of changes to the core (`INTENT.md`, `spec/`, `engine/`). Newest first. Each
 Change / Motivated by / Intent tests / Alternatives rejected
 ```
 
+## 2026-09-24  E16: every query across the register; designs compared on the same assumptions
+
+Proposed before implementation. Limitation: the goal-free queries (`--power`,
+`--externalities`) and the rule checks (`--enforce`) run at one parameter point (DEFAULTS
+plus `--fix`). The spec says queries run "under a sweep over the assumptions register" and
+lists `diff` as not yet; every comparison so far is a bespoke `tests/*_study.py` grid (about
+30 files), so a proposal is checkable only by someone who writes one. Change:
+`engine/grid.py` and CLI flags on those modes. `--grid k=v1,v2 ...` runs the query in every
+cell of a product of declared values (register parameters, `state.<path>` start-state
+fields, and `rule` for rule checks); `--draws N` crosses the grid with N seeded draws of the
+remaining register. Each cell's report is flattened into named measures (per harm: force,
+prevent, who, lock, end; per rule: holds, who departs, capture). Summary per measure: the
+same in every cell, or which grid keys change it (pairs of cells that differ in that key
+alone, counted), with draw associations marked as associations. `--compare k` pairs cells
+that differ only in k (same draw, same other keys): per measure, the transitions from the
+first value of k to each other value and the grid keys the change depends on (T7.2's paired
+comparison). Cells run in parallel; order and seeds are fixed so output does not depend on
+the number of processes. Full per-cell reports stay in the JSON artifact.
+
+Discriminating check: the grid reproduces saved study evidence cell for cell
+(`evidence/externalization.json`, both worlds) at the current revision. If a study's
+conclusion needs a distinction the measures drop, the flattening is wrong, not the study.
+
+Alternatives rejected: a study template (still code per question); random draws only
+(one-flip dependence needs a grid; draws alone give associations); a declarative world
+layer first (E3; this is about queries, not worlds).
+
+Intent tests: 1 one module over existing queries, and the CLI's world/rule setup is shared
+instead of repeated; 2 unchanged; 3 every query can now be swept, and robustness is stated
+relative to the grid; 4 unchanged; 5 per-harm power across assumptions and designs in one
+report; 6 answers at DEFAULTS that fail elsewhere in the register become visible.
+
 ## 2026-09-24  E14: one kernel per power table
 
 Proposed before implementation. Profile (race-control, one coalition, T = 2): 75% of the time
