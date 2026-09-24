@@ -258,3 +258,9 @@ authority cells and 13 contest forms; the ratio endpoint equals `authority.json`
 `race-rule.json` identifies clean source `c68303d`. Reproduce with `python -m tests.race_rule_study`
 (about a minute). The T9.6 rule cells under licensing and under the unregulated race; licensing
 rows equal `race-control.json`.
+
+## Term limits (E6)
+
+`term.json` identifies clean source `6384e53`. Reproduce with `python -m tests.term_study` (about a
+minute). 576 authority cells with succession, from the round the ruler must yield and the round
+after, depths 4, 8 and 12; the holder's value of each action at the limit.

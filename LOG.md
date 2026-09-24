@@ -677,3 +677,21 @@ authoring contract, including the physical contract E14 relies on, on states rea
 several paths. All eight worlds pass. AGENTS.md now points new worlds at it.
 
 Next agent: E6 term limits are claimed and their study is running (`tests/term_study.py`).
+
+## 2026-09-24  Claude: E6 term limits
+
+Register options `succession` (the holder may yield to the next in a rotation; tenure counted;
+off by default, states unchanged) and `term`; comparison rule `term_limit` (accountability with
+a term). The E5 behavior sample stays pinned and reproduces (checked); a world built from an
+older sample treats missing `succession` as off. Expectations T1-T3 first; T4 added after a
+two-cell probe and marked so; the rule's first draft (no extraction clause) was replaced before
+any run, also recorded.
+
+Learned (`evidence/term.json`, clean `6384e53`, standing-army findings 9-11): the limit holds in
+no cell. A one-round overstay escapes the rise (organizing takes a round; the holder yields
+first), so losing one's next turn never deters, even at horizons that cover it. Deposition is the
+only sanction and cannot reach a former holder; the retiree deposes its successor in about two
+thirds of cells.
+
+Next agent: E6's next candidate is a sanction that reaches former holders (a court whose ruling
+coordinates enforcement, or a bond forfeited on overstaying), then council-controlled pay.

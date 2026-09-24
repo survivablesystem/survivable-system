@@ -372,3 +372,33 @@ Expectations stated before running (`python -m tests.term_study`):
   (a deposed holder is disarmed and loses its turn) can deter; the limit holds for the
   holder only when a full rotation fits in its horizon. Contradiction: overstaying still pays
   at a horizon that covers the holder's next turn.
+
+Results: `evidence/term.json`, clean `6384e53`, 57 s on 4 processes. Gain {0, 1, 2} x guard
+{1, 3} x army {2, 4} x commands {1, 2} x contest {threshold, ratio} x surveillance {none, all}
+x term {1, 2} x depth {4, 8, 12}: 576 cells, citizens 2, from the round the ruler must yield
+and from the round after it did, one round off the path, pairs.
+
+| Expectation | Result |
+|---|---|
+| T1 overstaying pays where strength accrues | contradicted in form: it pays in 576 of 576 cells, at gain 0 as at gain 2 |
+| T2 the heir enforces | contradicted as posed: the heir's departures are extracting once it holds office (192 of 192 at depth 4); enforcement adds nothing for it |
+| T3 the retired strongman | holds: the former ruler gains by rising against its successor in 132 of 192 cells at depths 4 and 8, 120 at 12 |
+| T4 the shadow of the next turn | contradicted: overstaying pays at depth 12, which covers the ruler's next turn, in all 192 cells |
+
+9. **A one-round overstay is free, so the rotation never deters.** Organizing takes a round
+   and the rule rises only against a holder still in office. An overstayer yields a round
+   late, before the rise, keeps its strength and its place in the rotation, and keeps the
+   extra round's prize. The deterrent T4 looked for (losing one's next turn) is never
+   triggered, at any horizon.
+10. **Nothing can reach a former holder.** In this world every sanction is deposition, which
+   only reaches whoever holds office now. A term limit then asks the holder to give up the
+   one thing the rule can take from it, and offers nothing it can take afterwards. The same
+   gap lets the retiree, strength intact, depose its successor (finding T3).
+11. **The limit fails for everyone in turn.** No cell holds for any agent (576 of 576): each
+   new holder meets the extraction incentive E7 found (no marginal deterrence), and the
+   limit adds only a schedule to it.
+
+First surprise (test 6): finding 10. Term limits are usually argued as a way to correct
+without a contest; here they need a lever this world lacks, a sanction on people who no
+longer hold office (a court, prosecution, a bond forfeited on overstaying). That is the next
+E6 candidate, and the missing lever is now named by a result rather than assumed.
