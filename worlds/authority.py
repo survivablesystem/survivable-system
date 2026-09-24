@@ -21,6 +21,8 @@ SPACE = {
     "contest": ["threshold", "ratio", "tullock"],
     "advantage": (1.0, 2.0),          # threshold: attack succeeds iff >= advantage * defense
     "decisiveness": (1.0, 64.0),      # tullock: a^m / (a^m + (advantage * d)^m); m = 1, advantage 1 is ratio
+    "succession": [False, True],      # the holder may yield office to the next in rotation (E6 term limits)
+    "term": (1, 4, int),              # rounds in office the `term limit` rule allows
     "surveillance": ["none", "army", "all"],  # whose organizing the holder sees (and can purge)
     "assembly": ["none", "all"],      # whether non-holders see each other organize
     "prize": (0.0, 2.0),              # utility per round in office
@@ -39,7 +41,7 @@ FIXED_REASONS = {
     "node_budget": "Per-decision work cap, as in the other worlds. Exhaustion is unresolved, not an outcome.",
 }
 DEFAULTS = {"commands": 1, "army": 3, "citizens": 2, "guard": 1, "gain": 1, "contest": "threshold",
-            "advantage": 1.5, "decisiveness": 4.0, "surveillance": "all", "assembly": "none", "prize": 1.0, "rent": 1.0,
+            "advantage": 1.5, "decisiveness": 4.0, "succession": False, "term": 2, "surveillance": "all", "assembly": "none", "prize": 1.0, "rent": 1.0,
             "burden": 1.0, "horizon": 6, "search_depth": 2, "discount": 0.9, "k": 1, "others": "react"}
 
 # Who the modeled outcomes fall on (decision 2026-09-23, E1). Agents or not.
@@ -59,13 +61,14 @@ EXCLUDED = {
     "external threats": "No outside enemy: the army's purpose and its usable strength against others are not modeled.",
     "production": "Extraction is a harm flow only; there is no economy it depletes or funds beyond the guard.",
     "soldiers": "A commander controls its command; delegation drift is complete by assumption.",
-    "succession at exit": "The ruler never dies or leaves; succession rules are not modeled.",
+    "succession at exit": "The ruler never dies; it leaves office only by a rise or, with `succession`, by yielding to the next in rotation.",
     "foreign intervention": "Nobody outside the polity acts.",
     "legitimacy": "No agent values who holds office beyond its own prize, rent and burden.",
     "commanders' burden": "Commanders are not burdened by extraction (an elite assumption).",
 }
 
 GOVERN, EXTRACT, STAY, DEFEND, ORGANIZE, RISE = "govern", "extract", "stay", "defend", "organize", "rise"
+YIELD = "yield"
 
 
 class Authority(World):
@@ -75,6 +78,7 @@ class Authority(World):
         super().__init__(params, rng)
         p = params
         k = p["commands"]
+        self.succession = p.get("succession", False)  # absent in samples drawn before E6 term limits
         self.units = {f"c{i}": p["army"] // k + (i < p["army"] % k) for i in range(k)}
         self.people = [f"p{i}" for i in range(p["citizens"])]
         ids = ["ruler", *self.units, *self.people]
@@ -87,12 +91,23 @@ class Authority(World):
     def initial_state(self):
         strength = {"ruler": self.params["guard"], **self.units,
                     **{i: FIXED["citizen_strength"] for i in self.people}}
-        return {"t": 0, "office": "ruler", "strength": strength, "organized": [], "extracting": False,
-                "last": {a.id: GOVERN if a.id == "ruler" else STAY for a in self.agents},
-                "value": {a.id: 0.0 for a in self.agents}}
+        state = {"t": 0, "office": "ruler", "strength": strength, "organized": [], "extracting": False,
+                 "last": {a.id: GOVERN if a.id == "ruler" else STAY for a in self.agents},
+                 "value": {a.id: 0.0 for a in self.agents}}
+        return {**state, "tenure": 0} if self.succession else state
+
+    def fields(self):
+        # tenure exists only with succession, so states without it are unchanged (E6)
+        return ("office", "strength", "organized", "extracting") + (("tenure",) if self.succession else ())
 
     def physical(self, state):
-        return {k: state[k] for k in ("office", "strength", "organized", "extracting")}
+        return {k: state[k] for k in self.fields()}
+
+    def heir(self, office, strength):
+        """The next agent with strength after the holder in the declared rotation order."""
+        ids = [a.id for a in self.agents]
+        n = ids.index(office)
+        return next((ids[(n + k) % len(ids)] for k in range(1, len(ids)) if strength[ids[(n + k) % len(ids)]] > 0), None)
 
     def sees(self, state, viewer, other):
         """Whether `viewer` sees `other` organize. The holder's view comes with office."""
@@ -105,8 +120,9 @@ class Authority(World):
 
     def observe(self, state, agent):
         hidden = lambda i: not self.sees(state, agent.id, i)
+        extra = {"tenure": state["tenure"]} if self.succession else {}
         return {"t": state["t"], "office": state["office"], "strength": dict(state["strength"]),
-                "extracting": state["extracting"],
+                "extracting": state["extracting"], **extra,
                 "organized": [i for i in state["organized"] if not hidden(i)],
                 "last": {i: STAY if a == ORGANIZE and hidden(i) else a for i, a in state["last"].items()}}
 
@@ -117,7 +133,8 @@ class Authority(World):
     def actions(self, observation, agent):
         if agent.id == observation["office"]:
             targets = [i for i in observation["organized"] if i != agent.id]
-            return [GOVERN, EXTRACT] + [f"{policy}+purge:{i}" for policy in (GOVERN, EXTRACT) for i in targets]
+            menu = [GOVERN, EXTRACT] + [f"{policy}+purge:{i}" for policy in (GOVERN, EXTRACT) for i in targets]
+            return menu + ([YIELD] if self.succession else [])
         if observation["strength"][agent.id] == 0:
             return [STAY]
         return [STAY, DEFEND, ORGANIZE] + ([RISE] if agent.id in observation["organized"] else [])
@@ -142,7 +159,8 @@ class Authority(World):
         p, ids = self.params, [a.id for a in self.agents]
         holder, strength, organized = state["office"], state["strength"], state["organized"]
         # Believed joints may carry acts from another role or a stale target: read them in role.
-        policy, _, purge = joint[holder].partition("+")
+        yields = joint[holder] == YIELD and self.succession
+        policy, _, purge = (GOVERN if yields else joint[holder]).partition("+")
         target = purge.split(":", 1)[1] if purge.startswith("purge:") else None
         if target is not None and not (target in organized and target != holder and strength[target] > 0):
             target = None
@@ -166,6 +184,8 @@ class Authority(World):
                 if won:
                     office = max(risers, key=lambda i: (st[i], -ids.index(i)))  # ties: first listed
                     s2[holder] = 0
+                elif yields:  # office passes without a contest; the holder keeps its strength
+                    office = self.heir(holder, s2) or holder
                 else:
                     for i in risers:
                         s2[i] = 0
@@ -177,13 +197,17 @@ class Authority(World):
                 for i in ids:
                     v = p["prize"] * (i == office) + p["rent"] * (i == office and extracting)
                     value[i] = v - p["burden"] * (i in self.people and i != office and extracting)
-                yield q_purge * q_rise, {"t": state["t"] + 1, "office": office, "strength": s2,
-                                         "organized": org, "extracting": extracting,
-                                         "last": dict(joint), "value": value}
+                successor = {"t": state["t"] + 1, "office": office, "strength": s2,
+                             "organized": org, "extracting": extracting,
+                             "last": dict(joint), "value": value}
+                if self.succession:
+                    successor["tenure"] = state["tenure"] + 1 if office == holder else 0
+                yield q_purge * q_rise, successor
 
     def public(self, state):
         # What a record could hold: who holds office, whether it extracted, everyone's strength.
-        return {"office": state["office"], "extracting": state["extracting"], "strength": dict(state["strength"])}
+        extra = {"tenure": state["tenure"]} if self.succession else {}
+        return {"office": state["office"], "extracting": state["extracting"], "strength": dict(state["strength"]), **extra}
 
     def stakeholders(self):
         return {"ruler": ["ruler"], "commanders": list(self.units), "citizens": list(self.people),
@@ -272,6 +296,25 @@ def restitution(world, observation, agent):
 
 
 PAID_RULES = {"restitution": restitution}  # need a world wrapped with side payments
+
+
+def term_limit(world, observation, agent):
+    """With succession: accountability with a term. The holder governs and yields once it has
+    held office `term` rounds. Everyone else organizes against a holder that extracted or has
+    overstayed, rises once organized, defends a holder within its term against anyone
+    organizing, and otherwise stays."""
+    me, holder = agent.id, observation["office"]
+    overstayed = observation["tenure"] > world.params["term"] or observation["extracting"]
+    if me == holder:
+        return YIELD if observation["tenure"] >= world.params["term"] else GOVERN
+    if observation["strength"][me] == 0:
+        return STAY
+    if me in observation["organized"]:
+        return RISE if overstayed else STAY
+    if overstayed:
+        return ORGANIZE
+    return DEFEND if any(i != me for i in observation["organized"]) else STAY
+# `term_limit` (E6) is a comparison rule, kept out of RULES so earlier studies reproduce.
 
 
 def make(params, rng):

@@ -344,3 +344,31 @@ Splitting command, per form: cells where it gives the ruler a veto on correction
 
 First surprise (test 6): finding 7. A mechanism read off one contest form ("purge a
 half-command you could never purge whole") was a tie in integer strengths.
+
+## Term limits (E6 remainder)
+
+Office changes hands today only by a successful rise, so a term limit cannot even be
+stated. Register option `succession` (default off; states without it unchanged): the holder
+may `yield`, passing office to the designated heir (the first commander, else the first
+citizen, with strength) without a contest; it keeps its own strength. The state counts the
+holder's `tenure`. Candidate rule `term limit` (kept out of RULES): the holder governs and
+yields once its tenure reaches `term`; everyone defends a holder within its term, organizes
+against one that extracts or overstays and rises once organized (accountability with a term:
+a first draft without the extraction clause made extracting the holder's best departure and
+confounded the question; changed before any study run).
+
+Expectations stated before running (`python -m tests.term_study`):
+
+- T1 (overstaying pays where strength accrues): the holder gains by overstaying (not yielding
+  at the limit) where extraction converts into strength (gain > 0) and a rise against it
+  would then fail. Contradiction: the limit holds for the holder at gain 2.
+- T2 (the heir enforces): the heir gains by following the rule (rising against an overstayer)
+  more often than any other agent, because it is the one the rule hands office to.
+  Contradiction: the heir departs from enforcement as often as others.
+- T3 (the retired strongman): after yielding, the former holder, keeping its strength, gains
+  by rising against its successor where its strength suffices. Contradiction: no such gain.
+- T4 (the shadow of the next turn), added after a two-cell probe showed overstaying paying
+  even at gain 0 at depth 4: removal is also what compliance costs, so only the rotation
+  (a deposed holder is disarmed and loses its turn) can deter; the limit holds for the
+  holder only when a full rotation fits in its horizon. Contradiction: overstaying still pays
+  at a horizon that covers the holder's next turn.

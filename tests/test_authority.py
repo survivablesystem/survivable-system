@@ -136,3 +136,21 @@ def test_tullock_family_joins_ratio_and_threshold():
 def test_tullock_survives_extreme_decisiveness():
     w = world(contest="tullock", decisiveness=1024.0)
     assert w.contest(1, 9) == 0.0 and w.contest(9, 1) == 1.0
+
+
+def test_succession_passes_office_without_a_contest_and_counts_tenure():
+    assert "tenure" not in world().initial_state()  # off by default: earlier states unchanged
+    w = world(succession=True, term=2, commands=2, army=4)
+    s = w.initial_state()
+    assert "yield" in w.actions(w.observe(s, w.by_id["ruler"]), w.by_id["ruler"])
+    stay = {a.id: "stay" for a in w.agents}
+    kept = next(x for _, x in distribution(w.outcomes(s, {**stay, "ruler": "govern"})))
+    assert kept["office"] == "ruler" and kept["tenure"] == 1
+    passed = next(x for _, x in distribution(w.outcomes(kept, {**stay, "ruler": "yield"})))
+    assert passed["office"] == "c0" and passed["tenure"] == 0
+    assert passed["strength"]["ruler"] == kept["strength"]["ruler"]  # the retiree keeps its strength
+    assert w.heir("c0", passed["strength"]) == "c1"
+    due = {**kept, "tenure": 2}
+    assert A.term_limit(w, w.observe(due, w.by_id["ruler"]), w.by_id["ruler"]) == "yield"
+    over = {**kept, "tenure": 3}
+    assert A.term_limit(w, w.observe(over, w.by_id["c0"]), w.by_id["c0"]) == "organize"
