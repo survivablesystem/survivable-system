@@ -439,6 +439,26 @@ and 2, a price of 0.5 and 2 on "shutdown resisted" for the state. The vigilance 
    the misaligned type stops resisting because nothing after it counts. A depth artifact, not
    a finding about audits; depth 8 (smaller gains in 24 cells) is not explained.
 
+### The off switch as a declared harm (T9.7, expectations before any change, 2026-09-24)
+
+Finding 24 showed the case's central condition is not a declared harm. Change: HARMS gains
+"off switch would fail" (the AI is running, not escaped, and its capability exceeds the
+switch's strength at its autonomy), affecting lab, state and public, declared reversible.
+`vigilance` retires: it is exactly the state's price on this harm (`--price state:off switch
+would fail=v`), so the studies that swept it use the module instead.
+
+- W1 (reproduction): escrow and price evidence are identical with vigilance replaced by the
+  price. Contradiction: any entry moves.
+- W2 (power): the lab alone can force the harm (granting autonomy lowers the switch); the lab
+  or the state alone can prevent it at the start. Once the AI's capability exceeds the
+  switch at autonomy 0, no coalition without the AI can end it (the AI holds a veto) and the
+  AI alone can keep it: a harm declared reversible that is irreversible for everyone else.
+  Contradiction: some coalition without the AI can end it from such a state.
+- W3 (rules): departures that grant autonomy or let the AI improve past the switch become
+  harmful departures where they were harmless, so rule reports in the control, rollback,
+  leverage and race-control studies change only in harm labels and in which departures count
+  as harmful or capture, never in gains. Contradiction: a gain moves.
+
 First surprise (test 6): finding 19. The intuition that a less invested overseer is a
 stricter one fails whenever the overseer's goal is a scaled copy of the operator's.
 Scope: vigilance is a declared mandate, swept, not derived; one restart path; horizons to 8.
